@@ -36,9 +36,9 @@ class PLAYFAB_API UPlayFabJsonValue : public UObject
 {
     GENERATED_UCLASS_BODY()
 
-        /** Create new Json Number value
-         * Attn.!! float used instead of double to make the function blueprintable! */
-         UFUNCTION(BlueprintPure, meta = (DisplayName = "Construct Json Number Value", HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"), Category = "PlayFab | Json")
+    /** Create new Json Number value
+    * Attn.!! float used instead of double to make the function blueprintable! */
+    UFUNCTION(BlueprintPure, meta = (DisplayName = "Construct Json Number Value", HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"), Category = "PlayFab | Json")
          static UPlayFabJsonValue* ConstructJsonValueNumber(UObject* WorldContextObject, float Number);
 
     /** Create new Json String value */

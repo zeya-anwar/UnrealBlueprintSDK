@@ -19,8 +19,8 @@ class PLAYFAB_API UPlayFabJsonObject : public UObject
 {
     GENERATED_UCLASS_BODY()
 
-        /** Create new Json object */
-        UFUNCTION(BlueprintPure, meta = (DisplayName = "Construct Json Object", HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"), Category = "PlayFab | Json")
+    /** Create new Json object */
+    UFUNCTION(BlueprintPure, meta = (DisplayName = "Construct Json Object", HidePin = "WorldContextObject", DefaultToSelf = "WorldContextObject"), Category = "PlayFab | Json")
         static UPlayFabJsonObject* ConstructJsonObject(UObject* WorldContextObject);
 
     /** Reset all internal data */

@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\ExampleProject.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{B57CE837-FFB3-4071-BD67-2ABA65B6EB46}</UniqueIdentifier>
+			<UniqueIdentifier>{DD0833CC-F54C-4EE4-8EAF-703A0CCDB81A}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\ExampleProject.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{2B85B9B9-3E1E-4AC5-8150-6F9427D95E36}</UniqueIdentifier>
+			<UniqueIdentifier>{691BE53F-B158-4DFE-A912-4B2AA35C51A6}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -25,22 +25,22 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Plugins">
-			<UniqueIdentifier>{87EF9561-45CF-4776-A671-5B21A3B46DE2}</UniqueIdentifier>
+			<UniqueIdentifier>{6C48E14F-E5EE-4ABD-8150-BC7DC00BB9C6}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Plugins\PlayFab">
-			<UniqueIdentifier>{6C69F6EA-38F0-4213-A3D8-BDB639AD4F46}</UniqueIdentifier>
+			<UniqueIdentifier>{FF547CD2-2C96-41D6-9E17-974E3789292D}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Plugins\PlayFab\Source">
-			<UniqueIdentifier>{208E4635-833D-43EF-8339-2AAB98FD714E}</UniqueIdentifier>
+			<UniqueIdentifier>{2B1E2EA8-85B2-4BD6-9999-DF793179E79B}</UniqueIdentifier>
 		</Filter>
 		<Filter Include="Plugins\PlayFab\Source\PlayFab">
-			<UniqueIdentifier>{CB1EC30E-E7F5-40B4-BA7C-2F6793CDAB20}</UniqueIdentifier>
+			<UniqueIdentifier>{03D7E0F2-531A-4643-A348-17D0B502DF43}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Plugins\PlayFab\Source\PlayFab\PlayFab.Build.cs">
 			<Filter>Plugins\PlayFab\Source\PlayFab</Filter>
 		</None >
 		<Filter Include="Plugins\PlayFab\Source\PlayFab\Classes">
-			<UniqueIdentifier>{A80903E0-4823-4BF6-8159-DD242CE724EE}</UniqueIdentifier>
+			<UniqueIdentifier>{F2EC2DCB-761D-4ED5-9DDE-B9723B4268B4}</UniqueIdentifier>
 		</Filter>
 		<ClInclude Include="..\..\Plugins\PlayFab\Source\PlayFab\Classes\PlayFabAdminAPI.h">
 			<Filter>Plugins\PlayFab\Source\PlayFab\Classes</Filter>
@@ -91,7 +91,7 @@
 			<Filter>Plugins\PlayFab\Source\PlayFab\Classes</Filter>
 		</ClInclude >
 		<Filter Include="Plugins\PlayFab\Source\PlayFab\Private">
-			<UniqueIdentifier>{76FAEA7F-146A-489B-8412-7FED80F92408}</UniqueIdentifier>
+			<UniqueIdentifier>{1036CBDE-1084-4E4B-A2AA-18F116924FF3}</UniqueIdentifier>
 		</Filter>
 		<ClCompile Include="..\..\Plugins\PlayFab\Source\PlayFab\Private\PlayFab.cpp">
 			<Filter>Plugins\PlayFab\Source\PlayFab\Private</Filter>
@@ -148,7 +148,7 @@
 			<Filter>Plugins\PlayFab\Source\PlayFab\Private</Filter>
 		</ClCompile >
 		<Filter Include="Plugins\PlayFab\Source\PlayFab\Public">
-			<UniqueIdentifier>{EA014C10-8A2F-4B38-98BE-4BA41451A155}</UniqueIdentifier>
+			<UniqueIdentifier>{CC2A338A-6E8E-401B-B8F3-B17ABDE07D6F}</UniqueIdentifier>
 		</Filter>
 		<ClInclude Include="..\..\Plugins\PlayFab\Source\PlayFab\Public\IPlayFab.h">
 			<Filter>Plugins\PlayFab\Source\PlayFab\Public</Filter>
@@ -157,13 +157,13 @@
 			<Filter>Plugins\PlayFab</Filter>
 		</None >
 		<Filter Include="Plugins\PlayFab\Resources">
-			<UniqueIdentifier>{B843BD2C-C97C-4967-8EEA-D3D8866E02E5}</UniqueIdentifier>
+			<UniqueIdentifier>{2705849F-B86B-44C7-9B5B-CCF30A8CAB02}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Plugins\PlayFab\Resources\Icon128.png">
 			<Filter>Plugins\PlayFab\Resources</Filter>
 		</None >
 		<Filter Include="Source\ExampleProject">
-			<UniqueIdentifier>{7D0A3304-8F56-40E9-B93B-C98A1A054073}</UniqueIdentifier>
+			<UniqueIdentifier>{D2BCDC38-B739-4C4E-8A90-64986E9E06D4}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\ExampleProject\ExampleProject.Build.cs">
 			<Filter>Source\ExampleProject</Filter>

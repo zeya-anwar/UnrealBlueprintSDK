@@ -1,6 +1,6 @@
 #pragma once
 
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // PlayFab Base Model Header. This file holds the base ustruct for the playfab models.
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -14,8 +14,8 @@ struct FPlayFabError
 {
     GENERATED_USTRUCT_BODY()
 
-        /** Is there an error */
-        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Error | Models")
+    /** Is there an error */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Error | Models")
         bool hasError;
 
     /** Holds the error code recieved from playfab. */
@@ -44,8 +44,8 @@ struct FPlayFabBaseModel
 {
     GENERATED_USTRUCT_BODY()
 
-        /** Holds the error USTRUCT recieved from playfab. */
-        UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Error | Models")
+    /** Holds the error USTRUCT recieved from playfab. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Error | Models")
         FPlayFabError responseError;
 
     /** Holds the full JSON recieved from playfab. */

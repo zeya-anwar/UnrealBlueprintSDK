@@ -20,8 +20,8 @@
 UENUM(BlueprintType)
 enum class EPermissionEnum : uint8
 {
-    PRIVATE		UMETA(DisplayName = "Private"),
-    PUBLIC		UMETA(DisplayName = "Public")
+    PRIVATE UMETA(DisplayName = "Private"),
+    PUBLIC UMETA(DisplayName = "Public")
 };
 
 

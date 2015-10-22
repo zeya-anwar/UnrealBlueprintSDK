@@ -1,6 +1,6 @@
 #pragma once
 
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Automatically generated header file for the UE4 PlayFab plugin.
 // This header file contains the utilities functions that supports the plugin.
 //
@@ -22,8 +22,7 @@ public:
 
     /** Setup the PlayFab settings used throughout the plugin. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Settings")
-        static void setPlayFabSettings(FString GameTitleId, FString PlayFabSecretApiKey = "", FString PhotonRealtimeAppId = "",
-        FString PhotonTurnbasedAppId = "", FString PhotonChatAppId = "", int32 CloudScriptVersion = 1);
+        static void setPlayFabSettings(FString GameTitleId, FString PlayFabSecretApiKey = "", FString PhotonRealtimeAppId = "", FString PhotonTurnbasedAppId = "", FString PhotonChatAppId = "", int32 CloudScriptVersion = 1);
 
 
     /** Set the cloud script version from the get cloud script version call. This is called when needed by the api. */
@@ -32,7 +31,7 @@ public:
 
     ///** Set the Session Key retrieved during login or authentication. This is called when needed by the api. */
     //UFUNCTION(BlueprintCallable, Category = "PlayFab | Authentication")
-    //static void setSessionTicket(FString SessionTicket);
+    //    static void setSessionTicket(FString SessionTicket);
 
     /** Returns the error code text given the error code */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Errors")

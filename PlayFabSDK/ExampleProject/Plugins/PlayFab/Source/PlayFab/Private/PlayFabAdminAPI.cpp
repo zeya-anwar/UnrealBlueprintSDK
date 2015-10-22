@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Admin
@@ -121,6 +121,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserAccountInfo(FAdminLookupUserAccountIn
 
     return manager;
 }
+
 /** Resets all title-specific information about a particular account, including user data, virtual currency balances, inventory, purchase history, and statistics */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUsers(FAdminResetUsersRequest request)
 {
@@ -143,6 +144,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUsers(FAdminResetUsersRequest request)
 
     return manager;
 }
+
 /** Forces an email to be sent to the registered email address for the specified account, with a link allowing the user to change the password */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SendAccountRecoveryEmail(FAdminSendAccountRecoveryEmailRequest request)
 {
@@ -173,6 +175,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SendAccountRecoveryEmail(FAdminSendAccountRe
 
     return manager;
 }
+
 /** Updates the title specific display name for a user */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserTitleDisplayNameRequest request)
 {
@@ -213,6 +216,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserT
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Player Data Management
 //////////////////////////////////////////////////////
@@ -250,6 +254,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request
 
     return manager;
 }
+
 /** Retrieves a download URL for the requested report */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest request)
 {
@@ -283,6 +288,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest req
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserData(FAdminGetUserDataRequest request)
 {
@@ -326,6 +332,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserData(FAdminGetUserDataRequest request
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user which cannot be accessed by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInternalData(FAdminGetUserDataRequest request)
 {
@@ -369,6 +376,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInternalData(FAdminGetUserDataRequest
 
     return manager;
 }
+
 /** Retrieves the publisher-specific custom data for the user which is readable and writable by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherData(FAdminGetUserDataRequest request)
 {
@@ -412,6 +420,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherData(FAdminGetUserDataReques
 
     return manager;
 }
+
 /** Retrieves the publisher-specific custom data for the user which cannot be accessed by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherInternalData(FAdminGetUserDataRequest request)
 {
@@ -455,6 +464,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherInternalData(FAdminGetUserDa
 
     return manager;
 }
+
 /** Retrieves the publisher-specific custom data for the user which can only be read by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherReadOnlyData(FAdminGetUserDataRequest request)
 {
@@ -498,6 +508,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherReadOnlyData(FAdminGetUserDa
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user which can only be read by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest request)
 {
@@ -541,6 +552,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest
 
     return manager;
 }
+
 /** Completely removes all statistics for the specified user, for the current game */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatisticsRequest request)
 {
@@ -571,6 +583,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatistic
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest request)
 {
@@ -604,6 +617,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user which cannot be accessed by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInternalDataRequest request)
 {
@@ -635,6 +649,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInter
 
     return manager;
 }
+
 /** Updates the publisher-specific custom data for the user which is readable and writable by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserDataRequest request)
 {
@@ -668,6 +683,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
 
     return manager;
 }
+
 /** Updates the publisher-specific custom data for the user which cannot be accessed by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdateUserInternalDataRequest request)
 {
@@ -699,6 +715,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdate
 
     return manager;
 }
+
 /** Updates the publisher-specific custom data for the user which can only be read by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdateUserDataRequest request)
 {
@@ -732,6 +749,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user which can only be read by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataRequest request)
 {
@@ -765,6 +783,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Title-Wide Data Management
@@ -817,6 +836,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddNews(FAdminAddNewsRequest request)
 
     return manager;
 }
+
 /** Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of 2,147,483,647 when granted to a player. Any value over that will be discarded. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::AddVirtualCurrencyTypes(FAdminAddVirtualCurrencyTypesRequest request)
 {
@@ -839,6 +859,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddVirtualCurrencyTypes(FAdminAddVirtualCurr
 
     return manager;
 }
+
 /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetCatalogItems(FAdminGetCatalogItemsRequest request)
 {
@@ -869,6 +890,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCatalogItems(FAdminGetCatalogItemsRequest
 
     return manager;
 }
+
 /** Retrieves the random drop table configuration for the title */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetRandomResultTables(FAdminGetRandomResultTablesRequest request)
 {
@@ -899,6 +921,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetRandomResultTables(FAdminGetRandomResultT
 
     return manager;
 }
+
 /** Retrieves the set of items defined for the specified store, including all prices defined */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetStoreItems(FAdminGetStoreItemsRequest request)
 {
@@ -938,6 +961,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetStoreItems(FAdminGetStoreItemsRequest req
 
     return manager;
 }
+
 /** Retrieves the key-value store of custom title settings */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleData(FAdminGetTitleDataRequest request)
 {
@@ -971,6 +995,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleData(FAdminGetTitleDataRequest reque
 
     return manager;
 }
+
 /** Retuns the list of all defined virtual currencies for the title */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ListVirtualCurrencyTypes(FAdminListVirtualCurrencyTypesRequest request)
 {
@@ -992,6 +1017,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListVirtualCurrencyTypes(FAdminListVirtualCu
 
     return manager;
 }
+
 /** Creates the catalog configuration of all virtual goods for the specified catalog version */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetCatalogItems(FAdminUpdateCatalogItemsRequest request)
 {
@@ -1023,6 +1049,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetCatalogItems(FAdminUpdateCatalogItemsRequ
 
     return manager;
 }
+
 /** Sets all the items in one virtual store */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetStoreItems(FAdminUpdateStoreItemsRequest request)
 {
@@ -1063,6 +1090,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetStoreItems(FAdminUpdateStoreItemsRequest 
 
     return manager;
 }
+
 /** Creates and updates the key-value store of custom title settings */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleData(FAdminSetTitleDataRequest request)
 {
@@ -1102,6 +1130,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleData(FAdminSetTitleDataRequest reque
 
     return manager;
 }
+
 /** Sets the Amazon Resource Name (ARN) for iOS and Android push notifications. Documentation on the exact restrictions can be found at: http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformApplication.html. Currently, Amazon device Messaging is not supported. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetupPushNotification(FAdminSetupPushNotificationRequest request)
 {
@@ -1160,6 +1189,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetupPushNotification(FAdminSetupPushNotific
 
     return manager;
 }
+
 /** Updates the catalog configuration for virtual goods in the specified catalog version */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCatalogItems(FAdminUpdateCatalogItemsRequest request)
 {
@@ -1191,6 +1221,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCatalogItems(FAdminUpdateCatalogItemsR
 
     return manager;
 }
+
 /** Updates the random drop table configuration for the title */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateRandomResultTables(FAdminUpdateRandomResultTablesRequest request)
 {
@@ -1222,6 +1253,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateRandomResultTables(FAdminUpdateRandomR
 
     return manager;
 }
+
 /** Updates an existing virtual item store with new or modified items */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateStoreItems(FAdminUpdateStoreItemsRequest request)
 {
@@ -1262,6 +1294,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateStoreItems(FAdminUpdateStoreItemsReque
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Player Item Management
@@ -1306,6 +1339,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddUserVirtualCurrency(FAdminAddUserVirtualC
 
     return manager;
 }
+
 /** Retrieves the specified user's current inventory of virtual goods */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInventory(FAdminGetUserInventoryRequest request)
 {
@@ -1336,6 +1370,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInventory(FAdminGetUserInventoryReque
 
     return manager;
 }
+
 /** Adds the specified items to the specified user inventories */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GrantItemsToUsers(FAdminGrantItemsToUsersRequest request)
 {
@@ -1367,6 +1402,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GrantItemsToUsers(FAdminGrantItemsToUsersReq
 
     return manager;
 }
+
 /** Revokes access to an item in a user's inventory */
 UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeInventoryItem(FAdminRevokeInventoryItemRequest request)
 {
@@ -1415,6 +1451,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeInventoryItem(FAdminRevokeInventoryIte
 
     return manager;
 }
+
 /** Decrements the specified virtual currency by the stated amount */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SubtractUserVirtualCurrency(FAdminSubtractUserVirtualCurrencyRequest request)
 {
@@ -1456,6 +1493,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SubtractUserVirtualCurrency(FAdminSubtractUs
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Matchmaking APIs
 //////////////////////////////////////////////////////
@@ -1489,6 +1527,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameInfo(FAdminGetMatchmakerGam
 
     return manager;
 }
+
 /** Retrieves the details of defined game modes for the specified game server executable */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameModes(FAdminGetMatchmakerGameModesRequest request)
 {
@@ -1519,6 +1558,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameModes(FAdminGetMatchmakerGa
 
     return manager;
 }
+
 /** Updates the game server mode details for the specified game server executable */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyMatchmakerGameModes(FAdminModifyMatchmakerGameModesRequest request)
 {
@@ -1550,6 +1590,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyMatchmakerGameModes(FAdminModifyMatchm
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Custom Server Management
@@ -1624,6 +1665,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddServerBuild(FAdminAddServerBuildRequest r
 
     return manager;
 }
+
 /** Retrieves the build details for the specified game server executable */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoRequest request)
 {
@@ -1654,6 +1696,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoR
 
     return manager;
 }
+
 /** Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for use - see AddServerBuild) */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildUploadUrl(FAdminGetServerBuildUploadURLRequest request)
 {
@@ -1684,6 +1727,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildUploadUrl(FAdminGetServerBuild
 
     return manager;
 }
+
 /** Retrieves the build details for all game server executables which are currently defined for the title */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ListServerBuilds(FAdminListBuildsRequest request)
 {
@@ -1705,6 +1749,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListServerBuilds(FAdminListBuildsRequest req
 
     return manager;
 }
+
 /** Updates the build details for the specified game server executable */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyServerBuild(FAdminModifyServerBuildRequest request)
 {
@@ -1784,6 +1829,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyServerBuild(FAdminModifyServerBuildReq
 
     return manager;
 }
+
 /** Removes the game server executable specified from the set of those a client is permitted to request in a call to StartGame */
 UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveServerBuild(FAdminRemoveServerBuildRequest request)
 {
@@ -1814,6 +1860,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveServerBuild(FAdminRemoveServerBuildReq
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Shared Group Data
@@ -1851,6 +1898,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPublisherData(FAdminGetPublisherDataReque
 
     return manager;
 }
+
 /** Updates the key-value store of custom publisher settings */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublisherData(FAdminSetPublisherDataRequest request)
 {
@@ -1891,6 +1939,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublisherData(FAdminSetPublisherDataReque
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
@@ -1917,6 +1966,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptRevision(FAdminGetCloudScriptR
 
     return manager;
 }
+
 /** Lists all the current cloud script versions. For each version, information about the current published and latest revisions is also listed. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptVersions(FAdminGetCloudScriptVersionsRequest request)
 {
@@ -1938,6 +1988,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptVersions(FAdminGetCloudScriptV
 
     return manager;
 }
+
 /** Sets the currently published revision of a title Cloud Script */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublishedRevision(FAdminSetPublishedRevisionRequest request)
 {
@@ -1961,6 +2012,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublishedRevision(FAdminSetPublishedRevis
 
     return manager;
 }
+
 /** Creates a new Cloud Script revision and uploads source code to it. Note that at this time, only one file should be submitted in the revision. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptRequest request)
 {
@@ -1984,6 +2036,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Content
@@ -2018,6 +2071,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteContent(FAdminDeleteContentRequest req
 
     return manager;
 }
+
 /** List all contents of the title and get statistics such as size */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentList(FAdminGetContentListRequest request)
 {
@@ -2048,6 +2102,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentList(FAdminGetContentListRequest r
 
     return manager;
 }
+
 /** Retrieves the pre-signed URL for uploading a content file. A subsequent HTTP PUT to the returned URL uploads the content. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentUploadUrl(FAdminGetContentUploadUrlRequest request)
 {
@@ -2087,6 +2142,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentUploadUrl(FAdminGetContentUploadUr
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Characters
@@ -2130,6 +2186,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetCharacterStatistics(FAdminResetCharacte
 
     return manager;
 }
+
 
 
 void UPlayFabAdminAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

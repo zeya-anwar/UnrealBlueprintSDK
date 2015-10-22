@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file is the main cpp file for the plugin. We set up globals here.
 //
@@ -9,8 +9,8 @@
 #include "PlayFabPrivatePCH.h"
 
 
-const FString	IPlayFab::PlayFabURL(TEXT(".playfabapi.com"));
-const FString	IPlayFab::PlayFabLogicURL(TEXT(".playfablogic.com/"));
+const FString IPlayFab::PlayFabURL(TEXT(".playfabapi.com"));
+const FString IPlayFab::PlayFabLogicURL(TEXT(".playfablogic.com/"));
 
 class FPlayFab : public IPlayFab
 {

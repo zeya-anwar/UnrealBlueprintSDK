@@ -1,6 +1,6 @@
 #pragma once
 
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Automatically generated header file for the UE4 PlayFab plugin.
 // This header file contains the function definitions.
 //
@@ -25,23 +25,23 @@ class UPlayFabMatchmakerAPI : public UOnlineBlueprintCallProxyBase
 public:
 
     UPROPERTY(BlueprintAssignable)
-        FOnPlayFabMatchmakerRequestCompleted OnPlayFabResponse;
+    FOnPlayFabMatchmakerRequestCompleted OnPlayFabResponse;
 
     /** Set the Request Json object */
     //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-    void SetRequestObject(UPlayFabJsonObject* JsonObject);
+        void SetRequestObject(UPlayFabJsonObject* JsonObject);
 
     /** Get the Response Json object */
     //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-    UPlayFabJsonObject* GetResponseObject();
+        UPlayFabJsonObject* GetResponseObject();
 
     /** Applies percent-encoding to text */
     //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-    static FString PercentEncode(const FString& Text);
+        static FString PercentEncode(const FString& Text);
 
     /** Reset saved response data */
     //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-    void ResetResponseData();
+        void ResetResponseData();
 
     /** UOnlineBlueprintCallProxyBase interface */
     virtual void Activate() override;
@@ -50,7 +50,7 @@ public:
     // Generated PlayFab Matchmaker API Functions
     //////////////////////////////////////////////////////////////////////////
 
-
+    
 
     ///////////////////////////////////////////////////////
     // Matchmaking APIs
@@ -106,4 +106,3 @@ protected:
     /** Mapping of header section to values. Used to generate final header string for request */
     TMap<FString, FString> RequestHeaders;
 };
-

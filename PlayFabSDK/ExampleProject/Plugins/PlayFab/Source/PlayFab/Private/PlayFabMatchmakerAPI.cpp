@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Matchmaker
@@ -94,6 +94,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserReques
 
     return manager;
 }
+
 /** Informs the PlayFab game server hosting service that the indicated user has joined the Game Server Instance specified */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoinedRequest request)
 {
@@ -133,6 +134,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoin
 
     return manager;
 }
+
 /** Informs the PlayFab game server hosting service that the indicated user has left the Game Server Instance specified */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRequest request)
 {
@@ -172,6 +174,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRe
 
     return manager;
 }
+
 /** Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequest request)
 {
@@ -238,6 +241,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
 
     return manager;
 }
+
 /** Retrieves the relevant details for a specified user, which the external match-making service can then use to compute effective matches */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoRequest request)
 {
@@ -269,6 +273,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoReques
 
     return manager;
 }
+
 
 
 void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

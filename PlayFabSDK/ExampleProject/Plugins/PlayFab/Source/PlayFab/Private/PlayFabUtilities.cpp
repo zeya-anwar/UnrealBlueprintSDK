@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
@@ -38,8 +38,8 @@ FString UPlayFabUtilities::getPhotonAppId(bool Realtime, bool Chat, bool Turnbas
 
 //void UPlayFabUtilities::setSessionTicket(FString SessionTicket)
 //{
-// Set the SessionTicket
-//IPlayFab::Get().setSessionTicket(SessionTicket);
+//    Set the SessionTicket
+//    IPlayFab::Get().setSessionTicket(SessionTicket);
 //}
 
 FString UPlayFabUtilities::getErrorText(int32 code)

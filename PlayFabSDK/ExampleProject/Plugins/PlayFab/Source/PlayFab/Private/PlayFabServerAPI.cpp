@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////////////////// 
+//////////////////////////////////////////////////////////////////////////////////////////////
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
@@ -95,6 +95,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::AuthenticateSessionTicket(FServerAuthentic
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Account Management
 //////////////////////////////////////////////////////
@@ -131,6 +132,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromFacebookIDs(FServerGetPla
 
     return manager;
 }
+
 /** Retrieves the relevant details for a specified user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserAccountInfo(FServerGetUserAccountInfoRequest request)
 {
@@ -161,6 +163,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserAccountInfo(FServerGetUserAccountIn
 
     return manager;
 }
+
 /** Sends an iOS/Android Push Notification to a specific user, if that user's device has been configured for Push Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified. */
 UPlayFabServerAPI* UPlayFabServerAPI::SendPushNotification(FServerSendPushNotificationRequest request)
 {
@@ -210,6 +213,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::SendPushNotification(FServerSendPushNotifi
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Player Data Management
 //////////////////////////////////////////////////////
@@ -245,6 +249,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboard(FServerGetLeaderboardReques
 
     return manager;
 }
+
 /** Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundUser(FServerGetLeaderboardAroundUserRequest request)
 {
@@ -285,6 +290,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundUser(FServerGetLeaderb
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserData(FServerGetUserDataRequest request)
 {
@@ -328,6 +334,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserData(FServerGetUserDataRequest requ
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserInternalData(FServerGetUserDataRequest request)
 {
@@ -371,6 +378,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserInternalData(FServerGetUserDataRequ
 
     return manager;
 }
+
 /** Retrieves the publisher-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherData(FServerGetUserDataRequest request)
 {
@@ -414,6 +422,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherData(FServerGetUserDataReq
 
     return manager;
 }
+
 /** Retrieves the publisher-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherInternalData(FServerGetUserDataRequest request)
 {
@@ -457,6 +466,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherInternalData(FServerGetUse
 
     return manager;
 }
+
 /** Retrieves the publisher-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherReadOnlyData(FServerGetUserDataRequest request)
 {
@@ -500,6 +510,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherReadOnlyData(FServerGetUse
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserReadOnlyData(FServerGetUserDataRequest request)
 {
@@ -543,6 +554,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserReadOnlyData(FServerGetUserDataRequ
 
     return manager;
 }
+
 /** Retrieves the details of all title-specific statistics for the user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserStatistics(FServerGetUserStatisticsRequest request)
 {
@@ -573,6 +585,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserStatistics(FServerGetUserStatistics
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataRequest request)
 {
@@ -606,6 +619,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataReques
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInternalData(FServerUpdateUserInternalDataRequest request)
 {
@@ -637,6 +651,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInternalData(FServerUpdateUserIn
 
     return manager;
 }
+
 /** Updates the publisher-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserDataRequest request)
 {
@@ -670,6 +685,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserD
 
     return manager;
 }
+
 /** Updates the publisher-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherInternalData(FServerUpdateUserInternalDataRequest request)
 {
@@ -701,6 +717,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherInternalData(FServerUpd
 
     return manager;
 }
+
 /** Updates the publisher-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpdateUserDataRequest request)
 {
@@ -734,6 +751,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpd
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDataRequest request)
 {
@@ -767,6 +785,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDa
 
     return manager;
 }
+
 /** Updates the values of the specified title-specific statistics for the user */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStatisticsRequest request)
 {
@@ -798,6 +817,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStat
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Title-Wide Data Management
@@ -832,6 +852,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCatalogItems(FServerGetCatalogItemsRequ
 
     return manager;
 }
+
 /** Retrieves the key-value store of custom title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::GetTitleData(FServerGetTitleDataRequest request)
 {
@@ -865,6 +886,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetTitleData(FServerGetTitleDataRequest re
 
     return manager;
 }
+
 /** Retrieves the key-value store of custom internal title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::GetTitleInternalData(FServerGetTitleDataRequest request)
 {
@@ -898,6 +920,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetTitleInternalData(FServerGetTitleDataRe
 
     return manager;
 }
+
 /** Retrieves the title news feed, as configured in the developer portal */
 UPlayFabServerAPI* UPlayFabServerAPI::GetTitleNews(FServerGetTitleNewsRequest request)
 {
@@ -920,6 +943,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetTitleNews(FServerGetTitleNewsRequest re
 
     return manager;
 }
+
 /** Updates the key-value store of custom title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::SetTitleData(FServerSetTitleDataRequest request)
 {
@@ -959,6 +983,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::SetTitleData(FServerSetTitleDataRequest re
 
     return manager;
 }
+
 /** Updates the key-value store of custom title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::SetTitleInternalData(FServerSetTitleDataRequest request)
 {
@@ -998,6 +1023,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::SetTitleInternalData(FServerSetTitleDataRe
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Player Item Management
@@ -1051,6 +1077,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::AddCharacterVirtualCurrency(FServerAddChar
 
     return manager;
 }
+
 /** Increments  the user's balance of the specified virtual currency by the stated amount */
 UPlayFabServerAPI* UPlayFabServerAPI::AddUserVirtualCurrency(FServerAddUserVirtualCurrencyRequest request)
 {
@@ -1091,6 +1118,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::AddUserVirtualCurrency(FServerAddUserVirtu
 
     return manager;
 }
+
 /** Retrieves the specified character's current inventory of virtual goods */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInventory(FServerGetCharacterInventoryRequest request)
 {
@@ -1139,6 +1167,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInventory(FServerGetCharacterI
 
     return manager;
 }
+
 /** Retrieves the specified user's current inventory of virtual goods */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserInventory(FServerGetUserInventoryRequest request)
 {
@@ -1169,6 +1198,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserInventory(FServerGetUserInventoryRe
 
     return manager;
 }
+
 /** Adds the specified items to the specified character's inventory */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToCharacter(FServerGrantItemsToCharacterRequest request)
 {
@@ -1238,6 +1268,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToCharacter(FServerGrantItemsToC
 
     return manager;
 }
+
 /** Adds the specified items to the specified user's inventory */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUser(FServerGrantItemsToUserRequest request)
 {
@@ -1298,6 +1329,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUser(FServerGrantItemsToUserRe
 
     return manager;
 }
+
 /** Adds the specified items to the specified user inventories */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUsers(FServerGrantItemsToUsersRequest request)
 {
@@ -1329,6 +1361,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUsers(FServerGrantItemsToUsers
 
     return manager;
 }
+
 /** Modifies the number of remaining uses of a player's inventory item */
 UPlayFabServerAPI* UPlayFabServerAPI::ModifyItemUses(FServerModifyItemUsesRequest request)
 {
@@ -1369,6 +1402,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::ModifyItemUses(FServerModifyItemUsesReques
 
     return manager;
 }
+
 /** Moves an item from a character's inventory into another of the users's character's inventory. */
 UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromCharacter(FServerMoveItemToCharacterFromCharacterRequest request)
 {
@@ -1426,6 +1460,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromCharacter(FServerMo
 
     return manager;
 }
+
 /** Moves an item from a user's inventory into their character's inventory. */
 UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromUser(FServerMoveItemToCharacterFromUserRequest request)
 {
@@ -1474,6 +1509,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromUser(FServerMoveIte
 
     return manager;
 }
+
 /** Moves an item from a character's inventory into the owning user's inventory. */
 UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToUserFromCharacter(FServerMoveItemToUserFromCharacterRequest request)
 {
@@ -1522,6 +1558,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToUserFromCharacter(FServerMoveIte
 
     return manager;
 }
+
 /** Submit a report about a player (due to bad bahavior, etc.) on behalf of another player, so that customer service representatives for the title can take action concerning potentially poxic players. */
 UPlayFabServerAPI* UPlayFabServerAPI::ReportPlayer(FServerReportPlayerServerRequest request)
 {
@@ -1571,6 +1608,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::ReportPlayer(FServerReportPlayerServerRequ
 
     return manager;
 }
+
 /** Decrements the character's balance of the specified virtual currency by the stated amount */
 UPlayFabServerAPI* UPlayFabServerAPI::SubtractCharacterVirtualCurrency(FServerSubtractCharacterVirtualCurrencyRequest request)
 {
@@ -1620,6 +1658,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::SubtractCharacterVirtualCurrency(FServerSu
 
     return manager;
 }
+
 /** Decrements the user's balance of the specified virtual currency by the stated amount */
 UPlayFabServerAPI* UPlayFabServerAPI::SubtractUserVirtualCurrency(FServerSubtractUserVirtualCurrencyRequest request)
 {
@@ -1660,6 +1699,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::SubtractUserVirtualCurrency(FServerSubtrac
 
     return manager;
 }
+
 /** Updates the key-value pair data tagged to the specified item, which is read-only from the client. */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerUpdateUserInventoryItemDataRequest request)
 {
@@ -1710,6 +1750,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerU
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Friend List Management
 //////////////////////////////////////////////////////
@@ -1756,6 +1797,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::NotifyMatchmakerPlayerLeft(FServerNotifyMa
 
     return manager;
 }
+
 /** Validates a Game Server session ticket and returns details about the user */
 UPlayFabServerAPI* UPlayFabServerAPI::RedeemMatchmakerTicket(FServerRedeemMatchmakerTicketRequest request)
 {
@@ -1796,6 +1838,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::RedeemMatchmakerTicket(FServerRedeemMatchm
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Steam-Specific APIs
 //////////////////////////////////////////////////////
@@ -1821,6 +1864,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::AwardSteamAchievement(FServerAwardSteamAch
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Analytics
@@ -1894,6 +1938,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::LogEvent(FServerLogEventRequest request)
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Shared Group Data
 //////////////////////////////////////////////////////
@@ -1939,6 +1984,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::AddSharedGroupMembers(FServerAddSharedGrou
 
     return manager;
 }
+
 /** Requests the creation of a shared group object, containing key/value pairs which may be updated by all members of the group. When created by a server, the group will initially have no members. */
 UPlayFabServerAPI* UPlayFabServerAPI::CreateSharedGroup(FServerCreateSharedGroupRequest request)
 {
@@ -1969,6 +2015,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::CreateSharedGroup(FServerCreateSharedGroup
 
     return manager;
 }
+
 /** Deletes a shared group, freeing up the shared group ID to be reused for a new group */
 UPlayFabServerAPI* UPlayFabServerAPI::DeleteSharedGroup(FServerDeleteSharedGroupRequest request)
 {
@@ -1999,6 +2046,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::DeleteSharedGroup(FServerDeleteSharedGroup
 
     return manager;
 }
+
 /** Retrieves the key-value store of custom publisher settings */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPublisherData(FServerGetPublisherDataRequest request)
 {
@@ -2032,6 +2080,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPublisherData(FServerGetPublisherDataRe
 
     return manager;
 }
+
 /** Retrieves data stored in a shared group object, as well as the list of members in the group. The server can access all public and private group data. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetSharedGroupData(FServerGetSharedGroupDataRequest request)
 {
@@ -2075,6 +2124,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetSharedGroupData(FServerGetSharedGroupDa
 
     return manager;
 }
+
 /** Removes users from the set of those able to update the shared data and the set of users in the group. Only users in the group can remove members. If as a result of the call, zero users remain with access, the group and its associated data will be deleted. */
 UPlayFabServerAPI* UPlayFabServerAPI::RemoveSharedGroupMembers(FServerRemoveSharedGroupMembersRequest request)
 {
@@ -2117,6 +2167,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::RemoveSharedGroupMembers(FServerRemoveShar
 
     return manager;
 }
+
 /** Updates the key-value store of custom publisher settings */
 UPlayFabServerAPI* UPlayFabServerAPI::SetPublisherData(FServerSetPublisherDataRequest request)
 {
@@ -2156,6 +2207,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::SetPublisherData(FServerSetPublisherDataRe
 
     return manager;
 }
+
 /** Adds, updates, and removes data keys for a shared group object. If the permission is set to Public, all fields updated or added in this call will be readable by users not in the group. By default, data permissions are set to Private. Regardless of the permission setting, only members of the group (and the server) can update the data. */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedGroupDataRequest request)
 {
@@ -2189,6 +2241,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedG
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Content
@@ -2234,6 +2287,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetContentDownloadUrl(FServerGetContentDow
     return manager;
 }
 
+
 ///////////////////////////////////////////////////////
 // Characters
 //////////////////////////////////////////////////////
@@ -2277,6 +2331,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::DeleteCharacterFromUser(FServerDeleteChara
 
     return manager;
 }
+
 /** Lists all of the characters that belong to a specific user. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetAllUsersCharacters(FServerListUsersCharactersRequest request)
 {
@@ -2307,6 +2362,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetAllUsersCharacters(FServerListUsersChar
 
     return manager;
 }
+
 /** Retrieves a list of ranked characters for the given statistic, starting from the indicated point in the leaderboard */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterLeaderboard(FServerGetCharacterLeaderboardRequest request)
 {
@@ -2357,6 +2413,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterLeaderboard(FServerGetCharacte
 
     return manager;
 }
+
 /** Retrieves the details of all title-specific statistics for the specific character */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterStatistics(FServerGetCharacterStatisticsRequest request)
 {
@@ -2396,6 +2453,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterStatistics(FServerGetCharacter
 
     return manager;
 }
+
 /** Retrieves a list of ranked characters for the given statistic, centered on the requested user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundCharacter(FServerGetLeaderboardAroundCharacterRequest request)
 {
@@ -2454,6 +2512,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundCharacter(FServerGetLe
 
     return manager;
 }
+
 /** Retrieves a list of all of the user's characters for the given statistic. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardForUserCharacters(FServerGetLeaderboardForUsersCharactersRequest request)
 {
@@ -2494,6 +2553,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardForUserCharacters(FServerGet
 
     return manager;
 }
+
 /** Grants the specified character type to the user. */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantCharacterToUser(FServerGrantCharacterToUserRequest request)
 {
@@ -2542,6 +2602,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantCharacterToUser(FServerGrantCharacter
 
     return manager;
 }
+
 /** Updates the values of the specified title-specific statistics for the specific character */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterStatistics(FServerUpdateCharacterStatisticsRequest request)
 {
@@ -2582,6 +2643,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterStatistics(FServerUpdateCha
 
     return manager;
 }
+
 
 ///////////////////////////////////////////////////////
 // Character Data
@@ -2638,6 +2700,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterData(FServerGetCharacterDataRe
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user's character which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInternalData(FServerGetCharacterDataRequest request)
 {
@@ -2690,6 +2753,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInternalData(FServerGetCharact
 
     return manager;
 }
+
 /** Retrieves the title-specific custom data for the user's character which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterReadOnlyData(FServerGetCharacterDataRequest request)
 {
@@ -2742,6 +2806,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterReadOnlyData(FServerGetCharact
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user's chjaracter which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacterDataRequest request)
 {
@@ -2784,6 +2849,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacter
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user's character which cannot  be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateCharacterDataRequest request)
 {
@@ -2826,6 +2892,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateC
 
     return manager;
 }
+
 /** Updates the title-specific custom data for the user's character which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateCharacterDataRequest request)
 {
@@ -2868,6 +2935,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateC
 
     return manager;
 }
+
 
 
 void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

@@ -44,16 +44,16 @@ Assumptions
 
 A new project can be built directly from the example project included with each SDK:
 
-* Extract the Unreal SDK package to <UnrealPackageLocation>
-* Navigate to <UnrealPackageLocation>/PlayFabClientSDK/ExampleProject
+* Extract the Unreal SDK package to {UnrealPackageLocation}
+* Navigate to {UnrealPackageLocation}/PlayFabClientSDK/ExampleProject
 * Right click on ExampleProject.uproject, and "Generate Visual Studio project files" - This process may take several minutes
-* Once finished, open <UnrealPackageLocation>/PlayFabClientSDK/ExampleProject/ExampleProject.sln in Visual Studio
+* Once finished, open {UnrealPackageLocation}/PlayFabClientSDK/ExampleProject/ExampleProject.sln in Visual Studio
 * In Visual Studio, "Rebuild Solution" - This process may take several minutes
 * You should now be able to create blueprints that utilize PlayFab API calls
 
 Existing Projects:
-* Extract the Unreal SDK package to <UnrealPackageLocation>
-* Navigate to <UnrealPackageLocation>/PlayFabClientSDK\PluginFiles
+* Extract the Unreal SDK package to {UnrealPackageLocation}
+* Navigate to {UnrealPackageLocation}/PlayFabClientSDK\PluginFiles
 * Copy the PlayFab folder into the "Plugins" directory in your existing Unreal project (If the "Plugins" folder does not exist, create it)
 * Right click on ExampleProject.uproject, and "Generate Visual Studio project files" - This process may take several minutes
 * Once finished, open your *.sln project file with Visual Studio

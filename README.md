@@ -4,7 +4,7 @@ Unreal4.9 Blueprint SDK-Collection for PlayFab README
 
 1. Overview:
 ----
-Unreal 4.9 Blueprint SDKs for PlayFab
+Unreal 4.9 Blueprint SDKs for PlayFab - BETA
 
 The Unreal Blueprint SDK-Collection includes three separate Unreal 4.9 plugins.  You should only install 1 of these plugins in any Unreal project.
 

@@ -607,7 +607,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -641,7 +641,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInter
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
 
 
     // Add Request to manager
@@ -673,7 +673,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -707,7 +707,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdate
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
 
 
     // Add Request to manager
@@ -739,7 +739,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -773,7 +773,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 

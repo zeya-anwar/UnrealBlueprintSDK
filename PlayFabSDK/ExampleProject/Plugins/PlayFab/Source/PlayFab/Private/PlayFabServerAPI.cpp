@@ -609,7 +609,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataReques
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -643,7 +643,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInternalData(FServerUpdateUserIn
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
 
 
     // Add Request to manager
@@ -675,7 +675,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserD
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -709,7 +709,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherInternalData(FServerUpd
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
 
 
     // Add Request to manager
@@ -741,7 +741,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpd
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -775,7 +775,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDa
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -809,7 +809,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStat
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("UserStatistics"), request.UserStatistics);
+    if (request.UserStatistics != NULL) OutRestJsonObj->SetObjectField(TEXT("UserStatistics"), request.UserStatistics);
 
 
     // Add Request to manager
@@ -1741,7 +1741,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerU
         OutRestJsonObj->SetStringField(TEXT("ItemInstanceId"), request.ItemInstanceId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
 
 
     // Add Request to manager
@@ -1928,7 +1928,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::LogEvent(FServerLogEventRequest request)
         OutRestJsonObj->SetStringField(TEXT("EventName"), request.EventName);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
     OutRestJsonObj->SetBoolField(TEXT("ProfileSetEvent"), request.ProfileSetEvent);
 
 
@@ -2231,7 +2231,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedG
         OutRestJsonObj->SetStringField(TEXT("SharedGroupId"), request.SharedGroupId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -2635,7 +2635,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterStatistics(FServerUpdateCha
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("CharacterStatistics"), request.CharacterStatistics);
+    if (request.CharacterStatistics != NULL) OutRestJsonObj->SetObjectField(TEXT("CharacterStatistics"), request.CharacterStatistics);
 
 
     // Add Request to manager
@@ -2839,7 +2839,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacter
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -2882,7 +2882,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateC
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -2925,7 +2925,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateC
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 

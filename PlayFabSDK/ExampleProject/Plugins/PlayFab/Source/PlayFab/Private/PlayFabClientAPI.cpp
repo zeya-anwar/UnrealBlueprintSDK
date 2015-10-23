@@ -1755,7 +1755,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateUserData(FClientUpdateUserDataReques
 
 
     // Setup request object
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -1780,7 +1780,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateUserPublisherData(FClientUpdateUserD
 
 
     // Setup request object
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -1805,7 +1805,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateUserStatistics(FClientUpdateUserStat
 
 
     // Setup request object
-    OutRestJsonObj->SetObjectField(TEXT("UserStatistics"), request.UserStatistics);
+    if (request.UserStatistics != NULL) OutRestJsonObj->SetObjectField(TEXT("UserStatistics"), request.UserStatistics);
 
 
     // Add Request to manager
@@ -3139,7 +3139,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LogEvent(FClientLogEventRequest request)
         OutRestJsonObj->SetStringField(TEXT("EventName"), request.EventName);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
     OutRestJsonObj->SetBoolField(TEXT("ProfileSetEvent"), request.ProfileSetEvent);
 
 
@@ -3371,7 +3371,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateSharedGroupData(FClientUpdateSharedG
         OutRestJsonObj->SetStringField(TEXT("SharedGroupId"), request.SharedGroupId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -3438,7 +3438,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::RunCloudScript(FClientRunCloudScriptReques
         OutRestJsonObj->SetStringField(TEXT("ActionId"), request.ActionId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Params"), request.Params);
+    if (request.Params != NULL) OutRestJsonObj->SetObjectField(TEXT("Params"), request.Params);
     if (request.ParamsEncoded != "") OutRestJsonObj->SetStringField(TEXT("ParamsEncoded"), request.ParamsEncoded);
 
 
@@ -3834,7 +3834,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterData(FClientUpdateCharacter
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 

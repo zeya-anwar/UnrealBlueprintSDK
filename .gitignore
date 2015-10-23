@@ -194,3 +194,9 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+
+# Stuff that's specific to PlayFab Unreal project
+*.dll
+*.vcxproj
+*.filters

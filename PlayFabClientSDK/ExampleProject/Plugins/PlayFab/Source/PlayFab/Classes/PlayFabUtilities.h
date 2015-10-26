@@ -4,7 +4,7 @@
 // Automatically generated header file for the UE4 PlayFab plugin.
 // This header file contains the utilities functions that supports the plugin.
 //
-// API Version: 1.7.20151019
+// API Version: 1.8.20151026
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 

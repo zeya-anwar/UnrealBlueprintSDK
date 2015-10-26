@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Admin
-// API Version: 1.7.20151019
+// API Version: 1.8.20151026
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 

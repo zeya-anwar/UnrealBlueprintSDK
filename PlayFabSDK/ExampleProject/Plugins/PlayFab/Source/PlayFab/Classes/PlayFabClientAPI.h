@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -311,7 +311,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* PurchaseItem(FClientPurchaseItemRequest request);
 
-    /** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Promotions->Coupons tab in the PlayFab Game Manager. See this post for more information on coupons:  https://playfab.com/blog/2015/06/18/using-stores-and-coupons-game-manager */
+    /** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Promotions->Coupons tab in the PlayFab Game Manager. See this post for more information on coupons:  https://playfab.com/blog/using-stores-and-coupons-game-manager/ */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* RedeemCoupon(FClientRedeemCouponRequest request);
 

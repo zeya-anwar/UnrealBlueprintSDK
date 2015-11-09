@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 

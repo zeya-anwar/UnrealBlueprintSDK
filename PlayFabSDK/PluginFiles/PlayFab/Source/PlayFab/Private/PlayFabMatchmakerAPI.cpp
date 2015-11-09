@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Matchmaker
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 

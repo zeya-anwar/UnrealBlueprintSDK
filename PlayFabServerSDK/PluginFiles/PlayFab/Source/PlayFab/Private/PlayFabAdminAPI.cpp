@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Admin
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -608,6 +608,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
     }
 
     if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    // Check to see if string is empty
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
+    }
+    else
+    {
+        TArray<FString> KeysToRemoveArray;
+        FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
+    }
+
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -642,6 +654,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInter
     }
 
     if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    // Check to see if string is empty
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
+    }
+    else
+    {
+        TArray<FString> KeysToRemoveArray;
+        FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
+    }
+
 
 
     // Add Request to manager
@@ -674,6 +698,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
     }
 
     if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    // Check to see if string is empty
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
+    }
+    else
+    {
+        TArray<FString> KeysToRemoveArray;
+        FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
+    }
+
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -708,6 +744,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdate
     }
 
     if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    // Check to see if string is empty
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
+    }
+    else
+    {
+        TArray<FString> KeysToRemoveArray;
+        FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
+    }
+
 
 
     // Add Request to manager
@@ -740,6 +788,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
     }
 
     if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    // Check to see if string is empty
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
+    }
+    else
+    {
+        TArray<FString> KeysToRemoveArray;
+        FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
+    }
+
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 
@@ -774,6 +834,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
     }
 
     if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    // Check to see if string is empty
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
+    }
+    else
+    {
+        TArray<FString> KeysToRemoveArray;
+        FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
+    }
+
     if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
     if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
 

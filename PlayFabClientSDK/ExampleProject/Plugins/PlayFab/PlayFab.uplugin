@@ -7,7 +7,7 @@
     "CreatedBy" : "Joshua Lyons, 2015",
     "CreatedByURL" : "",
     "EngineVersion" : "4.8.0",
-    "Description" : "PlayFab SDK for Unreal Engine 4. Current API version: 1.8.20151026",
+    "Description" : "PlayFab SDK for Unreal Engine 4. Current API version: 1.9.20151109",
     "Category" : "PlayFab",
     "EnabledByDefault" : true,
     "CanContainContent": true,

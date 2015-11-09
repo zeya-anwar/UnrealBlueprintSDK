@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -154,6 +154,10 @@ public:
     /** Decode the MoveItemToUserFromCharacterResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerMoveItemToUserFromCharacterResult decodeMoveItemToUserFromCharacterResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RedeemCouponResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
+        static FServerRedeemCouponResult decodeRedeemCouponResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the ReportPlayerServerResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")

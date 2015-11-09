@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -291,6 +291,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* Data;
 
+    /** Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString KeysToRemove;
+
     /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         EPermissionEnum Permission;
@@ -323,6 +327,10 @@ public:
     /** Data to be written to the user's custom data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* Data;
+
+    /** Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString KeysToRemove;
 
 };
 
@@ -879,6 +887,40 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerRedeemCouponRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Generated coupon code to redeem. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CouponCode;
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString PlayFabId;
+
+    /** Catalog version of the coupon. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CatalogVersion;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerRedeemCouponResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Items granted to the player as a result of redeeming the coupon. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        TArray<UPlayFabJsonObject*> GrantedItems;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerReportPlayerServerRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -980,6 +1022,10 @@ public:
     /** Data to be written to the item's custom data. Note that keys are trimmed of whitespace. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         UPlayFabJsonObject* Data;
+
+    /** Optional list of Data-keys to remove from ItemData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString KeysToRemove;
 
 };
 
@@ -1362,6 +1408,10 @@ public:
     /** Key value pairs to be stored in the shared group - note that keys will be trimmed of whitespace, must not begin with a '!' character, and that null values will result in the removal of the key from the data set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
         UPlayFabJsonObject* Data;
+
+    /** Optional list of Data-keys to remove from GroupData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
+        FString KeysToRemove;
 
     /** Permission to be applied to all user data keys in this request. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
@@ -1766,6 +1816,10 @@ public:
     /** Data to be written to the user's character's custom data. Note that keys are trimmed of whitespace, are limited to 1024 characters, and may not begin with a '!' character. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Character Data Models")
         UPlayFabJsonObject* Data;
+
+    /** Optional list of Data-keys to remove from CharacterData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Character Data Models")
+        FString KeysToRemove;
 
     /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Character Data Models")

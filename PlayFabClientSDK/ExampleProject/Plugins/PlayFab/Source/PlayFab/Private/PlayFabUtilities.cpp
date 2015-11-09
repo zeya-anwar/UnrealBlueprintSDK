@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -756,6 +756,14 @@ FString UPlayFabUtilities::getErrorText(int32 code)
 
         case 1185:
             returnText = "CustomIdNotLinked";
+            break;
+
+        case 1186:
+            returnText = "TotalDataSizeExceeded";
+            break;
+
+        case 1187:
+            returnText = "DeleteKeyConflict";
             break;
 
     }

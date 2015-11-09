@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// API Version: 1.8.20151026
+// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -340,6 +340,17 @@ FServerMoveItemToUserFromCharacterResult UPlayFabServerModelDecoder::decodeMoveI
 {
     // Temp ustruct
     FServerMoveItemToUserFromCharacterResult tempStruct;
+
+    return tempStruct;
+}
+
+FServerRedeemCouponResult UPlayFabServerModelDecoder::decodeRedeemCouponResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRedeemCouponResult tempStruct;
+
+    /** Items granted to the player as a result of redeeming the coupon. */
+    tempStruct.GrantedItems = response->GetObjectField("data")->GetObjectArrayField("GrantedItems");
 
     return tempStruct;
 }

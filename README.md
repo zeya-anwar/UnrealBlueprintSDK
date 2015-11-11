@@ -88,6 +88,15 @@ Below are the steps to add an API call node, and manipulate the response JSON ob
 
 6. Troubleshooting:
 ----
+If you experience this error:
+Plugin 'PlayFab' failed to load because module 'PlayFab' could not be found.  Please ensure the plugin is properly installed, otherwise consider disabling the plugin for this project.
+
+Your Unreal project is not set up to be a C++ project.  Here is a tutorial that will help fix this problem.
+http://idkudk.blogspot.com/2015/02/how-to-get-plugins-to-package-correctly.html
+
+
+General troubleshooting:
+
 For a complete list of available APIs, check out the [online documentation](http://api.playfab.com/Documentation/).
 
 #### Contact Us

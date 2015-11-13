@@ -5,7 +5,6 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// API Version: 1.9.20151109
 // SDK Version: 0.0.151019
 //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -270,7 +269,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         FString PlayFabId;
 
-    /** Data to be written to the user's custom data. Note that keys are trimmed of whitespace, are limited to 1024 characters, and may not begin with a '!' character. */
+    /** Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         UPlayFabJsonObject* Data;
 
@@ -307,7 +306,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         FString PlayFabId;
 
-    /** Data to be written to the user's custom data. */
+    /** Key-value pairs to be written to the custom data. Note that keys are trimmed of whitespace, are limited in size, and may not begin with a '!' character. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         UPlayFabJsonObject* Data;
 

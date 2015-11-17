@@ -773,6 +773,10 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         returnText = "ExpiredXboxLiveToken";
         break;
 
+    case 1190:
+        returnText = "ResettableStatisticVersionRequired";
+        break;
+
     }
 
     // Return the text

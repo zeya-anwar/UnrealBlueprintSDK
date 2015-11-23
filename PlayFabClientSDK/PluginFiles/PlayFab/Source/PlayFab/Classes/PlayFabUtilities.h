@@ -4,7 +4,7 @@
 // Automatically generated header file for the UE4 PlayFab plugin.
 // This header file contains the utilities functions that supports the plugin.
 //
-// SDK Version: 0.0.151116
+// SDK Version: 0.0.151123
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"

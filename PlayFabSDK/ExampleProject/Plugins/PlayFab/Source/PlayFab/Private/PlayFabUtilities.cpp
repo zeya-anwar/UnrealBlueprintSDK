@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.151019
+// SDK Version: 0.0.151123
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -767,6 +767,14 @@ FString UPlayFabUtilities::getErrorText(int32 code)
 
     case 1188:
         returnText = "InvalidXboxLiveToken";
+        break;
+
+    case 1189:
+        returnText = "ExpiredXboxLiveToken";
+        break;
+
+    case 1190:
+        returnText = "ResettableStatisticVersionRequired";
         break;
 
     }

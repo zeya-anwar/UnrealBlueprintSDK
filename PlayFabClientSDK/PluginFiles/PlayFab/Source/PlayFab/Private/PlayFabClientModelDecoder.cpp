@@ -42,8 +42,8 @@ FClientLoginResult UPlayFabClientModelDecoder::decodeLoginResultResponse(UPlayFa
     /** True if the account was newly created on this login. */
     tempStruct.NewlyCreated = response->GetObjectField("data")->GetBoolField("NewlyCreated");
 
-    /**  */
-    tempStruct.UserSettings = response->GetObjectField("data")->GetObjectField("UserSettings");
+    /** Settings specific to this user. */
+    tempStruct.SettingsForUser = response->GetObjectField("data")->GetObjectField("SettingsForUser");
 
     return tempStruct;
 }
@@ -62,8 +62,8 @@ FClientRegisterPlayFabUserResult UPlayFabClientModelDecoder::decodeRegisterPlayF
     /** PlayFab unique user name. */
     tempStruct.Username = response->GetObjectField("data")->GetStringField("Username");
 
-    /**  */
-    tempStruct.UserSettings = response->GetObjectField("data")->GetObjectField("UserSettings");
+    /** Settings specific to this user. */
+    tempStruct.SettingsForUser = response->GetObjectField("data")->GetObjectField("SettingsForUser");
 
     return tempStruct;
 }

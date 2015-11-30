@@ -66,9 +66,9 @@ public:
     /** True if the account was newly created on this login. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool NewlyCreated;
-    /**  */
+    /** Settings specific to this user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* UserSettings;
+        UPlayFabJsonObject* SettingsForUser;
 };
 
 USTRUCT(BlueprintType)
@@ -292,9 +292,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Username;
 
-    /**  */
+    /** Settings specific to this user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* UserSettings;
+        UPlayFabJsonObject* SettingsForUser;
 };
 
 

@@ -777,6 +777,14 @@ FString UPlayFabUtilities::getErrorText(int32 code)
             returnText = "ResettableStatisticVersionRequired";
             break;
 
+        case 1191:
+            returnText = "NotAuthorizedByTitle";
+            break;
+
+        case 1192:
+            returnText = "NoPartnerEnabled";
+            break;
+
     }
 
     // Return the text

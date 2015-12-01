@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Client
-// SDK Version: 0.0.151123
+// SDK Version: 0.0.151130
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -245,6 +245,40 @@ UPlayFabClientAPI* UPlayFabClientAPI::LoginWithFacebook(FClientLoginWithFacebook
     else
     {
         OutRestJsonObj->SetStringField(TEXT("AccessToken"), request.AccessToken);
+    }
+
+    OutRestJsonObj->SetBoolField(TEXT("CreateAccount"), request.CreateAccount);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Signs the user in using an iOS Game Center player identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+UPlayFabClientAPI* UPlayFabClientAPI::LoginWithGameCenter(FClientLoginWithGameCenterRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/LoginWithGameCenter";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = false;
+    manager->isLoginRequest = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetStringField(TEXT("TitleId"), IPlayFab::Get().getGameTitleId());
+    if (request.PlayerId.IsEmpty() || request.PlayerId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayerId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayerId"), request.PlayerId);
     }
 
     OutRestJsonObj->SetBoolField(TEXT("CreateAccount"), request.CreateAccount);
@@ -1466,6 +1500,40 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetFriendLeaderboard(FClientGetFriendLeade
     }
 
     OutRestJsonObj->SetNumberField(TEXT("StartPosition"), request.StartPosition);
+    OutRestJsonObj->SetNumberField(TEXT("MaxResultsCount"), request.MaxResultsCount);
+    OutRestJsonObj->SetBoolField(TEXT("IncludeSteamFriends"), request.IncludeSteamFriends);
+    OutRestJsonObj->SetBoolField(TEXT("IncludeFacebookFriends"), request.IncludeFacebookFriends);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Retrieves a list of ranked friends of the current player for the given statistic, centered on the currently signed-in user */
+UPlayFabClientAPI* UPlayFabClientAPI::GetFriendLeaderboardAroundCurrentUser(FClientGetFriendLeaderboardAroundCurrentUserRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetFriendLeaderboardAroundCurrentUser";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
     OutRestJsonObj->SetNumberField(TEXT("MaxResultsCount"), request.MaxResultsCount);
     OutRestJsonObj->SetBoolField(TEXT("IncludeSteamFriends"), request.IncludeSteamFriends);
     OutRestJsonObj->SetBoolField(TEXT("IncludeFacebookFriends"), request.IncludeFacebookFriends);

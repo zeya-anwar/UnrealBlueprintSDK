@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Client
-// SDK Version: 0.0.151123
+// SDK Version: 0.0.151130
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -42,6 +42,9 @@ FClientLoginResult UPlayFabClientModelDecoder::decodeLoginResultResponse(UPlayFa
     /** True if the account was newly created on this login. */
     tempStruct.NewlyCreated = response->GetObjectField("data")->GetBoolField("NewlyCreated");
 
+    /** Settings specific to this user. */
+    tempStruct.SettingsForUser = response->GetObjectField("data")->GetObjectField("SettingsForUser");
+
     return tempStruct;
 }
 
@@ -58,6 +61,9 @@ FClientRegisterPlayFabUserResult UPlayFabClientModelDecoder::decodeRegisterPlayF
 
     /** PlayFab unique user name. */
     tempStruct.Username = response->GetObjectField("data")->GetStringField("Username");
+
+    /** Settings specific to this user. */
+    tempStruct.SettingsForUser = response->GetObjectField("data")->GetObjectField("SettingsForUser");
 
     return tempStruct;
 }
@@ -326,6 +332,17 @@ FClientGetLeaderboardResult UPlayFabClientModelDecoder::decodeGetLeaderboardResu
 {
     // Temp ustruct
     FClientGetLeaderboardResult tempStruct;
+
+    /** Ordered listing of users and their positions in the requested leaderboard. */
+    tempStruct.Leaderboard = response->GetObjectField("data")->GetObjectArrayField("Leaderboard");
+
+    return tempStruct;
+}
+
+FClientGetFriendLeaderboardAroundCurrentUserResult UPlayFabClientModelDecoder::decodeGetFriendLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetFriendLeaderboardAroundCurrentUserResult tempStruct;
 
     /** Ordered listing of users and their positions in the requested leaderboard. */
     tempStruct.Leaderboard = response->GetObjectField("data")->GetObjectArrayField("Leaderboard");

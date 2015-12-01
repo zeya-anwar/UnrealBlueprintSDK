@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// SDK Version: 0.0.151123
+// SDK Version: 0.0.151130
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -73,6 +73,10 @@ public:
     /** Signs the user in using a Facebook access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* LoginWithFacebook(FClientLoginWithFacebookRequest request);
+
+    /** Signs the user in using an iOS Game Center player identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* LoginWithGameCenter(FClientLoginWithGameCenterRequest request);
 
     /** Signs the user in using a Google account access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
@@ -211,6 +215,10 @@ public:
     /** Retrieves a list of ranked friends of the current player for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetFriendLeaderboard(FClientGetFriendLeaderboardRequest request);
+
+    /** Retrieves a list of ranked friends of the current player for the given statistic, centered on the currently signed-in user */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetFriendLeaderboardAroundCurrentUser(FClientGetFriendLeaderboardAroundCurrentUserRequest request);
 
     /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))

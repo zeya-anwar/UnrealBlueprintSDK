@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.151123
+// SDK Version: 0.0.151130
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -66,6 +66,9 @@ public:
     /** True if the account was newly created on this login. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool NewlyCreated;
+    /** Settings specific to this user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* SettingsForUser;
 };
 
 USTRUCT(BlueprintType)
@@ -137,6 +140,22 @@ public:
         FString AccessToken;
 
     /** Automatically create a PlayFab account if one is not currently linked to this Facebook account. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        bool CreateAccount;
+};
+
+USTRUCT(BlueprintType)
+struct FClientLoginWithGameCenterRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique Game Center player id. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        FString PlayerId;
+
+    /** Automatically create a PlayFab account if one is not currently linked to this Game Center id. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
 };
@@ -289,6 +308,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Username;
 
+    /** Settings specific to this user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* SettingsForUser;
 };
 
 
@@ -1002,6 +1024,41 @@ public:
 
 USTRUCT(BlueprintType)
 struct FClientGetLeaderboardResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Ordered listing of users and their positions in the requested leaderboard. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Leaderboard;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetFriendLeaderboardAroundCurrentUserRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Statistic used to rank players for this leaderboard. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        FString StatisticName;
+
+    /** Maximum number of entries to retrieve. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        int32 MaxResultsCount;
+    /** Indicates whether Steam service friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        bool IncludeSteamFriends;
+    /** Indicates whether Facebook friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        bool IncludeFacebookFriends;
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetFriendLeaderboardAroundCurrentUserResult
 {
     GENERATED_USTRUCT_BODY()
 

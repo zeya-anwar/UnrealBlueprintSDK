@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.151123
+// SDK Version: 0.0.151130
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -775,6 +775,14 @@ FString UPlayFabUtilities::getErrorText(int32 code)
 
     case 1190:
         returnText = "ResettableStatisticVersionRequired";
+        break;
+
+    case 1191:
+        returnText = "NotAuthorizedByTitle";
+        break;
+
+    case 1192:
+        returnText = "NoPartnerEnabled";
         break;
 
     }

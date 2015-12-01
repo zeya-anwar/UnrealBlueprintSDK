@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.151123
+// SDK Version: 0.0.151130
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"

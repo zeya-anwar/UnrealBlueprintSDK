@@ -158,6 +158,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetLeaderboardResult decodeGetLeaderboardResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetFriendLeaderboardAroundCurrentUserResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
+        static FClientGetFriendLeaderboardAroundCurrentUserResult decodeGetFriendLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetLeaderboardAroundCurrentUserResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetLeaderboardAroundCurrentUserResult decodeGetLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response);

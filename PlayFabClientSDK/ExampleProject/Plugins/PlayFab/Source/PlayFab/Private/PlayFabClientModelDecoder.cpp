@@ -339,6 +339,17 @@ FClientGetLeaderboardResult UPlayFabClientModelDecoder::decodeGetLeaderboardResu
     return tempStruct;
 }
 
+FClientGetFriendLeaderboardAroundCurrentUserResult UPlayFabClientModelDecoder::decodeGetFriendLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetFriendLeaderboardAroundCurrentUserResult tempStruct;
+
+    /** Ordered listing of users and their positions in the requested leaderboard. */
+    tempStruct.Leaderboard = response->GetObjectField("data")->GetObjectArrayField("Leaderboard");
+
+    return tempStruct;
+}
+
 FClientGetLeaderboardAroundCurrentUserResult UPlayFabClientModelDecoder::decodeGetLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

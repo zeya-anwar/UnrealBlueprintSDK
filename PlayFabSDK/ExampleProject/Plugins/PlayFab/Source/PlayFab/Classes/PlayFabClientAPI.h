@@ -549,6 +549,15 @@ public:
 
 
 
+    ///////////////////////////////////////////////////////
+    // Advertising
+    //////////////////////////////////////////////////////
+    /** Attributes an install for advertisment. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Advertising ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* AttributeInstall(FClientAttributeInstallRequest request);
+
+
+
     /** PlayFab Request Info */
     FString PlayFabRequestURL;
     bool useSecretKey = false;

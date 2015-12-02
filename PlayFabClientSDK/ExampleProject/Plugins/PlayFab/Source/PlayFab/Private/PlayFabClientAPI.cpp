@@ -4079,6 +4079,49 @@ UPlayFabClientAPI* UPlayFabClientAPI::OpenTrade(FClientOpenTradeRequest request)
 }
 
 
+///////////////////////////////////////////////////////
+// Advertising
+//////////////////////////////////////////////////////
+/** Attributes an install for advertisment. */
+UPlayFabClientAPI* UPlayFabClientAPI::AttributeInstall(FClientAttributeInstallRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/AttributeInstall";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.Idfa.IsEmpty() || request.Idfa == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Idfa"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Idfa"), request.Idfa);
+    }
+
+    if (request.Android_Id.IsEmpty() || request.Android_Id == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Android_Id"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Android_Id"), request.Android_Id);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+
 
 void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {

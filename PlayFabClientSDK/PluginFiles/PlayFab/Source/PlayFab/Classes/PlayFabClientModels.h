@@ -3130,3 +3130,35 @@ public:
 };
 
 
+
+///////////////////////////////////////////////////////
+// Advertising
+//////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FClientAttributeInstallRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The IdentifierForAdvertisers for iOS Devices. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Advertising Models")
+        FString Idfa;
+
+    /** The Android Id for this Android device. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Advertising Models")
+        FString Android_Id;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientAttributeInstallResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+

@@ -785,6 +785,10 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         returnText = "NoPartnerEnabled";
         break;
 
+    case 1193:
+        returnText = "InvalidPartnerResponse";
+        break;
+
     }
 
     // Return the text

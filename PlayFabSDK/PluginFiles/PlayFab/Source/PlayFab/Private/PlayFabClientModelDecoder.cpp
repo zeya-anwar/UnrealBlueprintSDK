@@ -1196,3 +1196,17 @@ FClientOpenTradeResponse UPlayFabClientModelDecoder::decodeOpenTradeResponseResp
 
 
 
+///////////////////////////////////////////////////////
+// Advertising
+//////////////////////////////////////////////////////
+
+FClientAttributeInstallResult UPlayFabClientModelDecoder::decodeAttributeInstallResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientAttributeInstallResult tempStruct;
+
+    return tempStruct;
+}
+
+
+

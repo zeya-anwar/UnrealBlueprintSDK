@@ -2319,8 +2319,6 @@ void UPlayFabAdminAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpRe
     myResponse.responseError.decodeError(ResponseJsonObj);
     myResponse.responseData = ResponseJsonObj;
 
-    if (isLoginRequest) IPlayFab::Get().setSessionTicket(myResponse.responseData->GetObjectField("data")->GetStringField("SessionTicket"));
-
     // Broadcast the result event
     Admin_proxy->OnPlayFabResponse.Broadcast(myResponse, true);
 }

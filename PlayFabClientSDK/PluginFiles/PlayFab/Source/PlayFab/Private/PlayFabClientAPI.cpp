@@ -4182,7 +4182,30 @@ void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
     myResponse.responseError.decodeError(ResponseJsonObj);
     myResponse.responseData = ResponseJsonObj;
 
-    if (isLoginRequest) IPlayFab::Get().setSessionTicket(myResponse.responseData->GetObjectField("data")->GetStringField("SessionTicket"));
+    if (isLoginRequest)
+    {
+        auto pfSettings = IPlayFab::Get();
+        pfSettings.setSessionTicket(myResponse.responseData->GetObjectField("data")->GetStringField("SessionTicket"));
+        bool needsAttribution = myResponse.responseData->GetObjectField("data")->GetBoolField("SessionTicket");
+        if (needsAttribution && !pfSettings.DisableAdvertising && !pfSettings.AdvertisingIdType.IsEmpty() && !pfSettings.AdvertisingIdValue.IsEmpty())
+        {
+            FClientAttributeInstallRequest request;
+            bool makeAttrCall = true;
+            if (pfSettings.AdvertisingIdType == IPlayFab::AD_TYPE_IDFA)
+                request.Idfa = pfSettings.AdvertisingIdValue;
+            else if (pfSettings.AdvertisingIdType == IPlayFab::AD_TYPE_ANDROID_ID)
+                request.Android_Id = pfSettings.AdvertisingIdValue;
+            else
+                makeAttrCall = false;
+            if (makeAttrCall)
+            {
+                auto callObj = AttributeInstall(request);
+                callObj->Activate();
+                if (callObj->IsValidLowLevel())
+                    callObj->ConditionalBeginDestroy();
+            }
+        }
+    }
 
     // Broadcast the result event
     Client_proxy->OnPlayFabResponse.Broadcast(myResponse, true);

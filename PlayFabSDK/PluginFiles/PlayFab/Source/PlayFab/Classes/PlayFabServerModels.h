@@ -141,6 +141,28 @@ public:
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
+struct FServerDeleteUsersRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** An array of unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabIds;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerDeleteUsersResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetLeaderboardRequest
 {
     GENERATED_USTRUCT_BODY()

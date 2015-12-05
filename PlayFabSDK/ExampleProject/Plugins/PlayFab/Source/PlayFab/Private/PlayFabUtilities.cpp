@@ -789,6 +789,10 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         returnText = "InvalidPartnerResponse";
         break;
 
+    case 1194:
+        returnText = "APINotEnabledForGameServerAccess";
+        break;
+
     }
 
     // Return the text

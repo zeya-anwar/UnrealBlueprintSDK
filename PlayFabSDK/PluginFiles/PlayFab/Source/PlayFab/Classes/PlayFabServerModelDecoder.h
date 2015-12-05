@@ -58,6 +58,10 @@ public:
     // Player Data Management
     //////////////////////////////////////////////////////
 
+    /** Decode the DeleteUsersResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
+        static FServerDeleteUsersResult decodeDeleteUsersResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetLeaderboardResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetLeaderboardResult decodeGetLeaderboardResultResponse(UPlayFabJsonObject* response);

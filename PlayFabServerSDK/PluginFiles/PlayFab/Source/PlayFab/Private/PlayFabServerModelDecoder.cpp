@@ -70,6 +70,14 @@ FServerSendPushNotificationResult UPlayFabServerModelDecoder::decodeSendPushNoti
 // Player Data Management
 //////////////////////////////////////////////////////
 
+FServerDeleteUsersResult UPlayFabServerModelDecoder::decodeDeleteUsersResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerDeleteUsersResult tempStruct;
+
+    return tempStruct;
+}
+
 FServerGetLeaderboardResult UPlayFabServerModelDecoder::decodeGetLeaderboardResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

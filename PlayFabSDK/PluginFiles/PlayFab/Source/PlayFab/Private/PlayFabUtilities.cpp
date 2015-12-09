@@ -229,6 +229,8 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1192: returnText = "NoPartnerEnabled"; break;
     case 1193: returnText = "InvalidPartnerResponse"; break;
     case 1194: returnText = "APINotEnabledForGameServerAccess"; break;
+    case 1195: returnText = "StatisticNotFound"; break;
+    case 1196: returnText = "StatisticNameConflict"; break;
     }
 
     // Return the text

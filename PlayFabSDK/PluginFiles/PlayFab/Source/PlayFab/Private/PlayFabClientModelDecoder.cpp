@@ -381,7 +381,7 @@ FClientGetUserStatisticsResult UPlayFabClientModelDecoder::decodeGetUserStatisti
     FClientGetUserStatisticsResult tempStruct;
 
     /** User statistics for the active title. */
-    tempStruct.UserStatistics = response->GetObjectField("data")->GetObjectField("UserStatistics");
+    tempStruct.Statistics = response->GetObjectField("data")->GetObjectField("Statistics");
 
     return tempStruct;
 }

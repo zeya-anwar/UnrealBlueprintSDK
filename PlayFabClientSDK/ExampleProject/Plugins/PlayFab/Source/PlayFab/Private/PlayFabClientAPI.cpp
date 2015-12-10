@@ -460,6 +460,49 @@ UPlayFabClientAPI* UPlayFabClientAPI::LoginWithPlayFab(FClientLoginWithPlayFabRe
     return manager;
 }
 
+/** Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+UPlayFabClientAPI* UPlayFabClientAPI::LoginWithPSN(FClientLoginWithPSNRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/LoginWithPSN";
+    manager->useSessionTicket = false;
+    manager->isLoginRequest = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetStringField(TEXT("TitleId"), IPlayFab::Get().getGameTitleId());
+    if (request.AuthCode.IsEmpty() || request.AuthCode == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AuthCode"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AuthCode"), request.AuthCode);
+    }
+
+    if (request.RedirectUri.IsEmpty() || request.RedirectUri == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("RedirectUri"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("RedirectUri"), request.RedirectUri);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("IssuerId"), request.IssuerId);
+    OutRestJsonObj->SetBoolField(TEXT("CreateAccount"), request.CreateAccount);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
 UPlayFabClientAPI* UPlayFabClientAPI::LoginWithSteam(FClientLoginWithSteamRequest request)
 {
@@ -482,6 +525,39 @@ UPlayFabClientAPI* UPlayFabClientAPI::LoginWithSteam(FClientLoginWithSteamReques
     else
     {
         OutRestJsonObj->SetStringField(TEXT("SteamTicket"), request.SteamTicket);
+    }
+
+    OutRestJsonObj->SetBoolField(TEXT("CreateAccount"), request.CreateAccount);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+UPlayFabClientAPI* UPlayFabClientAPI::LoginWithXbox(FClientLoginWithXboxRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/LoginWithXbox";
+    manager->useSessionTicket = false;
+    manager->isLoginRequest = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetStringField(TEXT("TitleId"), IPlayFab::Get().getGameTitleId());
+    if (request.XboxToken.IsEmpty() || request.XboxToken == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("XboxToken"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("XboxToken"), request.XboxToken);
     }
 
     OutRestJsonObj->SetBoolField(TEXT("CreateAccount"), request.CreateAccount);
@@ -761,6 +837,40 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromGoogleIDs(FClientGetPlayF
         OutRestJsonObj->SetStringArrayField(TEXT("GoogleIDs"), GoogleIDsArray);
     }
 
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers. */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromPSNAccountIDs(FClientGetPlayFabIDsFromPSNAccountIDsRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPlayFabIDsFromPSNAccountIDs";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.PSNAccountIDs.IsEmpty() || request.PSNAccountIDs == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PSNAccountIDs"));
+    }
+    else
+    {
+        TArray<FString> PSNAccountIDsArray;
+        FString(request.PSNAccountIDs).ParseIntoArray(PSNAccountIDsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("PSNAccountIDs"), PSNAccountIDsArray);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("IssuerId"), request.IssuerId);
 
 
     // Add Request to manager
@@ -1140,6 +1250,46 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkKongregate(FClientLinkKongregateAccoun
     return manager;
 }
 
+/** Links the PlayStation Network account associated with the provided access code to the user's PlayFab account */
+UPlayFabClientAPI* UPlayFabClientAPI::LinkPSNAccount(FClientLinkPSNAccountRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/LinkPSNAccount";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.AuthCode.IsEmpty() || request.AuthCode == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AuthCode"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AuthCode"), request.AuthCode);
+    }
+
+    if (request.RedirectUri.IsEmpty() || request.RedirectUri == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("RedirectUri"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("RedirectUri"), request.RedirectUri);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("IssuerId"), request.IssuerId);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account */
 UPlayFabClientAPI* UPlayFabClientAPI::LinkSteamAccount(FClientLinkSteamAccountRequest request)
 {
@@ -1160,6 +1310,36 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkSteamAccount(FClientLinkSteamAccountRe
     else
     {
         OutRestJsonObj->SetStringField(TEXT("SteamTicket"), request.SteamTicket);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Links the Xbox Live account associated with the provided access code to the user's PlayFab account */
+UPlayFabClientAPI* UPlayFabClientAPI::LinkXboxAccount(FClientLinkXboxAccountRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/LinkXboxAccount";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.XboxToken.IsEmpty() || request.XboxToken == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("XboxToken"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("XboxToken"), request.XboxToken);
     }
 
 
@@ -1384,6 +1564,27 @@ UPlayFabClientAPI* UPlayFabClientAPI::UnlinkKongregate(FClientUnlinkKongregateAc
     return manager;
 }
 
+/** Unlinks the related PSN account from the user's PlayFab account */
+UPlayFabClientAPI* UPlayFabClientAPI::UnlinkPSNAccount(FClientUnlinkPSNAccountRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/UnlinkPSNAccount";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Unlinks the related Steam account from the user's PlayFab account */
 UPlayFabClientAPI* UPlayFabClientAPI::UnlinkSteamAccount(FClientUnlinkSteamAccountRequest request)
 {
@@ -1397,6 +1598,36 @@ UPlayFabClientAPI* UPlayFabClientAPI::UnlinkSteamAccount(FClientUnlinkSteamAccou
 
 
     // Setup request object
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Unlinks the related Xbox Live account from the user's PlayFab account */
+UPlayFabClientAPI* UPlayFabClientAPI::UnlinkXboxAccount(FClientUnlinkXboxAccountRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/UnlinkXboxAccount";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.XboxToken.IsEmpty() || request.XboxToken == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("XboxToken"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("XboxToken"), request.XboxToken);
+    }
+
 
 
     // Add Request to manager
@@ -3403,6 +3634,77 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateSharedGroupData(FClientUpdateSharedG
 ///////////////////////////////////////////////////////
 // Sony-specific APIs
 //////////////////////////////////////////////////////
+/** Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items */
+UPlayFabClientAPI* UPlayFabClientAPI::ConsumePSNEntitlements(FClientConsumePSNEntitlementsRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/ConsumePSNEntitlements";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("ServiceLabel"), request.ServiceLabel);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Uses the supplied OAuth code to refresh the internally cached player PSN auth token */
+UPlayFabClientAPI* UPlayFabClientAPI::RefreshPSNAuthToken(FClientRefreshPSNAuthTokenRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/RefreshPSNAuthToken";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.AuthCode.IsEmpty() || request.AuthCode == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AuthCode"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AuthCode"), request.AuthCode);
+    }
+
+    if (request.RedirectUri.IsEmpty() || request.RedirectUri == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("RedirectUri"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("RedirectUri"), request.RedirectUri);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("IssuerId"), request.IssuerId);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 
 ///////////////////////////////////////////////////////
 // Server-Side Cloud Script
@@ -3867,6 +4169,64 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterData(FClientUpdateCharacter
 ///////////////////////////////////////////////////////
 // Amazon-Specific APIs
 //////////////////////////////////////////////////////
+/** Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item */
+UPlayFabClientAPI* UPlayFabClientAPI::ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/ValidateAmazonIAPReceipt";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.ReceiptId.IsEmpty() || request.ReceiptId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ReceiptId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ReceiptId"), request.ReceiptId);
+    }
+
+    if (request.UserId.IsEmpty() || request.UserId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("UserId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("UserId"), request.UserId);
+    }
+
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+    if (request.CurrencyCode.IsEmpty() || request.CurrencyCode == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CurrencyCode"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CurrencyCode"), request.CurrencyCode);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("PurchasePrice"), request.PurchasePrice);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 
 ///////////////////////////////////////////////////////
 // Trading

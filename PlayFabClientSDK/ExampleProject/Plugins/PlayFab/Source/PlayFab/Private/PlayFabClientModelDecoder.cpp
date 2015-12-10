@@ -129,6 +129,17 @@ FClientGetPlayFabIDsFromGoogleIDsResult UPlayFabClientModelDecoder::decodeGetPla
     return tempStruct;
 }
 
+FClientGetPlayFabIDsFromPSNAccountIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromPSNAccountIDsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayFabIDsFromPSNAccountIDsResult tempStruct;
+
+    /** Mapping of PlayStation Network identifiers to PlayFab identifiers. */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectArrayField("Data");
+
+    return tempStruct;
+}
+
 FClientGetPlayFabIDsFromSteamIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromSteamIDsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -231,10 +242,26 @@ FClientLinkKongregateAccountResult UPlayFabClientModelDecoder::decodeLinkKongreg
     return tempStruct;
 }
 
+FClientLinkPSNAccountResult UPlayFabClientModelDecoder::decodeLinkPSNAccountResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientLinkPSNAccountResult tempStruct;
+
+    return tempStruct;
+}
+
 FClientLinkSteamAccountResult UPlayFabClientModelDecoder::decodeLinkSteamAccountResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FClientLinkSteamAccountResult tempStruct;
+
+    return tempStruct;
+}
+
+FClientLinkXboxAccountResult UPlayFabClientModelDecoder::decodeLinkXboxAccountResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientLinkXboxAccountResult tempStruct;
 
     return tempStruct;
 }
@@ -303,10 +330,26 @@ FClientUnlinkKongregateAccountResult UPlayFabClientModelDecoder::decodeUnlinkKon
     return tempStruct;
 }
 
+FClientUnlinkPSNAccountResult UPlayFabClientModelDecoder::decodeUnlinkPSNAccountResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUnlinkPSNAccountResult tempStruct;
+
+    return tempStruct;
+}
+
 FClientUnlinkSteamAccountResult UPlayFabClientModelDecoder::decodeUnlinkSteamAccountResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FClientUnlinkSteamAccountResult tempStruct;
+
+    return tempStruct;
+}
+
+FClientUnlinkXboxAccountResult UPlayFabClientModelDecoder::decodeUnlinkXboxAccountResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUnlinkXboxAccountResult tempStruct;
 
     return tempStruct;
 }
@@ -960,6 +1003,25 @@ FClientUpdateSharedGroupDataResult UPlayFabClientModelDecoder::decodeUpdateShare
 // Sony-specific APIs
 //////////////////////////////////////////////////////
 
+FClientConsumePSNEntitlementsResult UPlayFabClientModelDecoder::decodeConsumePSNEntitlementsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientConsumePSNEntitlementsResult tempStruct;
+
+    /** Array of items granted to the player as a result of consuming entitlements. */
+    tempStruct.ItemsGranted = response->GetObjectField("data")->GetObjectArrayField("ItemsGranted");
+
+    return tempStruct;
+}
+
+FClientEmptyResult UPlayFabClientModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientEmptyResult tempStruct;
+
+    return tempStruct;
+}
+
 
 
 ///////////////////////////////////////////////////////
@@ -1129,6 +1191,14 @@ FClientUpdateCharacterDataResult UPlayFabClientModelDecoder::decodeUpdateCharact
 ///////////////////////////////////////////////////////
 // Amazon-Specific APIs
 //////////////////////////////////////////////////////
+
+FClientValidateAmazonReceiptResult UPlayFabClientModelDecoder::decodeValidateAmazonReceiptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientValidateAmazonReceiptResult tempStruct;
+
+    return tempStruct;
+}
 
 
 

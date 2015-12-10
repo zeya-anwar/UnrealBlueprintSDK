@@ -1172,7 +1172,7 @@ public:
 
     /** User statistics for the active title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* Statistics;
+        UPlayFabJsonObject* UserStatistics;
 
 };
 

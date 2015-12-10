@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -216,6 +216,41 @@ UPlayFabServerAPI* UPlayFabServerAPI::SendPushNotification(FServerSendPushNotifi
 ///////////////////////////////////////////////////////
 // Player Data Management
 //////////////////////////////////////////////////////
+/** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. */
+UPlayFabServerAPI* UPlayFabServerAPI::DeleteUsers(FServerDeleteUsersRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/DeleteUsers";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.PlayFabIds.IsEmpty() || request.PlayFabIds == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabIds"));
+    }
+    else
+    {
+        TArray<FString> PlayFabIdsArray;
+        FString(request.PlayFabIds).ParseIntoArray(PlayFabIdsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("PlayFabIds"), PlayFabIdsArray);
+    }
+
+    OutRestJsonObj->SetStringField(TEXT("TitleId"), IPlayFab::Get().getGameTitleId());
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboard(FServerGetLeaderboardRequest request)
 {
@@ -3176,8 +3211,6 @@ void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
 
     myResponse.responseError.decodeError(ResponseJsonObj);
     myResponse.responseData = ResponseJsonObj;
-
-    if (isLoginRequest) IPlayFab::Get().setSessionTicket(myResponse.responseData->GetObjectField("data")->GetStringField("SessionTicket"));
 
     // Broadcast the result event
     Server_proxy->OnPlayFabResponse.Broadcast(myResponse, true);

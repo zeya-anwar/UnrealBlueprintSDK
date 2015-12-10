@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -57,6 +57,10 @@ public:
     ///////////////////////////////////////////////////////
     // Player Data Management
     //////////////////////////////////////////////////////
+
+    /** Decode the DeleteUsersResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
+        static FServerDeleteUsersResult decodeDeleteUsersResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetLeaderboardResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")

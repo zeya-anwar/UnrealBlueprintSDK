@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -242,6 +242,29 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientLoginWithPSNRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Auth code provided by the PSN OAuth provider. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        FString AuthCode;
+
+    /** Redirect URI supplied to PSN when requesting an auth code */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        FString RedirectUri;
+
+    /** Id of the PSN issuer environment. If null, defaults to 256 (production) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        int32 IssuerId;
+    /** Automatically create a PlayFab account if one is not currently linked to this PSN account. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        bool CreateAccount;
+};
+
+USTRUCT(BlueprintType)
 struct FClientLoginWithSteamRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -253,6 +276,22 @@ public:
         FString SteamTicket;
 
     /** Automatically create a PlayFab account if one is not currently linked to this Steam account. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        bool CreateAccount;
+};
+
+USTRUCT(BlueprintType)
+struct FClientLoginWithXboxRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", ""). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        FString XboxToken;
+
+    /** Automatically create a PlayFab account if one is not currently linked to this Xbox Live account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
 };
@@ -463,6 +502,35 @@ struct FClientGetPlayFabIDsFromGoogleIDsResult
 public:
 
     /** Mapping of Google identifiers to PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        TArray<UPlayFabJsonObject*> Data;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromPSNAccountIDsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of unique PlayStation Network identifiers for which the title needs to get PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString PSNAccountIDs;
+
+    /** Id of the PSN issuer environment. If null, defaults to 256 (production) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        int32 IssuerId;
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromPSNAccountIDsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Mapping of PlayStation Network identifiers to PlayFab identifiers. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         TArray<UPlayFabJsonObject*> Data;
 
@@ -762,6 +830,35 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientLinkPSNAccountRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Authentication code provided by the PlayStation Network. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString AuthCode;
+
+    /** Redirect URI supplied to PSN when requesting an auth code */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString RedirectUri;
+
+    /** Id of the PSN issuer environment. If null, defaults to 256 (production) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        int32 IssuerId;
+};
+
+USTRUCT(BlueprintType)
+struct FClientLinkPSNAccountResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientLinkSteamAccountRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -776,6 +873,28 @@ public:
 
 USTRUCT(BlueprintType)
 struct FClientLinkSteamAccountResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientLinkXboxAccountRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", ""). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString XboxToken;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientLinkXboxAccountResult
 {
     GENERATED_USTRUCT_BODY()
 
@@ -948,6 +1067,24 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientUnlinkPSNAccountRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUnlinkPSNAccountResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientUnlinkSteamAccountRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -958,6 +1095,28 @@ public:
 
 USTRUCT(BlueprintType)
 struct FClientUnlinkSteamAccountResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUnlinkXboxAccountRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Token provided by the Xbox Live SDK/XDK method GetTokenAndSignatureAsync("POST", "https://playfabapi.com", ""). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString XboxToken;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUnlinkXboxAccountResult
 {
     GENERATED_USTRUCT_BODY()
 
@@ -2579,6 +2738,64 @@ public:
 // Sony-specific APIs
 //////////////////////////////////////////////////////
 
+USTRUCT(BlueprintType)
+struct FClientConsumePSNEntitlementsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Which catalog to match granted entitlements against. If null, defaults to title default catalog */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Sony-specific APIs Models")
+        FString CatalogVersion;
+
+    /** Id of the PSN service label to consume entitlements from */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Sony-specific APIs Models")
+        int32 ServiceLabel;
+};
+
+USTRUCT(BlueprintType)
+struct FClientConsumePSNEntitlementsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of items granted to the player as a result of consuming entitlements. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Sony-specific APIs Models")
+        TArray<UPlayFabJsonObject*> ItemsGranted;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientEmptyResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientRefreshPSNAuthTokenRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Auth code returned by PSN OAuth system. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Sony-specific APIs Models")
+        FString AuthCode;
+
+    /** Redirect URI supplied to PSN when requesting an auth code */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Sony-specific APIs Models")
+        FString RedirectUri;
+
+    /** Id of the PSN issuer environment. If null, defaults to 256 (production) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Sony-specific APIs Models")
+        int32 IssuerId;
+};
+
 
 
 ///////////////////////////////////////////////////////
@@ -2973,6 +3190,43 @@ public:
 // Amazon-Specific APIs
 //////////////////////////////////////////////////////
 
+USTRUCT(BlueprintType)
+struct FClientValidateAmazonReceiptRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** ReceiptId returned by the Amazon App Store in-app purchase API */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
+        FString ReceiptId;
+
+    /** AmazonId of the user making the purchase as returned by the Amazon App Store in-app purchase API */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
+        FString UserId;
+
+    /** Catalog version to use when granting receipt item. If null, defaults to primary catalog. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
+        FString CatalogVersion;
+
+    /** Currency used for the purchase. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
+        FString CurrencyCode;
+
+    /** Amount of the stated currency paid for the object. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
+        int32 PurchasePrice;
+};
+
+USTRUCT(BlueprintType)
+struct FClientValidateAmazonReceiptResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
 
 
 ///////////////////////////////////////////////////////
@@ -3127,6 +3381,38 @@ public:
     /**  */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         UPlayFabJsonObject* Trade;
+};
+
+
+
+///////////////////////////////////////////////////////
+// Advertising
+//////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FClientAttributeInstallRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The IdentifierForAdvertisers for iOS Devices. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Advertising Models")
+        FString Idfa;
+
+    /** The Android Id for this Android device. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Advertising Models")
+        FString Android_Id;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientAttributeInstallResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
 };
 
 

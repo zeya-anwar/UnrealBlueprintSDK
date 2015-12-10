@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Matchmaker
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -333,8 +333,6 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
 
     myResponse.responseError.decodeError(ResponseJsonObj);
     myResponse.responseData = ResponseJsonObj;
-
-    if (isLoginRequest) IPlayFab::Get().setSessionTicket(myResponse.responseData->GetObjectField("data")->GetStringField("SessionTicket"));
 
     // Broadcast the result event
     Matchmaker_proxy->OnPlayFabResponse.Broadcast(myResponse, true);

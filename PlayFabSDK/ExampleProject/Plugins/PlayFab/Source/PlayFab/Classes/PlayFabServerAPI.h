@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Server
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -80,6 +80,10 @@ public:
     ///////////////////////////////////////////////////////
     // Player Data Management
     //////////////////////////////////////////////////////
+    /** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* DeleteUsers(FServerDeleteUsersRequest request);
+
     /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* GetLeaderboard(FServerGetLeaderboardRequest request);

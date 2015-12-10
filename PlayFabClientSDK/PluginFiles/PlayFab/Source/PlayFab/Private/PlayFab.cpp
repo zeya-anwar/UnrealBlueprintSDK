@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file is the main cpp file for the plugin. We set up globals here.
 //
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -10,6 +10,10 @@
 
 const FString IPlayFab::PlayFabURL(TEXT(".playfabapi.com"));
 const FString IPlayFab::PlayFabLogicURL(TEXT(".playfablogic.com/"));
+
+const FString IPlayFab::AD_TYPE_IDFA(TEXT("Idfa"));
+const FString IPlayFab::AD_TYPE_ANDROID_ID(TEXT("Android_Id"));
+
 
 class FPlayFab : public IPlayFab
 {

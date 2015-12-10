@@ -4,7 +4,7 @@
 // Automatically generated header file for the UE4 PlayFab plugin.
 // This header file contains the utilities functions that supports the plugin.
 //
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -27,10 +27,6 @@ public:
     /** Set the cloud script version from the get cloud script version call. This is called when needed by the api. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Settings")
         static void setCloudScriptVersion(int32 CloudScriptVersion);
-
-    ///** Set the Session Key retrieved during login or authentication. This is called when needed by the api. */
-    //UFUNCTION(BlueprintCallable, Category = "PlayFab | Authentication")
-    //    static void setSessionTicket(FString SessionTicket);
 
     /** Returns the error code text given the error code */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Errors")

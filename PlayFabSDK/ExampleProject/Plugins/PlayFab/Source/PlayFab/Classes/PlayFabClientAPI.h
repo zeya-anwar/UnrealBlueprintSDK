@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// SDK Version: 0.0.151130
+// SDK Version: 0.0.151210
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -94,9 +94,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* LoginWithPlayFab(FClientLoginWithPlayFabRequest request);
 
+    /** Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* LoginWithPSN(FClientLoginWithPSNRequest request);
+
     /** Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* LoginWithSteam(FClientLoginWithSteamRequest request);
+
+    /** Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* LoginWithXbox(FClientLoginWithXboxRequest request);
 
     /** Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. You must supply either a username or an email address. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
@@ -126,6 +134,10 @@ public:
     /** Retrieves the unique PlayFab identifiers for the given set of Google identifiers. The Google identifiers are the IDs for the user accounts, available as "id" in the Google+ People API calls. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetPlayFabIDsFromGoogleIDs(FClientGetPlayFabIDsFromGoogleIDsRequest request);
+
+    /** Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetPlayFabIDsFromPSNAccountIDs(FClientGetPlayFabIDsFromPSNAccountIDsRequest request);
 
     /** Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile IDs for the user accounts, available as SteamId in the Steamworks Community API calls. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -163,9 +175,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* LinkKongregate(FClientLinkKongregateAccountRequest request);
 
+    /** Links the PlayStation Network account associated with the provided access code to the user's PlayFab account */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* LinkPSNAccount(FClientLinkPSNAccountRequest request);
+
     /** Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* LinkSteamAccount(FClientLinkSteamAccountRequest request);
+
+    /** Links the Xbox Live account associated with the provided access code to the user's PlayFab account */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* LinkXboxAccount(FClientLinkXboxAccountRequest request);
 
     /** Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to change the password */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -199,9 +219,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* UnlinkKongregate(FClientUnlinkKongregateAccountRequest request);
 
+    /** Unlinks the related PSN account from the user's PlayFab account */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* UnlinkPSNAccount(FClientUnlinkPSNAccountRequest request);
+
     /** Unlinks the related Steam account from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* UnlinkSteamAccount(FClientUnlinkSteamAccountRequest request);
+
+    /** Unlinks the related Xbox Live account from the user's PlayFab account */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* UnlinkXboxAccount(FClientUnlinkXboxAccountRequest request);
 
     /** Updates the title specific display name for the user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -453,6 +481,14 @@ public:
     ///////////////////////////////////////////////////////
     // Sony-specific APIs
     //////////////////////////////////////////////////////
+    /** Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Sony-specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* ConsumePSNEntitlements(FClientConsumePSNEntitlementsRequest request);
+
+    /** Uses the supplied OAuth code to refresh the internally cached player PSN auth token */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Sony-specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* RefreshPSNAuthToken(FClientRefreshPSNAuthTokenRequest request);
+
 
 
     ///////////////////////////////////////////////////////
@@ -522,6 +558,10 @@ public:
     ///////////////////////////////////////////////////////
     // Amazon-Specific APIs
     //////////////////////////////////////////////////////
+    /** Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Amazon-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request);
+
 
 
     ///////////////////////////////////////////////////////
@@ -546,6 +586,15 @@ public:
     /** Opens a new outstanding trade. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* OpenTrade(FClientOpenTradeRequest request);
+
+
+
+    ///////////////////////////////////////////////////////
+    // Advertising
+    //////////////////////////////////////////////////////
+    /** Attributes an install for advertisment. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Advertising ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* AttributeInstall(FClientAttributeInstallRequest request);
 
 
 

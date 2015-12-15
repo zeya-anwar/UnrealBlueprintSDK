@@ -100,6 +100,20 @@ FServerGetLeaderboardAroundUserResult UPlayFabServerModelDecoder::decodeGetLeade
     return tempStruct;
 }
 
+FServerGetPlayerStatisticsResult UPlayFabServerModelDecoder::decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayerStatisticsResult tempStruct;
+
+    /** PlayFab unique identifier of the user whose statistics are being returned */
+    tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
+
+    /** User statistics for the requested user. */
+    tempStruct.Statistics = response->GetObjectField("data")->GetObjectArrayField("Statistics");
+
+    return tempStruct;
+}
+
 FServerGetUserDataResult UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -127,6 +141,14 @@ FServerGetUserStatisticsResult UPlayFabServerModelDecoder::decodeGetUserStatisti
 
     /** User statistics for the requested user. */
     tempStruct.UserStatistics = response->GetObjectField("data")->GetObjectField("UserStatistics");
+
+    return tempStruct;
+}
+
+FServerUpdatePlayerStatisticsResult UPlayFabServerModelDecoder::decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerUpdatePlayerStatisticsResult tempStruct;
 
     return tempStruct;
 }
@@ -390,6 +412,25 @@ FServerUpdateUserInventoryItemDataResult UPlayFabServerModelDecoder::decodeUpdat
 // Friend List Management
 //////////////////////////////////////////////////////
 
+FServerEmptyResult UPlayFabServerModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerEmptyResult tempStruct;
+
+    return tempStruct;
+}
+
+FServerGetFriendsListResult UPlayFabServerModelDecoder::decodeGetFriendsListResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetFriendsListResult tempStruct;
+
+    /** Array of friends found. */
+    tempStruct.Friends = response->GetObjectField("data")->GetObjectArrayField("Friends");
+
+    return tempStruct;
+}
+
 
 
 ///////////////////////////////////////////////////////
@@ -476,14 +517,6 @@ FServerCreateSharedGroupResult UPlayFabServerModelDecoder::decodeCreateSharedGro
 
     /** Unique identifier for the shared group. */
     tempStruct.SharedGroupId = response->GetObjectField("data")->GetStringField("SharedGroupId");
-
-    return tempStruct;
-}
-
-FServerEmptyResult UPlayFabServerModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerEmptyResult tempStruct;
 
     return tempStruct;
 }

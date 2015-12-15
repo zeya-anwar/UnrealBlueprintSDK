@@ -219,6 +219,46 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserT
 ///////////////////////////////////////////////////////
 // Player Data Management
 //////////////////////////////////////////////////////
+/**  */
+UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreatePlayerStatisticDefinitionRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/CreatePlayerStatisticDefinition";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.Name.IsEmpty() || request.Name == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Name"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Name"), request.Name);
+    }
+
+    if (request.VersionChangeInterval.IsEmpty() || request.VersionChangeInterval == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("VersionChangeInterval"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request)
 {
@@ -280,6 +320,59 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest req
     OutRestJsonObj->SetNumberField(TEXT("Year"), request.Year);
     OutRestJsonObj->SetNumberField(TEXT("Month"), request.Month);
     OutRestJsonObj->SetNumberField(TEXT("Day"), request.Day);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/**  */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticDefinitions(FAdminGetPlayerStatisticDefinitionsRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetPlayerStatisticDefinitions";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/**  */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticVersions(FAdminGetPlayerStatisticVersionsRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetPlayerStatisticVersions";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
 
 
     // Add Request to manager
@@ -552,6 +645,86 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest
     return manager;
 }
 
+/**  */
+UPlayFabAdminAPI* UPlayFabAdminAPI::IncrementPlayerStatisticVersion(FAdminIncrementPlayerStatisticVersionRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/IncrementPlayerStatisticVersion";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Attempts to process an order refund through the original real money payment provider. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::RefundPurchase(FAdminRefundPurchaseRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/RefundPurchase";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.OrderId.IsEmpty() || request.OrderId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("OrderId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("OrderId"), request.OrderId);
+    }
+
+    if (request.Reason.IsEmpty() || request.Reason == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Reason"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Reason"), request.Reason);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Completely removes all statistics for the specified user, for the current game */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatisticsRequest request)
 {
@@ -573,6 +746,104 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatistic
     else
     {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Attempts to resolve a dispute with the original order's payment provider. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::ResolvePurchaseDispute(FAdminResolvePurchaseDisputeRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/ResolvePurchaseDispute";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.OrderId.IsEmpty() || request.OrderId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("OrderId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("OrderId"), request.OrderId);
+    }
+
+    if (request.Reason.IsEmpty() || request.Reason == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Reason"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Reason"), request.Reason);
+    }
+
+    if (request.Outcome.IsEmpty() || request.Outcome == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Outcome"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Outcome"), request.Outcome);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/**  */
+UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdatePlayerStatisticDefinitionRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/UpdatePlayerStatisticDefinition";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+    if (request.VersionChangeInterval.IsEmpty() || request.VersionChangeInterval == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("VersionChangeInterval"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
     }
 
 

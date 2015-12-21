@@ -256,10 +256,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboardAroundCurrentUser(FClientGetLeaderboardAroundCurrentUserRequest request);
 
-    /**  */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* GetPlayerStatistics(FClientGetPlayerStatisticsRequest request);
-
     /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetUserData(FClientGetUserDataRequest request);
@@ -279,10 +275,6 @@ public:
     /** Retrieves the details of all title-specific statistics for the user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetUserStatistics(FClientGetUserStatisticsRequest request);
-
-    /**  */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* UpdatePlayerStatistics(FClientUpdatePlayerStatisticsRequest request);
 
     /** Creates and updates the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))

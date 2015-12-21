@@ -84,10 +84,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* DeleteUsers(FServerDeleteUsersRequest request);
 
-    /** Retrieves a list of ranked friends of the given player for the given statistic, starting from the indicated point in the leaderboard */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* GetFriendLeaderboard(FServerGetFriendLeaderboardRequest request);
-
     /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* GetLeaderboard(FServerGetLeaderboardRequest request);
@@ -95,10 +91,6 @@ public:
     /** Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* GetLeaderboardAroundUser(FServerGetLeaderboardAroundUserRequest request);
-
-    /**  */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* GetPlayerStatistics(FServerGetPlayerStatisticsRequest request);
 
     /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -127,10 +119,6 @@ public:
     /** Retrieves the details of all title-specific statistics for the user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* GetUserStatistics(FServerGetUserStatisticsRequest request);
-
-    /**  */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* UpdatePlayerStatistics(FServerUpdatePlayerStatisticsRequest request);
 
     /** Updates the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -263,18 +251,6 @@ public:
     ///////////////////////////////////////////////////////
     // Friend List Management
     //////////////////////////////////////////////////////
-    /** Adds the Friend user to the friendlist of the user with PlayFabId. At least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* AddFriend(FServerAddFriendRequest request);
-
-    /** Retrieves the current friends for the user with PlayFabId, constrained to users who have PlayFab accounts. Friends from linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* GetFriendsList(FServerGetFriendsListRequest request);
-
-    /** Removes the specified friend from the the user's friend list */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* RemoveFriend(FServerRemoveFriendRequest request);
-
 
 
     ///////////////////////////////////////////////////////

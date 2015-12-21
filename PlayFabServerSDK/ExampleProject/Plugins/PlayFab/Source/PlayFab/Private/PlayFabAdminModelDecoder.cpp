@@ -61,17 +61,6 @@ FAdminUpdateUserTitleDisplayNameResult UPlayFabAdminModelDecoder::decodeUpdateUs
 // Player Data Management
 //////////////////////////////////////////////////////
 
-FAdminCreatePlayerStatisticDefinitionResult UPlayFabAdminModelDecoder::decodeCreatePlayerStatisticDefinitionResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminCreatePlayerStatisticDefinitionResult tempStruct;
-
-    /** created statistic definition */
-    tempStruct.Statistic = response->GetObjectField("data")->GetObjectField("Statistic");
-
-    return tempStruct;
-}
-
 FAdminDeleteUsersResult UPlayFabAdminModelDecoder::decodeDeleteUsersResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -87,28 +76,6 @@ FAdminGetDataReportResult UPlayFabAdminModelDecoder::decodeGetDataReportResultRe
 
     /**  */
     tempStruct.DownloadUrl = response->GetObjectField("data")->GetStringField("DownloadUrl");
-
-    return tempStruct;
-}
-
-FAdminGetPlayerStatisticDefinitionsResult UPlayFabAdminModelDecoder::decodeGetPlayerStatisticDefinitionsResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminGetPlayerStatisticDefinitionsResult tempStruct;
-
-    /** definitions of all statistics for the title */
-    tempStruct.Statistics = response->GetObjectField("data")->GetObjectArrayField("Statistics");
-
-    return tempStruct;
-}
-
-FAdminGetPlayerStatisticVersionsResult UPlayFabAdminModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminGetPlayerStatisticVersionsResult tempStruct;
-
-    /** version change history of the statistic */
-    tempStruct.StatisticVersions = response->GetObjectField("data")->GetObjectArrayField("StatisticVersions");
 
     return tempStruct;
 }
@@ -130,54 +97,10 @@ FAdminGetUserDataResult UPlayFabAdminModelDecoder::decodeGetUserDataResultRespon
     return tempStruct;
 }
 
-FAdminIncrementPlayerStatisticVersionResult UPlayFabAdminModelDecoder::decodeIncrementPlayerStatisticVersionResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminIncrementPlayerStatisticVersionResult tempStruct;
-
-    /** version change history of the statistic */
-    tempStruct.StatisticVersion = response->GetObjectField("data")->GetObjectField("StatisticVersion");
-
-    return tempStruct;
-}
-
-FAdminRefundPurchaseResponse UPlayFabAdminModelDecoder::decodeRefundPurchaseResponseResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminRefundPurchaseResponse tempStruct;
-
-    /** The order's updated purchase status. */
-    tempStruct.PurchaseStatus = response->GetObjectField("data")->GetStringField("PurchaseStatus");
-
-    return tempStruct;
-}
-
 FAdminResetUserStatisticsResult UPlayFabAdminModelDecoder::decodeResetUserStatisticsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FAdminResetUserStatisticsResult tempStruct;
-
-    return tempStruct;
-}
-
-FAdminResolvePurchaseDisputeResponse UPlayFabAdminModelDecoder::decodeResolvePurchaseDisputeResponseResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminResolvePurchaseDisputeResponse tempStruct;
-
-    /** The order's updated purchase status. */
-    tempStruct.PurchaseStatus = response->GetObjectField("data")->GetStringField("PurchaseStatus");
-
-    return tempStruct;
-}
-
-FAdminUpdatePlayerStatisticDefinitionResult UPlayFabAdminModelDecoder::decodeUpdatePlayerStatisticDefinitionResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminUpdatePlayerStatisticDefinitionResult tempStruct;
-
-    /** updated statistic definition */
-    tempStruct.Statistic = response->GetObjectField("data")->GetObjectField("Statistic");
 
     return tempStruct;
 }

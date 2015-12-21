@@ -70,10 +70,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetLeaderboardAroundUserResult decodeGetLeaderboardAroundUserResultResponse(UPlayFabJsonObject* response);
 
-    /** Decode the GetPlayerStatisticsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
-        static FServerGetPlayerStatisticsResult decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response);
-
     /** Decode the GetUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetUserDataResult decodeGetUserDataResultResponse(UPlayFabJsonObject* response);
@@ -81,10 +77,6 @@ public:
     /** Decode the GetUserStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetUserStatisticsResult decodeGetUserStatisticsResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the UpdatePlayerStatisticsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
-        static FServerUpdatePlayerStatisticsResult decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
@@ -184,14 +176,6 @@ public:
     // Friend List Management
     //////////////////////////////////////////////////////
 
-    /** Decode the EmptyResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management Models")
-        static FServerEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the GetFriendsListResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management Models")
-        static FServerGetFriendsListResult decodeGetFriendsListResultResponse(UPlayFabJsonObject* response);
-
 
 
     ///////////////////////////////////////////////////////
@@ -239,6 +223,10 @@ public:
     /** Decode the CreateSharedGroupResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
         static FServerCreateSharedGroupResult decodeCreateSharedGroupResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the EmptyResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
+        static FServerEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetPublisherDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")

@@ -163,48 +163,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FServerGetFriendLeaderboardRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** The player whose friend leaderboard to get */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString PlayFabId;
-
-    /** Statistic used to rank friends for this leaderboard. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString StatisticName;
-
-    /** Position in the leaderboard to start this listing (defaults to the first entry). */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        int32 StartPosition;
-    /** Maximum number of entries to retrieve. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        int32 MaxResultsCount;
-    /** Indicates whether Steam service friends should be included in the response. Default is true. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        bool IncludeSteamFriends;
-    /** Indicates whether Facebook friends should be included in the response. Default is true. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        bool IncludeFacebookFriends;
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetLeaderboardResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** Ordered list of leaderboard entries. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> Leaderboard;
-
-};
-
-USTRUCT(BlueprintType)
 struct FServerGetLeaderboardRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -221,6 +179,19 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetLeaderboardResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Ordered list of leaderboard entries. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Leaderboard;
+
 };
 
 USTRUCT(BlueprintType)
@@ -253,40 +224,6 @@ public:
     /** Ordered list of leaderboard entries. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         TArray<UPlayFabJsonObject*> Leaderboard;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetPlayerStatisticsRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** user for whom statistics are being requested */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString PlayFabId;
-
-    /** statistics to return */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString StatisticNames;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetPlayerStatisticsResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** PlayFab unique identifier of the user whose statistics are being returned */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString PlayFabId;
-
-    /** User statistics for the requested user. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> Statistics;
 
 };
 
@@ -357,32 +294,6 @@ public:
     /** User statistics for the requested user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* UserStatistics;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerUpdatePlayerStatisticsRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString PlayFabId;
-
-    /** Statistics to be updated with the provided values */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> Statistics;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerUpdatePlayerStatisticsResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
 
 };
 
@@ -1154,93 +1065,6 @@ public:
 // Friend List Management
 //////////////////////////////////////////////////////
 
-USTRUCT(BlueprintType)
-struct FServerAddFriendRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** PlayFab identifier of the player to add a new friend. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString PlayFabId;
-
-    /** The PlayFab identifier of the user being added. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString FriendPlayFabId;
-
-    /** The PlayFab username of the user being added */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString FriendUsername;
-
-    /** Email address of the user being added. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString FriendEmail;
-
-    /** Title-specific display name of the user to being added. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString FriendTitleDisplayName;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerEmptyResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetFriendsListRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** PlayFab identifier of the player whose friend list to get. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString PlayFabId;
-
-    /** Indicates whether Steam service friends should be included in the response. Default is true. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        bool IncludeSteamFriends;
-    /** Indicates whether Facebook friends should be included in the response. Default is true. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        bool IncludeFacebookFriends;
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetFriendsListResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** Array of friends found. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        TArray<UPlayFabJsonObject*> Friends;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerRemoveFriendRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** PlayFab identifier of the friend account which is to be removed. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString FriendPlayFabId;
-
-    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
-        FString PlayFabId;
-
-};
-
 
 
 ///////////////////////////////////////////////////////
@@ -1464,6 +1288,15 @@ public:
     /** Unique identifier for the shared group. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
         FString SharedGroupId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerEmptyResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
 
 };
 

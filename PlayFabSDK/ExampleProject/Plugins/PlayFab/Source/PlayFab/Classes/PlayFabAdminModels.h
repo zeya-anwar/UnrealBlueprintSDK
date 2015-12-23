@@ -190,7 +190,7 @@ struct FAdminGetDataReportResult
 
 public:
 
-    /**  */
+    /** The URL where the requested report can be downloaded. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         FString DownloadUrl;
 
@@ -1443,10 +1443,10 @@ public:
     /** Number of content items returned. We currently have a maximum of 1000 items limit. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Content Models")
         int32 ItemCount;
-    /** The total size of listed contents in bytes */
+    /** The total size of listed contents in bytes. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Content Models")
         int32 TotalSize;
-    /**  */
+    /** List of content items. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Content Models")
         TArray<UPlayFabJsonObject*> Contents;
 

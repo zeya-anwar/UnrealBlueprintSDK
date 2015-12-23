@@ -74,7 +74,7 @@ FAdminGetDataReportResult UPlayFabAdminModelDecoder::decodeGetDataReportResultRe
     // Temp ustruct
     FAdminGetDataReportResult tempStruct;
 
-    /**  */
+    /** The URL where the requested report can be downloaded. */
     tempStruct.DownloadUrl = response->GetObjectField("data")->GetStringField("DownloadUrl");
 
     return tempStruct;
@@ -598,10 +598,10 @@ FAdminGetContentListResult UPlayFabAdminModelDecoder::decodeGetContentListResult
     /** Number of content items returned. We currently have a maximum of 1000 items limit. */
     tempStruct.ItemCount = int(response->GetObjectField("data")->GetNumberField("ItemCount"));
 
-    /** The total size of listed contents in bytes */
+    /** The total size of listed contents in bytes. */
     tempStruct.TotalSize = int(response->GetObjectField("data")->GetNumberField("TotalSize"));
 
-    /**  */
+    /** List of content items. */
     tempStruct.Contents = response->GetObjectField("data")->GetObjectArrayField("Contents");
 
     return tempStruct;

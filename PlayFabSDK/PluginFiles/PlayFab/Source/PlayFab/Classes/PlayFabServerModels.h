@@ -969,10 +969,10 @@ struct FServerReportPlayerServerResult
 
 public:
 
-    /**  */
+    /** Indicates whether this action completed successfully. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         bool Updated;
-    /**  */
+    /** The number of remaining reports which may be filed today by this reporting player. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         int32 SubmissionsRemaining;
 };
@@ -1543,7 +1543,7 @@ struct FServerListUsersCharactersResult
 
 public:
 
-    /**  */
+    /** The requested list of characters. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Characters Models")
         TArray<UPlayFabJsonObject*> Characters;
 

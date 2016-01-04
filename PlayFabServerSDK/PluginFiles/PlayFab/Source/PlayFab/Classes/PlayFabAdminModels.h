@@ -506,11 +506,11 @@ struct FAdminUpdateCatalogItemsRequest
 
 public:
 
-    /** which catalog is being updated */
+    /** Which catalog is being updated */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         FString CatalogVersion;
 
-    /** array of catalog items to be submitted */
+    /** Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Catalog;
 

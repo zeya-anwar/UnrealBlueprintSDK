@@ -367,10 +367,10 @@ FServerReportPlayerServerResult UPlayFabServerModelDecoder::decodeReportPlayerSe
     // Temp ustruct
     FServerReportPlayerServerResult tempStruct;
 
-    /**  */
+    /** Indicates whether this action completed successfully. */
     tempStruct.Updated = response->GetObjectField("data")->GetBoolField("Updated");
 
-    /**  */
+    /** The number of remaining reports which may be filed today by this reporting player. */
     tempStruct.SubmissionsRemaining = int(response->GetObjectField("data")->GetNumberField("SubmissionsRemaining"));
 
     return tempStruct;
@@ -573,7 +573,7 @@ FServerListUsersCharactersResult UPlayFabServerModelDecoder::decodeListUsersChar
     // Temp ustruct
     FServerListUsersCharactersResult tempStruct;
 
-    /**  */
+    /** The requested list of characters. */
     tempStruct.Characters = response->GetObjectField("data")->GetObjectArrayField("Characters");
 
     return tempStruct;

@@ -22,7 +22,7 @@ FClientGetPhotonAuthenticationTokenResult UPlayFabClientModelDecoder::decodeGetP
     // Temp ustruct
     FClientGetPhotonAuthenticationTokenResult tempStruct;
 
-    /**  */
+    /** The Photon authentication token for this game-session. */
     tempStruct.PhotonCustomAuthenticationToken = response->GetObjectField("data")->GetStringField("PhotonCustomAuthenticationToken");
 
     return tempStruct;
@@ -683,10 +683,10 @@ FClientReportPlayerClientResult UPlayFabClientModelDecoder::decodeReportPlayerCl
     // Temp ustruct
     FClientReportPlayerClientResult tempStruct;
 
-    /**  */
+    /** Indicates whether this action completed successfully. */
     tempStruct.Updated = response->GetObjectField("data")->GetBoolField("Updated");
 
-    /**  */
+    /** The number of remaining reports which may be filed today. */
     tempStruct.SubmissionsRemaining = int(response->GetObjectField("data")->GetNumberField("SubmissionsRemaining"));
 
     return tempStruct;
@@ -1096,7 +1096,7 @@ FClientListUsersCharactersResult UPlayFabClientModelDecoder::decodeListUsersChar
     // Temp ustruct
     FClientListUsersCharactersResult tempStruct;
 
-    /**  */
+    /** The requested list of characters. */
     tempStruct.Characters = response->GetObjectField("data")->GetObjectArrayField("Characters");
 
     return tempStruct;
@@ -1146,7 +1146,7 @@ FClientGrantCharacterToUserResult UPlayFabClientModelDecoder::decodeGrantCharact
     /** Type of character that was created. */
     tempStruct.CharacterType = response->GetObjectField("data")->GetStringField("CharacterType");
 
-    /**  */
+    /** Indicates whether this character was created successfully. */
     tempStruct.Result = response->GetObjectField("data")->GetBoolField("Result");
 
     return tempStruct;
@@ -1211,7 +1211,7 @@ FClientAcceptTradeResponse UPlayFabClientModelDecoder::decodeAcceptTradeResponse
     // Temp ustruct
     FClientAcceptTradeResponse tempStruct;
 
-    /**  */
+    /** Details about trade which was just accepted. */
     tempStruct.Trade = response->GetObjectField("data")->GetObjectField("Trade");
 
     return tempStruct;
@@ -1222,7 +1222,7 @@ FClientCancelTradeResponse UPlayFabClientModelDecoder::decodeCancelTradeResponse
     // Temp ustruct
     FClientCancelTradeResponse tempStruct;
 
-    /**  */
+    /** Details about trade which was just canceled. */
     tempStruct.Trade = response->GetObjectField("data")->GetObjectField("Trade");
 
     return tempStruct;
@@ -1233,10 +1233,10 @@ FClientGetPlayerTradesResponse UPlayFabClientModelDecoder::decodeGetPlayerTrades
     // Temp ustruct
     FClientGetPlayerTradesResponse tempStruct;
 
-    /**  */
+    /** The trades for this player which are currently available to be accepted. */
     tempStruct.OpenedTrades = response->GetObjectField("data")->GetObjectArrayField("OpenedTrades");
 
-    /**  */
+    /** History of trades which this player has accepted. */
     tempStruct.AcceptedTrades = response->GetObjectField("data")->GetObjectArrayField("AcceptedTrades");
 
     return tempStruct;
@@ -1247,7 +1247,7 @@ FClientGetTradeStatusResponse UPlayFabClientModelDecoder::decodeGetTradeStatusRe
     // Temp ustruct
     FClientGetTradeStatusResponse tempStruct;
 
-    /**  */
+    /** Information about the requested trade. */
     tempStruct.Trade = response->GetObjectField("data")->GetObjectField("Trade");
 
     return tempStruct;
@@ -1258,7 +1258,7 @@ FClientOpenTradeResponse UPlayFabClientModelDecoder::decodeOpenTradeResponseResp
     // Temp ustruct
     FClientOpenTradeResponse tempStruct;
 
-    /**  */
+    /** The information about the trade that was just opened. */
     tempStruct.Trade = response->GetObjectField("data")->GetObjectField("Trade");
 
     return tempStruct;

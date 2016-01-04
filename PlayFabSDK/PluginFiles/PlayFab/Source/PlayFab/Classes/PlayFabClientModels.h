@@ -29,7 +29,7 @@ struct FClientGetPhotonAuthenticationTokenRequest
 
 public:
 
-    /**  */
+    /** The Photon applicationId for the game you wish to log into. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString PhotonApplicationId;
 
@@ -42,7 +42,7 @@ struct FClientGetPhotonAuthenticationTokenResult
 
 public:
 
-    /**  */
+    /** The Photon authentication token for this game-session. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString PhotonCustomAuthenticationToken;
 
@@ -174,7 +174,7 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Google account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
-    /**  */
+    /** Deprecated - unused */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString PublisherId;
 
@@ -913,7 +913,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString Email;
 
-    /**  */
+    /** Deprecated - unused */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString PublisherId;
 
@@ -1911,10 +1911,10 @@ struct FClientReportPlayerClientResult
 
 public:
 
-    /**  */
+    /** Indicates whether this action completed successfully. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         bool Updated;
-    /**  */
+    /** The number of remaining reports which may be filed today. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         int32 SubmissionsRemaining;
 };
@@ -2948,7 +2948,7 @@ struct FClientListUsersCharactersResult
 
 public:
 
-    /**  */
+    /** The requested list of characters. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         TArray<UPlayFabJsonObject*> Characters;
 
@@ -3092,7 +3092,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         FString CharacterType;
 
-    /**  */
+    /** Indicates whether this character was created successfully. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         bool Result;
 };
@@ -3261,7 +3261,7 @@ struct FClientAcceptTradeResponse
 
 public:
 
-    /**  */
+    /** Details about trade which was just accepted. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         UPlayFabJsonObject* Trade;
 };
@@ -3286,7 +3286,7 @@ struct FClientCancelTradeResponse
 
 public:
 
-    /**  */
+    /** Details about trade which was just canceled. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         UPlayFabJsonObject* Trade;
 };
@@ -3311,11 +3311,11 @@ struct FClientGetPlayerTradesResponse
 
 public:
 
-    /**  */
+    /** The trades for this player which are currently available to be accepted. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         TArray<UPlayFabJsonObject*> OpenedTrades;
 
-    /**  */
+    /** History of trades which this player has accepted. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         TArray<UPlayFabJsonObject*> AcceptedTrades;
 
@@ -3345,7 +3345,7 @@ struct FClientGetTradeStatusResponse
 
 public:
 
-    /**  */
+    /** Information about the requested trade. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         UPlayFabJsonObject* Trade;
 };
@@ -3378,7 +3378,7 @@ struct FClientOpenTradeResponse
 
 public:
 
-    /**  */
+    /** The information about the trade that was just opened. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         UPlayFabJsonObject* Trade;
 };

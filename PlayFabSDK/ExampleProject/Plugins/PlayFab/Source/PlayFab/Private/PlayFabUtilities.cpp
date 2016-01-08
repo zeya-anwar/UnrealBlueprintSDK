@@ -231,6 +231,8 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1194: returnText = "APINotEnabledForGameServerAccess"; break;
     case 1195: returnText = "StatisticNotFound"; break;
     case 1196: returnText = "StatisticNameConflict"; break;
+    case 1197: returnText = "StatisticVersionClosedForWrites"; break;
+    case 1198: returnText = "StatisticVersionInvalid"; break;
     }
 
     // Return the text

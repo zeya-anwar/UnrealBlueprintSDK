@@ -69,7 +69,7 @@ Below are the steps to add an API call node, and manipulate the response JSON ob
 
 * Open the Unreal editor by double clicking on the project file.
 * Got to the top bar and select "Blueprints" then "Open Level Blueprint" from the drop down menu.
-* ![Open Level Blueprint](OpenLevelBP.png)
+* ![Open Level Blueprint](http://api.playfab.com/images/git/ubp_OpenLevelBP.png)
 * Right click on an empty spot and add an "Add Custom Event Node".
 * Name it something you will remember to be called from the console manager.
 * Now add two string variables named "Email" and "Password" to the custom event.
@@ -79,7 +79,7 @@ Below are the steps to add an API call node, and manipulate the response JSON ob
 * The response on the node is a JSON object that can be manipulated using the provided JSON functions located in "Play Fab/Json".
 * Drag off from the response node and search for "Encode Json"
 * Now wire the "Encode Json" return up to a "Print String" node. Below is an image of the complete system.
-* ![Open Level Blueprint](Login.png)
+* ![Login Blueprint](http://api.playfab.com/images/git/ubp_Login.png)
 * Now run the project and in the play in editor window hit the tilde ~ key. This will bring up the console manager.
 * Now type "ce TestLogin "email@email.com" password"
 * Notice you add quotes to email but not to password.

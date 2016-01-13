@@ -67,24 +67,45 @@ The plugin is fairly simple to use. The main things you need to learn are; how t
 
 Below are the steps to add an API call node, and manipulate the response JSON object. We will make a simple login with email function that will print out the response JSON object to the screen.
 
-* Open the Unreal editor by double clicking on the project file.
-* Got to the top bar and select "Blueprints" then "Open Level Blueprint" from the drop down menu.
-* ![Open Level Blueprint](http://api.playfab.com/images/git/ubp_OpenLevelBP.png)
-* Right click on an empty spot and add an "Add Custom Event Node".
-* Name it something you will remember to be called from the console manager.
-* Now add two string variables named "Email" and "Password" to the custom event.
-* Right click again and search for the "Login With Email Address" node located in "Play Fab/Client/Authentication".
-* You can also type "login" in the search field to find it quicker.
-* Now wire up the "Email" on the event to the "Email" on the api node. Do the same for the "Password".
-* The response on the node is a JSON object that can be manipulated using the provided JSON functions located in "Play Fab/Json".
-* Drag off from the response node and search for "Encode Json"
-* Now wire the "Encode Json" return up to a "Print String" node. Below is an image of the complete system.
-* ![Login Blueprint](http://api.playfab.com/images/git/ubp_Login.png)
-* Now run the project and in the play in editor window hit the tilde ~ key. This will bring up the console manager.
-* Now type "ce TestLogin "email@email.com" password"
+* PlayFab Title setup:
+ * You must have a PlayFab account, and you must have created a Title on our website: (https://developer.playfab.com/en-us/studios)
+ * Open the Unreal editor by double clicking on the project file.
+ * Got to the top bar and select "Blueprints" then "Open Level Blueprint" from the drop down menu.
+ * You must tell UnrealSDK about your PlayFab Title
+  * In the Level Blueprint, there is a call to SetPlayFabSettings.  Fill in any relevant information including:
+  * The TitleId field is mandatory for all api-calls
+  * The DevSecretKey is required for all server/admin/matchmaker calls - For security reasons you must never expose this value to players, and neither input nor publish this value into a client build
+  * ![TitleId Blueprint](http://api.playfab.com/images/git/ubp_TitleId.png)
+* Unreal Setup
+ * ![Open Level Blueprint](http://api.playfab.com/images/git/ubp_OpenLevelBP.png)
+ * The example project will have some pre-made blueprints that you may use as a template
+ * Register and a player, and log in
+  * For this we require two api-calls: [RegisterPlayFabUser](https://api.playfab.com/Documentation/Client/method/RegisterPlayFabUser) and [LoginWithEmailAddress](https://api.playfab.com/Documentation/Client/method/LoginWithEmailAddress)
+  * Setup the register command:
+   * Right click on an empty spot and add an "Add Custom Event Node".
+   * Name it "TestRegister"
+   * Now add string variables named: "Username", "Email", and "Password" to the custom event.
+   * Right click again and search for the "Register PlayFab User" node located in "Play Fab/Client/Authentication".
+    * You can also type "register" in the search field to find it quicker.
+   * Wire up the event inputs to the RegisterPlayFabUser inputs
+   * ![TestRegister Blueprint](http://api.playfab.com/images/git/ubp_TestRegister.png)
+  * Setup the login command:
+   * Right click on an empty spot and add an "Add Custom Event Node".
+   * Name it "TestLogin"
+   * Now add string variables named: "Email", and "Password" to the custom event.
+   * Right click again and search for the "Login With Email Address" node located in "Play Fab/Client/Authentication".
+    * You can also type "login" in the search field to find it quicker.
+   * Wire up the event inputs to the RegisterPlayFabUser inputs
+  * Both:
+   * The response on the node is a JSON object that can be manipulated using the provided JSON functions located in "Play Fab/Json".
+   * Drag off from the response node and search for "Encode Json"
+   * Now wire the "Encode Json" return up to a "Print String" node. Below is an image of the complete system.
+   * ![Login Blueprint](http://api.playfab.com/images/git/ubp_Login.png)
+* Now run the project and in the play in editor window hit the tilde ~ key twice. This will bring up the console manager, and make it mostly fullscreen
+* The first time you run (only), execute this: *ce TestRegister "myUsername" "email@email.com" password*
+* After you register, you can execute this every time you start a client: *ce TestLogin "email@email.com" password*
 * Notice you add quotes to email but not to password.
 * Once you hit enter you should get the response printed out on the screen.
-
 
 6. Troubleshooting:
 ----

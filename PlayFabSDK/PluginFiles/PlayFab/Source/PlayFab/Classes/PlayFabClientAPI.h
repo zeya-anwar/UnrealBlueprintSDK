@@ -248,6 +248,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetFriendLeaderboardAroundCurrentUser(FClientGetFriendLeaderboardAroundCurrentUserRequest request);
 
+    /** Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab user. If PlayFabId is empty or null will return currently logged in user. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetFriendLeaderboardAroundPlayer(FClientGetFriendLeaderboardAroundPlayerRequest request);
+
     /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboard(FClientGetLeaderboardRequest request);
@@ -255,6 +259,10 @@ public:
     /** Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboardAroundCurrentUser(FClientGetLeaderboardAroundCurrentUserRequest request);
+
+    /** Retrieves a list of ranked users for the given statistic, centered on the requested player. If PlayFabId is empty or null will return currently logged in user. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetLeaderboardAroundPlayer(FClientGetLeaderboardAroundPlayerRequest request);
 
     /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -524,7 +532,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetCharacterLeaderboard(FClientGetCharacterLeaderboardRequest request);
 
-    /** Retrieves a list of ranked characters for the given statistic, centered on the currently signed-in user */
+    /** Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboardAroundCharacter(FClientGetLeaderboardAroundCharacterRequest request);
 

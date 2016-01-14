@@ -1737,6 +1737,48 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetFriendLeaderboardAroundCurrentUser(FCli
     return manager;
 }
 
+/** Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab user. If PlayFabId is empty or null will return currently logged in user. */
+UPlayFabClientAPI* UPlayFabClientAPI::GetFriendLeaderboardAroundPlayer(FClientGetFriendLeaderboardAroundPlayerRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetFriendLeaderboardAroundPlayer";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("MaxResultsCount"), request.MaxResultsCount);
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    OutRestJsonObj->SetBoolField(TEXT("IncludeSteamFriends"), request.IncludeSteamFriends);
+    OutRestJsonObj->SetBoolField(TEXT("IncludeFacebookFriends"), request.IncludeFacebookFriends);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
 UPlayFabClientAPI* UPlayFabClientAPI::GetLeaderboard(FClientGetLeaderboardRequest request)
 {
@@ -1782,6 +1824,46 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetLeaderboardAroundCurrentUser(FClientGet
 
 
     // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("MaxResultsCount"), request.MaxResultsCount);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Retrieves a list of ranked users for the given statistic, centered on the requested player. If PlayFabId is empty or null will return currently logged in user. */
+UPlayFabClientAPI* UPlayFabClientAPI::GetLeaderboardAroundPlayer(FClientGetLeaderboardAroundPlayerRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetLeaderboardAroundPlayer";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
     if (request.StatisticName.IsEmpty() || request.StatisticName == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
@@ -3884,7 +3966,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetCharacterLeaderboard(FClientGetCharacte
     return manager;
 }
 
-/** Retrieves a list of ranked characters for the given statistic, centered on the currently signed-in user */
+/** Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID */
 UPlayFabClientAPI* UPlayFabClientAPI::GetLeaderboardAroundCharacter(FClientGetLeaderboardAroundCharacterRequest request)
 {
     // Objects containing request data

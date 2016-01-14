@@ -2387,15 +2387,15 @@ struct FClientMatchmakeRequest
 
 public:
 
-    /** build version to match against */
+    /** build version to match against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString BuildVersion;
 
-    /** region to match make against */
+    /** region to match make against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString Region;
 
-    /** game mode to match make against */
+    /** game mode to match make against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString GameMode;
 

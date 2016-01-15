@@ -233,6 +233,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1196: returnText = "StatisticNameConflict"; break;
     case 1197: returnText = "StatisticVersionClosedForWrites"; break;
     case 1198: returnText = "StatisticVersionInvalid"; break;
+    case 1199: returnText = "APIClientRequestRateLimitExceeded"; break;
     }
 
     // Return the text

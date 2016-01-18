@@ -978,6 +978,36 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerRevokeInventoryItemRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString PlayFabId;
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CharacterId;
+
+    /** Unique PlayFab assigned instance identifier of the item */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString ItemInstanceId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerRevokeInventoryResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerSubtractCharacterVirtualCurrencyRequest
 {
     GENERATED_USTRUCT_BODY()

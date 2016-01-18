@@ -166,6 +166,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerReportPlayerServerResult decodeReportPlayerServerResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the RevokeInventoryResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
+        static FServerRevokeInventoryResult decodeRevokeInventoryResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the UpdateUserInventoryItemDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerUpdateUserInventoryItemDataResult decodeUpdateUserInventoryItemDataResultResponse(UPlayFabJsonObject* response);

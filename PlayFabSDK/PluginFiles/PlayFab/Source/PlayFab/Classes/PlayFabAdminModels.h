@@ -772,7 +772,7 @@ struct FAdminRevokeInventoryItemRequest
 
 public:
 
-    /** unique PlayFab identifier for the user account which is to have the specified item removed */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString PlayFabId;
 
@@ -780,7 +780,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString CharacterId;
 
-    /** unique PlayFab identifier for the item instance to be removed */
+    /** Unique PlayFab assigned instance identifier of the item */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString ItemInstanceId;
 

@@ -376,6 +376,14 @@ FServerReportPlayerServerResult UPlayFabServerModelDecoder::decodeReportPlayerSe
     return tempStruct;
 }
 
+FServerRevokeInventoryResult UPlayFabServerModelDecoder::decodeRevokeInventoryResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRevokeInventoryResult tempStruct;
+
+    return tempStruct;
+}
+
 FServerUpdateUserInventoryItemDataResult UPlayFabServerModelDecoder::decodeUpdateUserInventoryItemDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

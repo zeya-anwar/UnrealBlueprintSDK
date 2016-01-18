@@ -234,6 +234,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* ReportPlayer(FServerReportPlayerServerRequest request);
 
+    /** Revokes access to an item in a user's inventory */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* RevokeInventoryItem(FServerRevokeInventoryItemRequest request);
+
     /** Decrements the character's balance of the specified virtual currency by the stated amount */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* SubtractCharacterVirtualCurrency(FServerSubtractCharacterVirtualCurrencyRequest request);

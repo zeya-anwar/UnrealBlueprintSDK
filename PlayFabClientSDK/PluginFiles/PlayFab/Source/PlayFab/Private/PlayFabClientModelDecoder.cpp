@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Client
-// SDK Version: 0.0.151210
+// SDK Version: 0.0.160118
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -393,10 +393,32 @@ FClientGetFriendLeaderboardAroundCurrentUserResult UPlayFabClientModelDecoder::d
     return tempStruct;
 }
 
+FClientGetFriendLeaderboardAroundPlayerResult UPlayFabClientModelDecoder::decodeGetFriendLeaderboardAroundPlayerResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetFriendLeaderboardAroundPlayerResult tempStruct;
+
+    /** Ordered listing of users and their positions in the requested leaderboard. */
+    tempStruct.Leaderboard = response->GetObjectField("data")->GetObjectArrayField("Leaderboard");
+
+    return tempStruct;
+}
+
 FClientGetLeaderboardAroundCurrentUserResult UPlayFabClientModelDecoder::decodeGetLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FClientGetLeaderboardAroundCurrentUserResult tempStruct;
+
+    /** Ordered listing of users and their positions in the requested leaderboard. */
+    tempStruct.Leaderboard = response->GetObjectField("data")->GetObjectArrayField("Leaderboard");
+
+    return tempStruct;
+}
+
+FClientGetLeaderboardAroundPlayerResult UPlayFabClientModelDecoder::decodeGetLeaderboardAroundPlayerResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetLeaderboardAroundPlayerResult tempStruct;
 
     /** Ordered listing of users and their positions in the requested leaderboard. */
     tempStruct.Leaderboard = response->GetObjectField("data")->GetObjectArrayField("Leaderboard");

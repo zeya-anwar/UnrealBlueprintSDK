@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// SDK Version: 0.0.151210
+// SDK Version: 0.0.160118
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -248,6 +248,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetFriendLeaderboardAroundCurrentUser(FClientGetFriendLeaderboardAroundCurrentUserRequest request);
 
+    /** Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab user. If PlayFabId is empty or null will return currently logged in user. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetFriendLeaderboardAroundPlayer(FClientGetFriendLeaderboardAroundPlayerRequest request);
+
     /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboard(FClientGetLeaderboardRequest request);
@@ -255,6 +259,10 @@ public:
     /** Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboardAroundCurrentUser(FClientGetLeaderboardAroundCurrentUserRequest request);
+
+    /** Retrieves a list of ranked users for the given statistic, centered on the requested player. If PlayFabId is empty or null will return currently logged in user. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetLeaderboardAroundPlayer(FClientGetLeaderboardAroundPlayerRequest request);
 
     /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -417,7 +425,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetGameServerRegions(FClientGameServerRegionsRequest request);
 
-    /** Attempts to locate a game session matching the given parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound. Note that EnableQueue is deprecated at this time. */
+    /** Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound. Note that EnableQueue is deprecated at this time. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* Matchmake(FClientMatchmakeRequest request);
 
@@ -524,7 +532,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetCharacterLeaderboard(FClientGetCharacterLeaderboardRequest request);
 
-    /** Retrieves a list of ranked characters for the given statistic, centered on the currently signed-in user */
+    /** Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboardAroundCharacter(FClientGetLeaderboardAroundCharacterRequest request);
 

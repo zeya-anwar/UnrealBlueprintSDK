@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.151210
+// SDK Version: 0.0.160118
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -1170,7 +1170,7 @@ public:
     /** Position in the leaderboard to start this listing (defaults to the first entry). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 StartPosition;
-    /** Maximum number of entries to retrieve. */
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 MaxResultsCount;
     /** Indicates whether Steam service friends should be included in the response. Default is true. */
@@ -1205,7 +1205,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString StatisticName;
 
-    /** Maximum number of entries to retrieve. */
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 MaxResultsCount;
     /** Indicates whether Steam service friends should be included in the response. Default is true. */
@@ -1218,6 +1218,45 @@ public:
 
 USTRUCT(BlueprintType)
 struct FClientGetFriendLeaderboardAroundCurrentUserResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Ordered listing of users and their positions in the requested leaderboard. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Leaderboard;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetFriendLeaderboardAroundPlayerRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Statistic used to rank players for this leaderboard. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        FString StatisticName;
+
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        int32 MaxResultsCount;
+    /** PlayFab unique identifier of the user to center the leaderboard around. If null will center on the logged in user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        FString PlayFabId;
+
+    /** Indicates whether Steam service friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        bool IncludeSteamFriends;
+    /** Indicates whether Facebook friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        bool IncludeFacebookFriends;
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetFriendLeaderboardAroundPlayerResult
 {
     GENERATED_USTRUCT_BODY()
 
@@ -1243,7 +1282,7 @@ public:
     /** Position in the leaderboard to start this listing (defaults to the first entry). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 StartPosition;
-    /** Maximum number of entries to retrieve. */
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 MaxResultsCount;
 };
@@ -1259,13 +1298,46 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString StatisticName;
 
-    /** Maximum number of entries to retrieve. */
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 MaxResultsCount;
 };
 
 USTRUCT(BlueprintType)
 struct FClientGetLeaderboardAroundCurrentUserResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Ordered listing of users and their positions in the requested leaderboard. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Leaderboard;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetLeaderboardAroundPlayerRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** PlayFab unique identifier of the user to center the leaderboard around. If null will center on the logged in user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        FString PlayFabId;
+
+    /** Statistic used to rank players for this leaderboard. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        FString StatisticName;
+
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        int32 MaxResultsCount;
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetLeaderboardAroundPlayerResult
 {
     GENERATED_USTRUCT_BODY()
 
@@ -2315,15 +2387,15 @@ struct FClientMatchmakeRequest
 
 public:
 
-    /** build version to match against */
+    /** build version to match against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString BuildVersion;
 
-    /** region to match make against */
+    /** region to match make against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString Region;
 
-    /** game mode to match make against */
+    /** game mode to match make against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString GameMode;
 
@@ -2972,7 +3044,7 @@ public:
     /** First entry in the leaderboard to be retrieved. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         int32 StartPosition;
-    /** Maximum number of entries to retrieve. */
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         int32 MaxResultsCount;
 };
@@ -3001,7 +3073,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         FString StatisticName;
 
-    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    /** Unique PlayFab assigned ID for a specific character on which to center the leaderboard. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         FString CharacterId;
 
@@ -3009,7 +3081,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         FString CharacterType;
 
-    /** Maximum number of entries to retrieve. */
+    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         int32 MaxResultsCount;
 };

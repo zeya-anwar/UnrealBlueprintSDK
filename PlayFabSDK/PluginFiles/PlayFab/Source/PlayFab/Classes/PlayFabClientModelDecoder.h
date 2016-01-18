@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.151210
+// SDK Version: 0.0.160118
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -182,9 +182,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetFriendLeaderboardAroundCurrentUserResult decodeGetFriendLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetFriendLeaderboardAroundPlayerResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
+        static FClientGetFriendLeaderboardAroundPlayerResult decodeGetFriendLeaderboardAroundPlayerResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetLeaderboardAroundCurrentUserResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetLeaderboardAroundCurrentUserResult decodeGetLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetLeaderboardAroundPlayerResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
+        static FClientGetLeaderboardAroundPlayerResult decodeGetLeaderboardAroundPlayerResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")

@@ -69,6 +69,10 @@ public:
     /** Settings specific to this user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         UPlayFabJsonObject* SettingsForUser;
+    /** The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        FString LastLoginTime;
+
 };
 
 USTRUCT(BlueprintType)

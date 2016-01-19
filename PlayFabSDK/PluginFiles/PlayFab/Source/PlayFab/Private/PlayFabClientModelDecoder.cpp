@@ -45,6 +45,9 @@ FClientLoginResult UPlayFabClientModelDecoder::decodeLoginResultResponse(UPlayFa
     /** Settings specific to this user. */
     tempStruct.SettingsForUser = response->GetObjectField("data")->GetObjectField("SettingsForUser");
 
+    /** The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue */
+    tempStruct.LastLoginTime = response->GetObjectField("data")->GetStringField("LastLoginTime");
+
     return tempStruct;
 }
 

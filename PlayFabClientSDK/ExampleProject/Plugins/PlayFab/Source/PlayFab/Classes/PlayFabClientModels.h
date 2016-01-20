@@ -3067,6 +3067,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientGetCharacterStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        FString CharacterId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetCharacterStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The requested character statistics. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        UPlayFabJsonObject* CharacterStatistics;
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientGetLeaderboardAroundCharacterRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -3171,6 +3197,32 @@ public:
     /** Indicates whether this character was created successfully. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         bool Result;
+};
+
+USTRUCT(BlueprintType)
+struct FClientUpdateCharacterStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        FString CharacterId;
+
+    /** Statistics to be updated with the provided values. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        UPlayFabJsonObject* CharacterStatistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUpdateCharacterStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
 };
 
 

@@ -1138,6 +1138,17 @@ FClientGetCharacterLeaderboardResult UPlayFabClientModelDecoder::decodeGetCharac
     return tempStruct;
 }
 
+FClientGetCharacterStatisticsResult UPlayFabClientModelDecoder::decodeGetCharacterStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetCharacterStatisticsResult tempStruct;
+
+    /** The requested character statistics. */
+    tempStruct.CharacterStatistics = response->GetObjectField("data")->GetObjectField("CharacterStatistics");
+
+    return tempStruct;
+}
+
 FClientGetLeaderboardAroundCharacterResult UPlayFabClientModelDecoder::decodeGetLeaderboardAroundCharacterResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -1173,6 +1184,14 @@ FClientGrantCharacterToUserResult UPlayFabClientModelDecoder::decodeGrantCharact
 
     /** Indicates whether this character was created successfully. */
     tempStruct.Result = response->GetObjectField("data")->GetBoolField("Result");
+
+    return tempStruct;
+}
+
+FClientUpdateCharacterStatisticsResult UPlayFabClientModelDecoder::decodeUpdateCharacterStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUpdateCharacterStatisticsResult tempStruct;
 
     return tempStruct;
 }

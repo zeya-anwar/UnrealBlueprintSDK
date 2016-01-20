@@ -4068,6 +4068,37 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetCharacterLeaderboard(FClientGetCharacte
     return manager;
 }
 
+/** Retrieves the details of all title-specific statistics for the user */
+UPlayFabClientAPI* UPlayFabClientAPI::GetCharacterStatistics(FClientGetCharacterStatisticsRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetCharacterStatistics";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID */
 UPlayFabClientAPI* UPlayFabClientAPI::GetLeaderboardAroundCharacter(FClientGetLeaderboardAroundCharacterRequest request)
 {
@@ -4191,6 +4222,38 @@ UPlayFabClientAPI* UPlayFabClientAPI::GrantCharacterToUser(FClientGrantCharacter
         OutRestJsonObj->SetStringField(TEXT("CharacterName"), request.CharacterName);
     }
 
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Updates the values of the specified title-specific statistics for the specific character */
+UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterStatistics(FClientUpdateCharacterStatisticsRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/UpdateCharacterStatistics";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
+
+    if (request.CharacterStatistics != NULL) OutRestJsonObj->SetObjectField(TEXT("CharacterStatistics"), request.CharacterStatistics);
 
 
     // Add Request to manager

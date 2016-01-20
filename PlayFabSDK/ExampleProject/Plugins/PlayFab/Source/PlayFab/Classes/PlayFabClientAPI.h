@@ -532,6 +532,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetCharacterLeaderboard(FClientGetCharacterLeaderboardRequest request);
 
+    /** Retrieves the details of all title-specific statistics for the user */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetCharacterStatistics(FClientGetCharacterStatisticsRequest request);
+
     /** Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetLeaderboardAroundCharacter(FClientGetLeaderboardAroundCharacterRequest request);
@@ -543,6 +547,10 @@ public:
     /** Grants the specified character type to the user. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GrantCharacterToUser(FClientGrantCharacterToUserRequest request);
+
+    /** Updates the values of the specified title-specific statistics for the specific character */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* UpdateCharacterStatistics(FClientUpdateCharacterStatisticsRequest request);
 
 
 

@@ -454,6 +454,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
         static FClientGetCharacterLeaderboardResult decodeGetCharacterLeaderboardResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetCharacterStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
+        static FClientGetCharacterStatisticsResult decodeGetCharacterStatisticsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetLeaderboardAroundCharacterResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
         static FClientGetLeaderboardAroundCharacterResult decodeGetLeaderboardAroundCharacterResultResponse(UPlayFabJsonObject* response);
@@ -465,6 +469,10 @@ public:
     /** Decode the GrantCharacterToUserResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
         static FClientGrantCharacterToUserResult decodeGrantCharacterToUserResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdateCharacterStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
+        static FClientUpdateCharacterStatisticsResult decodeUpdateCharacterStatisticsResultResponse(UPlayFabJsonObject* response);
 
 
 

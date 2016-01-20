@@ -99,7 +99,7 @@ struct FServerGetUserAccountInfoResult
 
 public:
 
-    /** Account info for the user whose information was requested. */
+    /** Account details for the user whose information was requested. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         UPlayFabJsonObject* UserInfo;
 };

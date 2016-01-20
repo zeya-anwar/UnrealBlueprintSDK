@@ -50,7 +50,7 @@ FServerGetUserAccountInfoResult UPlayFabServerModelDecoder::decodeGetUserAccount
     // Temp ustruct
     FServerGetUserAccountInfoResult tempStruct;
 
-    /** Account info for the user whose information was requested. */
+    /** Account details for the user whose information was requested. */
     tempStruct.UserInfo = response->GetObjectField("data")->GetObjectField("UserInfo");
 
     return tempStruct;

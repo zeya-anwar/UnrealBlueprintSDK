@@ -845,6 +845,39 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromGoogleIDs(FClientGetPlayF
     return manager;
 }
 
+/** Retrieves the unique PlayFab identifiers for the given set of Kongregate identifiers. The Kongregate identifiers are the IDs for the user accounts, available as "user_id" from the Kongregate API methods(ex: http://developers.kongregate.com/docs/client/getUserId). */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromKongregateIDs(FClientGetPlayFabIDsFromKongregateIDsRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPlayFabIDsFromKongregateIDs";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.KongregateIDs.IsEmpty() || request.KongregateIDs == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KongregateIDs"));
+    }
+    else
+    {
+        TArray<FString> KongregateIDsArray;
+        FString(request.KongregateIDs).ParseIntoArray(KongregateIDsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("KongregateIDs"), KongregateIDsArray);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromPSNAccountIDs(FClientGetPlayFabIDsFromPSNAccountIDsRequest request)
 {

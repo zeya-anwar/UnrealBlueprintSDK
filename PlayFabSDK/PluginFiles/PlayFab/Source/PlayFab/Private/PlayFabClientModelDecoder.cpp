@@ -132,6 +132,17 @@ FClientGetPlayFabIDsFromGoogleIDsResult UPlayFabClientModelDecoder::decodeGetPla
     return tempStruct;
 }
 
+FClientGetPlayFabIDsFromKongregateIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromKongregateIDsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayFabIDsFromKongregateIDsResult tempStruct;
+
+    /** Mapping of Kongregate identifiers to PlayFab identifiers. */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectArrayField("Data");
+
+    return tempStruct;
+}
+
 FClientGetPlayFabIDsFromPSNAccountIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromPSNAccountIDsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

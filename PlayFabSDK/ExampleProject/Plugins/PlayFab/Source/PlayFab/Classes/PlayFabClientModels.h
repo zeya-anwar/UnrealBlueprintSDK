@@ -512,6 +512,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromKongregateIDsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of unique Kongregate identifiers (Kongregate's user_id) for which the title needs to get PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString KongregateIDs;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromKongregateIDsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Mapping of Kongregate identifiers to PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        TArray<UPlayFabJsonObject*> Data;
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientGetPlayFabIDsFromPSNAccountIDsRequest
 {
     GENERATED_USTRUCT_BODY()

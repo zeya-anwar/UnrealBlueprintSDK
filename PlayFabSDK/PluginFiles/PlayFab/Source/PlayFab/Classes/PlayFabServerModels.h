@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -99,7 +99,7 @@ struct FServerGetUserAccountInfoResult
 
 public:
 
-    /** Account info for the user whose information was requested. */
+    /** Account details for the user whose information was requested. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         UPlayFabJsonObject* UserInfo;
 };
@@ -975,6 +975,36 @@ public:
     /** The number of remaining reports which may be filed today by this reporting player. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         int32 SubmissionsRemaining;
+};
+
+USTRUCT(BlueprintType)
+struct FServerRevokeInventoryItemRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString PlayFabId;
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CharacterId;
+
+    /** Unique PlayFab assigned instance identifier of the item */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString ItemInstanceId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerRevokeInventoryResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
 };
 
 USTRUCT(BlueprintType)

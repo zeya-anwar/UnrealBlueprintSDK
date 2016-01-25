@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Client
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -44,6 +44,9 @@ FClientLoginResult UPlayFabClientModelDecoder::decodeLoginResultResponse(UPlayFa
 
     /** Settings specific to this user. */
     tempStruct.SettingsForUser = response->GetObjectField("data")->GetObjectField("SettingsForUser");
+
+    /** The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue */
+    tempStruct.LastLoginTime = response->GetObjectField("data")->GetStringField("LastLoginTime");
 
     return tempStruct;
 }
@@ -124,6 +127,17 @@ FClientGetPlayFabIDsFromGoogleIDsResult UPlayFabClientModelDecoder::decodeGetPla
     FClientGetPlayFabIDsFromGoogleIDsResult tempStruct;
 
     /** Mapping of Google identifiers to PlayFab identifiers. */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectArrayField("Data");
+
+    return tempStruct;
+}
+
+FClientGetPlayFabIDsFromKongregateIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromKongregateIDsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayFabIDsFromKongregateIDsResult tempStruct;
+
+    /** Mapping of Kongregate identifiers to PlayFab identifiers. */
     tempStruct.Data = response->GetObjectField("data")->GetObjectArrayField("Data");
 
     return tempStruct;
@@ -1135,6 +1149,17 @@ FClientGetCharacterLeaderboardResult UPlayFabClientModelDecoder::decodeGetCharac
     return tempStruct;
 }
 
+FClientGetCharacterStatisticsResult UPlayFabClientModelDecoder::decodeGetCharacterStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetCharacterStatisticsResult tempStruct;
+
+    /** The requested character statistics. */
+    tempStruct.CharacterStatistics = response->GetObjectField("data")->GetObjectField("CharacterStatistics");
+
+    return tempStruct;
+}
+
 FClientGetLeaderboardAroundCharacterResult UPlayFabClientModelDecoder::decodeGetLeaderboardAroundCharacterResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -1170,6 +1195,14 @@ FClientGrantCharacterToUserResult UPlayFabClientModelDecoder::decodeGrantCharact
 
     /** Indicates whether this character was created successfully. */
     tempStruct.Result = response->GetObjectField("data")->GetBoolField("Result");
+
+    return tempStruct;
+}
+
+FClientUpdateCharacterStatisticsResult UPlayFabClientModelDecoder::decodeUpdateCharacterStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUpdateCharacterStatisticsResult tempStruct;
 
     return tempStruct;
 }

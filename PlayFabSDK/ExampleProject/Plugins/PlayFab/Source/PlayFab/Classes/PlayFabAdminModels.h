@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -772,7 +772,7 @@ struct FAdminRevokeInventoryItemRequest
 
 public:
 
-    /** unique PlayFab identifier for the user account which is to have the specified item removed */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString PlayFabId;
 
@@ -780,7 +780,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString CharacterId;
 
-    /** unique PlayFab identifier for the item instance to be removed */
+    /** Unique PlayFab assigned instance identifier of the item */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString ItemInstanceId;
 
@@ -970,6 +970,9 @@ public:
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         int32 MaxGamesPerHost;
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
+        int32 MinFreeGameSlots;
 };
 
 USTRUCT(BlueprintType)
@@ -990,6 +993,9 @@ public:
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         int32 MaxGamesPerHost;
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
+        int32 MinFreeGameSlots;
     /** appended to the end of the command line when starting game servers */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString CommandLineTemplate;
@@ -1047,6 +1053,9 @@ public:
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         int32 MaxGamesPerHost;
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
+        int32 MinFreeGameSlots;
     /** developer comment(s) for this build */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString Comment;
@@ -1139,6 +1148,9 @@ public:
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         int32 MaxGamesPerHost;
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
+        int32 MinFreeGameSlots;
     /** appended to the end of the command line when starting game servers */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString CommandLineTemplate;
@@ -1171,6 +1183,9 @@ public:
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         int32 MaxGamesPerHost;
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
+        int32 MinFreeGameSlots;
     /** appended to the end of the command line when starting game servers */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString CommandLineTemplate;

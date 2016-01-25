@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Admin
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -379,6 +379,9 @@ FAdminAddServerBuildResult UPlayFabAdminModelDecoder::decodeAddServerBuildResult
     /** maximum number of game server instances that can run on a single host machine */
     tempStruct.MaxGamesPerHost = int(response->GetObjectField("data")->GetNumberField("MaxGamesPerHost"));
 
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    tempStruct.MinFreeGameSlots = int(response->GetObjectField("data")->GetNumberField("MinFreeGameSlots"));
+
     /** appended to the end of the command line when starting game servers */
     tempStruct.CommandLineTemplate = response->GetObjectField("data")->GetStringField("CommandLineTemplate");
 
@@ -413,6 +416,9 @@ FAdminGetServerBuildInfoResult UPlayFabAdminModelDecoder::decodeGetServerBuildIn
 
     /** maximum number of game server instances that can run on a single host machine */
     tempStruct.MaxGamesPerHost = int(response->GetObjectField("data")->GetNumberField("MaxGamesPerHost"));
+
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    tempStruct.MinFreeGameSlots = int(response->GetObjectField("data")->GetNumberField("MinFreeGameSlots"));
 
     /** developer comment(s) for this build */
     tempStruct.Comment = response->GetObjectField("data")->GetStringField("Comment");
@@ -467,6 +473,9 @@ FAdminModifyServerBuildResult UPlayFabAdminModelDecoder::decodeModifyServerBuild
 
     /** maximum number of game server instances that can run on a single host machine */
     tempStruct.MaxGamesPerHost = int(response->GetObjectField("data")->GetNumberField("MaxGamesPerHost"));
+
+    /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
+    tempStruct.MinFreeGameSlots = int(response->GetObjectField("data")->GetNumberField("MinFreeGameSlots"));
 
     /** appended to the end of the command line when starting game servers */
     tempStruct.CommandLineTemplate = response->GetObjectField("data")->GetStringField("CommandLineTemplate");

@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Admin
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -1729,6 +1729,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddServerBuild(FAdminAddServerBuildRequest r
     }
 
     OutRestJsonObj->SetNumberField(TEXT("MaxGamesPerHost"), request.MaxGamesPerHost);
+    OutRestJsonObj->SetNumberField(TEXT("MinFreeGameSlots"), request.MinFreeGameSlots);
 
 
     // Add Request to manager
@@ -1866,6 +1867,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyServerBuild(FAdminModifyServerBuildReq
     }
 
     OutRestJsonObj->SetNumberField(TEXT("MaxGamesPerHost"), request.MaxGamesPerHost);
+    OutRestJsonObj->SetNumberField(TEXT("MinFreeGameSlots"), request.MinFreeGameSlots);
     if (request.CommandLineTemplate.IsEmpty() || request.CommandLineTemplate == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("CommandLineTemplate"));

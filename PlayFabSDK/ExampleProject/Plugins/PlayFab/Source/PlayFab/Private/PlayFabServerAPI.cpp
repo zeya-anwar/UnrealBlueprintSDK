@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -1754,6 +1754,55 @@ UPlayFabServerAPI* UPlayFabServerAPI::ReportPlayer(FServerReportPlayerServerRequ
     else
     {
         OutRestJsonObj->SetStringField(TEXT("Comment"), request.Comment);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Revokes access to an item in a user's inventory */
+UPlayFabServerAPI* UPlayFabServerAPI::RevokeInventoryItem(FServerRevokeInventoryItemRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/RevokeInventoryItem";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
+
+    if (request.ItemInstanceId.IsEmpty() || request.ItemInstanceId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ItemInstanceId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ItemInstanceId"), request.ItemInstanceId);
     }
 
 

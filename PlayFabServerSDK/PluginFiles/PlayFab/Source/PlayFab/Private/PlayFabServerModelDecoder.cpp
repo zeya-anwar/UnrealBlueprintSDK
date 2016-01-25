@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -50,7 +50,7 @@ FServerGetUserAccountInfoResult UPlayFabServerModelDecoder::decodeGetUserAccount
     // Temp ustruct
     FServerGetUserAccountInfoResult tempStruct;
 
-    /** Account info for the user whose information was requested. */
+    /** Account details for the user whose information was requested. */
     tempStruct.UserInfo = response->GetObjectField("data")->GetObjectField("UserInfo");
 
     return tempStruct;
@@ -372,6 +372,14 @@ FServerReportPlayerServerResult UPlayFabServerModelDecoder::decodeReportPlayerSe
 
     /** The number of remaining reports which may be filed today by this reporting player. */
     tempStruct.SubmissionsRemaining = int(response->GetObjectField("data")->GetNumberField("SubmissionsRemaining"));
+
+    return tempStruct;
+}
+
+FServerRevokeInventoryResult UPlayFabServerModelDecoder::decodeRevokeInventoryResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRevokeInventoryResult tempStruct;
 
     return tempStruct;
 }

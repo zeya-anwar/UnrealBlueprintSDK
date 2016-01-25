@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Server
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -233,6 +233,10 @@ public:
     /** Submit a report about a player (due to bad bahavior, etc.) on behalf of another player, so that customer service representatives for the title can take action concerning potentially toxic players. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* ReportPlayer(FServerReportPlayerServerRequest request);
+
+    /** Revokes access to an item in a user's inventory */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* RevokeInventoryItem(FServerRevokeInventoryItemRequest request);
 
     /** Decrements the character's balance of the specified virtual currency by the stated amount */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))

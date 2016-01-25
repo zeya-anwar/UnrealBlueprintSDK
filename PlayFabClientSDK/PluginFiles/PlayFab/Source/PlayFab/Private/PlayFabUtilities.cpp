@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -234,6 +234,8 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         case 1197: returnText = "StatisticVersionClosedForWrites"; break;
         case 1198: returnText = "StatisticVersionInvalid"; break;
         case 1199: returnText = "APIClientRequestRateLimitExceeded"; break;
+        case 1200: returnText = "InvalidJSONContent"; break;
+        case 1201: returnText = "InvalidDropTable"; break;
     }
 
     // Return the text

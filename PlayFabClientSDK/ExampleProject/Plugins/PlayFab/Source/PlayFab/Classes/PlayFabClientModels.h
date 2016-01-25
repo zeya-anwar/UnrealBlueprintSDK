@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -69,6 +69,10 @@ public:
     /** Settings specific to this user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         UPlayFabJsonObject* SettingsForUser;
+    /** The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        FString LastLoginTime;
+
 };
 
 USTRUCT(BlueprintType)
@@ -502,6 +506,32 @@ struct FClientGetPlayFabIDsFromGoogleIDsResult
 public:
 
     /** Mapping of Google identifiers to PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        TArray<UPlayFabJsonObject*> Data;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromKongregateIDsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of unique Kongregate identifiers (Kongregate's user_id) for which the title needs to get PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString KongregateIDs;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromKongregateIDsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Mapping of Kongregate identifiers to PlayFab identifiers. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         TArray<UPlayFabJsonObject*> Data;
 
@@ -3063,6 +3093,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientGetCharacterStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        FString CharacterId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetCharacterStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The requested character statistics. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        UPlayFabJsonObject* CharacterStatistics;
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientGetLeaderboardAroundCharacterRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -3167,6 +3223,32 @@ public:
     /** Indicates whether this character was created successfully. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         bool Result;
+};
+
+USTRUCT(BlueprintType)
+struct FClientUpdateCharacterStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        FString CharacterId;
+
+    /** Statistics to be updated with the provided values. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
+        UPlayFabJsonObject* CharacterStatistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUpdateCharacterStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
 };
 
 

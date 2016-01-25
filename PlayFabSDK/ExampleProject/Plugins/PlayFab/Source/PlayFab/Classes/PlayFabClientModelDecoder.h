@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160118
+// SDK Version: 0.0.160125
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -67,6 +67,10 @@ public:
     /** Decode the GetPlayFabIDsFromGoogleIDsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientGetPlayFabIDsFromGoogleIDsResult decodeGetPlayFabIDsFromGoogleIDsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayFabIDsFromKongregateIDsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientGetPlayFabIDsFromKongregateIDsResult decodeGetPlayFabIDsFromKongregateIDsResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetPlayFabIDsFromPSNAccountIDsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
@@ -454,6 +458,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
         static FClientGetCharacterLeaderboardResult decodeGetCharacterLeaderboardResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetCharacterStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
+        static FClientGetCharacterStatisticsResult decodeGetCharacterStatisticsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetLeaderboardAroundCharacterResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
         static FClientGetLeaderboardAroundCharacterResult decodeGetLeaderboardAroundCharacterResultResponse(UPlayFabJsonObject* response);
@@ -465,6 +473,10 @@ public:
     /** Decode the GrantCharacterToUserResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
         static FClientGrantCharacterToUserResult decodeGrantCharacterToUserResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdateCharacterStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters Models")
+        static FClientUpdateCharacterStatisticsResult decodeUpdateCharacterStatisticsResultResponse(UPlayFabJsonObject* response);
 
 
 

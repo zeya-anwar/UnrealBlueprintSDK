@@ -236,6 +236,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         case 1199: returnText = "APIClientRequestRateLimitExceeded"; break;
         case 1200: returnText = "InvalidJSONContent"; break;
         case 1201: returnText = "InvalidDropTable"; break;
+        case 1202: returnText = "StatisticVersionAlreadyIncrementedForScheduledInterval"; break;
     }
 
     // Return the text

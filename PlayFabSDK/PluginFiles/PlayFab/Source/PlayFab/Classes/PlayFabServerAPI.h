@@ -190,6 +190,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* AddUserVirtualCurrency(FServerAddUserVirtualCurrencyRequest request);
 
+    /** Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* ConsumeItem(FServerConsumeItemRequest request);
+
     /** Retrieves the specified character's current inventory of virtual goods */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* GetCharacterInventory(FServerGetCharacterInventoryRequest request);

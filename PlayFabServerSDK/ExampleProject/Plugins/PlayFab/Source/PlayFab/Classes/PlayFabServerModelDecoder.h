@@ -122,6 +122,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerModifyUserVirtualCurrencyResult decodeModifyUserVirtualCurrencyResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the ConsumeItemResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
+        static FServerConsumeItemResult decodeConsumeItemResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetCharacterInventoryResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerGetCharacterInventoryResult decodeGetCharacterInventoryResultResponse(UPlayFabJsonObject* response);

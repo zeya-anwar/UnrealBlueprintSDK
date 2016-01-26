@@ -237,6 +237,20 @@ FServerModifyUserVirtualCurrencyResult UPlayFabServerModelDecoder::decodeModifyU
     return tempStruct;
 }
 
+FServerConsumeItemResult UPlayFabServerModelDecoder::decodeConsumeItemResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerConsumeItemResult tempStruct;
+
+    /** Unique instance identifier of the item with uses consumed. */
+    tempStruct.ItemInstanceId = response->GetObjectField("data")->GetStringField("ItemInstanceId");
+
+    /** Number of uses remaining on the item. */
+    tempStruct.RemainingUses = int(response->GetObjectField("data")->GetNumberField("RemainingUses"));
+
+    return tempStruct;
+}
+
 FServerGetCharacterInventoryResult UPlayFabServerModelDecoder::decodeGetCharacterInventoryResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

@@ -237,6 +237,8 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         case 1200: returnText = "InvalidJSONContent"; break;
         case 1201: returnText = "InvalidDropTable"; break;
         case 1202: returnText = "StatisticVersionAlreadyIncrementedForScheduledInterval"; break;
+        case 1203: returnText = "StatisticCountLimitExceeded"; break;
+        case 1204: returnText = "StatisticVersionIncrementRateExceeded"; break;
     }
 
     // Return the text

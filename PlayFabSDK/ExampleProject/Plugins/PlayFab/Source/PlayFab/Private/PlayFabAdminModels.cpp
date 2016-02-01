@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Admin
-// SDK Version: 0.0.160125
+// SDK Version: 0.0.160201
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"

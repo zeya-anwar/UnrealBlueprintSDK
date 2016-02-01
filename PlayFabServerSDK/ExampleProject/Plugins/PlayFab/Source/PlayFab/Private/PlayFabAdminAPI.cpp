@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Admin
-// SDK Version: 0.0.160125
+// SDK Version: 0.0.160201
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -1748,7 +1748,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoR
     // Setup the request
     manager->PlayFabRequestURL = "/Admin/GetServerBuildInfo";
     manager->useSessionTicket = false;
-    manager->useSecretKey = false;
+    manager->useSecretKey = true;
 
 
     // Setup request object

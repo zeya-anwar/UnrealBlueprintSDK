@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160125
+// SDK Version: 0.0.160201
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -121,6 +121,10 @@ public:
     /** Decode the ModifyUserVirtualCurrencyResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerModifyUserVirtualCurrencyResult decodeModifyUserVirtualCurrencyResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the ConsumeItemResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
+        static FServerConsumeItemResult decodeConsumeItemResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetCharacterInventoryResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")

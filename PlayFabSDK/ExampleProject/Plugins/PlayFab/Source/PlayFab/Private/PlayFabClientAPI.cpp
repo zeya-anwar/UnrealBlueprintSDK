@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Client
-// SDK Version: 0.0.160125
+// SDK Version: 0.0.160201
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -4273,7 +4273,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterStatistics(FClientUpdateCha
 
     // Setup the request
     manager->PlayFabRequestURL = "/Client/UpdateCharacterStatistics";
-    manager->useSessionTicket = false;
+    manager->useSessionTicket = true;
     manager->useSecretKey = false;
 
 

@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160125
+// SDK Version: 0.0.160201
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -577,6 +577,46 @@ public:
     /** Balance of the virtual currency after modification. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         int32 Balance;
+};
+
+USTRUCT(BlueprintType)
+struct FServerConsumeItemRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString PlayFabId;
+
+    /** Unique instance identifier of the item to be consumed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString ItemInstanceId;
+
+    /** Number of uses to consume from the item. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        int32 ConsumeCount;
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CharacterId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerConsumeItemResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique instance identifier of the item with uses consumed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString ItemInstanceId;
+
+    /** Number of uses remaining on the item. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        int32 RemainingUses;
 };
 
 USTRUCT(BlueprintType)

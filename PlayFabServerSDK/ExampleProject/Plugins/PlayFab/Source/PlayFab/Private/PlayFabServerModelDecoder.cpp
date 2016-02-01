@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160125
+// SDK Version: 0.0.160201
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -233,6 +233,20 @@ FServerModifyUserVirtualCurrencyResult UPlayFabServerModelDecoder::decodeModifyU
 
     /** Balance of the virtual currency after modification. */
     tempStruct.Balance = int(response->GetObjectField("data")->GetNumberField("Balance"));
+
+    return tempStruct;
+}
+
+FServerConsumeItemResult UPlayFabServerModelDecoder::decodeConsumeItemResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerConsumeItemResult tempStruct;
+
+    /** Unique instance identifier of the item with uses consumed. */
+    tempStruct.ItemInstanceId = response->GetObjectField("data")->GetStringField("ItemInstanceId");
+
+    /** Number of uses remaining on the item. */
+    tempStruct.RemainingUses = int(response->GetObjectField("data")->GetNumberField("RemainingUses"));
 
     return tempStruct;
 }

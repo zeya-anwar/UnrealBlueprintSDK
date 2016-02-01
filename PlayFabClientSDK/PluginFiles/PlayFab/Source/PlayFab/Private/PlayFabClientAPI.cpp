@@ -4166,7 +4166,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterStatistics(FClientUpdateCha
 
     // Setup the request
     manager->PlayFabRequestURL = "/Client/UpdateCharacterStatistics";
-    manager->useSessionTicket = false;
+    manager->useSessionTicket = true;
 
 
     // Setup request object

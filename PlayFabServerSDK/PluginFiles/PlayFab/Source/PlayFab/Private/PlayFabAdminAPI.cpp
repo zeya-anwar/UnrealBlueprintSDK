@@ -1748,7 +1748,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoR
     // Setup the request
     manager->PlayFabRequestURL = "/Admin/GetServerBuildInfo";
     manager->useSessionTicket = false;
-    manager->useSecretKey = false;
+    manager->useSecretKey = true;
 
 
     // Setup request object

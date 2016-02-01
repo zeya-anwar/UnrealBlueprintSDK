@@ -4273,7 +4273,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterStatistics(FClientUpdateCha
 
     // Setup the request
     manager->PlayFabRequestURL = "/Client/UpdateCharacterStatistics";
-    manager->useSessionTicket = false;
+    manager->useSessionTicket = true;
     manager->useSecretKey = false;
 
 

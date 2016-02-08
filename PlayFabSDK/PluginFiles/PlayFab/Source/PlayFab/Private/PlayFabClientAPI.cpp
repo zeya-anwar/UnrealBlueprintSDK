@@ -2882,7 +2882,65 @@ UPlayFabClientAPI* UPlayFabClientAPI::SubtractUserVirtualCurrency(FClientSubtrac
     return manager;
 }
 
-/** Unlocks a container item in the user's inventory and consumes a key item of the type indicated by the container item */
+/** Opens the specified container, with the specified key (when required), and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
+UPlayFabClientAPI* UPlayFabClientAPI::UnlockContainerInstance(FClientUnlockContainerInstanceRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/UnlockContainerInstance";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
+
+    if (request.ContainerItemInstanceId.IsEmpty() || request.ContainerItemInstanceId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ContainerItemInstanceId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ContainerItemInstanceId"), request.ContainerItemInstanceId);
+    }
+
+    if (request.KeyItemInstanceId.IsEmpty() || request.KeyItemInstanceId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeyItemInstanceId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("KeyItemInstanceId"), request.KeyItemInstanceId);
+    }
+
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
 UPlayFabClientAPI* UPlayFabClientAPI::UnlockContainerItem(FClientUnlockContainerItemRequest request)
 {
     // Objects containing request data

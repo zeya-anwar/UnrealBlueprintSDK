@@ -250,6 +250,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* SubtractUserVirtualCurrency(FServerSubtractUserVirtualCurrencyRequest request);
 
+    /** Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when required), and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* UnlockContainerInstance(FServerUnlockContainerInstanceRequest request);
+
+    /** Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary unlocks it using any appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* UnlockContainerItem(FServerUnlockContainerItemRequest request);
+
     /** Updates the key-value pair data tagged to the specified item, which is read-only from the client. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* UpdateUserInventoryItemCustomData(FServerUpdateUserInventoryItemDataRequest request);

@@ -2084,23 +2084,27 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FClientUnlockContainerItemRequest
+struct FClientUnlockContainerInstanceRequest
 {
     GENERATED_USTRUCT_BODY()
 
 public:
 
-    /** Category ItemId of the container type to unlock. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString ContainerItemId;
-
-    /** Catalog version of the container. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString CatalogVersion;
-
     /** Unique PlayFab assigned ID for a specific character owned by a user */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CharacterId;
+
+    /** ItemInstanceId of the container to unlock. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
+        FString ContainerItemInstanceId;
+
+    /** ItemInstanceId of the key that will be consumed by unlocking this container.  If the container requires a key, this parameter is required. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
+        FString KeyItemInstanceId;
+
+    /** Specifies the catalog version that should be used to determine container contents.  If unspecified, uses catalog associated with the item instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
+        FString CatalogVersion;
 
 };
 
@@ -2126,6 +2130,27 @@ public:
     /** Virtual currency granted to the player as a result of unlocking the container. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         UPlayFabJsonObject* VirtualCurrency;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUnlockContainerItemRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Catalog ItemId of the container type to unlock. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
+        FString ContainerItemId;
+
+    /** Specifies the catalog version that should be used to determine container contents.  If unspecified, uses default/primary catalog. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
+        FString CatalogVersion;
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
+        FString CharacterId;
 
 };
 

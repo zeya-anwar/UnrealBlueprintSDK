@@ -374,7 +374,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* SubtractUserVirtualCurrency(FClientSubtractUserVirtualCurrencyRequest request);
 
-    /** Unlocks a container item in the user's inventory and consumes a key item of the type indicated by the container item */
+    /** Opens the specified container, with the specified key (when required), and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* UnlockContainerInstance(FClientUnlockContainerInstanceRequest request);
+
+    /** Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* UnlockContainerItem(FClientUnlockContainerItemRequest request);
 

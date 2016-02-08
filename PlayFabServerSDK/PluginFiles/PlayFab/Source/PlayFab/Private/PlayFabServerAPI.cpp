@@ -1954,6 +1954,131 @@ UPlayFabServerAPI* UPlayFabServerAPI::SubtractUserVirtualCurrency(FServerSubtrac
     return manager;
 }
 
+/** Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when required), and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
+UPlayFabServerAPI* UPlayFabServerAPI::UnlockContainerInstance(FServerUnlockContainerInstanceRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/UnlockContainerInstance";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
+
+    if (request.ContainerItemInstanceId.IsEmpty() || request.ContainerItemInstanceId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ContainerItemInstanceId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ContainerItemInstanceId"), request.ContainerItemInstanceId);
+    }
+
+    if (request.KeyItemInstanceId.IsEmpty() || request.KeyItemInstanceId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("KeyItemInstanceId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("KeyItemInstanceId"), request.KeyItemInstanceId);
+    }
+
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary unlocks it using any appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
+UPlayFabServerAPI* UPlayFabServerAPI::UnlockContainerItem(FServerUnlockContainerItemRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/UnlockContainerItem";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
+
+    if (request.ContainerItemId.IsEmpty() || request.ContainerItemId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ContainerItemId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ContainerItemId"), request.ContainerItemId);
+    }
+
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Updates the key-value pair data tagged to the specified item, which is read-only from the client. */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerUpdateUserInventoryItemDataRequest request)
 {

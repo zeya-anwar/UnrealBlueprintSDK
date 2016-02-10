@@ -933,6 +933,18 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromSteamIDs(FClientGetPlayFa
     }
     OutRestJsonObj->SetNumberArrayField(TEXT("SteamIDs"), tempArray);
 
+    // Check to see if string is empty
+    if (request.SteamStringIDs.IsEmpty() || request.SteamStringIDs == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("SteamStringIDs"));
+    }
+    else
+    {
+        TArray<FString> SteamStringIDsArray;
+        FString(request.SteamStringIDs).ParseIntoArray(SteamStringIDsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("SteamStringIDs"), SteamStringIDsArray);
+    }
+
 
 
     // Add Request to manager

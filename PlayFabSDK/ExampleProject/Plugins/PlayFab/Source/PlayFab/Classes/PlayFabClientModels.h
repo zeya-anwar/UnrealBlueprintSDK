@@ -573,9 +573,13 @@ struct FClientGetPlayFabIDsFromSteamIDsRequest
 
 public:
 
-    /** Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. */
+    /** Deprecated: Please use SteamStringIDs */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         TArray<int32> SteamIDs;
+
+    /** Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString SteamStringIDs;
 
 };
 

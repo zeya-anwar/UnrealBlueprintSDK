@@ -215,7 +215,7 @@ struct FClientLoginWithKongregateRequest
 
 public:
 
-    /** Unique identifier from Kongregate for the user. */
+    /** Numeric user ID assigned by Kongregate */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString KongregateId;
 

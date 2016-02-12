@@ -61,6 +61,267 @@ Existing Projects:
 * You should now be able to create blueprints that utilize PlayFab API calls
 
 
+# Developer Console
+
+The `Developer Console` allows execution of custom commands which can be used to invoke a `CustomEvent` in the `Level Blueprint`.
+
+
+## UE4 Editor
+
+In the editor the developer console can be opened by pressing the tilda (~) key.
+
+
+## Android
+
+`Verify Peer` may need to be disabled to allow `HTTPS` traffic to communicate with the server on Android.
+
+```
+Edit->Project Settings->Engine->Network->Libcurl->Verify Peer (Set to OFF)
+```
+
+![04_AndroidNetworkVerifyPeer](Images/04_AndroidNetworkVerifyPeer.png)
+
+Make sure that the console is enabled in project settings to use the developer console on Android.
+
+```
+Edit->Project Settings->Input->Mobile->Show Console on Four Finger Tap->True
+```
+
+Four finger tap will open the console on an `Android` tablet. The console command can be entered and then tap `Ok` to execute.
+
+The `ADB` logcat will display the console logs which show any `PrintString` blueprints that were used.
+
+```
+adb logcat
+```
+
+
+# Blueprint Custom Events
+
+Follow the `Blueprint Tutorial` below to populate the `Game Title Id` before invoking the following `Blueprint Custom Events`.
+
+
+## Custom Event PrintPlayFabError
+
+`PlayFab Client API` methods have a failure delegate that has a `PlayFabError` parameter. A custom event that prints `PlayFabError` objects can be reused by the failure delegates. This setup uses a `PrintPlayFabError` custom event with a `PlayFabError` parameter. The `PlayFabError` is broken out into components that can be appended to a string and printed. The `PrintPlayFabError` custom event can be connected directly to a failure delegate or called from another custom event.
+
+![05_PrintPlayFabError](Images/05_PrintPlayFabError.png)
+
+## TestRegister
+
+`TestRegister` is a custom event that registers a user given the `username`, `email`, and `password`.
+
+The `OnSuccess` delegate will be executed upon success.
+
+![00_TestRegisterBlueprint](Images/00_TestRegisterBlueprint.png)
+
+The custom event can be invoked in the console with the following line.
+
+```
+ce TestRegister "myUsername" "email@email.com" password
+```
+
+On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
+
+```
+adb shell input text "ce%sTestRegister%s\\""myUsername\\"""%s\\"""email@email.com\\"""%spassword"
+```
+
+The output log should print output similar to the following for a success event.
+
+```
+Cmd: ce TestRegister "myUsername" "email@email.com" password
+LogBlueprintUserMessages: [Test_C_1] Registering User=myUsername Email=email@email.com Password=password
+LogPlayFab: Request: {
+    "TitleId": "YOUR_GAME_TITLE_ID",
+    "Username": "myUsername",
+    "Email": "email@email.com",
+    "Password": "password",
+    "RequireBothUsernameAndEmail": false,
+    "DisplayName": null,
+    "Origination": null
+}
+LogPlayFab: Response : {
+    "code": 200,
+    "status": "OK",
+    "data":
+    {
+        "PlayFabId": "7F10A25FDB140A4C",
+        "SessionTicket": "LONG_SESSION_TICKET",
+        "Username": "myusername",
+        "SettingsForUser":
+        {
+            "NeedsAttribution": false
+        }
+    }
+}
+LogBlueprintUserMessages: [Test_C_1] Register Success:
+{"code":200,"status":"OK","data":{"PlayFabId":"7F10A25FDB140A4C",
+"SessionTicket":"LONG_SESSION_TICKET",
+"Username":"myusername","SettingsForUser":{"NeedsAttribution":false}}}
+```
+
+The `OnFailure` delegate will be executed if a `PlayFabError` occurs.
+
+![06_TestRegisterBlueprintFailure](Images/06_TestRegisterBlueprintFailure.png)
+
+
+## TestLogin
+
+`TestLogin` is a custom event that will login a user given the corresponding `email` and `password`. A user must be registered before a successful login can occur.
+
+The `OnSuccess` delegate will be executed upon success.
+
+![01_TestLoginBlueprint](Images/01_TestLoginBlueprint.png)
+
+The custom event can be invoked in the console with the following line.
+
+```
+ce TestLogin "email@email.com" password
+```
+
+On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
+
+```
+adb shell input text "ce%sTestLogin%s\\""email@email.com\\"""%spassword"
+```
+
+The output log should print output similar to the following for a success event.
+
+```
+Cmd: ce TestLogin "email@email.com" password
+LogPlayFab: Request: {
+    "TitleId": "YOUR_GAME_TITLE_ID",
+    "Email": "email@email.com",
+    "Password": "password"
+}
+LogPlayFab: Response : {
+    "code": 200,
+    "status": "OK",
+    "data":
+    {
+        "SessionTicket": "LONG_SESSION_TICKET",
+        "PlayFabId": "EDC7CAE0DCB6FA8F",
+        "NewlyCreated": false,
+        "SettingsForUser":
+        {
+            "NeedsAttribution": false
+        },
+        "LastLoginTime": "2016-01-29T02:18:16.692Z"
+    }
+}
+LogBlueprintUserMessages: [Test_C_1] Login Success:
+SessionTicket=LONG_SESSION_TICKET PlayFabId=EDC7CAE0DCB6FA8F
+```
+
+The `OnFailure` delegate will be executed if a `PlayFabError` occurs.
+
+![07_TestLoginBlueprintFailure](Images/07_TestLoginBlueprintFailure.png)
+
+
+## GetCloudScriptUrl
+
+`GetCloudScriptUrl` is a custom event that will request a cloud script url given no parameters.
+
+The `OnSuccess` delegate will be executed upon success.
+
+![02_GetCloudScriptUrlBlueprint](Images/02_GetCloudScriptUrlBlueprint.png)
+
+The custom event can be invoked in the console with the following line.
+
+```
+ce GetCloudScriptUrl
+```
+
+On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
+
+```
+adb shell input text "ce%sGetCloudScriptUrl"
+```
+
+The output log should print output similar to the following for a success event.
+
+```
+Cmd: ce GetCloudScriptUrl
+LogPlayFab: Request: {
+    "Version": 1,
+    "Testing": false
+}
+LogPlayFab: Response : {
+    "code": 200,
+    "status": "OK",
+    "data":
+    {
+        "Url": "https://YOUR_GAME_TITLE_ID.playfablogic.com/1/prod"
+    }
+}
+LogBlueprintUserMessages: [Test_C_1] GetCloudScriptUrl Success:
+Url=https://YOUR_GAME_TITLE_ID.playfablogic.com/1/prod
+```
+
+The `OnFailure` delegate will be executed if a `PlayFabError` occurs. A failure might occur if `GetCloudScriptUrl` was invoked before the user was authenticated resulting in `Missing or invalid X-Authentication HTTP header`.
+
+![08_GetCloudScriptUrlBlueprintFailure](Images/08_GetCloudScriptUrlBlueprintFailure.png)
+
+
+## TestCloudScript
+
+`TestCloudScript` is a custom event that will execute cloud script given no parameters. For this test to work, the following custom cloud script must be added to return a success result.
+
+```
+handlers.testMe = function(args){  return "Hello World" }
+```
+
+The `OnSuccess` delegate will be executed upon success.
+
+![03_TestCloudScriptBlueprint](Images/03_TestCloudScriptBlueprint.png)
+
+The custom event can be invoked in the console with the following line.
+
+```
+ce TestCloudScript
+```
+
+On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
+
+```
+adb shell input text "ce%sTestCloudScript"
+```
+
+The output log should print output similar to the following for a success event.
+
+```
+Cmd: ce TestCloudScript
+LogPlayFab: Request: {
+    "ActionId": "testMe",
+    "Params":
+    {
+    }
+}
+LogPlayFab: Response : {
+    "code": 200,
+    "status": "OK",
+    "data":
+    {
+        "ActionId": "testMe",
+        "Version": 1,
+        "Revision": 2,
+        "Results": "Hello World",
+        "ResultsEncoded": "\"Hello World\"",
+        "ActionLog": "",
+        "ExecutionTime": 0
+    }
+}
+LogJson:Warning: Field Results is of the wrong type.
+LogJson:Error: Json Value of type 'Null' used as a 'Object'.
+LogBlueprintUserMessages: [Test_C_1] TestCloudScript Success: "Hello World"
+```
+
+The `OnFailure` delegate will be executed if a `PlayFabError` occurs. A failure might occur if `TestCloudScript` was invoked before the user was authenticated resulting in `Missing or invalid X-Authentication HTTP header`.
+
+![09_TestCloudScriptBlueprintFailure](Images/09_TestCloudScriptBlueprintFailure.png)
+
+
 5. Blueprint Tutorial:
 ----
 The plugin is fairly simple to use. The main things you need to learn are; how to use the provided JSON objects, how to wire up the nodes, and realize that it is extremely simple!

@@ -1384,6 +1384,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientGetPlayerStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** statistics to return */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        FString StatisticNames;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayerStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** User statistics for the requested user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientGetUserDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1438,6 +1464,28 @@ public:
     /** User statistics for the active title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* UserStatistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUpdatePlayerStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Statistics to be updated with the provided values */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUpdatePlayerStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
 
 };
 

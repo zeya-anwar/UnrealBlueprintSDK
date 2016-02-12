@@ -219,6 +219,46 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserT
 ///////////////////////////////////////////////////////
 // Player Data Management
 //////////////////////////////////////////////////////
+/** Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreatePlayerStatisticDefinitionRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/CreatePlayerStatisticDefinition";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+    if (request.VersionChangeInterval.IsEmpty() || request.VersionChangeInterval == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("VersionChangeInterval"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request)
 {
@@ -280,6 +320,59 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest req
     OutRestJsonObj->SetNumberField(TEXT("Year"), request.Year);
     OutRestJsonObj->SetNumberField(TEXT("Month"), request.Month);
     OutRestJsonObj->SetNumberField(TEXT("Day"), request.Day);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have a reset interval. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticDefinitions(FAdminGetPlayerStatisticDefinitionsRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetPlayerStatisticDefinitions";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Retrieves the information on the available versions of the specified statistic. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticVersions(FAdminGetPlayerStatisticVersionsRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetPlayerStatisticVersions";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
 
 
     // Add Request to manager
@@ -552,6 +645,37 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest
     return manager;
 }
 
+/** Resets the indicated statistic, removing all player entries for it and backing up the old values. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::IncrementPlayerStatisticVersion(FAdminIncrementPlayerStatisticVersionRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/IncrementPlayerStatisticVersion";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Completely removes all statistics for the specified user, for the current game */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatisticsRequest request)
 {
@@ -573,6 +697,46 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatistic
     else
     {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Updates a player statistic configuration for the title, optionally allowing the developer to specify a reset interval. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdatePlayerStatisticDefinitionRequest request)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/UpdatePlayerStatisticDefinition";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+    if (request.VersionChangeInterval.IsEmpty() || request.VersionChangeInterval == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("VersionChangeInterval"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
     }
 
 

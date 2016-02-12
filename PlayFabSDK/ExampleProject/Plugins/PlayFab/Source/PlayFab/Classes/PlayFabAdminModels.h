@@ -140,6 +140,35 @@ public:
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
+struct FAdminCreatePlayerStatisticDefinitionRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** unique name of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString StatisticName;
+
+    /** interval at which the values of the statistic for all players are reset (resets begin at the next interval boundary) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString VersionChangeInterval;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminCreatePlayerStatisticDefinitionResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** created statistic definition */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        UPlayFabJsonObject* Statistic;
+};
+
+USTRUCT(BlueprintType)
 struct FAdminDeleteUsersRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -197,6 +226,54 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminGetPlayerStatisticDefinitionsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayerStatisticDefinitionsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** the player statistic definitions for the title */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayerStatisticVersionsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** unique name of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString StatisticName;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayerStatisticVersionsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** version change history of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> StatisticVersions;
+
+};
+
+USTRUCT(BlueprintType)
 struct FAdminGetUserDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -237,6 +314,31 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminIncrementPlayerStatisticVersionRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** unique name of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString StatisticName;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminIncrementPlayerStatisticVersionResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** version change history of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        UPlayFabJsonObject* StatisticVersion;
+};
+
+USTRUCT(BlueprintType)
 struct FAdminResetUserStatisticsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -256,6 +358,35 @@ struct FAdminResetUserStatisticsResult
 
 public:
 
+};
+
+USTRUCT(BlueprintType)
+struct FAdminUpdatePlayerStatisticDefinitionRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** unique name of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString StatisticName;
+
+    /** interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of the new interval boundary) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString VersionChangeInterval;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminUpdatePlayerStatisticDefinitionResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** updated statistic definition */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        UPlayFabJsonObject* Statistic;
 };
 
 USTRUCT(BlueprintType)

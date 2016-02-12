@@ -440,6 +440,17 @@ FClientGetLeaderboardAroundPlayerResult UPlayFabClientModelDecoder::decodeGetLea
     return tempStruct;
 }
 
+FClientGetPlayerStatisticsResult UPlayFabClientModelDecoder::decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayerStatisticsResult tempStruct;
+
+    /** User statistics for the requested user. */
+    tempStruct.Statistics = response->GetObjectField("data")->GetObjectArrayField("Statistics");
+
+    return tempStruct;
+}
+
 FClientGetUserDataResult UPlayFabClientModelDecoder::decodeGetUserDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -461,6 +472,14 @@ FClientGetUserStatisticsResult UPlayFabClientModelDecoder::decodeGetUserStatisti
 
     /** User statistics for the active title. */
     tempStruct.UserStatistics = response->GetObjectField("data")->GetObjectField("UserStatistics");
+
+    return tempStruct;
+}
+
+FClientUpdatePlayerStatisticsResult UPlayFabClientModelDecoder::decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUpdatePlayerStatisticsResult tempStruct;
 
     return tempStruct;
 }

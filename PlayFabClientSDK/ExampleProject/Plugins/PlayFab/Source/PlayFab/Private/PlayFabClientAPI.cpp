@@ -1927,6 +1927,39 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetLeaderboardAroundPlayer(FClientGetLeade
     return manager;
 }
 
+/** Retrieves the current version and values for the indicated statistics, for the local player. */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPlayerStatistics(FClientGetPlayerStatisticsRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPlayerStatistics";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.StatisticNames.IsEmpty() || request.StatisticNames == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticNames"));
+    }
+    else
+    {
+        TArray<FString> StatisticNamesArray;
+        FString(request.StatisticNames).ParseIntoArray(StatisticNamesArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("StatisticNames"), StatisticNamesArray);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabClientAPI* UPlayFabClientAPI::GetUserData(FClientGetUserDataRequest request)
 {
@@ -2112,6 +2145,28 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetUserStatistics(FClientGetUserStatistics
 
 
     // Setup request object
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Updates the values of the specified title-specific statistics for the user */
+UPlayFabClientAPI* UPlayFabClientAPI::UpdatePlayerStatistics(FClientUpdatePlayerStatisticsRequest request)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/UpdatePlayerStatistics";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetObjectArrayField(TEXT("Statistics"), request.Statistics);
 
 
     // Add Request to manager

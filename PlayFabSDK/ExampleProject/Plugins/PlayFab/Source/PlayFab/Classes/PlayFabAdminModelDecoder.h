@@ -52,6 +52,10 @@ public:
     // Player Data Management
     //////////////////////////////////////////////////////
 
+    /** Decode the CreatePlayerStatisticDefinitionResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
+        static FAdminCreatePlayerStatisticDefinitionResult decodeCreatePlayerStatisticDefinitionResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the DeleteUsersResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
         static FAdminDeleteUsersResult decodeDeleteUsersResultResponse(UPlayFabJsonObject* response);
@@ -60,13 +64,29 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
         static FAdminGetDataReportResult decodeGetDataReportResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayerStatisticDefinitionsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
+        static FAdminGetPlayerStatisticDefinitionsResult decodeGetPlayerStatisticDefinitionsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayerStatisticVersionsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
+        static FAdminGetPlayerStatisticVersionsResult decodeGetPlayerStatisticVersionsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
         static FAdminGetUserDataResult decodeGetUserDataResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the IncrementPlayerStatisticVersionResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
+        static FAdminIncrementPlayerStatisticVersionResult decodeIncrementPlayerStatisticVersionResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the ResetUserStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
         static FAdminResetUserStatisticsResult decodeResetUserStatisticsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdatePlayerStatisticDefinitionResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
+        static FAdminUpdatePlayerStatisticDefinitionResult decodeUpdatePlayerStatisticDefinitionResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")

@@ -398,6 +398,26 @@ FServerRevokeInventoryResult UPlayFabServerModelDecoder::decodeRevokeInventoryRe
     return tempStruct;
 }
 
+FServerUnlockContainerItemResult UPlayFabServerModelDecoder::decodeUnlockContainerItemResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerUnlockContainerItemResult tempStruct;
+
+    /** Unique instance identifier of the container unlocked. */
+    tempStruct.UnlockedItemInstanceId = response->GetObjectField("data")->GetStringField("UnlockedItemInstanceId");
+
+    /** Unique instance identifier of the key used to unlock the container, if applicable. */
+    tempStruct.UnlockedWithItemInstanceId = response->GetObjectField("data")->GetStringField("UnlockedWithItemInstanceId");
+
+    /** Items granted to the player as a result of unlocking the container. */
+    tempStruct.GrantedItems = response->GetObjectField("data")->GetObjectArrayField("GrantedItems");
+
+    /** Virtual currency granted to the player as a result of unlocking the container. */
+    tempStruct.VirtualCurrency = response->GetObjectField("data")->GetObjectField("VirtualCurrency");
+
+    return tempStruct;
+}
+
 FServerUpdateUserInventoryItemDataResult UPlayFabServerModelDecoder::decodeUpdateUserInventoryItemDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

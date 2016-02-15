@@ -198,6 +198,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetLeaderboardAroundPlayerResult decodeGetLeaderboardAroundPlayerResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayerStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
+        static FClientGetPlayerStatisticsResult decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetUserDataResult decodeGetUserDataResultResponse(UPlayFabJsonObject* response);
@@ -205,6 +209,10 @@ public:
     /** Decode the GetUserStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetUserStatisticsResult decodeGetUserStatisticsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdatePlayerStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
+        static FClientUpdatePlayerStatisticsResult decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")

@@ -258,6 +258,40 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetPlayerStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** user for whom statistics are being requested */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** statistics to return */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString StatisticNames;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayerStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** PlayFab unique identifier of the user whose statistics are being returned */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** User statistics for the requested user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetUserDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -324,6 +358,32 @@ public:
     /** User statistics for the requested user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* UserStatistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerUpdatePlayerStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** Statistics to be updated with the provided values */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerUpdatePlayerStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
 
 };
 

@@ -367,6 +367,49 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundUser(FServerGetLeaderb
     return manager;
 }
 
+/** Retrieves the current version and values for the indicated statistics, for the local player. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatistics(FServerGetPlayerStatisticsRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetPlayerStatistics";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    // Check to see if string is empty
+    if (request.StatisticNames.IsEmpty() || request.StatisticNames == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticNames"));
+    }
+    else
+    {
+        TArray<FString> StatisticNamesArray;
+        FString(request.StatisticNames).ParseIntoArray(StatisticNamesArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("StatisticNames"), StatisticNamesArray);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserData(FServerGetUserDataRequest request)
 {
@@ -654,6 +697,38 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserStatistics(FServerGetUserStatistics
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Updates the values of the specified title-specific statistics for the user */
+UPlayFabServerAPI* UPlayFabServerAPI::UpdatePlayerStatistics(FServerUpdatePlayerStatisticsRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/UpdatePlayerStatistics";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    OutRestJsonObj->SetObjectArrayField(TEXT("Statistics"), request.Statistics);
 
 
     // Add Request to manager

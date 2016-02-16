@@ -45,6 +45,17 @@ FServerGetPlayFabIDsFromFacebookIDsResult UPlayFabServerModelDecoder::decodeGetP
     return tempStruct;
 }
 
+FServerGetPlayFabIDsFromSteamIDsResult UPlayFabServerModelDecoder::decodeGetPlayFabIDsFromSteamIDsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayFabIDsFromSteamIDsResult tempStruct;
+
+    /** Mapping of Steam identifiers to PlayFab identifiers. */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectArrayField("Data");
+
+    return tempStruct;
+}
+
 FServerGetUserAccountInfoResult UPlayFabServerModelDecoder::decodeGetUserAccountInfoResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

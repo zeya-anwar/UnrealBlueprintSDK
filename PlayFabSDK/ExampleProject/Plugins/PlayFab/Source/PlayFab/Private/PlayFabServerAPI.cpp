@@ -132,6 +132,48 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromFacebookIDs(FServerGetPla
     return manager;
 }
 
+/** Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile IDs for the user accounts, available as SteamId in the Steamworks Community API calls. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromSteamIDs(FServerGetPlayFabIDsFromSteamIDsRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetPlayFabIDsFromSteamIDs";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    // Copy int array to float
+    TArray<float> tempArray;
+    for (int32 i = 0; i < request.SteamIDs.Num(); ++i)
+    {
+        tempArray.Add(float(request.SteamIDs[i]));
+    }
+    OutRestJsonObj->SetNumberArrayField(TEXT("SteamIDs"), tempArray);
+
+    // Check to see if string is empty
+    if (request.SteamStringIDs.IsEmpty() || request.SteamStringIDs == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("SteamStringIDs"));
+    }
+    else
+    {
+        TArray<FString> SteamStringIDsArray;
+        FString(request.SteamStringIDs).ParseIntoArray(SteamStringIDsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("SteamStringIDs"), SteamStringIDsArray);
+    }
+
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
 /** Retrieves the relevant details for a specified user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserAccountInfo(FServerGetUserAccountInfoRequest request)
 {

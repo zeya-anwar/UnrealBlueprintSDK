@@ -80,6 +80,36 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetPlayFabIDsFromSteamIDsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Deprecated: Please use SteamStringIDs */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<int32> SteamIDs;
+
+    /** Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString SteamStringIDs;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayFabIDsFromSteamIDsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Mapping of Steam identifiers to PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> Data;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetUserAccountInfoRequest
 {
     GENERATED_USTRUCT_BODY()

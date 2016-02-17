@@ -352,14 +352,6 @@ public:
     ///////////////////////////////////////////////////////
     // Server-Side Cloud Script
     //////////////////////////////////////////////////////
-    /** Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* GetCloudScriptUrl(FServerGetCloudScriptUrlRequest request);
-
-    /** Triggers a particular server action, passing the provided inputs to the hosted Cloud Script. An action in this context is a handler in the JavaScript. NOTE: Before calling this API, you must call GetCloudScriptUrl to be assigned a Cloud Script server URL. When using an official PlayFab SDK, this URL is stored internally in the SDK, but GetCloudScriptUrl must still be manually called. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* RunServerCloudScript(FServerRunServerCloudScriptRequest request);
-
 
 
     ///////////////////////////////////////////////////////

@@ -275,6 +275,20 @@ public:
 
 
     ///////////////////////////////////////////////////////
+    // Server-Side Cloud Script
+    //////////////////////////////////////////////////////
+
+    /** Decode the GetCloudScriptUrlResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        static FServerGetCloudScriptUrlResult decodeGetCloudScriptUrlResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RunCloudScriptResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        static FServerRunCloudScriptResult decodeRunCloudScriptResultResponse(UPlayFabJsonObject* response);
+
+
+
+    ///////////////////////////////////////////////////////
     // Content
     //////////////////////////////////////////////////////
 

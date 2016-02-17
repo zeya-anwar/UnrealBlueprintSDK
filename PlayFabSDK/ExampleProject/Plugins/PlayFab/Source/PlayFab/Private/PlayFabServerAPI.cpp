@@ -2764,6 +2764,76 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedG
 
 
 ///////////////////////////////////////////////////////
+// Server-Side Cloud Script
+//////////////////////////////////////////////////////
+/** Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetCloudScriptUrl(FServerGetCloudScriptUrlRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetCloudScriptUrl";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetNumberField(TEXT("Version"), request.Version);
+    OutRestJsonObj->SetBoolField(TEXT("Testing"), request.Testing);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+/** Triggers a particular server action, passing the provided inputs to the hosted Cloud Script. An action in this context is a handler in the JavaScript. NOTE: Before calling this API, you must call GetCloudScriptUrl to be assigned a Cloud Script server URL. When using an official PlayFab SDK, this URL is stored internally in the SDK, but GetCloudScriptUrl must still be manually called. */
+UPlayFabServerAPI* UPlayFabServerAPI::RunServerCloudScript(FServerRunServerCloudScriptRequest request)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/RunServerCloudScript";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.ActionId.IsEmpty() || request.ActionId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ActionId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ActionId"), request.ActionId);
+    }
+
+    if (request.Params != NULL) OutRestJsonObj->SetObjectField(TEXT("Params"), request.Params);
+    if (request.ParamsEncoded != "") OutRestJsonObj->SetStringField(TEXT("ParamsEncoded"), request.ParamsEncoded);
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+
+///////////////////////////////////////////////////////
 // Content
 //////////////////////////////////////////////////////
 /** This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent  HTTP GET to the returned URL will attempt to download the content. A HEAD query to the returned URL will attempt to  retrieve the metadata of the content. Note that a successful result does not guarantee the existence of this content -  if it has not been uploaded, the query to retrieve the data will fail. See this post for more information:  https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service */

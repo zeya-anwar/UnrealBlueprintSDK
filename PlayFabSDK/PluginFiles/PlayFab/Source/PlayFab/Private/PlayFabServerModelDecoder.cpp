@@ -615,6 +615,52 @@ FServerUpdateSharedGroupDataResult UPlayFabServerModelDecoder::decodeUpdateShare
 
 
 ///////////////////////////////////////////////////////
+// Server-Side Cloud Script
+//////////////////////////////////////////////////////
+
+FServerGetCloudScriptUrlResult UPlayFabServerModelDecoder::decodeGetCloudScriptUrlResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetCloudScriptUrlResult tempStruct;
+
+    /** URL of the Cloud Script logic server. */
+    tempStruct.Url = response->GetObjectField("data")->GetStringField("Url");
+
+    return tempStruct;
+}
+
+FServerRunCloudScriptResult UPlayFabServerModelDecoder::decodeRunCloudScriptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRunCloudScriptResult tempStruct;
+
+    /** id of Cloud Script run */
+    tempStruct.ActionId = response->GetObjectField("data")->GetStringField("ActionId");
+
+    /** version of Cloud Script run */
+    tempStruct.Version = int(response->GetObjectField("data")->GetNumberField("Version"));
+
+    /** revision of Cloud Script run */
+    tempStruct.Revision = int(response->GetObjectField("data")->GetNumberField("Revision"));
+
+    /** return values from the server action as a dynamic object */
+    tempStruct.Results = response->GetObjectField("data")->GetObjectField("Results");
+
+    /** return values from the server action as a JSON encoded string */
+    tempStruct.ResultsEncoded = response->GetObjectField("data")->GetStringField("ResultsEncoded");
+
+    /** any log statements generated during the run of this action */
+    tempStruct.ActionLog = response->GetObjectField("data")->GetStringField("ActionLog");
+
+    /** time this script took to run, in seconds */
+    tempStruct.ExecutionTime = int(response->GetObjectField("data")->GetNumberField("ExecutionTime"));
+
+    return tempStruct;
+}
+
+
+
+///////////////////////////////////////////////////////
 // Content
 //////////////////////////////////////////////////////
 

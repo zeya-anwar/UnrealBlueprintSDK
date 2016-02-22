@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160208
+// SDK Version: 0.0.160222
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -74,6 +74,36 @@ struct FServerGetPlayFabIDsFromFacebookIDsResult
 public:
 
     /** Mapping of Facebook identifiers to PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> Data;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayFabIDsFromSteamIDsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Deprecated: Please use SteamStringIDs */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<int32> SteamIDs;
+
+    /** Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString SteamStringIDs;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayFabIDsFromSteamIDsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Mapping of Steam identifiers to PlayFab identifiers. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         TArray<UPlayFabJsonObject*> Data;
 
@@ -228,6 +258,40 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetPlayerStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** user for whom statistics are being requested */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** statistics to return */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString StatisticNames;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayerStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** PlayFab unique identifier of the user whose statistics are being returned */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** User statistics for the requested user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetUserDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -294,6 +358,32 @@ public:
     /** User statistics for the requested user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* UserStatistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerUpdatePlayerStatisticsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** Statistics to be updated with the provided values */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerUpdatePlayerStatisticsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
 
 };
 
@@ -1597,6 +1687,12 @@ struct FServerUpdateSharedGroupDataResult
 public:
 
 };
+
+
+
+///////////////////////////////////////////////////////
+// Server-Side Cloud Script
+//////////////////////////////////////////////////////
 
 
 

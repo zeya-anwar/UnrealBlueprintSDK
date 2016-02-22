@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Matchmaker
-// SDK Version: 0.0.160208
+// SDK Version: 0.0.160222
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -64,11 +64,18 @@ FString UPlayFabMatchmakerAPI::PercentEncode(const FString& Text)
 // Matchmaking APIs
 //////////////////////////////////////////////////////
 /** Validates a user with the PlayFab service */
-UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserRequest request)
+UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserRequest request,
+    FDelegateOnSuccessAuthUser onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessAuthUser = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabMatchmakerAPI::HelperAuthUser);
 
     // Setup the request
     manager->PlayFabRequestURL = "/Matchmaker/AuthUser";
@@ -87,19 +94,46 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserReques
     }
 
 
-
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
 
     return manager;
 }
 
+// Implements FOnPlayFabMatchmakerRequestCompleted
+void UPlayFabMatchmakerAPI::HelperAuthUser(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FMatchmakerAuthUserResponse result = UPlayFabMatchmakerModelDecoder::decodeAuthUserResponseResponse(response.responseData);
+        if (OnSuccessAuthUser.IsBound())
+        {
+            OnSuccessAuthUser.Execute(result);
+        }
+    }
+}
+
 /** Informs the PlayFab game server hosting service that the indicated user has joined the Game Server Instance specified */
-UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoinedRequest request)
+UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoinedRequest request,
+    FDelegateOnSuccessPlayerJoined onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessPlayerJoined = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabMatchmakerAPI::HelperPlayerJoined);
 
     // Setup the request
     manager->PlayFabRequestURL = "/Matchmaker/PlayerJoined";
@@ -127,19 +161,46 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoin
     }
 
 
-
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
 
     return manager;
 }
 
+// Implements FOnPlayFabMatchmakerRequestCompleted
+void UPlayFabMatchmakerAPI::HelperPlayerJoined(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FMatchmakerPlayerJoinedResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerJoinedResponseResponse(response.responseData);
+        if (OnSuccessPlayerJoined.IsBound())
+        {
+            OnSuccessPlayerJoined.Execute(result);
+        }
+    }
+}
+
 /** Informs the PlayFab game server hosting service that the indicated user has left the Game Server Instance specified */
-UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRequest request)
+UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRequest request,
+    FDelegateOnSuccessPlayerLeft onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessPlayerLeft = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabMatchmakerAPI::HelperPlayerLeft);
 
     // Setup the request
     manager->PlayFabRequestURL = "/Matchmaker/PlayerLeft";
@@ -167,19 +228,46 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRe
     }
 
 
-
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
 
     return manager;
 }
 
+// Implements FOnPlayFabMatchmakerRequestCompleted
+void UPlayFabMatchmakerAPI::HelperPlayerLeft(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FMatchmakerPlayerLeftResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerLeftResponseResponse(response.responseData);
+        if (OnSuccessPlayerLeft.IsBound())
+        {
+            OnSuccessPlayerLeft.Execute(result);
+        }
+    }
+}
+
 /** Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance */
-UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequest request)
+UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequest request,
+    FDelegateOnSuccessStartGame onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessStartGame = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabMatchmakerAPI::HelperStartGame);
 
     // Setup the request
     manager->PlayFabRequestURL = "/Matchmaker/StartGame";
@@ -234,19 +322,46 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
     }
 
 
-
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
 
     return manager;
 }
 
+// Implements FOnPlayFabMatchmakerRequestCompleted
+void UPlayFabMatchmakerAPI::HelperStartGame(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FMatchmakerStartGameResponse result = UPlayFabMatchmakerModelDecoder::decodeStartGameResponseResponse(response.responseData);
+        if (OnSuccessStartGame.IsBound())
+        {
+            OnSuccessStartGame.Execute(result);
+        }
+    }
+}
+
 /** Retrieves the relevant details for a specified user, which the external match-making service can then use to compute effective matches */
-UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoRequest request)
+UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoRequest request,
+    FDelegateOnSuccessUserInfo onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessUserInfo = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabMatchmakerAPI::HelperUserInfo);
 
     // Setup the request
     manager->PlayFabRequestURL = "/Matchmaker/UserInfo";
@@ -266,11 +381,31 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoReques
 
     OutRestJsonObj->SetNumberField(TEXT("MinCatalogVersion"), request.MinCatalogVersion);
 
-
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
 
     return manager;
+}
+
+// Implements FOnPlayFabMatchmakerRequestCompleted
+void UPlayFabMatchmakerAPI::HelperUserInfo(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FMatchmakerUserInfoResponse result = UPlayFabMatchmakerModelDecoder::decodeUserInfoResponseResponse(response.responseData);
+        if (OnSuccessUserInfo.IsBound())
+        {
+            OnSuccessUserInfo.Execute(result);
+        }
+    }
 }
 
 

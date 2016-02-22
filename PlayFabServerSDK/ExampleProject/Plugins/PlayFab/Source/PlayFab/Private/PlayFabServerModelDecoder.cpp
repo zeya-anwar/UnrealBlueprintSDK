@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160208
+// SDK Version: 0.0.160222
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -40,6 +40,17 @@ FServerGetPlayFabIDsFromFacebookIDsResult UPlayFabServerModelDecoder::decodeGetP
     FServerGetPlayFabIDsFromFacebookIDsResult tempStruct;
 
     /** Mapping of Facebook identifiers to PlayFab identifiers. */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectArrayField("Data");
+
+    return tempStruct;
+}
+
+FServerGetPlayFabIDsFromSteamIDsResult UPlayFabServerModelDecoder::decodeGetPlayFabIDsFromSteamIDsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayFabIDsFromSteamIDsResult tempStruct;
+
+    /** Mapping of Steam identifiers to PlayFab identifiers. */
     tempStruct.Data = response->GetObjectField("data")->GetObjectArrayField("Data");
 
     return tempStruct;
@@ -100,6 +111,20 @@ FServerGetLeaderboardAroundUserResult UPlayFabServerModelDecoder::decodeGetLeade
     return tempStruct;
 }
 
+FServerGetPlayerStatisticsResult UPlayFabServerModelDecoder::decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayerStatisticsResult tempStruct;
+
+    /** PlayFab unique identifier of the user whose statistics are being returned */
+    tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
+
+    /** User statistics for the requested user. */
+    tempStruct.Statistics = response->GetObjectField("data")->GetObjectArrayField("Statistics");
+
+    return tempStruct;
+}
+
 FServerGetUserDataResult UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -127,6 +152,14 @@ FServerGetUserStatisticsResult UPlayFabServerModelDecoder::decodeGetUserStatisti
 
     /** User statistics for the requested user. */
     tempStruct.UserStatistics = response->GetObjectField("data")->GetObjectField("UserStatistics");
+
+    return tempStruct;
+}
+
+FServerUpdatePlayerStatisticsResult UPlayFabServerModelDecoder::decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerUpdatePlayerStatisticsResult tempStruct;
 
     return tempStruct;
 }
@@ -578,6 +611,12 @@ FServerUpdateSharedGroupDataResult UPlayFabServerModelDecoder::decodeUpdateShare
 
     return tempStruct;
 }
+
+
+
+///////////////////////////////////////////////////////
+// Server-Side Cloud Script
+//////////////////////////////////////////////////////
 
 
 

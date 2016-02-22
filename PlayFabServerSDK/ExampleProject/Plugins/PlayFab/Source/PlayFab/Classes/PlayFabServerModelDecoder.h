@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160208
+// SDK Version: 0.0.160222
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -44,6 +44,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
         static FServerGetPlayFabIDsFromFacebookIDsResult decodeGetPlayFabIDsFromFacebookIDsResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayFabIDsFromSteamIDsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
+        static FServerGetPlayFabIDsFromSteamIDsResult decodeGetPlayFabIDsFromSteamIDsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetUserAccountInfoResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
         static FServerGetUserAccountInfoResult decodeGetUserAccountInfoResultResponse(UPlayFabJsonObject* response);
@@ -70,6 +74,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetLeaderboardAroundUserResult decodeGetLeaderboardAroundUserResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayerStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
+        static FServerGetPlayerStatisticsResult decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetUserDataResult decodeGetUserDataResultResponse(UPlayFabJsonObject* response);
@@ -77,6 +85,10 @@ public:
     /** Decode the GetUserStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetUserStatisticsResult decodeGetUserStatisticsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdatePlayerStatisticsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
+        static FServerUpdatePlayerStatisticsResult decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
@@ -259,6 +271,12 @@ public:
     /** Decode the UpdateSharedGroupDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
         static FServerUpdateSharedGroupDataResult decodeUpdateSharedGroupDataResultResponse(UPlayFabJsonObject* response);
+
+
+
+    ///////////////////////////////////////////////////////
+    // Server-Side Cloud Script
+    //////////////////////////////////////////////////////
 
 
 

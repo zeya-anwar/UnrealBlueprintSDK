@@ -23,9 +23,11 @@ class UPlayFabMatchmakerAPI : public UOnlineBlueprintCallProxyBase
 
 public:
 
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnFailurePlayFabError, FPlayFabError, error);
+
     UPROPERTY(BlueprintAssignable)
     FOnPlayFabMatchmakerRequestCompleted OnPlayFabResponse;
-
+    
     /** Set the Request Json object */
     //UFUNCTION(BlueprintCallable, Category = "PlayFab")
         void SetRequestObject(UPlayFabJsonObject* JsonObject);
@@ -54,25 +56,70 @@ public:
     ///////////////////////////////////////////////////////
     // Matchmaking APIs
     //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAuthUser, FMatchmakerAuthUserResponse, result);
+
     /** Validates a user with the PlayFab service */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabMatchmakerAPI* AuthUser(FMatchmakerAuthUserRequest request);
+    static UPlayFabMatchmakerAPI* AuthUser(FMatchmakerAuthUserRequest request,
+        FDelegateOnSuccessAuthUser onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperAuthUser(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessPlayerJoined, FMatchmakerPlayerJoinedResponse, result);
 
     /** Informs the PlayFab game server hosting service that the indicated user has joined the Game Server Instance specified */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabMatchmakerAPI* PlayerJoined(FMatchmakerPlayerJoinedRequest request);
+    static UPlayFabMatchmakerAPI* PlayerJoined(FMatchmakerPlayerJoinedRequest request,
+        FDelegateOnSuccessPlayerJoined onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperPlayerJoined(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessPlayerLeft, FMatchmakerPlayerLeftResponse, result);
 
     /** Informs the PlayFab game server hosting service that the indicated user has left the Game Server Instance specified */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabMatchmakerAPI* PlayerLeft(FMatchmakerPlayerLeftRequest request);
+    static UPlayFabMatchmakerAPI* PlayerLeft(FMatchmakerPlayerLeftRequest request,
+        FDelegateOnSuccessPlayerLeft onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperPlayerLeft(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessStartGame, FMatchmakerStartGameResponse, result);
 
     /** Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabMatchmakerAPI* StartGame(FMatchmakerStartGameRequest request);
+    static UPlayFabMatchmakerAPI* StartGame(FMatchmakerStartGameRequest request,
+        FDelegateOnSuccessStartGame onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperStartGame(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUserInfo, FMatchmakerUserInfoResponse, result);
 
     /** Retrieves the relevant details for a specified user, which the external match-making service can then use to compute effective matches */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabMatchmakerAPI* UserInfo(FMatchmakerUserInfoRequest request);
+    static UPlayFabMatchmakerAPI* UserInfo(FMatchmakerUserInfoRequest request,
+        FDelegateOnSuccessUserInfo onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperUserInfo(FPlayFabBaseModel response, bool successful);
 
 
 
@@ -91,6 +138,13 @@ public:
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */
     void OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
+    
+    FDelegateOnFailurePlayFabError OnFailure;
+    FDelegateOnSuccessAuthUser OnSuccessAuthUser;
+    FDelegateOnSuccessPlayerJoined OnSuccessPlayerJoined;
+    FDelegateOnSuccessPlayerLeft OnSuccessPlayerLeft;
+    FDelegateOnSuccessStartGame OnSuccessStartGame;
+    FDelegateOnSuccessUserInfo OnSuccessUserInfo;
 
 protected:
 

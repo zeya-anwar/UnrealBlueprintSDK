@@ -184,19 +184,6 @@ public:
     void HelperGetPlayerStatistics(FPlayFabBaseModel response, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerStatisticVersions, FServerGetPlayerStatisticVersionsResult, result);
-
-    /** Retrieves the information on the available versions of the specified statistic. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabServerAPI* GetPlayerStatisticVersions(FServerGetPlayerStatisticVersionsRequest request,
-        FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserData, FServerGetUserDataResult, result);
 
     /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
@@ -1163,7 +1150,6 @@ private:
     FDelegateOnSuccessGetLeaderboard OnSuccessGetLeaderboard;
     FDelegateOnSuccessGetLeaderboardAroundUser OnSuccessGetLeaderboardAroundUser;
     FDelegateOnSuccessGetPlayerStatistics OnSuccessGetPlayerStatistics;
-    FDelegateOnSuccessGetPlayerStatisticVersions OnSuccessGetPlayerStatisticVersions;
     FDelegateOnSuccessGetUserData OnSuccessGetUserData;
     FDelegateOnSuccessGetUserInternalData OnSuccessGetUserInternalData;
     FDelegateOnSuccessGetUserPublisherData OnSuccessGetUserPublisherData;

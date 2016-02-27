@@ -125,17 +125,6 @@ FServerGetPlayerStatisticsResult UPlayFabServerModelDecoder::decodeGetPlayerStat
     return tempStruct;
 }
 
-FServerGetPlayerStatisticVersionsResult UPlayFabServerModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerGetPlayerStatisticVersionsResult tempStruct;
-
-    /** version change history of the statistic */
-    tempStruct.StatisticVersions = response->GetObjectField("data")->GetObjectArrayField("StatisticVersions");
-
-    return tempStruct;
-}
-
 FServerGetUserDataResult UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

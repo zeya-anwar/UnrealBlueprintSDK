@@ -182,10 +182,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetPlayerStatisticsResult decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response);
 
-    /** Decode the GetPlayerStatisticVersionsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
-        static FClientGetPlayerStatisticVersionsResult decodeGetPlayerStatisticVersionsResultResponse(UPlayFabJsonObject* response);
-
     /** Decode the GetUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetUserDataResult decodeGetUserDataResultResponse(UPlayFabJsonObject* response);

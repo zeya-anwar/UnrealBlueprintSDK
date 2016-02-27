@@ -641,7 +641,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerStatistics, FClientGetPlayerStatisticsResult, result);
 
-    /** Retrieves the indicated statistics (current version and values for all statistics, if none are specified), for the local player. */
+    /** Retrieves the current version and values for the indicated statistics, for the local player. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* GetPlayerStatistics(FClientGetPlayerStatisticsRequest request,
         FDelegateOnSuccessGetPlayerStatistics onSuccess,
@@ -650,19 +650,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperGetPlayerStatistics(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerStatisticVersions, FClientGetPlayerStatisticVersionsResult, result);
-
-    /** Retrieves the information on the available versions of the specified statistic. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayerStatisticVersions(FClientGetPlayerStatisticVersionsRequest request,
-        FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserData, FClientGetUserDataResult, result);
@@ -1679,7 +1666,6 @@ private:
     FDelegateOnSuccessGetLeaderboardAroundCurrentUser OnSuccessGetLeaderboardAroundCurrentUser;
     FDelegateOnSuccessGetLeaderboardAroundPlayer OnSuccessGetLeaderboardAroundPlayer;
     FDelegateOnSuccessGetPlayerStatistics OnSuccessGetPlayerStatistics;
-    FDelegateOnSuccessGetPlayerStatisticVersions OnSuccessGetPlayerStatisticVersions;
     FDelegateOnSuccessGetUserData OnSuccessGetUserData;
     FDelegateOnSuccessGetUserPublisherData OnSuccessGetUserPublisherData;
     FDelegateOnSuccessGetUserPublisherReadOnlyData OnSuccessGetUserPublisherReadOnlyData;

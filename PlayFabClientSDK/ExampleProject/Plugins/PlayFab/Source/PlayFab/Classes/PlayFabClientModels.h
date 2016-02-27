@@ -1231,13 +1231,9 @@ struct FClientGetPlayerStatisticsRequest
 
 public:
 
-    /** statistics to return (current version will be returned for each) */
+    /** statistics to return */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString StatisticNames;
-
-    /** statistics to return, if StatisticNames is not set (only statistics which have a version matching that provided will be returned) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> StatisticNameVersions;
 
 };
 
@@ -1251,32 +1247,6 @@ public:
     /** User statistics for the requested user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         TArray<UPlayFabJsonObject*> Statistics;
-
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetPlayerStatisticVersionsRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** unique name of the statistic */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        FString StatisticName;
-
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetPlayerStatisticVersionsResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** version change history of the statistic */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> StatisticVersions;
 
 };
 

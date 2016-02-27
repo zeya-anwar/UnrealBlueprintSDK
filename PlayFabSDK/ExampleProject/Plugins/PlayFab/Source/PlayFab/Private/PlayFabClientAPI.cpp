@@ -2928,7 +2928,7 @@ void UPlayFabClientAPI::HelperGetLeaderboardAroundPlayer(FPlayFabBaseModel respo
     }
 }
 
-/** Retrieves the indicated statistics (current version and values for all statistics, if none are specified), for the local player. */
+/** Retrieves the current version and values for the indicated statistics, for the local player. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetPlayerStatistics(FClientGetPlayerStatisticsRequest request,
     FDelegateOnSuccessGetPlayerStatistics onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -2961,7 +2961,6 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetPlayerStatistics(FClientGetPlayerStatis
         OutRestJsonObj->SetStringArrayField(TEXT("StatisticNames"), StatisticNamesArray);
     }
 
-    OutRestJsonObj->SetObjectArrayField(TEXT("StatisticNameVersions"), request.StatisticNameVersions);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2986,64 +2985,6 @@ void UPlayFabClientAPI::HelperGetPlayerStatistics(FPlayFabBaseModel response, bo
         if (OnSuccessGetPlayerStatistics.IsBound())
         {
             OnSuccessGetPlayerStatistics.Execute(result);
-        }
-    }
-}
-
-/** Retrieves the information on the available versions of the specified statistic. */
-UPlayFabClientAPI* UPlayFabClientAPI::GetPlayerStatisticVersions(FClientGetPlayerStatisticVersionsRequest request,
-    FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-
-    // Assign delegates
-    manager->OnSuccessGetPlayerStatisticVersions = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetPlayerStatisticVersions);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/GetPlayerStatisticVersions";
-    manager->useSessionTicket = true;
-    manager->useSecretKey = false;
-
-
-    // Setup request object
-    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
-    }
-
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error);
-        }
-    }
-    else
-    {
-        FClientGetPlayerStatisticVersionsResult result = UPlayFabClientModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(response.responseData);
-        if (OnSuccessGetPlayerStatisticVersions.IsBound())
-        {
-            OnSuccessGetPlayerStatisticVersions.Execute(result);
         }
     }
 }

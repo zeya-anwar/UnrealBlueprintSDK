@@ -240,6 +240,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1203: returnText = "StatisticCountLimitExceeded"; break;
     case 1204: returnText = "StatisticVersionIncrementRateExceeded"; break;
     case 1205: returnText = "ContainerKeyInvalid"; break;
+    case 1206: returnText = "CloudScriptExecutionTimeLimitExceeded"; break;
     }
 
     // Return the text

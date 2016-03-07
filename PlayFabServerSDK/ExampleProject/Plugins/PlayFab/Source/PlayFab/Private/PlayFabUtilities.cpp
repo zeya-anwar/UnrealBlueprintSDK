@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.160222
+// SDK Version: 0.0.160307
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -240,6 +240,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1203: returnText = "StatisticCountLimitExceeded"; break;
     case 1204: returnText = "StatisticVersionIncrementRateExceeded"; break;
     case 1205: returnText = "ContainerKeyInvalid"; break;
+    case 1206: returnText = "CloudScriptExecutionTimeLimitExceeded"; break;
     }
 
     // Return the text

@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160222
+// SDK Version: 0.0.160307
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -272,6 +272,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         FString StatisticNames;
 
+    /** statistics to return, if StatisticNames is not set (only statistics which have a version matching that provided will be returned) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> StatisticNameVersions;
+
 };
 
 USTRUCT(BlueprintType)
@@ -288,6 +292,32 @@ public:
     /** User statistics for the requested user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         TArray<UPlayFabJsonObject*> Statistics;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayerStatisticVersionsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** unique name of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString StatisticName;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayerStatisticVersionsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** version change history of the statistic */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> StatisticVersions;
 
 };
 

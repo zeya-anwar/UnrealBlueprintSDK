@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// SDK Version: 0.0.160222
+// SDK Version: 0.0.160307
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -187,19 +187,6 @@ public:
     void HelperLoginWithPlayFab(FPlayFabBaseModel response, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithPSN, FClientLoginResult, result);
-
-    /** Signs the user in using a PlayStation Network authentication code, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithPSN(FClientLoginWithPSNRequest request,
-        FDelegateOnSuccessLoginWithPSN onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithPSN(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithSteam, FClientLoginResult, result);
 
     /** Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
@@ -211,19 +198,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperLoginWithSteam(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithXbox, FClientLoginResult, result);
-
-    /** Signs the user in using a Xbox Live Token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithXbox(FClientLoginWithXboxRequest request,
-        FDelegateOnSuccessLoginWithXbox onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithXbox(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRegisterPlayFabUser, FClientRegisterPlayFabUserResult, result);
@@ -320,19 +294,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperGetPlayFabIDsFromKongregateIDs(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayFabIDsFromPSNAccountIDs, FClientGetPlayFabIDsFromPSNAccountIDsResult, result);
-
-    /** Retrieves the unique PlayFab identifiers for the given set of PlayStation Network identifiers. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayFabIDsFromPSNAccountIDs(FClientGetPlayFabIDsFromPSNAccountIDsRequest request,
-        FDelegateOnSuccessGetPlayFabIDsFromPSNAccountIDs onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayFabIDsFromPSNAccountIDs(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayFabIDsFromSteamIDs, FClientGetPlayFabIDsFromSteamIDsResult, result);
@@ -452,19 +413,6 @@ public:
     void HelperLinkKongregate(FPlayFabBaseModel response, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkPSNAccount, FClientLinkPSNAccountResult, result);
-
-    /** Links the PlayStation Network account associated with the provided access code to the user's PlayFab account */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkPSNAccount(FClientLinkPSNAccountRequest request,
-        FDelegateOnSuccessLinkPSNAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkPSNAccount(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkSteamAccount, FClientLinkSteamAccountResult, result);
 
     /** Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account */
@@ -476,19 +424,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperLinkSteamAccount(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkXboxAccount, FClientLinkXboxAccountResult, result);
-
-    /** Links the Xbox Live account associated with the provided access code to the user's PlayFab account */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkXboxAccount(FClientLinkXboxAccountRequest request,
-        FDelegateOnSuccessLinkXboxAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkXboxAccount(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSendAccountRecoveryEmail, FClientSendAccountRecoveryEmailResult, result);
@@ -595,19 +530,6 @@ public:
     void HelperUnlinkKongregate(FPlayFabBaseModel response, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkPSNAccount, FClientUnlinkPSNAccountResult, result);
-
-    /** Unlinks the related PSN account from the user's PlayFab account */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkPSNAccount(FClientUnlinkPSNAccountRequest request,
-        FDelegateOnSuccessUnlinkPSNAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkPSNAccount(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkSteamAccount, FClientUnlinkSteamAccountResult, result);
 
     /** Unlinks the related Steam account from the user's PlayFab account */
@@ -619,19 +541,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperUnlinkSteamAccount(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkXboxAccount, FClientUnlinkXboxAccountResult, result);
-
-    /** Unlinks the related Xbox Live account from the user's PlayFab account */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkXboxAccount(FClientUnlinkXboxAccountRequest request,
-        FDelegateOnSuccessUnlinkXboxAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkXboxAccount(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserTitleDisplayName, FClientUpdateUserTitleDisplayNameResult, result);
@@ -732,7 +641,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerStatistics, FClientGetPlayerStatisticsResult, result);
 
-    /** Retrieves the current version and values for the indicated statistics, for the local player. */
+    /** Retrieves the indicated statistics (current version and values for all statistics, if none are specified), for the local player. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* GetPlayerStatistics(FClientGetPlayerStatisticsRequest request,
         FDelegateOnSuccessGetPlayerStatistics onSuccess,
@@ -741,6 +650,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperGetPlayerStatistics(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerStatisticVersions, FClientGetPlayerStatisticVersionsResult, result);
+
+    /** Retrieves the information on the available versions of the specified statistic. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabClientAPI* GetPlayerStatisticVersions(FClientGetPlayerStatisticVersionsRequest request,
+        FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserData, FClientGetUserDataResult, result);
@@ -1398,32 +1320,6 @@ public:
     ///////////////////////////////////////////////////////
     // Sony-specific APIs
     //////////////////////////////////////////////////////
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessConsumePSNEntitlements, FClientConsumePSNEntitlementsResult, result);
-
-    /** Checks for any new consumable entitlements. If any are found, they are consumed and added as PlayFab items */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Sony-specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ConsumePSNEntitlements(FClientConsumePSNEntitlementsRequest request,
-        FDelegateOnSuccessConsumePSNEntitlements onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Sony-specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperConsumePSNEntitlements(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRefreshPSNAuthToken, FClientEmptyResult, result);
-
-    /** Uses the supplied OAuth code to refresh the internally cached player PSN auth token */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Sony-specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RefreshPSNAuthToken(FClientRefreshPSNAuthTokenRequest request,
-        FDelegateOnSuccessRefreshPSNAuthToken onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Sony-specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRefreshPSNAuthToken(FPlayFabBaseModel response, bool successful);
-
 
 
     ///////////////////////////////////////////////////////
@@ -1748,9 +1644,7 @@ private:
     FDelegateOnSuccessLoginWithIOSDeviceID OnSuccessLoginWithIOSDeviceID;
     FDelegateOnSuccessLoginWithKongregate OnSuccessLoginWithKongregate;
     FDelegateOnSuccessLoginWithPlayFab OnSuccessLoginWithPlayFab;
-    FDelegateOnSuccessLoginWithPSN OnSuccessLoginWithPSN;
     FDelegateOnSuccessLoginWithSteam OnSuccessLoginWithSteam;
-    FDelegateOnSuccessLoginWithXbox OnSuccessLoginWithXbox;
     FDelegateOnSuccessRegisterPlayFabUser OnSuccessRegisterPlayFabUser;
     FDelegateOnSuccessAddUsernamePassword OnSuccessAddUsernamePassword;
     FDelegateOnSuccessGetAccountInfo OnSuccessGetAccountInfo;
@@ -1758,7 +1652,6 @@ private:
     FDelegateOnSuccessGetPlayFabIDsFromGameCenterIDs OnSuccessGetPlayFabIDsFromGameCenterIDs;
     FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs OnSuccessGetPlayFabIDsFromGoogleIDs;
     FDelegateOnSuccessGetPlayFabIDsFromKongregateIDs OnSuccessGetPlayFabIDsFromKongregateIDs;
-    FDelegateOnSuccessGetPlayFabIDsFromPSNAccountIDs OnSuccessGetPlayFabIDsFromPSNAccountIDs;
     FDelegateOnSuccessGetPlayFabIDsFromSteamIDs OnSuccessGetPlayFabIDsFromSteamIDs;
     FDelegateOnSuccessGetUserCombinedInfo OnSuccessGetUserCombinedInfo;
     FDelegateOnSuccessLinkAndroidDeviceID OnSuccessLinkAndroidDeviceID;
@@ -1768,9 +1661,7 @@ private:
     FDelegateOnSuccessLinkGoogleAccount OnSuccessLinkGoogleAccount;
     FDelegateOnSuccessLinkIOSDeviceID OnSuccessLinkIOSDeviceID;
     FDelegateOnSuccessLinkKongregate OnSuccessLinkKongregate;
-    FDelegateOnSuccessLinkPSNAccount OnSuccessLinkPSNAccount;
     FDelegateOnSuccessLinkSteamAccount OnSuccessLinkSteamAccount;
-    FDelegateOnSuccessLinkXboxAccount OnSuccessLinkXboxAccount;
     FDelegateOnSuccessSendAccountRecoveryEmail OnSuccessSendAccountRecoveryEmail;
     FDelegateOnSuccessUnlinkAndroidDeviceID OnSuccessUnlinkAndroidDeviceID;
     FDelegateOnSuccessUnlinkCustomID OnSuccessUnlinkCustomID;
@@ -1779,9 +1670,7 @@ private:
     FDelegateOnSuccessUnlinkGoogleAccount OnSuccessUnlinkGoogleAccount;
     FDelegateOnSuccessUnlinkIOSDeviceID OnSuccessUnlinkIOSDeviceID;
     FDelegateOnSuccessUnlinkKongregate OnSuccessUnlinkKongregate;
-    FDelegateOnSuccessUnlinkPSNAccount OnSuccessUnlinkPSNAccount;
     FDelegateOnSuccessUnlinkSteamAccount OnSuccessUnlinkSteamAccount;
-    FDelegateOnSuccessUnlinkXboxAccount OnSuccessUnlinkXboxAccount;
     FDelegateOnSuccessUpdateUserTitleDisplayName OnSuccessUpdateUserTitleDisplayName;
     FDelegateOnSuccessGetFriendLeaderboard OnSuccessGetFriendLeaderboard;
     FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser OnSuccessGetFriendLeaderboardAroundCurrentUser;
@@ -1790,6 +1679,7 @@ private:
     FDelegateOnSuccessGetLeaderboardAroundCurrentUser OnSuccessGetLeaderboardAroundCurrentUser;
     FDelegateOnSuccessGetLeaderboardAroundPlayer OnSuccessGetLeaderboardAroundPlayer;
     FDelegateOnSuccessGetPlayerStatistics OnSuccessGetPlayerStatistics;
+    FDelegateOnSuccessGetPlayerStatisticVersions OnSuccessGetPlayerStatisticVersions;
     FDelegateOnSuccessGetUserData OnSuccessGetUserData;
     FDelegateOnSuccessGetUserPublisherData OnSuccessGetUserPublisherData;
     FDelegateOnSuccessGetUserPublisherReadOnlyData OnSuccessGetUserPublisherReadOnlyData;
@@ -1837,8 +1727,6 @@ private:
     FDelegateOnSuccessGetSharedGroupData OnSuccessGetSharedGroupData;
     FDelegateOnSuccessRemoveSharedGroupMembers OnSuccessRemoveSharedGroupMembers;
     FDelegateOnSuccessUpdateSharedGroupData OnSuccessUpdateSharedGroupData;
-    FDelegateOnSuccessConsumePSNEntitlements OnSuccessConsumePSNEntitlements;
-    FDelegateOnSuccessRefreshPSNAuthToken OnSuccessRefreshPSNAuthToken;
     FDelegateOnSuccessGetCloudScriptUrl OnSuccessGetCloudScriptUrl;
     FDelegateOnSuccessRunCloudScript OnSuccessRunCloudScript;
     FDelegateOnSuccessGetContentDownloadUrl OnSuccessGetContentDownloadUrl;

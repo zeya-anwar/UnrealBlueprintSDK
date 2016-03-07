@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
-// SDK Version: 0.0.160222
+// SDK Version: 0.0.160307
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -625,6 +625,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatistics(FServerGetPlayerStatis
         OutRestJsonObj->SetStringArrayField(TEXT("StatisticNames"), StatisticNamesArray);
     }
 
+    OutRestJsonObj->SetObjectArrayField(TEXT("StatisticNameVersions"), request.StatisticNameVersions);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -649,6 +650,64 @@ void UPlayFabServerAPI::HelperGetPlayerStatistics(FPlayFabBaseModel response, bo
         if (OnSuccessGetPlayerStatistics.IsBound())
         {
             OnSuccessGetPlayerStatistics.Execute(result);
+        }
+    }
+}
+
+/** Retrieves the information on the available versions of the specified statistic. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatisticVersions(FServerGetPlayerStatisticVersionsRequest request,
+    FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessGetPlayerStatisticVersions = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetPlayerStatisticVersions);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetPlayerStatisticVersions";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FServerGetPlayerStatisticVersionsResult result = UPlayFabServerModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(response.responseData);
+        if (OnSuccessGetPlayerStatisticVersions.IsBound())
+        {
+            OnSuccessGetPlayerStatisticVersions.Execute(result);
         }
     }
 }

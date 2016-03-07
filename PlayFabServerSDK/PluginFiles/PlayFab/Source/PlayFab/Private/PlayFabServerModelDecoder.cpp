@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160222
+// SDK Version: 0.0.160307
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -121,6 +121,17 @@ FServerGetPlayerStatisticsResult UPlayFabServerModelDecoder::decodeGetPlayerStat
 
     /** User statistics for the requested user. */
     tempStruct.Statistics = response->GetObjectField("data")->GetObjectArrayField("Statistics");
+
+    return tempStruct;
+}
+
+FServerGetPlayerStatisticVersionsResult UPlayFabServerModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayerStatisticVersionsResult tempStruct;
+
+    /** version change history of the statistic */
+    tempStruct.StatisticVersions = response->GetObjectField("data")->GetObjectArrayField("StatisticVersions");
 
     return tempStruct;
 }

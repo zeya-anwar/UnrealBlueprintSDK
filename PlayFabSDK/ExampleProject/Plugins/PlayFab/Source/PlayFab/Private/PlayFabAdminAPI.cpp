@@ -366,6 +366,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreate
         OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
     }
 
+    if (request.AggregationMethod.IsEmpty() || request.AggregationMethod == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AggregationMethod"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), request.AggregationMethod);
+    }
+
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1203,6 +1212,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdate
     else
     {
         OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
+    }
+
+    if (request.AggregationMethod.IsEmpty() || request.AggregationMethod == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AggregationMethod"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), request.AggregationMethod);
     }
 
 
@@ -3812,6 +3830,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
     // Setup request object
     OutRestJsonObj->SetNumberField(TEXT("Version"), request.Version);
     OutRestJsonObj->SetObjectArrayField(TEXT("Files"), request.Files);
+    OutRestJsonObj->SetBoolField(TEXT("Publish"), request.Publish);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);

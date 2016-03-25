@@ -3692,15 +3692,6 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetStoreItems(FClientGetStoreItemsRequest 
 
 
     // Setup request object
-    if (request.StoreId.IsEmpty() || request.StoreId == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
-    }
-
     if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
@@ -3708,6 +3699,15 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetStoreItems(FClientGetStoreItemsRequest 
     else
     {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+    if (request.StoreId.IsEmpty() || request.StoreId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
     }
 
 
@@ -4059,15 +4059,6 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetCharacterInventory(FClientGetCharacterI
 
 
     // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
-    }
-
     if (request.CharacterId.IsEmpty() || request.CharacterId == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
@@ -7744,6 +7735,10 @@ void UPlayFabClientAPI::HelperAttributeInstall(FPlayFabBaseModel response, bool 
     }
 }
 
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 
 void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

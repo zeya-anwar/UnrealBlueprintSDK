@@ -194,9 +194,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerUnlockContainerItemResult decodeUnlockContainerItemResultResponse(UPlayFabJsonObject* response);
 
-    /** Decode the UpdateUserInventoryItemDataResult response object*/
+    /** Decode the EmptyResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
-        static FServerUpdateUserInventoryItemDataResult decodeUpdateUserInventoryItemDataResultResponse(UPlayFabJsonObject* response);
+        static FServerEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
 
 
 
@@ -251,10 +251,6 @@ public:
     /** Decode the CreateSharedGroupResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
         static FServerCreateSharedGroupResult decodeCreateSharedGroupResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the EmptyResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
-        static FServerEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetPublisherDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
@@ -343,6 +339,12 @@ public:
     /** Decode the UpdateCharacterDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Character Data Models")
         static FServerUpdateCharacterDataResult decodeUpdateCharacterDataResultResponse(UPlayFabJsonObject* response);
+
+
+
+    ///////////////////////////////////////////////////////
+    // Guilds
+    //////////////////////////////////////////////////////
 
 
 

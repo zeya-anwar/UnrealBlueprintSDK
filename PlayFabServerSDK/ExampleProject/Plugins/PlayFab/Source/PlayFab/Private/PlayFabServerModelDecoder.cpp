@@ -300,7 +300,7 @@ FServerGetCharacterInventoryResult UPlayFabServerModelDecoder::decodeGetCharacte
     // Temp ustruct
     FServerGetCharacterInventoryResult tempStruct;
 
-    /** PlayFab unique identifier of the user whose character inventory is being returned. */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
 
     /** Unique identifier of the character for this inventory. */
@@ -323,7 +323,7 @@ FServerGetUserInventoryResult UPlayFabServerModelDecoder::decodeGetUserInventory
     // Temp ustruct
     FServerGetUserInventoryResult tempStruct;
 
-    /** PlayFab unique identifier of the user whose inventory is being returned. */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
 
     /** Array of inventory items belonging to the user. */
@@ -462,10 +462,10 @@ FServerUnlockContainerItemResult UPlayFabServerModelDecoder::decodeUnlockContain
     return tempStruct;
 }
 
-FServerUpdateUserInventoryItemDataResult UPlayFabServerModelDecoder::decodeUpdateUserInventoryItemDataResultResponse(UPlayFabJsonObject* response)
+FServerEmptyResult UPlayFabServerModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
-    FServerUpdateUserInventoryItemDataResult tempStruct;
+    FServerEmptyResult tempStruct;
 
     return tempStruct;
 }
@@ -562,14 +562,6 @@ FServerCreateSharedGroupResult UPlayFabServerModelDecoder::decodeCreateSharedGro
 
     /** Unique identifier for the shared group. */
     tempStruct.SharedGroupId = response->GetObjectField("data")->GetStringField("SharedGroupId");
-
-    return tempStruct;
-}
-
-FServerEmptyResult UPlayFabServerModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerEmptyResult tempStruct;
 
     return tempStruct;
 }
@@ -776,6 +768,12 @@ FServerUpdateCharacterDataResult UPlayFabServerModelDecoder::decodeUpdateCharact
 
     return tempStruct;
 }
+
+
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 
 

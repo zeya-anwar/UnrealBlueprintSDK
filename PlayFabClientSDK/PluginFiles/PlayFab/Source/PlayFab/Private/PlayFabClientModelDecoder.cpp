@@ -482,7 +482,7 @@ FClientGetCatalogItemsResult UPlayFabClientModelDecoder::decodeGetCatalogItemsRe
     // Temp ustruct
     FClientGetCatalogItemsResult tempStruct;
 
-    /** Array of inventory objects. */
+    /** Array of items which can be purchased. */
     tempStruct.Catalog = response->GetObjectField("data")->GetObjectArrayField("Catalog");
 
     return tempStruct;
@@ -493,7 +493,7 @@ FClientGetStoreItemsResult UPlayFabClientModelDecoder::decodeGetStoreItemsResult
     // Temp ustruct
     FClientGetStoreItemsResult tempStruct;
 
-    /** Array of store items. */
+    /** Array of items which can be purchased from this store. */
     tempStruct.Store = response->GetObjectField("data")->GetObjectArrayField("Store");
 
     return tempStruct;
@@ -583,9 +583,6 @@ FClientGetCharacterInventoryResult UPlayFabClientModelDecoder::decodeGetCharacte
     // Temp ustruct
     FClientGetCharacterInventoryResult tempStruct;
 
-    /** PlayFab unique identifier of the user whose character inventory is being returned. */
-    tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
-
     /** Unique identifier of the character for this inventory. */
     tempStruct.CharacterId = response->GetObjectField("data")->GetStringField("CharacterId");
 
@@ -632,7 +629,7 @@ FClientGetUserInventoryResult UPlayFabClientModelDecoder::decodeGetUserInventory
     // Temp ustruct
     FClientGetUserInventoryResult tempStruct;
 
-    /** Array of inventory items in the user's current inventory. */
+    /** Array of inventory items belonging to the user. */
     tempStruct.Inventory = response->GetObjectField("data")->GetObjectArrayField("Inventory");
 
     /** Array of virtual currency balance(s) belonging to the user. */
@@ -1335,6 +1332,12 @@ FClientAttributeInstallResult UPlayFabClientModelDecoder::decodeAttributeInstall
 
     return tempStruct;
 }
+
+
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 
 

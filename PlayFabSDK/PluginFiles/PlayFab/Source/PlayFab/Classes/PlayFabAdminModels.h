@@ -856,7 +856,7 @@ struct FAdminGetUserInventoryResult
 
 public:
 
-    /** PlayFab unique identifier of the user whose inventory is being returned. */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString PlayFabId;
 

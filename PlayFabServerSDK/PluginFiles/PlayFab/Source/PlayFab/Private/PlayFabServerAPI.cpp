@@ -3599,15 +3599,6 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerU
 
 
     // Setup request object
-    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
-    }
-
     if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
@@ -3615,6 +3606,15 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerU
     else
     {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
     if (request.ItemInstanceId.IsEmpty() || request.ItemInstanceId == "")
@@ -3659,7 +3659,7 @@ void UPlayFabServerAPI::HelperUpdateUserInventoryItemCustomData(FPlayFabBaseMode
     }
     else
     {
-        FServerUpdateUserInventoryItemDataResult result = UPlayFabServerModelDecoder::decodeUpdateUserInventoryItemDataResultResponse(response.responseData);
+        FServerEmptyResult result = UPlayFabServerModelDecoder::decodeEmptyResultResponse(response.responseData);
         if (OnSuccessUpdateUserInventoryItemCustomData.IsBound())
         {
             OnSuccessUpdateUserInventoryItemCustomData.Execute(result);
@@ -5634,6 +5634,10 @@ void UPlayFabServerAPI::HelperUpdateCharacterReadOnlyData(FPlayFabBaseModel resp
     }
 }
 
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 
 void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

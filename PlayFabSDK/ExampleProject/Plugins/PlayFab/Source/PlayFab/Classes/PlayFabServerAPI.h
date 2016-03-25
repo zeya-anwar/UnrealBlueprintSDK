@@ -727,7 +727,7 @@ public:
     void HelperUnlockContainerItem(FPlayFabBaseModel response, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserInventoryItemCustomData, FServerUpdateUserInventoryItemDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserInventoryItemCustomData, FServerEmptyResult, result);
 
     /** Updates the key-value pair data tagged to the specified item, which is read-only from the client. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
@@ -1135,6 +1135,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperUpdateCharacterReadOnlyData(FPlayFabBaseModel response, bool successful);
 
+
+
+    ///////////////////////////////////////////////////////
+    // Guilds
+    //////////////////////////////////////////////////////
 
 
     /** PlayFab Request Info */

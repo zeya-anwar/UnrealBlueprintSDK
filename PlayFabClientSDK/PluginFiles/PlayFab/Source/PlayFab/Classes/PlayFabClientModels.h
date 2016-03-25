@@ -1441,7 +1441,7 @@ struct FClientGetCatalogItemsResult
 
 public:
 
-    /** Array of inventory objects. */
+    /** Array of items which can be purchased. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Catalog;
 
@@ -1454,13 +1454,13 @@ struct FClientGetStoreItemsRequest
 
 public:
 
+    /** catalog version to store items from. Use default catalog version if null */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
+        FString CatalogVersion;
+
     /** Unqiue identifier for the store which is being requested. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         FString StoreId;
-
-    /** Catalog version for the requested store items. If null, defaults to most recent catalog. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
-        FString CatalogVersion;
 
 };
 
@@ -1471,7 +1471,7 @@ struct FClientGetStoreItemsResult
 
 public:
 
-    /** Array of store items. */
+    /** Array of items which can be purchased from this store. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Store;
 
@@ -1650,10 +1650,6 @@ struct FClientGetCharacterInventoryRequest
 
 public:
 
-    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString PlayFabId;
-
     /** Unique PlayFab assigned ID for a specific character owned by a user */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CharacterId;
@@ -1670,10 +1666,6 @@ struct FClientGetCharacterInventoryResult
     GENERATED_USTRUCT_BODY()
 
 public:
-
-    /** PlayFab unique identifier of the user whose character inventory is being returned. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString PlayFabId;
 
     /** Unique identifier of the character for this inventory. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
@@ -1755,7 +1747,7 @@ struct FClientGetUserInventoryResult
 
 public:
 
-    /** Array of inventory items in the user's current inventory. */
+    /** Array of inventory items belonging to the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         TArray<UPlayFabJsonObject*> Inventory;
 
@@ -3348,7 +3340,7 @@ struct FClientAcceptTradeRequest
 
 public:
 
-    /** Player who opened trade. */
+    /** Player who opened the trade. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString OfferingPlayerId;
 
@@ -3356,7 +3348,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString TradeId;
 
-    /** Items from the accepting player's inventory in exchange for the offered items in the trade. In the case of a gift, this will be null. */
+    /** Items from the accepting player's or guild's inventory in exchange for the offered items in the trade. In the case of a gift, this will be null. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString AcceptedInventoryInstanceIds;
 
@@ -3473,7 +3465,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString RequestedCatalogItemIds;
 
-    /** Players who are allowed to accept the trade. If null, the trade may be accepted by any player. */
+    /** Players who are allowed to accept the trade. If null, the trade may be accepted by any player. If empty, the trade may not be accepted by any player. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString AllowedPlayerIds;
 
@@ -3522,5 +3514,11 @@ struct FClientAttributeInstallResult
 public:
 
 };
+
+
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 

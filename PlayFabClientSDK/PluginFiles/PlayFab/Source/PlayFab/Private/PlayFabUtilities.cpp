@@ -248,6 +248,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         case 1211: returnText = "CloudScriptHTTPRequestError"; break;
         case 1212: returnText = "InsufficientGuildRole"; break;
         case 1213: returnText = "GuildNotFound"; break;
+        case 1214: returnText = "OverLimit"; break;
     }
 
     // Return the text

@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -1326,6 +1326,19 @@ public:
     // Server-Side Cloud Script
     //////////////////////////////////////////////////////
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessExecuteCloudScript, FClientExecuteCloudScriptResult, result);
+
+    /** Executes a CloudScript function, with the 'currentPlayerId' set to the PlayFab ID of the authenticated player. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabClientAPI* ExecuteCloudScript(FClientExecuteCloudScriptRequest request,
+        FDelegateOnSuccessExecuteCloudScript onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperExecuteCloudScript(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCloudScriptUrl, FClientGetCloudScriptUrlResult, result);
 
     /** Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript. */
@@ -1617,6 +1630,11 @@ public:
 
 
 
+    ///////////////////////////////////////////////////////
+    // Guilds
+    //////////////////////////////////////////////////////
+
+
     /** PlayFab Request Info */
     FString PlayFabRequestURL;
     bool useSecretKey = false;
@@ -1727,6 +1745,7 @@ private:
     FDelegateOnSuccessGetSharedGroupData OnSuccessGetSharedGroupData;
     FDelegateOnSuccessRemoveSharedGroupMembers OnSuccessRemoveSharedGroupMembers;
     FDelegateOnSuccessUpdateSharedGroupData OnSuccessUpdateSharedGroupData;
+    FDelegateOnSuccessExecuteCloudScript OnSuccessExecuteCloudScript;
     FDelegateOnSuccessGetCloudScriptUrl OnSuccessGetCloudScriptUrl;
     FDelegateOnSuccessRunCloudScript OnSuccessRunCloudScript;
     FDelegateOnSuccessGetContentDownloadUrl OnSuccessGetContentDownloadUrl;

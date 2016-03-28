@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -681,7 +681,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString AccessToken;
 
-    /** If this Facebook account is already linked to a Playfab account, this will unlink the old account before linking the new one. Be careful when using this call, as it may orphan the old account. Defaults to false. */
+    /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         bool ForceLink;
 };
@@ -1441,7 +1441,7 @@ struct FClientGetCatalogItemsResult
 
 public:
 
-    /** Array of inventory objects. */
+    /** Array of items which can be purchased. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Catalog;
 
@@ -1454,13 +1454,13 @@ struct FClientGetStoreItemsRequest
 
 public:
 
+    /** catalog version to store items from. Use default catalog version if null */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
+        FString CatalogVersion;
+
     /** Unqiue identifier for the store which is being requested. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         FString StoreId;
-
-    /** Catalog version for the requested store items. If null, defaults to most recent catalog. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
-        FString CatalogVersion;
 
 };
 
@@ -1471,7 +1471,7 @@ struct FClientGetStoreItemsResult
 
 public:
 
-    /** Array of store items. */
+    /** Array of items which can be purchased from this store. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Store;
 
@@ -1650,10 +1650,6 @@ struct FClientGetCharacterInventoryRequest
 
 public:
 
-    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString PlayFabId;
-
     /** Unique PlayFab assigned ID for a specific character owned by a user */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CharacterId;
@@ -1670,10 +1666,6 @@ struct FClientGetCharacterInventoryResult
     GENERATED_USTRUCT_BODY()
 
 public:
-
-    /** PlayFab unique identifier of the user whose character inventory is being returned. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString PlayFabId;
 
     /** Unique identifier of the character for this inventory. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
@@ -1755,7 +1747,7 @@ struct FClientGetUserInventoryResult
 
 public:
 
-    /** Array of inventory items in the user's current inventory. */
+    /** Array of inventory items belonging to the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         TArray<UPlayFabJsonObject*> Inventory;
 
@@ -2795,6 +2787,70 @@ public:
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
+struct FClientExecuteCloudScriptRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The name of the CloudScript function to execute */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        FString FunctionName;
+
+    /** Object that is passed in to the function as the first argument */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* FunctionParameter;
+    /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        FString RevisionSelection;
+
+    /** The specivic revision to execute, when RevisionSelection is set to 'Specific' */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        int32 SpecificRevision;
+    /** Generate a 'player_executed_cloudscript' PlayStream event containing the results of the function execution and other contextual information. This event will show up in the PlayStream debugger console for the player in Game Manager. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        bool GeneratePlayStreamEvent;
+};
+
+USTRUCT(BlueprintType)
+struct FClientExecuteCloudScriptResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The name of the function that executed */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        FString FunctionName;
+
+    /** The revision of the CloudScript that executed */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        int32 Revision;
+    /** The object returned from the CloudScript function, if any */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* FunctionResult;
+    /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        TArray<UPlayFabJsonObject*> Logs;
+
+    /**  */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        int32 ExecutionTimeSeconds;
+    /**  */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        int32 MemoryConsumedBytes;
+    /** Number of PlayFab API requests issued by the CloudScript function */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        int32 APIRequestsIssued;
+    /** Number of external HTTP requests issued by the CloudScript function */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        int32 HttpRequestsIssued;
+    /** Information about the error, if any, that occured during execution */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* Error;
+};
+
+USTRUCT(BlueprintType)
 struct FClientGetCloudScriptUrlRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -3284,7 +3340,7 @@ struct FClientAcceptTradeRequest
 
 public:
 
-    /** Player who opened trade. */
+    /** Player who opened the trade. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString OfferingPlayerId;
 
@@ -3292,7 +3348,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString TradeId;
 
-    /** Items from the accepting player's inventory in exchange for the offered items in the trade. In the case of a gift, this will be null. */
+    /** Items from the accepting player's or guild's inventory in exchange for the offered items in the trade. In the case of a gift, this will be null. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString AcceptedInventoryInstanceIds;
 
@@ -3409,7 +3465,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString RequestedCatalogItemIds;
 
-    /** Players who are allowed to accept the trade. If null, the trade may be accepted by any player. */
+    /** Players who are allowed to accept the trade. If null, the trade may be accepted by any player. If empty, the trade may not be accepted by any player. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
         FString AllowedPlayerIds;
 
@@ -3458,5 +3514,11 @@ struct FClientAttributeInstallResult
 public:
 
 };
+
+
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 

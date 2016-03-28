@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Admin
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -364,6 +364,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreate
     else
     {
         OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
+    }
+
+    if (request.AggregationMethod.IsEmpty() || request.AggregationMethod == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AggregationMethod"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), request.AggregationMethod);
     }
 
 
@@ -1203,6 +1212,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdate
     else
     {
         OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
+    }
+
+    if (request.AggregationMethod.IsEmpty() || request.AggregationMethod == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AggregationMethod"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), request.AggregationMethod);
     }
 
 
@@ -3812,6 +3830,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
     // Setup request object
     OutRestJsonObj->SetNumberField(TEXT("Version"), request.Version);
     OutRestJsonObj->SetObjectArrayField(TEXT("Files"), request.Files);
+    OutRestJsonObj->SetBoolField(TEXT("Publish"), request.Publish);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);

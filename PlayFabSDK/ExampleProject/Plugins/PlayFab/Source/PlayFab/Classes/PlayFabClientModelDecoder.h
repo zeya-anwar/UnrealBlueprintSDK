@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -410,6 +410,10 @@ public:
     // Server-Side Cloud Script
     //////////////////////////////////////////////////////
 
+    /** Decode the ExecuteCloudScriptResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script Models")
+        static FClientExecuteCloudScriptResult decodeExecuteCloudScriptResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetCloudScriptUrlResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         static FClientGetCloudScriptUrlResult decodeGetCloudScriptUrlResultResponse(UPlayFabJsonObject* response);
@@ -521,6 +525,12 @@ public:
     /** Decode the AttributeInstallResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Advertising Models")
         static FClientAttributeInstallResult decodeAttributeInstallResultResponse(UPlayFabJsonObject* response);
+
+
+
+    ///////////////////////////////////////////////////////
+    // Guilds
+    //////////////////////////////////////////////////////
 
 
 

@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -767,7 +767,7 @@ struct FServerGetCharacterInventoryResult
 
 public:
 
-    /** PlayFab unique identifier of the user whose character inventory is being returned. */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         FString PlayFabId;
 
@@ -809,7 +809,7 @@ struct FServerGetUserInventoryResult
 
 public:
 
-    /** PlayFab unique identifier of the user whose inventory is being returned. */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         FString PlayFabId;
 
@@ -1291,19 +1291,28 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerEmptyResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerUpdateUserInventoryItemDataRequest
 {
     GENERATED_USTRUCT_BODY()
 
 public:
 
-    /** Unique PlayFab assigned ID for a specific character owned by a user */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
-        FString CharacterId;
-
     /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         FString PlayFabId;
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CharacterId;
 
     /** Unique PlayFab assigned instance identifier of the item */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
@@ -1316,15 +1325,6 @@ public:
     /** Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         FString KeysToRemove;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerUpdateUserInventoryItemDataResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
 
 };
 
@@ -1557,15 +1557,6 @@ public:
     /** Unique identifier for the shared group. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
         FString SharedGroupId;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerEmptyResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
 
 };
 
@@ -2134,5 +2125,11 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Character Data Models")
         int32 DataVersion;
 };
+
+
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 

@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Client
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -3692,15 +3692,6 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetStoreItems(FClientGetStoreItemsRequest 
 
 
     // Setup request object
-    if (request.StoreId.IsEmpty() || request.StoreId == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
-    }
-
     if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
@@ -3708,6 +3699,15 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetStoreItems(FClientGetStoreItemsRequest 
     else
     {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+    if (request.StoreId.IsEmpty() || request.StoreId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
     }
 
 
@@ -4059,15 +4059,6 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetCharacterInventory(FClientGetCharacterI
 
 
     // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
-    }
-
     if (request.CharacterId.IsEmpty() || request.CharacterId == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
@@ -6281,6 +6272,76 @@ void UPlayFabClientAPI::HelperUpdateSharedGroupData(FPlayFabBaseModel response, 
 ///////////////////////////////////////////////////////
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
+/** Executes a CloudScript function, with the 'currentPlayerId' set to the PlayFab ID of the authenticated player. */
+UPlayFabClientAPI* UPlayFabClientAPI::ExecuteCloudScript(FClientExecuteCloudScriptRequest request,
+    FDelegateOnSuccessExecuteCloudScript onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessExecuteCloudScript = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperExecuteCloudScript);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/ExecuteCloudScript";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    if (request.FunctionName.IsEmpty() || request.FunctionName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("FunctionName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("FunctionName"), request.FunctionName);
+    }
+
+    if (request.FunctionParameter != NULL) OutRestJsonObj->SetObjectField(TEXT("FunctionParameter"), request.FunctionParameter);
+    if (request.RevisionSelection.IsEmpty() || request.RevisionSelection == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("RevisionSelection"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), request.RevisionSelection);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("SpecificRevision"), request.SpecificRevision);
+    OutRestJsonObj->SetBoolField(TEXT("GeneratePlayStreamEvent"), request.GeneratePlayStreamEvent);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperExecuteCloudScript(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FClientExecuteCloudScriptResult result = UPlayFabClientModelDecoder::decodeExecuteCloudScriptResultResponse(response.responseData);
+        if (OnSuccessExecuteCloudScript.IsBound())
+        {
+            OnSuccessExecuteCloudScript.Execute(result);
+        }
+    }
+}
+
 /** Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetCloudScriptUrl(FClientGetCloudScriptUrlRequest request,
     FDelegateOnSuccessGetCloudScriptUrl onSuccess,
@@ -7674,6 +7735,10 @@ void UPlayFabClientAPI::HelperAttributeInstall(FPlayFabBaseModel response, bool 
     }
 }
 
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 
 void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

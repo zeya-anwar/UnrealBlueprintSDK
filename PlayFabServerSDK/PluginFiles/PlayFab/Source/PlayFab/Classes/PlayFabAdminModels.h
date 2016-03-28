@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -153,6 +153,10 @@ public:
     /** interval at which the values of the statistic for all players are reset (resets begin at the next interval boundary) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         FString VersionChangeInterval;
+
+    /** the aggregation method to use in updating the statistic (defaults to last) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString AggregationMethod;
 
 };
 
@@ -374,6 +378,10 @@ public:
     /** interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of the new interval boundary) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         FString VersionChangeInterval;
+
+    /** the aggregation method to use in updating the statistic (defaults to last) */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
+        FString AggregationMethod;
 
 };
 
@@ -848,7 +856,7 @@ struct FAdminGetUserInventoryResult
 
 public:
 
-    /** PlayFab unique identifier of the user whose inventory is being returned. */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
         FString PlayFabId;
 
@@ -1523,13 +1531,16 @@ struct FAdminUpdateCloudScriptRequest
 
 public:
 
-    /** Cloud Script version to update. If null, defaults to most recent version */
+    /** Deprecated - unused */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
         int32 Version;
     /** List of Cloud Script files to upload to create the new revision. Must have at least one file. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
         TArray<UPlayFabJsonObject*> Files;
 
+    /** Immediately publish the new revision */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
+        bool Publish;
 };
 
 USTRUCT(BlueprintType)

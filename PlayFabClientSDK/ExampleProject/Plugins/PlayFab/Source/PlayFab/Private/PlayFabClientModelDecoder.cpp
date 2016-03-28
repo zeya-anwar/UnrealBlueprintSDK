@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Client
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -482,7 +482,7 @@ FClientGetCatalogItemsResult UPlayFabClientModelDecoder::decodeGetCatalogItemsRe
     // Temp ustruct
     FClientGetCatalogItemsResult tempStruct;
 
-    /** Array of inventory objects. */
+    /** Array of items which can be purchased. */
     tempStruct.Catalog = response->GetObjectField("data")->GetObjectArrayField("Catalog");
 
     return tempStruct;
@@ -493,7 +493,7 @@ FClientGetStoreItemsResult UPlayFabClientModelDecoder::decodeGetStoreItemsResult
     // Temp ustruct
     FClientGetStoreItemsResult tempStruct;
 
-    /** Array of store items. */
+    /** Array of items which can be purchased from this store. */
     tempStruct.Store = response->GetObjectField("data")->GetObjectArrayField("Store");
 
     return tempStruct;
@@ -583,9 +583,6 @@ FClientGetCharacterInventoryResult UPlayFabClientModelDecoder::decodeGetCharacte
     // Temp ustruct
     FClientGetCharacterInventoryResult tempStruct;
 
-    /** PlayFab unique identifier of the user whose character inventory is being returned. */
-    tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
-
     /** Unique identifier of the character for this inventory. */
     tempStruct.CharacterId = response->GetObjectField("data")->GetStringField("CharacterId");
 
@@ -632,7 +629,7 @@ FClientGetUserInventoryResult UPlayFabClientModelDecoder::decodeGetUserInventory
     // Temp ustruct
     FClientGetUserInventoryResult tempStruct;
 
-    /** Array of inventory items in the user's current inventory. */
+    /** Array of inventory items belonging to the user. */
     tempStruct.Inventory = response->GetObjectField("data")->GetObjectArrayField("Inventory");
 
     /** Array of virtual currency balance(s) belonging to the user. */
@@ -1032,6 +1029,41 @@ FClientUpdateSharedGroupDataResult UPlayFabClientModelDecoder::decodeUpdateShare
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
 
+FClientExecuteCloudScriptResult UPlayFabClientModelDecoder::decodeExecuteCloudScriptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientExecuteCloudScriptResult tempStruct;
+
+    /** The name of the function that executed */
+    tempStruct.FunctionName = response->GetObjectField("data")->GetStringField("FunctionName");
+
+    /** The revision of the CloudScript that executed */
+    tempStruct.Revision = int(response->GetObjectField("data")->GetNumberField("Revision"));
+
+    /** The object returned from the CloudScript function, if any */
+    tempStruct.FunctionResult = response->GetObjectField("data")->GetObjectField("FunctionResult");
+
+    /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
+    tempStruct.Logs = response->GetObjectField("data")->GetObjectArrayField("Logs");
+
+    /**  */
+    tempStruct.ExecutionTimeSeconds = int(response->GetObjectField("data")->GetNumberField("ExecutionTimeSeconds"));
+
+    /**  */
+    tempStruct.MemoryConsumedBytes = int(response->GetObjectField("data")->GetNumberField("MemoryConsumedBytes"));
+
+    /** Number of PlayFab API requests issued by the CloudScript function */
+    tempStruct.APIRequestsIssued = int(response->GetObjectField("data")->GetNumberField("APIRequestsIssued"));
+
+    /** Number of external HTTP requests issued by the CloudScript function */
+    tempStruct.HttpRequestsIssued = int(response->GetObjectField("data")->GetNumberField("HttpRequestsIssued"));
+
+    /** Information about the error, if any, that occured during execution */
+    tempStruct.Error = response->GetObjectField("data")->GetObjectField("Error");
+
+    return tempStruct;
+}
+
 FClientGetCloudScriptUrlResult UPlayFabClientModelDecoder::decodeGetCloudScriptUrlResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -1300,6 +1332,12 @@ FClientAttributeInstallResult UPlayFabClientModelDecoder::decodeAttributeInstall
 
     return tempStruct;
 }
+
+
+
+///////////////////////////////////////////////////////
+// Guilds
+//////////////////////////////////////////////////////
 
 
 

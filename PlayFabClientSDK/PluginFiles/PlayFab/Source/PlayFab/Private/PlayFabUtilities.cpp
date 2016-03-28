@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -241,6 +241,14 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         case 1204: returnText = "StatisticVersionIncrementRateExceeded"; break;
         case 1205: returnText = "ContainerKeyInvalid"; break;
         case 1206: returnText = "CloudScriptExecutionTimeLimitExceeded"; break;
+        case 1207: returnText = "NoWritePermissionsForEvent"; break;
+        case 1208: returnText = "CloudScriptFunctionArgumentSizeExceeded"; break;
+        case 1209: returnText = "CloudScriptAPIRequestCountExceeded"; break;
+        case 1210: returnText = "CloudScriptAPIRequestError"; break;
+        case 1211: returnText = "CloudScriptHTTPRequestError"; break;
+        case 1212: returnText = "InsufficientGuildRole"; break;
+        case 1213: returnText = "GuildNotFound"; break;
+        case 1214: returnText = "OverLimit"; break;
     }
 
     // Return the text

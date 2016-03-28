@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Admin
-// SDK Version: 0.0.160307
+// SDK Version: 0.0.160328
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -317,7 +317,7 @@ FAdminGetUserInventoryResult UPlayFabAdminModelDecoder::decodeGetUserInventoryRe
     // Temp ustruct
     FAdminGetUserInventoryResult tempStruct;
 
-    /** PlayFab unique identifier of the user whose inventory is being returned. */
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
 
     /** Array of inventory items belonging to the user. */

@@ -925,6 +925,19 @@ public:
     ///////////////////////////////////////////////////////
     // Server-Side Cloud Script
     //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessExecuteCloudScript, FServerExecuteCloudScriptResult, result);
+
+    /** Executes a CloudScript function, with the 'currentPlayerId' variable set to the specified PlayFabId parameter value. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabServerAPI* ExecuteCloudScript(FServerExecuteCloudScriptServerRequest request,
+        FDelegateOnSuccessExecuteCloudScript onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperExecuteCloudScript(FPlayFabBaseModel response, bool successful);
+
 
 
     ///////////////////////////////////////////////////////
@@ -1222,6 +1235,7 @@ private:
     FDelegateOnSuccessRemoveSharedGroupMembers OnSuccessRemoveSharedGroupMembers;
     FDelegateOnSuccessSetPublisherData OnSuccessSetPublisherData;
     FDelegateOnSuccessUpdateSharedGroupData OnSuccessUpdateSharedGroupData;
+    FDelegateOnSuccessExecuteCloudScript OnSuccessExecuteCloudScript;
     FDelegateOnSuccessGetContentDownloadUrl OnSuccessGetContentDownloadUrl;
     FDelegateOnSuccessDeleteCharacterFromUser OnSuccessDeleteCharacterFromUser;
     FDelegateOnSuccessGetAllUsersCharacters OnSuccessGetAllUsersCharacters;

@@ -621,6 +621,41 @@ FServerUpdateSharedGroupDataResult UPlayFabServerModelDecoder::decodeUpdateShare
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
 
+FServerExecuteCloudScriptResult UPlayFabServerModelDecoder::decodeExecuteCloudScriptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerExecuteCloudScriptResult tempStruct;
+
+    /** The name of the function that executed */
+    tempStruct.FunctionName = response->GetObjectField("data")->GetStringField("FunctionName");
+
+    /** The revision of the CloudScript that executed */
+    tempStruct.Revision = int(response->GetObjectField("data")->GetNumberField("Revision"));
+
+    /** The object returned from the CloudScript function, if any */
+    tempStruct.FunctionResult = response->GetObjectField("data")->GetObjectField("FunctionResult");
+
+    /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
+    tempStruct.Logs = response->GetObjectField("data")->GetObjectArrayField("Logs");
+
+    /**  */
+    tempStruct.ExecutionTimeSeconds = int(response->GetObjectField("data")->GetNumberField("ExecutionTimeSeconds"));
+
+    /**  */
+    tempStruct.MemoryConsumedBytes = int(response->GetObjectField("data")->GetNumberField("MemoryConsumedBytes"));
+
+    /** Number of PlayFab API requests issued by the CloudScript function */
+    tempStruct.APIRequestsIssued = int(response->GetObjectField("data")->GetNumberField("APIRequestsIssued"));
+
+    /** Number of external HTTP requests issued by the CloudScript function */
+    tempStruct.HttpRequestsIssued = int(response->GetObjectField("data")->GetNumberField("HttpRequestsIssued"));
+
+    /** Information about the error, if any, that occured during execution */
+    tempStruct.Error = response->GetObjectField("data")->GetObjectField("Error");
+
+    return tempStruct;
+}
+
 
 
 ///////////////////////////////////////////////////////

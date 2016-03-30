@@ -4499,6 +4499,85 @@ void UPlayFabServerAPI::HelperUpdateSharedGroupData(FPlayFabBaseModel response, 
 ///////////////////////////////////////////////////////
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
+/** Executes a CloudScript function, with the 'currentPlayerId' variable set to the specified PlayFabId parameter value. */
+UPlayFabServerAPI* UPlayFabServerAPI::ExecuteCloudScript(FServerExecuteCloudScriptServerRequest request,
+    FDelegateOnSuccessExecuteCloudScript onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessExecuteCloudScript = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperExecuteCloudScript);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/ExecuteCloudScript";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.FunctionName.IsEmpty() || request.FunctionName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("FunctionName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("FunctionName"), request.FunctionName);
+    }
+
+    if (request.FunctionParameter != NULL) OutRestJsonObj->SetObjectField(TEXT("FunctionParameter"), request.FunctionParameter);
+    if (request.RevisionSelection.IsEmpty() || request.RevisionSelection == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("RevisionSelection"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), request.RevisionSelection);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("SpecificRevision"), request.SpecificRevision);
+    OutRestJsonObj->SetBoolField(TEXT("GeneratePlayStreamEvent"), request.GeneratePlayStreamEvent);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperExecuteCloudScript(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FServerExecuteCloudScriptResult result = UPlayFabServerModelDecoder::decodeExecuteCloudScriptResultResponse(response.responseData);
+        if (OnSuccessExecuteCloudScript.IsBound())
+        {
+            OnSuccessExecuteCloudScript.Execute(result);
+        }
+    }
+}
+
 
 ///////////////////////////////////////////////////////
 // Content

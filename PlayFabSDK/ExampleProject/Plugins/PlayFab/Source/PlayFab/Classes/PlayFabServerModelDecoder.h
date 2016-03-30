@@ -278,6 +278,10 @@ public:
     // Server-Side Cloud Script
     //////////////////////////////////////////////////////
 
+    /** Decode the ExecuteCloudScriptResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        static FServerExecuteCloudScriptResult decodeExecuteCloudScriptResultResponse(UPlayFabJsonObject* response);
+
 
 
     ///////////////////////////////////////////////////////

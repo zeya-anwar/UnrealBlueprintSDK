@@ -1715,6 +1715,74 @@ public:
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
 
+USTRUCT(BlueprintType)
+struct FServerExecuteCloudScriptResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The name of the function that executed */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString FunctionName;
+
+    /** The revision of the CloudScript that executed */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 Revision;
+    /** The object returned from the CloudScript function, if any */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* FunctionResult;
+    /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        TArray<UPlayFabJsonObject*> Logs;
+
+    /**  */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 ExecutionTimeSeconds;
+    /**  */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 MemoryConsumedBytes;
+    /** Number of PlayFab API requests issued by the CloudScript function */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 APIRequestsIssued;
+    /** Number of external HTTP requests issued by the CloudScript function */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 HttpRequestsIssued;
+    /** Information about the error, if any, that occured during execution */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* Error;
+};
+
+USTRUCT(BlueprintType)
+struct FServerExecuteCloudScriptServerRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString PlayFabId;
+
+    /** The name of the CloudScript function to execute */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString FunctionName;
+
+    /** Object that is passed in to the function as the first argument */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* FunctionParameter;
+    /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString RevisionSelection;
+
+    /** The specivic revision to execute, when RevisionSelection is set to 'Specific' */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 SpecificRevision;
+    /** Generate a 'player_executed_cloudscript' PlayStream event containing the results of the function execution and other contextual information. This event will show up in the PlayStream debugger console for the player in Game Manager. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        bool GeneratePlayStreamEvent;
+};
+
 
 
 ///////////////////////////////////////////////////////

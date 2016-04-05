@@ -199,6 +199,17 @@ FAdminGetCatalogItemsResult UPlayFabAdminModelDecoder::decodeGetCatalogItemsResu
     return tempStruct;
 }
 
+FAdminGetPublisherDataResult UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetPublisherDataResult tempStruct;
+
+    /** a dictionary object of key / value pairs */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
+
+    return tempStruct;
+}
+
 FAdminGetRandomResultTablesResult UPlayFabAdminModelDecoder::decodeGetRandomResultTablesResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -566,17 +577,6 @@ FAdminRemoveServerBuildResult UPlayFabAdminModelDecoder::decodeRemoveServerBuild
 ///////////////////////////////////////////////////////
 // Shared Group Data
 //////////////////////////////////////////////////////
-
-FAdminGetPublisherDataResult UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminGetPublisherDataResult tempStruct;
-
-    /** a dictionary object of key / value pairs */
-    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
-
-    return tempStruct;
-}
 
 FAdminSetPublisherDataResult UPlayFabAdminModelDecoder::decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response)
 {

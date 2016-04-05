@@ -211,6 +211,17 @@ FServerGetCatalogItemsResult UPlayFabServerModelDecoder::decodeGetCatalogItemsRe
     return tempStruct;
 }
 
+FServerGetPublisherDataResult UPlayFabServerModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPublisherDataResult tempStruct;
+
+    /** a dictionary object of key / value pairs */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
+
+    return tempStruct;
+}
+
 FServerGetTitleDataResult UPlayFabServerModelDecoder::decodeGetTitleDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -229,6 +240,14 @@ FServerGetTitleNewsResult UPlayFabServerModelDecoder::decodeGetTitleNewsResultRe
 
     /** Array of news items. */
     tempStruct.News = response->GetObjectField("data")->GetObjectArrayField("News");
+
+    return tempStruct;
+}
+
+FServerSetPublisherDataResult UPlayFabServerModelDecoder::decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerSetPublisherDataResult tempStruct;
 
     return tempStruct;
 }
@@ -566,17 +585,6 @@ FServerCreateSharedGroupResult UPlayFabServerModelDecoder::decodeCreateSharedGro
     return tempStruct;
 }
 
-FServerGetPublisherDataResult UPlayFabServerModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerGetPublisherDataResult tempStruct;
-
-    /** a dictionary object of key / value pairs */
-    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
-
-    return tempStruct;
-}
-
 FServerGetSharedGroupDataResult UPlayFabServerModelDecoder::decodeGetSharedGroupDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -595,14 +603,6 @@ FServerRemoveSharedGroupMembersResult UPlayFabServerModelDecoder::decodeRemoveSh
 {
     // Temp ustruct
     FServerRemoveSharedGroupMembersResult tempStruct;
-
-    return tempStruct;
-}
-
-FServerSetPublisherDataResult UPlayFabServerModelDecoder::decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerSetPublisherDataResult tempStruct;
 
     return tempStruct;
 }

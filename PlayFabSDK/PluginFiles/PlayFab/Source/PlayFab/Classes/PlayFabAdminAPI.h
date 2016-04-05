@@ -142,7 +142,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetDataReport, FAdminGetDataReportResult, result);
 
-    /** Retrieves a download URL for the requested report */
+    /** Retrieves a download URL for the requested report. Currently available reports: Daily / Monthly API Usage, Daily / Monthly Overview, Monthly Real Money Purchase History, Monthly Top Items, Monthly Top Spenders, Monthly VC Purcahse History, Sevan Day Retention */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabAdminAPI* GetDataReport(FAdminGetDataReportRequest request,
         FDelegateOnSuccessGetDataReport onSuccess,
@@ -416,6 +416,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperGetCatalogItems(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPublisherData, FAdminGetPublisherDataResult, result);
+
+    /** Retrieves the key-value store of custom publisher settings */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabAdminAPI* GetPublisherData(FAdminGetPublisherDataRequest request,
+        FDelegateOnSuccessGetPublisherData onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperGetPublisherData(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetRandomResultTables, FAdminGetRandomResultTablesResult, result);
@@ -763,19 +776,6 @@ public:
     // Shared Group Data
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPublisherData, FAdminGetPublisherDataResult, result);
-
-    /** Retrieves the key-value store of custom publisher settings */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabAdminAPI* GetPublisherData(FAdminGetPublisherDataRequest request,
-        FDelegateOnSuccessGetPublisherData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPublisherData(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSetPublisherData, FAdminSetPublisherDataResult, result);
 
     /** Updates the key-value store of custom publisher settings */
@@ -953,6 +953,7 @@ private:
     FDelegateOnSuccessAddNews OnSuccessAddNews;
     FDelegateOnSuccessAddVirtualCurrencyTypes OnSuccessAddVirtualCurrencyTypes;
     FDelegateOnSuccessGetCatalogItems OnSuccessGetCatalogItems;
+    FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetRandomResultTables OnSuccessGetRandomResultTables;
     FDelegateOnSuccessGetStoreItems OnSuccessGetStoreItems;
     FDelegateOnSuccessGetTitleData OnSuccessGetTitleData;
@@ -978,7 +979,6 @@ private:
     FDelegateOnSuccessListServerBuilds OnSuccessListServerBuilds;
     FDelegateOnSuccessModifyServerBuild OnSuccessModifyServerBuild;
     FDelegateOnSuccessRemoveServerBuild OnSuccessRemoveServerBuild;
-    FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessSetPublisherData OnSuccessSetPublisherData;
     FDelegateOnSuccessGetCloudScriptRevision OnSuccessGetCloudScriptRevision;
     FDelegateOnSuccessGetCloudScriptVersions OnSuccessGetCloudScriptVersions;

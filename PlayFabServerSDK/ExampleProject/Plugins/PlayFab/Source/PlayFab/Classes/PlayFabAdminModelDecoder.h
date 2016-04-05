@@ -106,6 +106,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         static FAdminGetCatalogItemsResult decodeGetCatalogItemsResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPublisherDataResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        static FAdminGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetRandomResultTablesResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         static FAdminGetRandomResultTablesResult decodeGetRandomResultTablesResultResponse(UPlayFabJsonObject* response);
@@ -217,10 +221,6 @@ public:
     ///////////////////////////////////////////////////////
     // Shared Group Data
     //////////////////////////////////////////////////////
-
-    /** Decode the GetPublisherDataResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Shared Group Data Models")
-        static FAdminGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the SetPublisherDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Shared Group Data Models")

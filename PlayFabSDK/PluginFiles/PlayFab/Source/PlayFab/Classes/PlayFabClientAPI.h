@@ -426,6 +426,19 @@ public:
     void HelperLinkSteamAccount(FPlayFabBaseModel response, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessReportPlayer, FClientReportPlayerClientResult, result);
+
+    /** Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title can take action concerning potentially toxic players. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabClientAPI* ReportPlayer(FClientReportPlayerClientRequest request,
+        FDelegateOnSuccessReportPlayer onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperReportPlayer(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSendAccountRecoveryEmail, FClientSendAccountRecoveryEmailResult, result);
 
     /** Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to change the password */
@@ -732,7 +745,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdatePlayerStatistics, FClientUpdatePlayerStatisticsResult, result);
 
-    /** Updates the values of the specified title-specific statistics for the user */
+    /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* UpdatePlayerStatistics(FClientUpdatePlayerStatisticsRequest request,
         FDelegateOnSuccessUpdatePlayerStatistics onSuccess,
@@ -771,7 +784,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserStatistics, FClientUpdateUserStatisticsResult, result);
 
-    /** Updates the values of the specified title-specific statistics for the user */
+    /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* UpdateUserStatistics(FClientUpdateUserStatisticsRequest request,
         FDelegateOnSuccessUpdateUserStatistics onSuccess,
@@ -798,6 +811,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperGetCatalogItems(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPublisherData, FClientGetPublisherDataResult, result);
+
+    /** Retrieves the key-value store of custom publisher settings */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabClientAPI* GetPublisherData(FClientGetPublisherDataRequest request,
+        FDelegateOnSuccessGetPublisherData onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperGetPublisherData(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetStoreItems, FClientGetStoreItemsResult, result);
@@ -959,19 +985,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperRedeemCoupon(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessReportPlayer, FClientReportPlayerClientResult, result);
-
-    /** Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title can take action concerning potentially toxic players. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ReportPlayer(FClientReportPlayerClientRequest request,
-        FDelegateOnSuccessReportPlayer onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperReportPlayer(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessStartPurchase, FClientStartPurchaseResult, result);
@@ -1264,19 +1277,6 @@ public:
     void HelperCreateSharedGroup(FPlayFabBaseModel response, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPublisherData, FClientGetPublisherDataResult, result);
-
-    /** Retrieves the key-value store of custom publisher settings */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPublisherData(FClientGetPublisherDataRequest request,
-        FDelegateOnSuccessGetPublisherData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPublisherData(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetSharedGroupData, FClientGetSharedGroupDataResult, result);
 
     /** Retrieves data stored in a shared group object, as well as the list of members in the group. Non-members of the group may use this to retrieve group data, including membership, but they will not receive data for keys marked as private. */
@@ -1390,7 +1390,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetAllUsersCharacters, FClientListUsersCharactersResult, result);
 
-    /** Lists all of the characters that belong to a specific user. */
+    /** Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* GetAllUsersCharacters(FClientListUsersCharactersRequest request,
         FDelegateOnSuccessGetAllUsersCharacters onSuccess,
@@ -1455,7 +1455,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGrantCharacterToUser, FClientGrantCharacterToUserResult, result);
 
-    /** Grants the specified character type to the user. */
+    /** Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* GrantCharacterToUser(FClientGrantCharacterToUserRequest request,
         FDelegateOnSuccessGrantCharacterToUser onSuccess,
@@ -1468,7 +1468,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateCharacterStatistics, FClientUpdateCharacterStatisticsResult, result);
 
-    /** Updates the values of the specified title-specific statistics for the specific character */
+    /** Updates the values of the specified title-specific statistics for the specific character. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* UpdateCharacterStatistics(FClientUpdateCharacterStatisticsRequest request,
         FDelegateOnSuccessUpdateCharacterStatistics onSuccess,
@@ -1680,6 +1680,7 @@ private:
     FDelegateOnSuccessLinkIOSDeviceID OnSuccessLinkIOSDeviceID;
     FDelegateOnSuccessLinkKongregate OnSuccessLinkKongregate;
     FDelegateOnSuccessLinkSteamAccount OnSuccessLinkSteamAccount;
+    FDelegateOnSuccessReportPlayer OnSuccessReportPlayer;
     FDelegateOnSuccessSendAccountRecoveryEmail OnSuccessSendAccountRecoveryEmail;
     FDelegateOnSuccessUnlinkAndroidDeviceID OnSuccessUnlinkAndroidDeviceID;
     FDelegateOnSuccessUnlinkCustomID OnSuccessUnlinkCustomID;
@@ -1708,6 +1709,7 @@ private:
     FDelegateOnSuccessUpdateUserPublisherData OnSuccessUpdateUserPublisherData;
     FDelegateOnSuccessUpdateUserStatistics OnSuccessUpdateUserStatistics;
     FDelegateOnSuccessGetCatalogItems OnSuccessGetCatalogItems;
+    FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetStoreItems OnSuccessGetStoreItems;
     FDelegateOnSuccessGetTitleData OnSuccessGetTitleData;
     FDelegateOnSuccessGetTitleNews OnSuccessGetTitleNews;
@@ -1720,7 +1722,6 @@ private:
     FDelegateOnSuccessPayForPurchase OnSuccessPayForPurchase;
     FDelegateOnSuccessPurchaseItem OnSuccessPurchaseItem;
     FDelegateOnSuccessRedeemCoupon OnSuccessRedeemCoupon;
-    FDelegateOnSuccessReportPlayer OnSuccessReportPlayer;
     FDelegateOnSuccessStartPurchase OnSuccessStartPurchase;
     FDelegateOnSuccessSubtractUserVirtualCurrency OnSuccessSubtractUserVirtualCurrency;
     FDelegateOnSuccessUnlockContainerInstance OnSuccessUnlockContainerInstance;
@@ -1741,7 +1742,6 @@ private:
     FDelegateOnSuccessLogEvent OnSuccessLogEvent;
     FDelegateOnSuccessAddSharedGroupMembers OnSuccessAddSharedGroupMembers;
     FDelegateOnSuccessCreateSharedGroup OnSuccessCreateSharedGroup;
-    FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetSharedGroupData OnSuccessGetSharedGroupData;
     FDelegateOnSuccessRemoveSharedGroupMembers OnSuccessRemoveSharedGroupMembers;
     FDelegateOnSuccessUpdateSharedGroupData OnSuccessUpdateSharedGroupData;

@@ -381,7 +381,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserStatistics, FServerUpdateUserStatisticsResult, result);
 
-    /** Updates the values of the specified title-specific statistics for the user */
+    /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabServerAPI* UpdateUserStatistics(FServerUpdateUserStatisticsRequest request,
         FDelegateOnSuccessUpdateUserStatistics onSuccess,
@@ -408,6 +408,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperGetCatalogItems(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPublisherData, FServerGetPublisherDataResult, result);
+
+    /** Retrieves the key-value store of custom publisher settings */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabServerAPI* GetPublisherData(FServerGetPublisherDataRequest request,
+        FDelegateOnSuccessGetPublisherData onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperGetPublisherData(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetTitleData, FServerGetTitleDataResult, result);
@@ -447,6 +460,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperGetTitleNews(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSetPublisherData, FServerSetPublisherDataResult, result);
+
+    /** Updates the key-value store of custom publisher settings */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabServerAPI* SetPublisherData(FServerSetPublisherDataRequest request,
+        FDelegateOnSuccessSetPublisherData onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperSetPublisherData(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSetTitleData, FServerSetTitleDataResult, result);
@@ -856,19 +882,6 @@ public:
     void HelperDeleteSharedGroup(FPlayFabBaseModel response, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPublisherData, FServerGetPublisherDataResult, result);
-
-    /** Retrieves the key-value store of custom publisher settings */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabServerAPI* GetPublisherData(FServerGetPublisherDataRequest request,
-        FDelegateOnSuccessGetPublisherData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPublisherData(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetSharedGroupData, FServerGetSharedGroupDataResult, result);
 
     /** Retrieves data stored in a shared group object, as well as the list of members in the group. The server can access all public and private group data. */
@@ -893,19 +906,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperRemoveSharedGroupMembers(FPlayFabBaseModel response, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSetPublisherData, FServerSetPublisherDataResult, result);
-
-    /** Updates the key-value store of custom publisher settings */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabServerAPI* SetPublisherData(FServerSetPublisherDataRequest request,
-        FDelegateOnSuccessSetPublisherData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperSetPublisherData(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateSharedGroupData, FServerUpdateSharedGroupDataResult, result);
@@ -977,7 +977,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetAllUsersCharacters, FServerListUsersCharactersResult, result);
 
-    /** Lists all of the characters that belong to a specific user. */
+    /** Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Characters ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabServerAPI* GetAllUsersCharacters(FServerListUsersCharactersRequest request,
         FDelegateOnSuccessGetAllUsersCharacters onSuccess,
@@ -1042,7 +1042,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGrantCharacterToUser, FServerGrantCharacterToUserResult, result);
 
-    /** Grants the specified character type to the user. */
+    /** Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Characters ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabServerAPI* GrantCharacterToUser(FServerGrantCharacterToUserRequest request,
         FDelegateOnSuccessGrantCharacterToUser onSuccess,
@@ -1198,9 +1198,11 @@ private:
     FDelegateOnSuccessUpdateUserReadOnlyData OnSuccessUpdateUserReadOnlyData;
     FDelegateOnSuccessUpdateUserStatistics OnSuccessUpdateUserStatistics;
     FDelegateOnSuccessGetCatalogItems OnSuccessGetCatalogItems;
+    FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetTitleData OnSuccessGetTitleData;
     FDelegateOnSuccessGetTitleInternalData OnSuccessGetTitleInternalData;
     FDelegateOnSuccessGetTitleNews OnSuccessGetTitleNews;
+    FDelegateOnSuccessSetPublisherData OnSuccessSetPublisherData;
     FDelegateOnSuccessSetTitleData OnSuccessSetTitleData;
     FDelegateOnSuccessSetTitleInternalData OnSuccessSetTitleInternalData;
     FDelegateOnSuccessAddCharacterVirtualCurrency OnSuccessAddCharacterVirtualCurrency;
@@ -1230,10 +1232,8 @@ private:
     FDelegateOnSuccessAddSharedGroupMembers OnSuccessAddSharedGroupMembers;
     FDelegateOnSuccessCreateSharedGroup OnSuccessCreateSharedGroup;
     FDelegateOnSuccessDeleteSharedGroup OnSuccessDeleteSharedGroup;
-    FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetSharedGroupData OnSuccessGetSharedGroupData;
     FDelegateOnSuccessRemoveSharedGroupMembers OnSuccessRemoveSharedGroupMembers;
-    FDelegateOnSuccessSetPublisherData OnSuccessSetPublisherData;
     FDelegateOnSuccessUpdateSharedGroupData OnSuccessUpdateSharedGroupData;
     FDelegateOnSuccessExecuteCloudScript OnSuccessExecuteCloudScript;
     FDelegateOnSuccessGetContentDownloadUrl OnSuccessGetContentDownloadUrl;

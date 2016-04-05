@@ -112,6 +112,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management Models")
         static FServerGetCatalogItemsResult decodeGetCatalogItemsResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPublisherDataResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        static FServerGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetTitleDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management Models")
         static FServerGetTitleDataResult decodeGetTitleDataResultResponse(UPlayFabJsonObject* response);
@@ -119,6 +123,10 @@ public:
     /** Decode the GetTitleNewsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management Models")
         static FServerGetTitleNewsResult decodeGetTitleNewsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the SetPublisherDataResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        static FServerSetPublisherDataResult decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the SetTitleDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management Models")
@@ -252,10 +260,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
         static FServerCreateSharedGroupResult decodeCreateSharedGroupResultResponse(UPlayFabJsonObject* response);
 
-    /** Decode the GetPublisherDataResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
-        static FServerGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
-
     /** Decode the GetSharedGroupDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
         static FServerGetSharedGroupDataResult decodeGetSharedGroupDataResultResponse(UPlayFabJsonObject* response);
@@ -263,10 +267,6 @@ public:
     /** Decode the RemoveSharedGroupMembersResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
         static FServerRemoveSharedGroupMembersResult decodeRemoveSharedGroupMembersResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the SetPublisherDataResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")
-        static FServerSetPublisherDataResult decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateSharedGroupDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Shared Group Data Models")

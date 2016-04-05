@@ -1689,7 +1689,7 @@ void UPlayFabServerAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response,
     }
 }
 
-/** Updates the values of the specified title-specific statistics for the user */
+/** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStatisticsRequest request,
     FDelegateOnSuccessUpdateUserStatistics onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -1806,6 +1806,67 @@ void UPlayFabServerAPI::HelperGetCatalogItems(FPlayFabBaseModel response, bool s
         if (OnSuccessGetCatalogItems.IsBound())
         {
             OnSuccessGetCatalogItems.Execute(result);
+        }
+    }
+}
+
+/** Retrieves the key-value store of custom publisher settings */
+UPlayFabServerAPI* UPlayFabServerAPI::GetPublisherData(FServerGetPublisherDataRequest request,
+    FDelegateOnSuccessGetPublisherData onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessGetPublisherData = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetPublisherData);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetPublisherData";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.Keys.IsEmpty() || request.Keys == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Keys"));
+    }
+    else
+    {
+        TArray<FString> KeysArray;
+        FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FServerGetPublisherDataResult result = UPlayFabServerModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
+        if (OnSuccessGetPublisherData.IsBound())
+        {
+            OnSuccessGetPublisherData.Execute(result);
         }
     }
 }
@@ -1978,6 +2039,73 @@ void UPlayFabServerAPI::HelperGetTitleNews(FPlayFabBaseModel response, bool succ
         if (OnSuccessGetTitleNews.IsBound())
         {
             OnSuccessGetTitleNews.Execute(result);
+        }
+    }
+}
+
+/** Updates the key-value store of custom publisher settings */
+UPlayFabServerAPI* UPlayFabServerAPI::SetPublisherData(FServerSetPublisherDataRequest request,
+    FDelegateOnSuccessSetPublisherData onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessSetPublisherData = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperSetPublisherData);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/SetPublisherData";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.Key.IsEmpty() || request.Key == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Key"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
+    }
+
+    if (request.Value.IsEmpty() || request.Value == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Value"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Value"), request.Value);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperSetPublisherData(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FServerSetPublisherDataResult result = UPlayFabServerModelDecoder::decodeSetPublisherDataResultResponse(response.responseData);
+        if (OnSuccessSetPublisherData.IsBound())
+        {
+            OnSuccessSetPublisherData.Execute(result);
         }
     }
 }
@@ -4153,67 +4281,6 @@ void UPlayFabServerAPI::HelperDeleteSharedGroup(FPlayFabBaseModel response, bool
     }
 }
 
-/** Retrieves the key-value store of custom publisher settings */
-UPlayFabServerAPI* UPlayFabServerAPI::GetPublisherData(FServerGetPublisherDataRequest request,
-    FDelegateOnSuccessGetPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
-{
-    // Objects containing request data
-    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-
-    // Assign delegates
-    manager->OnSuccessGetPublisherData = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetPublisherData);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Server/GetPublisherData";
-    manager->useSessionTicket = false;
-    manager->useSecretKey = true;
-
-
-    // Setup request object
-    // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
-        TArray<FString> KeysArray;
-        FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
-        OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
-    }
-
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error);
-        }
-    }
-    else
-    {
-        FServerGetPublisherDataResult result = UPlayFabServerModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
-        if (OnSuccessGetPublisherData.IsBound())
-        {
-            OnSuccessGetPublisherData.Execute(result);
-        }
-    }
-}
-
 /** Retrieves data stored in a shared group object, as well as the list of members in the group. The server can access all public and private group data. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetSharedGroupData(FServerGetSharedGroupDataRequest request,
     FDelegateOnSuccessGetSharedGroupData onSuccess,
@@ -4351,73 +4418,6 @@ void UPlayFabServerAPI::HelperRemoveSharedGroupMembers(FPlayFabBaseModel respons
         if (OnSuccessRemoveSharedGroupMembers.IsBound())
         {
             OnSuccessRemoveSharedGroupMembers.Execute(result);
-        }
-    }
-}
-
-/** Updates the key-value store of custom publisher settings */
-UPlayFabServerAPI* UPlayFabServerAPI::SetPublisherData(FServerSetPublisherDataRequest request,
-    FDelegateOnSuccessSetPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
-{
-    // Objects containing request data
-    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-
-    // Assign delegates
-    manager->OnSuccessSetPublisherData = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperSetPublisherData);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Server/SetPublisherData";
-    manager->useSessionTicket = false;
-    manager->useSecretKey = true;
-
-
-    // Setup request object
-    if (request.Key.IsEmpty() || request.Key == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Key"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
-    }
-
-    if (request.Value.IsEmpty() || request.Value == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Value"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("Value"), request.Value);
-    }
-
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperSetPublisherData(FPlayFabBaseModel response, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error);
-        }
-    }
-    else
-    {
-        FServerSetPublisherDataResult result = UPlayFabServerModelDecoder::decodeSetPublisherDataResultResponse(response.responseData);
-        if (OnSuccessSetPublisherData.IsBound())
-        {
-            OnSuccessSetPublisherData.Execute(result);
         }
     }
 }
@@ -4722,7 +4722,7 @@ void UPlayFabServerAPI::HelperDeleteCharacterFromUser(FPlayFabBaseModel response
     }
 }
 
-/** Lists all of the characters that belong to a specific user. */
+/** Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetAllUsersCharacters(FServerListUsersCharactersRequest request,
     FDelegateOnSuccessGetAllUsersCharacters onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -5079,7 +5079,7 @@ void UPlayFabServerAPI::HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel 
     }
 }
 
-/** Grants the specified character type to the user. */
+/** Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantCharacterToUser(FServerGrantCharacterToUserRequest request,
     FDelegateOnSuccessGrantCharacterToUser onSuccess,
     FDelegateOnFailurePlayFabError onFailure)

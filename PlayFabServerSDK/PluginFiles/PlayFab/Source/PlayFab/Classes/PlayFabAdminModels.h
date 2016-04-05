@@ -535,6 +535,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminGetPublisherDataRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        FString Keys;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPublisherDataResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** a dictionary object of key / value pairs */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        UPlayFabJsonObject* Data;
+
+};
+
+USTRUCT(BlueprintType)
 struct FAdminGetRandomResultTablesRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1378,32 +1404,6 @@ public:
 ///////////////////////////////////////////////////////
 // Shared Group Data
 //////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FAdminGetPublisherDataRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Shared Group Data Models")
-        FString Keys;
-
-};
-
-USTRUCT(BlueprintType)
-struct FAdminGetPublisherDataResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** a dictionary object of key / value pairs */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Shared Group Data Models")
-        UPlayFabJsonObject* Data;
-
-};
 
 USTRUCT(BlueprintType)
 struct FAdminSetPublisherDataRequest

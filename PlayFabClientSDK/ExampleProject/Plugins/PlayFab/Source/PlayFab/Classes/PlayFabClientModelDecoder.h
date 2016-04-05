@@ -112,6 +112,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientLinkSteamAccountResult decodeLinkSteamAccountResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the ReportPlayerClientResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientReportPlayerClientResult decodeReportPlayerClientResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the SendAccountRecoveryEmailResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientSendAccountRecoveryEmailResult decodeSendAccountRecoveryEmailResultResponse(UPlayFabJsonObject* response);
@@ -216,6 +220,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management Models")
         static FClientGetCatalogItemsResult decodeGetCatalogItemsResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPublisherDataResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management Models")
+        static FClientGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetStoreItemsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management Models")
         static FClientGetStoreItemsResult decodeGetStoreItemsResultResponse(UPlayFabJsonObject* response);
@@ -269,10 +277,6 @@ public:
     /** Decode the RedeemCouponResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management Models")
         static FClientRedeemCouponResult decodeRedeemCouponResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the ReportPlayerClientResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management Models")
-        static FClientReportPlayerClientResult decodeReportPlayerClientResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the StartPurchaseResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management Models")
@@ -381,10 +385,6 @@ public:
     /** Decode the CreateSharedGroupResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data Models")
         static FClientCreateSharedGroupResult decodeCreateSharedGroupResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the GetPublisherDataResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data Models")
-        static FClientGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetSharedGroupDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data Models")

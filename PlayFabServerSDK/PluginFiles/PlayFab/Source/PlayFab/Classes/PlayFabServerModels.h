@@ -534,6 +534,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetPublisherDataRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        FString Keys;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPublisherDataResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** a dictionary object of key / value pairs */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        UPlayFabJsonObject* Data;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetTitleDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -581,6 +607,32 @@ public:
     /** Array of news items. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> News;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetPublisherDataRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        FString Key;
+
+    /** new value to set. Set to null to remove a value */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        FString Value;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetPublisherDataResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
 
 };
 
@@ -1561,32 +1613,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FServerGetPublisherDataRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        FString Keys;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetPublisherDataResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** a dictionary object of key / value pairs */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        UPlayFabJsonObject* Data;
-
-};
-
-USTRUCT(BlueprintType)
 struct FServerGetSharedGroupDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1642,32 +1668,6 @@ public:
 
 USTRUCT(BlueprintType)
 struct FServerRemoveSharedGroupMembersResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerSetPublisherDataRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        FString Key;
-
-    /** new value to set. Set to null to remove a value */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        FString Value;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerSetPublisherDataResult
 {
     GENERATED_USTRUCT_BODY()
 

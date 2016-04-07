@@ -137,7 +137,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithGoogleAccount, FClientLoginResult, result);
 
-    /** Signs the user in using a Google account access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+    /** Signs the user in using a Google account access token(https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods), returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* LoginWithGoogleAccount(FClientLoginWithGoogleAccountRequest request,
         FDelegateOnSuccessLoginWithGoogleAccount onSuccess,
@@ -376,7 +376,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkGoogleAccount, FClientLinkGoogleAccountResult, result);
 
-    /** Links the currently signed-in user account to the Google account specified by the Google account access token */
+    /** Links the currently signed-in user account to the Google account specified by the Google account access token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods). */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* LinkGoogleAccount(FClientLinkGoogleAccountRequest request,
         FDelegateOnSuccessLinkGoogleAccount onSuccess,
@@ -506,7 +506,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkGoogleAccount, FClientUnlinkGoogleAccountResult, result);
 
-    /** Unlinks the related Google account from the user's PlayFab account */
+    /** Unlinks the related Google account from the user's PlayFab account (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods). */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabClientAPI* UnlinkGoogleAccount(FClientUnlinkGoogleAccountRequest request,
         FDelegateOnSuccessUnlinkGoogleAccount onSuccess,

@@ -142,7 +142,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetDataReport, FAdminGetDataReportResult, result);
 
-    /** Retrieves a download URL for the requested report. Currently available reports: Daily / Monthly API Usage, Daily / Monthly Overview, Monthly Real Money Purchase History, Monthly Top Items, Monthly Top Spenders, Monthly VC Purcahse History, Sevan Day Retention */
+    /** Retrieves a download URL for the requested report */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabAdminAPI* GetDataReport(FAdminGetDataReportRequest request,
         FDelegateOnSuccessGetDataReport onSuccess,

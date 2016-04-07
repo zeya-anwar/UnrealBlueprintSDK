@@ -171,7 +171,7 @@ struct FClientLoginWithGoogleAccountRequest
 
 public:
 
-    /** Unique token from Google Play for the user. */
+    /** Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString AccessToken;
 
@@ -724,7 +724,7 @@ struct FClientLinkGoogleAccountRequest
 
 public:
 
-    /** Unique token from Google Play for the user. */
+    /** Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString AccessToken;
 

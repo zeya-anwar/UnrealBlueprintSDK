@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -531,6 +531,32 @@ public:
     /** Array of items which can be purchased. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Catalog;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPublisherDataRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        FString Keys;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPublisherDataResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** a dictionary object of key / value pairs */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        UPlayFabJsonObject* Data;
 
 };
 
@@ -1378,32 +1404,6 @@ public:
 ///////////////////////////////////////////////////////
 // Shared Group Data
 //////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FAdminGetPublisherDataRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Shared Group Data Models")
-        FString Keys;
-
-};
-
-USTRUCT(BlueprintType)
-struct FAdminGetPublisherDataResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** a dictionary object of key / value pairs */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Shared Group Data Models")
-        UPlayFabJsonObject* Data;
-
-};
 
 USTRUCT(BlueprintType)
 struct FAdminSetPublisherDataRequest

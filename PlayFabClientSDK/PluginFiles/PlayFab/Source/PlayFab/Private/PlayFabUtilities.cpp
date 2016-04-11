@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -249,6 +249,9 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         case 1212: returnText = "InsufficientGuildRole"; break;
         case 1213: returnText = "GuildNotFound"; break;
         case 1214: returnText = "OverLimit"; break;
+        case 1215: returnText = "EventNotFound"; break;
+        case 1216: returnText = "InvalidEventEntity"; break;
+        case 1217: returnText = "InvalidEventName"; break;
     }
 
     // Return the text

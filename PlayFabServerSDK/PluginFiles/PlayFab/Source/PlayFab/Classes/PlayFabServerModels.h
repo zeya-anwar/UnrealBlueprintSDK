@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -534,6 +534,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetPublisherDataRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        FString Keys;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPublisherDataResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** a dictionary object of key / value pairs */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        UPlayFabJsonObject* Data;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetTitleDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -581,6 +607,32 @@ public:
     /** Array of news items. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> News;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetPublisherDataRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        FString Key;
+
+    /** new value to set. Set to null to remove a value */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        FString Value;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetPublisherDataResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
 
 };
 
@@ -1561,32 +1613,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FServerGetPublisherDataRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        FString Keys;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetPublisherDataResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** a dictionary object of key / value pairs */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        UPlayFabJsonObject* Data;
-
-};
-
-USTRUCT(BlueprintType)
 struct FServerGetSharedGroupDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1650,32 +1676,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FServerSetPublisherDataRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** key we want to set a value on (note, this is additive - will only replace an existing key's value if they are the same name.) Keys are trimmed of whitespace. Keys may not begin with the '!' character. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        FString Key;
-
-    /** new value to set. Set to null to remove a value */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        FString Value;
-
-};
-
-USTRUCT(BlueprintType)
-struct FServerSetPublisherDataResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-};
-
-USTRUCT(BlueprintType)
 struct FServerUpdateSharedGroupDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1714,6 +1714,74 @@ public:
 ///////////////////////////////////////////////////////
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FServerExecuteCloudScriptResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The name of the function that executed */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString FunctionName;
+
+    /** The revision of the CloudScript that executed */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 Revision;
+    /** The object returned from the CloudScript function, if any */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* FunctionResult;
+    /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        TArray<UPlayFabJsonObject*> Logs;
+
+    /**  */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 ExecutionTimeSeconds;
+    /**  */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 MemoryConsumedBytes;
+    /** Number of PlayFab API requests issued by the CloudScript function */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 APIRequestsIssued;
+    /** Number of external HTTP requests issued by the CloudScript function */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 HttpRequestsIssued;
+    /** Information about the error, if any, that occured during execution */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* Error;
+};
+
+USTRUCT(BlueprintType)
+struct FServerExecuteCloudScriptServerRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString PlayFabId;
+
+    /** The name of the CloudScript function to execute */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString FunctionName;
+
+    /** Object that is passed in to the function as the first argument */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        UPlayFabJsonObject* FunctionParameter;
+    /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        FString RevisionSelection;
+
+    /** The specivic revision to execute, when RevisionSelection is set to 'Specific' */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 SpecificRevision;
+    /** Generate a 'player_executed_cloudscript' PlayStream event containing the results of the function execution and other contextual information. This event will show up in the PlayStream debugger console for the player in Game Manager. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        bool GeneratePlayStreamEvent;
+};
 
 
 

@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Admin
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -195,6 +195,17 @@ FAdminGetCatalogItemsResult UPlayFabAdminModelDecoder::decodeGetCatalogItemsResu
 
     /** Array of items which can be purchased. */
     tempStruct.Catalog = response->GetObjectField("data")->GetObjectArrayField("Catalog");
+
+    return tempStruct;
+}
+
+FAdminGetPublisherDataResult UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetPublisherDataResult tempStruct;
+
+    /** a dictionary object of key / value pairs */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
 
     return tempStruct;
 }
@@ -566,17 +577,6 @@ FAdminRemoveServerBuildResult UPlayFabAdminModelDecoder::decodeRemoveServerBuild
 ///////////////////////////////////////////////////////
 // Shared Group Data
 //////////////////////////////////////////////////////
-
-FAdminGetPublisherDataResult UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FAdminGetPublisherDataResult tempStruct;
-
-    /** a dictionary object of key / value pairs */
-    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
-
-    return tempStruct;
-}
 
 FAdminSetPublisherDataResult UPlayFabAdminModelDecoder::decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response)
 {

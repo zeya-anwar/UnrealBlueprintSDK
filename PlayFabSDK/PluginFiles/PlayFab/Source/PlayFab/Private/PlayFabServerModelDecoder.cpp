@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -211,6 +211,17 @@ FServerGetCatalogItemsResult UPlayFabServerModelDecoder::decodeGetCatalogItemsRe
     return tempStruct;
 }
 
+FServerGetPublisherDataResult UPlayFabServerModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPublisherDataResult tempStruct;
+
+    /** a dictionary object of key / value pairs */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
+
+    return tempStruct;
+}
+
 FServerGetTitleDataResult UPlayFabServerModelDecoder::decodeGetTitleDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -229,6 +240,14 @@ FServerGetTitleNewsResult UPlayFabServerModelDecoder::decodeGetTitleNewsResultRe
 
     /** Array of news items. */
     tempStruct.News = response->GetObjectField("data")->GetObjectArrayField("News");
+
+    return tempStruct;
+}
+
+FServerSetPublisherDataResult UPlayFabServerModelDecoder::decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerSetPublisherDataResult tempStruct;
 
     return tempStruct;
 }
@@ -566,17 +585,6 @@ FServerCreateSharedGroupResult UPlayFabServerModelDecoder::decodeCreateSharedGro
     return tempStruct;
 }
 
-FServerGetPublisherDataResult UPlayFabServerModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerGetPublisherDataResult tempStruct;
-
-    /** a dictionary object of key / value pairs */
-    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
-
-    return tempStruct;
-}
-
 FServerGetSharedGroupDataResult UPlayFabServerModelDecoder::decodeGetSharedGroupDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -599,14 +607,6 @@ FServerRemoveSharedGroupMembersResult UPlayFabServerModelDecoder::decodeRemoveSh
     return tempStruct;
 }
 
-FServerSetPublisherDataResult UPlayFabServerModelDecoder::decodeSetPublisherDataResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerSetPublisherDataResult tempStruct;
-
-    return tempStruct;
-}
-
 FServerUpdateSharedGroupDataResult UPlayFabServerModelDecoder::decodeUpdateSharedGroupDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -620,6 +620,41 @@ FServerUpdateSharedGroupDataResult UPlayFabServerModelDecoder::decodeUpdateShare
 ///////////////////////////////////////////////////////
 // Server-Side Cloud Script
 //////////////////////////////////////////////////////
+
+FServerExecuteCloudScriptResult UPlayFabServerModelDecoder::decodeExecuteCloudScriptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerExecuteCloudScriptResult tempStruct;
+
+    /** The name of the function that executed */
+    tempStruct.FunctionName = response->GetObjectField("data")->GetStringField("FunctionName");
+
+    /** The revision of the CloudScript that executed */
+    tempStruct.Revision = int(response->GetObjectField("data")->GetNumberField("Revision"));
+
+    /** The object returned from the CloudScript function, if any */
+    tempStruct.FunctionResult = response->GetObjectField("data")->GetObjectField("FunctionResult");
+
+    /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
+    tempStruct.Logs = response->GetObjectField("data")->GetObjectArrayField("Logs");
+
+    /**  */
+    tempStruct.ExecutionTimeSeconds = int(response->GetObjectField("data")->GetNumberField("ExecutionTimeSeconds"));
+
+    /**  */
+    tempStruct.MemoryConsumedBytes = int(response->GetObjectField("data")->GetNumberField("MemoryConsumedBytes"));
+
+    /** Number of PlayFab API requests issued by the CloudScript function */
+    tempStruct.APIRequestsIssued = int(response->GetObjectField("data")->GetNumberField("APIRequestsIssued"));
+
+    /** Number of external HTTP requests issued by the CloudScript function */
+    tempStruct.HttpRequestsIssued = int(response->GetObjectField("data")->GetNumberField("HttpRequestsIssued"));
+
+    /** Information about the error, if any, that occured during execution */
+    tempStruct.Error = response->GetObjectField("data")->GetObjectField("Error");
+
+    return tempStruct;
+}
 
 
 

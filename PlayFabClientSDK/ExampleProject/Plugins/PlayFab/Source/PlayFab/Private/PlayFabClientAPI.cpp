@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Client
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -446,7 +446,7 @@ void UPlayFabClientAPI::HelperLoginWithGameCenter(FPlayFabBaseModel response, bo
     }
 }
 
-/** Signs the user in using a Google account access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+/** Signs the user in using a Google account access token(https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods), returning a session identifier that can subsequently be used for API calls which require an authenticated user */
 UPlayFabClientAPI* UPlayFabClientAPI::LoginWithGoogleAccount(FClientLoginWithGoogleAccountRequest request,
     FDelegateOnSuccessLoginWithGoogleAccount onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -1716,7 +1716,7 @@ void UPlayFabClientAPI::HelperLinkGameCenterAccount(FPlayFabBaseModel response, 
     }
 }
 
-/** Links the currently signed-in user account to the Google account specified by the Google account access token */
+/** Links the currently signed-in user account to the Google account specified by the Google account access token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods). */
 UPlayFabClientAPI* UPlayFabClientAPI::LinkGoogleAccount(FClientLinkGoogleAccountRequest request,
     FDelegateOnSuccessLinkGoogleAccount onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -1967,6 +1967,72 @@ void UPlayFabClientAPI::HelperLinkSteamAccount(FPlayFabBaseModel response, bool 
         if (OnSuccessLinkSteamAccount.IsBound())
         {
             OnSuccessLinkSteamAccount.Execute(result);
+        }
+    }
+}
+
+/** Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title can take action concerning potentially toxic players. */
+UPlayFabClientAPI* UPlayFabClientAPI::ReportPlayer(FClientReportPlayerClientRequest request,
+    FDelegateOnSuccessReportPlayer onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessReportPlayer = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperReportPlayer);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/ReportPlayer";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.ReporteeId.IsEmpty() || request.ReporteeId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ReporteeId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ReporteeId"), request.ReporteeId);
+    }
+
+    if (request.Comment.IsEmpty() || request.Comment == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Comment"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Comment"), request.Comment);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperReportPlayer(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FClientReportPlayerClientResult result = UPlayFabClientModelDecoder::decodeReportPlayerClientResultResponse(response.responseData);
+        if (OnSuccessReportPlayer.IsBound())
+        {
+            OnSuccessReportPlayer.Execute(result);
         }
     }
 }
@@ -2248,7 +2314,7 @@ void UPlayFabClientAPI::HelperUnlinkGameCenterAccount(FPlayFabBaseModel response
     }
 }
 
-/** Unlinks the related Google account from the user's PlayFab account */
+/** Unlinks the related Google account from the user's PlayFab account (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods). */
 UPlayFabClientAPI* UPlayFabClientAPI::UnlinkGoogleAccount(FClientUnlinkGoogleAccountRequest request,
     FDelegateOnSuccessUnlinkGoogleAccount onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -3330,7 +3396,7 @@ void UPlayFabClientAPI::HelperGetUserStatistics(FPlayFabBaseModel response, bool
     }
 }
 
-/** Updates the values of the specified title-specific statistics for the user */
+/** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
 UPlayFabClientAPI* UPlayFabClientAPI::UpdatePlayerStatistics(FClientUpdatePlayerStatisticsRequest request,
     FDelegateOnSuccessUpdatePlayerStatistics onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -3505,7 +3571,7 @@ void UPlayFabClientAPI::HelperUpdateUserPublisherData(FPlayFabBaseModel response
     }
 }
 
-/** Updates the values of the specified title-specific statistics for the user */
+/** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
 UPlayFabClientAPI* UPlayFabClientAPI::UpdateUserStatistics(FClientUpdateUserStatisticsRequest request,
     FDelegateOnSuccessUpdateUserStatistics onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -3611,6 +3677,66 @@ void UPlayFabClientAPI::HelperGetCatalogItems(FPlayFabBaseModel response, bool s
         if (OnSuccessGetCatalogItems.IsBound())
         {
             OnSuccessGetCatalogItems.Execute(result);
+        }
+    }
+}
+
+/** Retrieves the key-value store of custom publisher settings */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPublisherData(FClientGetPublisherDataRequest request,
+    FDelegateOnSuccessGetPublisherData onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessGetPublisherData = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetPublisherData);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPublisherData";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.Keys.IsEmpty() || request.Keys == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Keys"));
+    }
+    else
+    {
+        TArray<FString> KeysArray;
+        FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FClientGetPublisherDataResult result = UPlayFabClientModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
+        if (OnSuccessGetPublisherData.IsBound())
+        {
+            OnSuccessGetPublisherData.Execute(result);
         }
     }
 }
@@ -4387,72 +4513,6 @@ void UPlayFabClientAPI::HelperRedeemCoupon(FPlayFabBaseModel response, bool succ
         if (OnSuccessRedeemCoupon.IsBound())
         {
             OnSuccessRedeemCoupon.Execute(result);
-        }
-    }
-}
-
-/** Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title can take action concerning potentially toxic players. */
-UPlayFabClientAPI* UPlayFabClientAPI::ReportPlayer(FClientReportPlayerClientRequest request,
-    FDelegateOnSuccessReportPlayer onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-
-    // Assign delegates
-    manager->OnSuccessReportPlayer = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperReportPlayer);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/ReportPlayer";
-    manager->useSessionTicket = true;
-
-
-    // Setup request object
-    if (request.ReporteeId.IsEmpty() || request.ReporteeId == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("ReporteeId"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("ReporteeId"), request.ReporteeId);
-    }
-
-    if (request.Comment.IsEmpty() || request.Comment == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Comment"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("Comment"), request.Comment);
-    }
-
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperReportPlayer(FPlayFabBaseModel response, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error);
-        }
-    }
-    else
-    {
-        FClientReportPlayerClientResult result = UPlayFabClientModelDecoder::decodeReportPlayerClientResultResponse(response.responseData);
-        if (OnSuccessReportPlayer.IsBound())
-        {
-            OnSuccessReportPlayer.Execute(result);
         }
     }
 }
@@ -5900,66 +5960,6 @@ void UPlayFabClientAPI::HelperCreateSharedGroup(FPlayFabBaseModel response, bool
     }
 }
 
-/** Retrieves the key-value store of custom publisher settings */
-UPlayFabClientAPI* UPlayFabClientAPI::GetPublisherData(FClientGetPublisherDataRequest request,
-    FDelegateOnSuccessGetPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-
-    // Assign delegates
-    manager->OnSuccessGetPublisherData = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetPublisherData);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/GetPublisherData";
-    manager->useSessionTicket = true;
-
-
-    // Setup request object
-    // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
-        TArray<FString> KeysArray;
-        FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
-        OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
-    }
-
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error);
-        }
-    }
-    else
-    {
-        FClientGetPublisherDataResult result = UPlayFabClientModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
-        if (OnSuccessGetPublisherData.IsBound())
-        {
-            OnSuccessGetPublisherData.Execute(result);
-        }
-    }
-}
-
 /** Retrieves data stored in a shared group object, as well as the list of members in the group. Non-members of the group may use this to retrieve group data, including membership, but they will not receive data for keys marked as private. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetSharedGroupData(FClientGetSharedGroupDataRequest request,
     FDelegateOnSuccessGetSharedGroupData onSuccess,
@@ -6433,7 +6433,7 @@ void UPlayFabClientAPI::HelperGetContentDownloadUrl(FPlayFabBaseModel response, 
 ///////////////////////////////////////////////////////
 // Characters
 //////////////////////////////////////////////////////
-/** Lists all of the characters that belong to a specific user. */
+/** Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetAllUsersCharacters(FClientListUsersCharactersRequest request,
     FDelegateOnSuccessGetAllUsersCharacters onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -6749,7 +6749,7 @@ void UPlayFabClientAPI::HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel 
     }
 }
 
-/** Grants the specified character type to the user. */
+/** Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
 UPlayFabClientAPI* UPlayFabClientAPI::GrantCharacterToUser(FClientGrantCharacterToUserRequest request,
     FDelegateOnSuccessGrantCharacterToUser onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -6824,7 +6824,7 @@ void UPlayFabClientAPI::HelperGrantCharacterToUser(FPlayFabBaseModel response, b
     }
 }
 
-/** Updates the values of the specified title-specific statistics for the specific character */
+/** Updates the values of the specified title-specific statistics for the specific character. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
 UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterStatistics(FClientUpdateCharacterStatisticsRequest request,
     FDelegateOnSuccessUpdateCharacterStatistics onSuccess,
     FDelegateOnFailurePlayFabError onFailure)

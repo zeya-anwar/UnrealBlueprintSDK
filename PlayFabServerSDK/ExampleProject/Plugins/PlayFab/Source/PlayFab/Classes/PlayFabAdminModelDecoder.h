@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -105,6 +105,10 @@ public:
     /** Decode the GetCatalogItemsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         static FAdminGetCatalogItemsResult decodeGetCatalogItemsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPublisherDataResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        static FAdminGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetRandomResultTablesResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
@@ -217,10 +221,6 @@ public:
     ///////////////////////////////////////////////////////
     // Shared Group Data
     //////////////////////////////////////////////////////
-
-    /** Decode the GetPublisherDataResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Shared Group Data Models")
-        static FAdminGetPublisherDataResult decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the SetPublisherDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Shared Group Data Models")

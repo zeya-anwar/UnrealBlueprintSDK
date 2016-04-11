@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Client
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -253,6 +253,20 @@ FClientLinkSteamAccountResult UPlayFabClientModelDecoder::decodeLinkSteamAccount
     return tempStruct;
 }
 
+FClientReportPlayerClientResult UPlayFabClientModelDecoder::decodeReportPlayerClientResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientReportPlayerClientResult tempStruct;
+
+    /** Indicates whether this action completed successfully. */
+    tempStruct.Updated = response->GetObjectField("data")->GetBoolField("Updated");
+
+    /** The number of remaining reports which may be filed today. */
+    tempStruct.SubmissionsRemaining = int(response->GetObjectField("data")->GetNumberField("SubmissionsRemaining"));
+
+    return tempStruct;
+}
+
 FClientSendAccountRecoveryEmailResult UPlayFabClientModelDecoder::decodeSendAccountRecoveryEmailResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -488,6 +502,17 @@ FClientGetCatalogItemsResult UPlayFabClientModelDecoder::decodeGetCatalogItemsRe
     return tempStruct;
 }
 
+FClientGetPublisherDataResult UPlayFabClientModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPublisherDataResult tempStruct;
+
+    /** a dictionary object of key / value pairs */
+    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
+
+    return tempStruct;
+}
+
 FClientGetStoreItemsResult UPlayFabClientModelDecoder::decodeGetStoreItemsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -694,20 +719,6 @@ FClientRedeemCouponResult UPlayFabClientModelDecoder::decodeRedeemCouponResultRe
 
     /** Items granted to the player as a result of redeeming the coupon. */
     tempStruct.GrantedItems = response->GetObjectField("data")->GetObjectArrayField("GrantedItems");
-
-    return tempStruct;
-}
-
-FClientReportPlayerClientResult UPlayFabClientModelDecoder::decodeReportPlayerClientResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientReportPlayerClientResult tempStruct;
-
-    /** Indicates whether this action completed successfully. */
-    tempStruct.Updated = response->GetObjectField("data")->GetBoolField("Updated");
-
-    /** The number of remaining reports which may be filed today. */
-    tempStruct.SubmissionsRemaining = int(response->GetObjectField("data")->GetNumberField("SubmissionsRemaining"));
 
     return tempStruct;
 }
@@ -972,17 +983,6 @@ FClientCreateSharedGroupResult UPlayFabClientModelDecoder::decodeCreateSharedGro
 
     /** Unique identifier for the shared group. */
     tempStruct.SharedGroupId = response->GetObjectField("data")->GetStringField("SharedGroupId");
-
-    return tempStruct;
-}
-
-FClientGetPublisherDataResult UPlayFabClientModelDecoder::decodeGetPublisherDataResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientGetPublisherDataResult tempStruct;
-
-    /** a dictionary object of key / value pairs */
-    tempStruct.Data = response->GetObjectField("data")->GetObjectField("Data");
 
     return tempStruct;
 }

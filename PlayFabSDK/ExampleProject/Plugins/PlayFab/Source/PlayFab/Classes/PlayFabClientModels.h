@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -171,7 +171,7 @@ struct FClientLoginWithGoogleAccountRequest
 
 public:
 
-    /** Unique token from Google Play for the user. */
+    /** Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString AccessToken;
 
@@ -724,7 +724,7 @@ struct FClientLinkGoogleAccountRequest
 
 public:
 
-    /** Unique token from Google Play for the user. */
+    /** Unique token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods) from Google Play for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString AccessToken;
 
@@ -815,6 +815,38 @@ struct FClientLinkSteamAccountResult
 
 public:
 
+};
+
+USTRUCT(BlueprintType)
+struct FClientReportPlayerClientRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab identifier of the reported player. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString ReporteeId;
+
+    /** Optional additional comment by reporting player. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString Comment;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientReportPlayerClientResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Indicates whether this action completed successfully. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        bool Updated;
+    /** The number of remaining reports which may be filed today. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        int32 SubmissionsRemaining;
 };
 
 USTRUCT(BlueprintType)
@@ -1400,7 +1432,7 @@ struct FClientUpdateUserStatisticsRequest
 
 public:
 
-    /** Statistics to be updated with the provided values. */
+    /** Statistics to be updated with the provided values. UserStatistics object must follow the Key(string), Value(int) pattern. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* UserStatistics;
 
@@ -1444,6 +1476,32 @@ public:
     /** Array of items which can be purchased. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Catalog;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPublisherDataRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
+        FString Keys;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPublisherDataResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** a dictionary object of key / value pairs */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
+        UPlayFabJsonObject* Data;
 
 };
 
@@ -1902,38 +1960,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         TArray<UPlayFabJsonObject*> GrantedItems;
 
-};
-
-USTRUCT(BlueprintType)
-struct FClientReportPlayerClientRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** Unique PlayFab identifier of the reported player. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString ReporteeId;
-
-    /** Optional additional comment by reporting player. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString Comment;
-
-};
-
-USTRUCT(BlueprintType)
-struct FClientReportPlayerClientResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** Indicates whether this action completed successfully. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        bool Updated;
-    /** The number of remaining reports which may be filed today. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 SubmissionsRemaining;
 };
 
 USTRUCT(BlueprintType)
@@ -2648,32 +2674,6 @@ public:
     /** Unique identifier for the shared group. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Shared Group Data Models")
         FString SharedGroupId;
-
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetPublisherDataRequest
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /**  array of keys to get back data from the Publisher data blob, set by the admin tools */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Shared Group Data Models")
-        FString Keys;
-
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetPublisherDataResult
-{
-    GENERATED_USTRUCT_BODY()
-
-public:
-
-    /** a dictionary object of key / value pairs */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Shared Group Data Models")
-        UPlayFabJsonObject* Data;
 
 };
 

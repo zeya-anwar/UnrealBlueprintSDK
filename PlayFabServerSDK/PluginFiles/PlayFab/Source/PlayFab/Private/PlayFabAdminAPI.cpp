@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Admin
-// SDK Version: 0.0.160328
+// SDK Version: 0.0.160411
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -1873,6 +1873,67 @@ void UPlayFabAdminAPI::HelperGetCatalogItems(FPlayFabBaseModel response, bool su
     }
 }
 
+/** Retrieves the key-value store of custom publisher settings */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetPublisherData(FAdminGetPublisherDataRequest request,
+    FDelegateOnSuccessGetPublisherData onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessGetPublisherData = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperGetPublisherData);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetPublisherData";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.Keys.IsEmpty() || request.Keys == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Keys"));
+    }
+    else
+    {
+        TArray<FString> KeysArray;
+        FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FAdminGetPublisherDataResult result = UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
+        if (OnSuccessGetPublisherData.IsBound())
+        {
+            OnSuccessGetPublisherData.Execute(result);
+        }
+    }
+}
+
 /** Retrieves the random drop table configuration for the title */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetRandomResultTables(FAdminGetRandomResultTablesRequest request,
     FDelegateOnSuccessGetRandomResultTables onSuccess,
@@ -3524,67 +3585,6 @@ void UPlayFabAdminAPI::HelperRemoveServerBuild(FPlayFabBaseModel response, bool 
 ///////////////////////////////////////////////////////
 // Shared Group Data
 //////////////////////////////////////////////////////
-/** Retrieves the key-value store of custom publisher settings */
-UPlayFabAdminAPI* UPlayFabAdminAPI::GetPublisherData(FAdminGetPublisherDataRequest request,
-    FDelegateOnSuccessGetPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
-{
-    // Objects containing request data
-    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-
-    // Assign delegates
-    manager->OnSuccessGetPublisherData = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperGetPublisherData);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Admin/GetPublisherData";
-    manager->useSessionTicket = false;
-    manager->useSecretKey = true;
-
-
-    // Setup request object
-    // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
-        TArray<FString> KeysArray;
-        FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
-        OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
-    }
-
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabAdminRequestCompleted
-void UPlayFabAdminAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error);
-        }
-    }
-    else
-    {
-        FAdminGetPublisherDataResult result = UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
-        if (OnSuccessGetPublisherData.IsBound())
-        {
-            OnSuccessGetPublisherData.Execute(result);
-        }
-    }
-}
-
 /** Updates the key-value store of custom publisher settings */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublisherData(FAdminSetPublisherDataRequest request,
     FDelegateOnSuccessSetPublisherData onSuccess,

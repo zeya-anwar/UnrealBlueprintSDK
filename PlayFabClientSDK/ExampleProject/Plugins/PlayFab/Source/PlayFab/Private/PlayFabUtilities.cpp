@@ -249,6 +249,9 @@ FString UPlayFabUtilities::getErrorText(int32 code)
         case 1212: returnText = "InsufficientGuildRole"; break;
         case 1213: returnText = "GuildNotFound"; break;
         case 1214: returnText = "OverLimit"; break;
+        case 1215: returnText = "EventNotFound"; break;
+        case 1216: returnText = "InvalidEventEntity"; break;
+        case 1217: returnText = "InvalidEventName"; break;
     }
 
     // Return the text

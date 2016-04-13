@@ -1245,6 +1245,45 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperLogEvent(FPlayFabBaseModel response, bool successful);
 
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWriteCharacterEvent, FClientWriteEventResponse, result);
+
+    /** Writes a character-based event into PlayStream. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabClientAPI* WriteCharacterEvent(FClientWriteClientCharacterEventRequest request,
+        FDelegateOnSuccessWriteCharacterEvent onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperWriteCharacterEvent(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWritePlayerEvent, FClientWriteEventResponse, result);
+
+    /** Writes a player-based event into PlayStream. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabClientAPI* WritePlayerEvent(FClientWriteClientPlayerEventRequest request,
+        FDelegateOnSuccessWritePlayerEvent onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperWritePlayerEvent(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWriteTitleEvent, FClientWriteEventResponse, result);
+
+    /** Writes a title-based event into PlayStream. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabClientAPI* WriteTitleEvent(FClientWriteTitleEventRequest request,
+        FDelegateOnSuccessWriteTitleEvent onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperWriteTitleEvent(FPlayFabBaseModel response, bool successful);
+
 
 
     ///////////////////////////////////////////////////////
@@ -1740,6 +1779,9 @@ private:
     FDelegateOnSuccessAndroidDevicePushNotificationRegistration OnSuccessAndroidDevicePushNotificationRegistration;
     FDelegateOnSuccessValidateGooglePlayPurchase OnSuccessValidateGooglePlayPurchase;
     FDelegateOnSuccessLogEvent OnSuccessLogEvent;
+    FDelegateOnSuccessWriteCharacterEvent OnSuccessWriteCharacterEvent;
+    FDelegateOnSuccessWritePlayerEvent OnSuccessWritePlayerEvent;
+    FDelegateOnSuccessWriteTitleEvent OnSuccessWriteTitleEvent;
     FDelegateOnSuccessAddSharedGroupMembers OnSuccessAddSharedGroupMembers;
     FDelegateOnSuccessCreateSharedGroup OnSuccessCreateSharedGroup;
     FDelegateOnSuccessGetSharedGroupData OnSuccessGetSharedGroupData;

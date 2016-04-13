@@ -837,6 +837,45 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperLogEvent(FPlayFabBaseModel response, bool successful);
 
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWriteCharacterEvent, FServerWriteEventResponse, result);
+
+    /** Writes a character-based event into PlayStream. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabServerAPI* WriteCharacterEvent(FServerWriteServerCharacterEventRequest request,
+        FDelegateOnSuccessWriteCharacterEvent onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperWriteCharacterEvent(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWritePlayerEvent, FServerWriteEventResponse, result);
+
+    /** Writes a player-based event into PlayStream. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabServerAPI* WritePlayerEvent(FServerWriteServerPlayerEventRequest request,
+        FDelegateOnSuccessWritePlayerEvent onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperWritePlayerEvent(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWriteTitleEvent, FServerWriteEventResponse, result);
+
+    /** Writes a title-based event into PlayStream. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabServerAPI* WriteTitleEvent(FServerWriteTitleEventRequest request,
+        FDelegateOnSuccessWriteTitleEvent onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperWriteTitleEvent(FPlayFabBaseModel response, bool successful);
+
 
 
     ///////////////////////////////////////////////////////
@@ -1229,6 +1268,9 @@ private:
     FDelegateOnSuccessRedeemMatchmakerTicket OnSuccessRedeemMatchmakerTicket;
     FDelegateOnSuccessAwardSteamAchievement OnSuccessAwardSteamAchievement;
     FDelegateOnSuccessLogEvent OnSuccessLogEvent;
+    FDelegateOnSuccessWriteCharacterEvent OnSuccessWriteCharacterEvent;
+    FDelegateOnSuccessWritePlayerEvent OnSuccessWritePlayerEvent;
+    FDelegateOnSuccessWriteTitleEvent OnSuccessWriteTitleEvent;
     FDelegateOnSuccessAddSharedGroupMembers OnSuccessAddSharedGroupMembers;
     FDelegateOnSuccessCreateSharedGroup OnSuccessCreateSharedGroup;
     FDelegateOnSuccessDeleteSharedGroup OnSuccessDeleteSharedGroup;

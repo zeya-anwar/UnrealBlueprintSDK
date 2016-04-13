@@ -962,6 +962,17 @@ FClientLogEventResult UPlayFabClientModelDecoder::decodeLogEventResultResponse(U
     return tempStruct;
 }
 
+FClientWriteEventResponse UPlayFabClientModelDecoder::decodeWriteEventResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientWriteEventResponse tempStruct;
+
+    /** The ID of the event as it was written to PlayStream. This is an alphanumeric GUID. */
+    tempStruct.EventId = response->GetObjectField("data")->GetStringField("EventId");
+
+    return tempStruct;
+}
+
 
 
 ///////////////////////////////////////////////////////

@@ -246,6 +246,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics Models")
         static FServerLogEventResult decodeLogEventResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the WriteEventResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics Models")
+        static FServerWriteEventResponse decodeWriteEventResponseResponse(UPlayFabJsonObject* response);
+
 
 
     ///////////////////////////////////////////////////////

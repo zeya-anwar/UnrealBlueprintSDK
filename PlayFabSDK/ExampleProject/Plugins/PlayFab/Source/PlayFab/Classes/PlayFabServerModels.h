@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160411
+// SDK Version: 0.0.160414
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -1538,6 +1538,94 @@ struct FServerLogEventResult
     GENERATED_USTRUCT_BODY()
 
 public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerWriteEventResponse
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The ID of the event as it was written to PlayStream. This is an alphanumeric GUID. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString EventId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerWriteServerCharacterEventRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString PlayFabId;
+
+    /** Unique PlayFab assigned ID for a specific character owned by a user */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString CharacterId;
+
+    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString EventName;
+
+    /** The time (in UTC) associated with this event. If omitted, a timestamp of now in UTC will be applied. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString Timestamp;
+
+    /** Arbitrary json values that represent the custom body of this event. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        UPlayFabJsonObject* Body;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerWriteServerPlayerEventRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString PlayFabId;
+
+    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString EventName;
+
+    /** The time (in UTC) associated with this event. If omitted, a timestamp of 'now' in UTC will be applied. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString Timestamp;
+
+    /** Arbitrary json values that represent the custom body of this event. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        UPlayFabJsonObject* Body;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerWriteTitleEventRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString EventName;
+
+    /** The time (in UTC) associated with this event. If omitted, a timestamp of now in UTC will be applied. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        FString Timestamp;
+
+    /** Arbitrary json values that represent the custom body of this event. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        UPlayFabJsonObject* Body;
 
 };
 

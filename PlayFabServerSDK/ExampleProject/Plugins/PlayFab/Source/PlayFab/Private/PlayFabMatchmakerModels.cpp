@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Matchmaker
-// SDK Version: 0.0.160411
+// SDK Version: 0.0.160414
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"

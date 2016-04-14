@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160411
+// SDK Version: 0.0.160414
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -245,6 +245,10 @@ public:
     /** Decode the LogEventResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics Models")
         static FServerLogEventResult decodeLogEventResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the WriteEventResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics Models")
+        static FServerWriteEventResponse decodeWriteEventResponseResponse(UPlayFabJsonObject* response);
 
 
 

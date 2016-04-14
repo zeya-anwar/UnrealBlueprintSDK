@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160411
+// SDK Version: 0.0.160414
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -556,6 +556,17 @@ FServerLogEventResult UPlayFabServerModelDecoder::decodeLogEventResultResponse(U
 {
     // Temp ustruct
     FServerLogEventResult tempStruct;
+
+    return tempStruct;
+}
+
+FServerWriteEventResponse UPlayFabServerModelDecoder::decodeWriteEventResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerWriteEventResponse tempStruct;
+
+    /** The ID of the event as it was written to PlayStream. This is an alphanumeric GUID. */
+    tempStruct.EventId = response->GetObjectField("data")->GetStringField("EventId");
 
     return tempStruct;
 }

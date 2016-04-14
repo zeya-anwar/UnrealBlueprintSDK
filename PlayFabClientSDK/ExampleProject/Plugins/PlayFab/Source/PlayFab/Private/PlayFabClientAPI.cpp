@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Client
-// SDK Version: 0.0.160411
+// SDK Version: 0.0.160414
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -5826,6 +5826,216 @@ void UPlayFabClientAPI::HelperLogEvent(FPlayFabBaseModel response, bool successf
         if (OnSuccessLogEvent.IsBound())
         {
             OnSuccessLogEvent.Execute(result);
+        }
+    }
+}
+
+/** Writes a character-based event into PlayStream. */
+UPlayFabClientAPI* UPlayFabClientAPI::WriteCharacterEvent(FClientWriteClientCharacterEventRequest request,
+    FDelegateOnSuccessWriteCharacterEvent onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessWriteCharacterEvent = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperWriteCharacterEvent);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/WriteCharacterEvent";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
+
+    if (request.EventName.IsEmpty() || request.EventName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("EventName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("EventName"), request.EventName);
+    }
+
+    if (request.Timestamp.IsEmpty() || request.Timestamp == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Timestamp"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
+    }
+
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperWriteCharacterEvent(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FClientWriteEventResponse result = UPlayFabClientModelDecoder::decodeWriteEventResponseResponse(response.responseData);
+        if (OnSuccessWriteCharacterEvent.IsBound())
+        {
+            OnSuccessWriteCharacterEvent.Execute(result);
+        }
+    }
+}
+
+/** Writes a player-based event into PlayStream. */
+UPlayFabClientAPI* UPlayFabClientAPI::WritePlayerEvent(FClientWriteClientPlayerEventRequest request,
+    FDelegateOnSuccessWritePlayerEvent onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessWritePlayerEvent = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperWritePlayerEvent);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/WritePlayerEvent";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.EventName.IsEmpty() || request.EventName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("EventName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("EventName"), request.EventName);
+    }
+
+    if (request.Timestamp.IsEmpty() || request.Timestamp == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Timestamp"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
+    }
+
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperWritePlayerEvent(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FClientWriteEventResponse result = UPlayFabClientModelDecoder::decodeWriteEventResponseResponse(response.responseData);
+        if (OnSuccessWritePlayerEvent.IsBound())
+        {
+            OnSuccessWritePlayerEvent.Execute(result);
+        }
+    }
+}
+
+/** Writes a title-based event into PlayStream. */
+UPlayFabClientAPI* UPlayFabClientAPI::WriteTitleEvent(FClientWriteTitleEventRequest request,
+    FDelegateOnSuccessWriteTitleEvent onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessWriteTitleEvent = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperWriteTitleEvent);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/WriteTitleEvent";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.EventName.IsEmpty() || request.EventName == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("EventName"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("EventName"), request.EventName);
+    }
+
+    if (request.Timestamp.IsEmpty() || request.Timestamp == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Timestamp"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
+    }
+
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperWriteTitleEvent(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FClientWriteEventResponse result = UPlayFabClientModelDecoder::decodeWriteEventResponseResponse(response.responseData);
+        if (OnSuccessWriteTitleEvent.IsBound())
+        {
+            OnSuccessWriteTitleEvent.Execute(result);
         }
     }
 }

@@ -5877,6 +5877,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::WriteCharacterEvent(FClientWriteClientChar
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
 
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5943,6 +5944,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::WritePlayerEvent(FClientWriteClientPlayerE
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
 
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -6009,6 +6011,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::WriteTitleEvent(FClientWriteTitleEventRequ
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
 
+    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);

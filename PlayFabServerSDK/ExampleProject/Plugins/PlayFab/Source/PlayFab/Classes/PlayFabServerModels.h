@@ -1569,13 +1569,17 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString CharacterId;
 
-    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. */
+    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString EventName;
 
     /** The time (in UTC) associated with this event. If omitted, a timestamp of now in UTC will be applied. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString Timestamp;
+
+    /** Arbitrary json values that represent the custom body of this event. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        UPlayFabJsonObject* Body;
 
 };
 
@@ -1590,13 +1594,17 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString PlayFabId;
 
-    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. */
+    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString EventName;
 
     /** The time (in UTC) associated with this event. If omitted, a timestamp of 'now' in UTC will be applied. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString Timestamp;
+
+    /** Arbitrary json values that represent the custom body of this event. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        UPlayFabJsonObject* Body;
 
 };
 
@@ -1607,13 +1615,17 @@ struct FServerWriteTitleEventRequest
 
 public:
 
-    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. */
+    /** The name of this event. This field is alphanumeric and at most 64 characters long. It is internally namespaced down onto the calling title. Best practices are to name in subject_verb_object format (player_logged_in). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString EventName;
 
     /** The time (in UTC) associated with this event. If omitted, a timestamp of now in UTC will be applied. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString Timestamp;
+
+    /** Arbitrary json values that represent the custom body of this event. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
+        UPlayFabJsonObject* Body;
 
 };
 

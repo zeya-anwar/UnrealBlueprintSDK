@@ -2,10 +2,11 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
+#include "PlayFabEnums.h"
 #include "PlayFabServerAPI.h"
 
 UPlayFabServerAPI* Server_proxy = NULL;
@@ -1298,8 +1299,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataReques
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1442,8 +1442,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserD
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1586,8 +1585,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpd
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1659,8 +1657,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDa
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2466,6 +2463,73 @@ void UPlayFabServerAPI::HelperConsumeItem(FPlayFabBaseModel response, bool succe
         if (OnSuccessConsumeItem.IsBound())
         {
             OnSuccessConsumeItem.Execute(result);
+        }
+    }
+}
+
+/** Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would have been added to the player inventory, if the Random Result Table were added via a Bundle or a call to UnlockContainer. */
+UPlayFabServerAPI* UPlayFabServerAPI::EvaluateRandomResultTable(FServerEvaluateRandomResultTableRequest request,
+    FDelegateOnSuccessEvaluateRandomResultTable onSuccess,
+    FDelegateOnFailurePlayFabError onFailure)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+
+    // Assign delegates
+    manager->OnSuccessEvaluateRandomResultTable = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperEvaluateRandomResultTable);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/EvaluateRandomResultTable";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.TableId.IsEmpty() || request.TableId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("TableId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("TableId"), request.TableId);
+    }
+
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperEvaluateRandomResultTable(FPlayFabBaseModel response, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error);
+        }
+    }
+    else
+    {
+        FServerEvaluateRandomResultTableResult result = UPlayFabServerModelDecoder::decodeEvaluateRandomResultTableResultResponse(response.responseData);
+        if (OnSuccessEvaluateRandomResultTable.IsBound())
+        {
+            OnSuccessEvaluateRandomResultTable.Execute(result);
         }
     }
 }
@@ -4696,8 +4760,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedG
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4770,15 +4833,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::ExecuteCloudScript(FServerExecuteCloudScri
     }
 
     if (request.FunctionParameter != NULL) OutRestJsonObj->SetObjectField(TEXT("FunctionParameter"), request.FunctionParameter);
-    if (request.RevisionSelection.IsEmpty() || request.RevisionSelection == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("RevisionSelection"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), request.RevisionSelection);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), GetEnumValueToString<ECloudScriptRevisionOption>(TEXT("ECloudScriptRevisionOption"), request.RevisionSelection));
     OutRestJsonObj->SetNumberField(TEXT("SpecificRevision"), request.SpecificRevision);
     OutRestJsonObj->SetBoolField(TEXT("GeneratePlayStreamEvent"), request.GeneratePlayStreamEvent);
 
@@ -5750,8 +5805,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacter
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5832,8 +5886,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateC
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5914,8 +5967,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateC
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);

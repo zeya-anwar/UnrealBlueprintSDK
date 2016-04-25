@@ -5,10 +5,11 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "PlayFabEnums.h"
 #include "PlayFabAdminModels.generated.h"
 
 class UPlayFabJsonObject;
@@ -152,11 +153,11 @@ public:
 
     /** interval at which the values of the statistic for all players are reset (resets begin at the next interval boundary) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        FString VersionChangeInterval;
+        EStatisticResetIntervalOption VersionChangeInterval;
 
     /** the aggregation method to use in updating the statistic (defaults to last) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        FString AggregationMethod;
+        EStatisticAggregationMethod AggregationMethod;
 
 };
 
@@ -377,11 +378,11 @@ public:
 
     /** interval at which the values of the statistic for all players are reset (changes are effective at the next occurance of the new interval boundary) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        FString VersionChangeInterval;
+        EStatisticResetIntervalOption VersionChangeInterval;
 
     /** the aggregation method to use in updating the statistic (defaults to last) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        FString AggregationMethod;
+        EStatisticAggregationMethod AggregationMethod;
 
 };
 
@@ -418,7 +419,7 @@ public:
 
     /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        EPermissionEnum Permission;
+        EUserDataPermission Permission;
 
 };
 
@@ -1032,7 +1033,7 @@ public:
 
     /** region in which the Game Server Instance is running */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
-        FString Region;
+        ERegion Region;
 
     /** array of unique PlayFab identifiers for users currently connected to this Game Server Instance */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
@@ -1183,7 +1184,7 @@ public:
 
     /** the current status of the build validation and processing steps */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        FString Status;
+        EGameBuildStatus Status;
 
 };
 
@@ -1235,7 +1236,7 @@ public:
 
     /** the current status of the build validation and processing steps */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        FString Status;
+        EGameBuildStatus Status;
 
     /** error message, if any, about this build */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
@@ -1373,7 +1374,7 @@ public:
 
     /** the current status of the build validation and processing steps */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        FString Status;
+        EGameBuildStatus Status;
 
 };
 

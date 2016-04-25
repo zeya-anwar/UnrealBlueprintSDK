@@ -5,10 +5,11 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "PlayFabEnums.h"
 #include "PlayFabServerModels.generated.h"
 
 class UPlayFabJsonObject;
@@ -438,7 +439,7 @@ public:
 
     /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        EPermissionEnum Permission;
+        EUserDataPermission Permission;
 
 };
 
@@ -789,6 +790,36 @@ public:
     /** Number of uses remaining on the item. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         int32 RemainingUses;
+};
+
+USTRUCT(BlueprintType)
+struct FServerEvaluateRandomResultTableRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** The unique identifier of the Random Result Table to use. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString TableId;
+
+    /** Specifies the catalog version that should be used to evaluate the Random Result Table.  If unspecified, uses default/primary catalog. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CatalogVersion;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerEvaluateRandomResultTableResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique identifier for the item returned from the Random Result Table evaluation, for the given catalog. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString ResultItemId;
+
 };
 
 USTRUCT(BlueprintType)
@@ -1418,7 +1449,7 @@ public:
 
     /** State of user leaving the Game Server Instance. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
-        FString PlayerState;
+        EPlayerConnectionState PlayerState;
 
 };
 
@@ -1784,7 +1815,7 @@ public:
 
     /** Permission to be applied to all user data keys in this request. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Shared Group Data Models")
-        EPermissionEnum Permission;
+        EUserDataPermission Permission;
 
 };
 
@@ -1859,9 +1890,9 @@ public:
     /** Object that is passed in to the function as the first argument */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         UPlayFabJsonObject* FunctionParameter;
-    /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. */
+    /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. The default value is 'Specific', if the SpeificRevision parameter is specified, otherwise it is 'Live'. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
-        FString RevisionSelection;
+        ECloudScriptRevisionOption RevisionSelection;
 
     /** The specivic revision to execute, when RevisionSelection is set to 'Specific' */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
@@ -2266,7 +2297,7 @@ public:
 
     /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Character Data Models")
-        EPermissionEnum Permission;
+        EUserDataPermission Permission;
 
 };
 

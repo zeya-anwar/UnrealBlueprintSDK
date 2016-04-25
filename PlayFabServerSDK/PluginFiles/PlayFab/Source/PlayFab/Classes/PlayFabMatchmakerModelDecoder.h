@@ -5,10 +5,11 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Matchmaker
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "PlayFabEnums.h"
 #include "PlayFabMatchmakerModels.h"
 #include "PlayFabMatchmakerModelDecoder.generated.h"
 

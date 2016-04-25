@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -253,6 +253,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1216: returnText = "InvalidEventField"; break;
     case 1217: returnText = "InvalidEventName"; break;
     case 1218: returnText = "CatalogNotConfigured"; break;
+    case 1219: returnText = "OperationNotSupportedForPlatform"; break;
     }
 
     // Return the text

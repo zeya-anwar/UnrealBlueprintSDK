@@ -5,10 +5,11 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "PlayFabEnums.h"
 #include "PlayFabClientModels.generated.h"
 
 class UPlayFabJsonObject;
@@ -1409,7 +1410,7 @@ public:
 
     /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        EPermissionEnum Permission;
+        EUserDataPermission Permission;
 
 };
 
@@ -1857,7 +1858,7 @@ public:
 
     /** Status of the transaction. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        FString Status;
+        ETransactionStatus Status;
 
     /** Virtual currency cost of the transaction. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
@@ -2315,7 +2316,7 @@ public:
 
     /** region to check for game instances */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
-        FString Region;
+        ERegion Region;
 
     /** version of build to match against */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
@@ -2389,7 +2390,7 @@ public:
 
     /** region to match make against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
-        FString Region;
+        ERegion Region;
 
     /** game mode to match make against [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
@@ -2443,7 +2444,7 @@ public:
         int32 PollWaitTimeMS;
     /** result of match making process */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
-        FString Status;
+        EMatchmakeStatus Status;
 
 };
 
@@ -2460,7 +2461,7 @@ public:
 
     /** the region to associate this server with for match filtering */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
-        FString Region;
+        ERegion Region;
 
     /** the title-defined game mode this server is to be running (defaults to 0 if there is only one mode) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
@@ -2535,6 +2536,10 @@ public:
     /** Message to display when confirming push notification. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
         FString ConfirmationMessege;
+
+    /** Message to display when confirming push notification. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
+        FString ConfirmationMessage;
 
 };
 
@@ -2841,7 +2846,7 @@ public:
 
     /** Permission to be applied to all user data keys in this request. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Shared Group Data Models")
-        EPermissionEnum Permission;
+        EUserDataPermission Permission;
 
 };
 
@@ -2880,9 +2885,9 @@ public:
     /** Object that is passed in to the function as the first argument */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         UPlayFabJsonObject* FunctionParameter;
-    /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. */
+    /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. The default value is 'Specific', if the SpeificRevision parameter is specified, otherwise it is 'Live'. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        FString RevisionSelection;
+        ECloudScriptRevisionOption RevisionSelection;
 
     /** The specivic revision to execute, when RevisionSelection is set to 'Specific' */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
@@ -3348,7 +3353,7 @@ public:
 
     /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Character Data Models")
-        EPermissionEnum Permission;
+        EUserDataPermission Permission;
 
 };
 
@@ -3480,7 +3485,7 @@ public:
 
     /** Returns only trades with the given status. If null, returns all trades. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
-        FString StatusFilter;
+        ETradeStatus StatusFilter;
 
 };
 

@@ -2,10 +2,11 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Matchmaker
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
+#include "PlayFabEnums.h"
 #include "PlayFabMatchmakerAPI.h"
 
 UPlayFabMatchmakerAPI* Matchmaker_proxy = NULL;
@@ -285,15 +286,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
         OutRestJsonObj->SetStringField(TEXT("Build"), request.Build);
     }
 
-    if (request.Region.IsEmpty() || request.Region == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Region"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("Region"), request.Region);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("Region"), GetEnumValueToString<ERegion>(TEXT("ERegion"), request.Region));
     if (request.GameMode.IsEmpty() || request.GameMode == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("GameMode"));

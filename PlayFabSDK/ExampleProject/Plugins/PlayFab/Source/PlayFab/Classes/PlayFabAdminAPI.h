@@ -5,13 +5,12 @@
 // This header file contains the function definitions.
 //
 // API: Admin
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
 #include "PlayFabBaseModel.h"
 #include "PlayFabAdminModels.h"
-#include "PlayFabPrivatePCH.h"
 #include "PlayFabAdminAPI.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPlayFabAdminRequestCompleted, FPlayFabBaseModel, response, bool, successful);
@@ -116,7 +115,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessCreatePlayerStatisticDefinition, FAdminCreatePlayerStatisticDefinitionResult, result);
 
-    /** Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval. */
+    /** Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval and an aggregation method. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
     static UPlayFabAdminAPI* CreatePlayerStatisticDefinition(FAdminCreatePlayerStatisticDefinitionRequest request,
         FDelegateOnSuccessCreatePlayerStatisticDefinition onSuccess,

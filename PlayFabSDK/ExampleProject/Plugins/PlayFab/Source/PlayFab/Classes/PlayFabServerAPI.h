@@ -5,13 +5,12 @@
 // This header file contains the function definitions.
 //
 // API: Server
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
 #include "PlayFabBaseModel.h"
 #include "PlayFabServerModels.h"
-#include "PlayFabPrivatePCH.h"
 #include "PlayFabServerAPI.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPlayFabServerRequestCompleted, FPlayFabBaseModel, response, bool, successful);
@@ -543,6 +542,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
     void HelperConsumeItem(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessEvaluateRandomResultTable, FServerEvaluateRandomResultTableResult, result);
+
+    /** Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would have been added to the player inventory, if the Random Result Table were added via a Bundle or a call to UnlockContainer. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabServerAPI* EvaluateRandomResultTable(FServerEvaluateRandomResultTableRequest request,
+        FDelegateOnSuccessEvaluateRandomResultTable onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperEvaluateRandomResultTable(FPlayFabBaseModel response, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCharacterInventory, FServerGetCharacterInventoryResult, result);
@@ -1247,6 +1259,7 @@ private:
     FDelegateOnSuccessAddCharacterVirtualCurrency OnSuccessAddCharacterVirtualCurrency;
     FDelegateOnSuccessAddUserVirtualCurrency OnSuccessAddUserVirtualCurrency;
     FDelegateOnSuccessConsumeItem OnSuccessConsumeItem;
+    FDelegateOnSuccessEvaluateRandomResultTable OnSuccessEvaluateRandomResultTable;
     FDelegateOnSuccessGetCharacterInventory OnSuccessGetCharacterInventory;
     FDelegateOnSuccessGetUserInventory OnSuccessGetUserInventory;
     FDelegateOnSuccessGrantItemsToCharacter OnSuccessGrantItemsToCharacter;

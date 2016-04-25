@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Admin
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -392,7 +392,7 @@ FAdminGetMatchmakerGameInfoResult UPlayFabAdminModelDecoder::decodeGetMatchmaker
     tempStruct.BuildVersion = response->GetObjectField("data")->GetStringField("BuildVersion");
 
     /** region in which the Game Server Instance is running */
-    tempStruct.Region = response->GetObjectField("data")->GetStringField("Region");
+    tempStruct.Region = GetEnumValueFromString<ERegion>(TEXT("ERegion"), response->GetObjectField("data")->GetStringField("Region"));
 
     /** array of unique PlayFab identifiers for users currently connected to this Game Server Instance */
     tempStruct.Players = FString::Join(response->GetObjectField("data")->GetStringArrayField("Players"), TEXT(","));
@@ -464,7 +464,7 @@ FAdminAddServerBuildResult UPlayFabAdminModelDecoder::decodeAddServerBuildResult
     tempStruct.TitleId = response->GetObjectField("data")->GetStringField("TitleId");
 
     /** the current status of the build validation and processing steps */
-    tempStruct.Status = response->GetObjectField("data")->GetStringField("Status");
+    tempStruct.Status = GetEnumValueFromString<EGameBuildStatus>(TEXT("EGameBuildStatus"), response->GetObjectField("data")->GetStringField("Status"));
 
     return tempStruct;
 }
@@ -496,7 +496,7 @@ FAdminGetServerBuildInfoResult UPlayFabAdminModelDecoder::decodeGetServerBuildIn
     tempStruct.TitleId = response->GetObjectField("data")->GetStringField("TitleId");
 
     /** the current status of the build validation and processing steps */
-    tempStruct.Status = response->GetObjectField("data")->GetStringField("Status");
+    tempStruct.Status = GetEnumValueFromString<EGameBuildStatus>(TEXT("EGameBuildStatus"), response->GetObjectField("data")->GetStringField("Status"));
 
     /** error message, if any, about this build */
     tempStruct.ErrorMessage = response->GetObjectField("data")->GetStringField("ErrorMessage");
@@ -559,7 +559,7 @@ FAdminModifyServerBuildResult UPlayFabAdminModelDecoder::decodeModifyServerBuild
     tempStruct.TitleId = response->GetObjectField("data")->GetStringField("TitleId");
 
     /** the current status of the build validation and processing steps */
-    tempStruct.Status = response->GetObjectField("data")->GetStringField("Status");
+    tempStruct.Status = GetEnumValueFromString<EGameBuildStatus>(TEXT("EGameBuildStatus"), response->GetObjectField("data")->GetStringField("Status"));
 
     return tempStruct;
 }

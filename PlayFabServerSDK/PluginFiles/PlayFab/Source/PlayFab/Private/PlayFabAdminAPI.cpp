@@ -2,10 +2,11 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Admin
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
+#include "PlayFabEnums.h"
 #include "PlayFabAdminAPI.h"
 
 UPlayFabAdminAPI* Admin_proxy = NULL;
@@ -327,7 +328,7 @@ void UPlayFabAdminAPI::HelperUpdateUserTitleDisplayName(FPlayFabBaseModel respon
 ///////////////////////////////////////////////////////
 // Player Data Management
 //////////////////////////////////////////////////////
-/** Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval. */
+/** Adds a new player statistic configuration to the title, optionally allowing the developer to specify a reset interval and an aggregation method. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreatePlayerStatisticDefinitionRequest request,
     FDelegateOnSuccessCreatePlayerStatisticDefinition onSuccess,
     FDelegateOnFailurePlayFabError onFailure)
@@ -357,24 +358,8 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreate
         OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
     }
 
-    if (request.VersionChangeInterval.IsEmpty() || request.VersionChangeInterval == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("VersionChangeInterval"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
-    }
-
-    if (request.AggregationMethod.IsEmpty() || request.AggregationMethod == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("AggregationMethod"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), request.AggregationMethod);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), GetEnumValueToString<EStatisticResetIntervalOption>(TEXT("EStatisticResetIntervalOption"), request.VersionChangeInterval));
+    OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), GetEnumValueToString<EStatisticAggregationMethod>(TEXT("EStatisticAggregationMethod"), request.AggregationMethod));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1205,24 +1190,8 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdate
         OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
     }
 
-    if (request.VersionChangeInterval.IsEmpty() || request.VersionChangeInterval == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("VersionChangeInterval"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), request.VersionChangeInterval);
-    }
-
-    if (request.AggregationMethod.IsEmpty() || request.AggregationMethod == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("AggregationMethod"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), request.AggregationMethod);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), GetEnumValueToString<EStatisticResetIntervalOption>(TEXT("EStatisticResetIntervalOption"), request.VersionChangeInterval));
+    OutRestJsonObj->SetStringField(TEXT("AggregationMethod"), GetEnumValueToString<EStatisticAggregationMethod>(TEXT("EStatisticAggregationMethod"), request.AggregationMethod));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1294,8 +1263,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1438,8 +1406,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1582,8 +1549,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1655,8 +1621,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);

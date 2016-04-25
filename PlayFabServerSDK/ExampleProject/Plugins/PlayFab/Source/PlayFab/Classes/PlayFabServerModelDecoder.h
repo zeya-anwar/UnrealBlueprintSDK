@@ -5,10 +5,11 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "PlayFabEnums.h"
 #include "PlayFabServerModels.h"
 #include "PlayFabServerModelDecoder.generated.h"
 
@@ -149,6 +150,10 @@ public:
     /** Decode the ConsumeItemResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerConsumeItemResult decodeConsumeItemResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the EvaluateRandomResultTableResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
+        static FServerEvaluateRandomResultTableResult decodeEvaluateRandomResultTableResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetCharacterInventoryResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")

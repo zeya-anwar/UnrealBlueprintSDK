@@ -2,10 +2,11 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Client
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
+#include "PlayFabEnums.h"
 #include "PlayFabClientAPI.h"
 
 UPlayFabClientAPI* Client_proxy = NULL;
@@ -3478,8 +3479,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateUserData(FClientUpdateUserDataReques
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3541,8 +3541,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateUserPublisherData(FClientUpdateUserD
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5284,15 +5283,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetCurrentGames(FClientCurrentGamesRequest
 
 
     // Setup request object
-    if (request.Region.IsEmpty() || request.Region == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Region"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("Region"), request.Region);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("Region"), GetEnumValueToString<ERegion>(TEXT("ERegion"), request.Region));
     if (request.BuildVersion.IsEmpty() || request.BuildVersion == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("BuildVersion"));
@@ -5435,15 +5426,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::Matchmake(FClientMatchmakeRequest request,
         OutRestJsonObj->SetStringField(TEXT("BuildVersion"), request.BuildVersion);
     }
 
-    if (request.Region.IsEmpty() || request.Region == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Region"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("Region"), request.Region);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("Region"), GetEnumValueToString<ERegion>(TEXT("ERegion"), request.Region));
     if (request.GameMode.IsEmpty() || request.GameMode == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("GameMode"));
@@ -5538,15 +5521,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::StartGame(FClientStartGameRequest request,
         OutRestJsonObj->SetStringField(TEXT("BuildVersion"), request.BuildVersion);
     }
 
-    if (request.Region.IsEmpty() || request.Region == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("Region"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("Region"), request.Region);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("Region"), GetEnumValueToString<ERegion>(TEXT("ERegion"), request.Region));
     if (request.GameMode.IsEmpty() || request.GameMode == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("GameMode"));
@@ -5652,6 +5627,15 @@ UPlayFabClientAPI* UPlayFabClientAPI::AndroidDevicePushNotificationRegistration(
     else
     {
         OutRestJsonObj->SetStringField(TEXT("ConfirmationMessege"), request.ConfirmationMessege);
+    }
+
+    if (request.ConfirmationMessage.IsEmpty() || request.ConfirmationMessage == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ConfirmationMessage"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ConfirmationMessage"), request.ConfirmationMessage);
     }
 
 
@@ -6351,8 +6335,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateSharedGroupData(FClientUpdateSharedG
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -6419,15 +6402,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::ExecuteCloudScript(FClientExecuteCloudScri
     }
 
     if (request.FunctionParameter != NULL) OutRestJsonObj->SetObjectField(TEXT("FunctionParameter"), request.FunctionParameter);
-    if (request.RevisionSelection.IsEmpty() || request.RevisionSelection == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("RevisionSelection"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), request.RevisionSelection);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), GetEnumValueToString<ECloudScriptRevisionOption>(TEXT("ECloudScriptRevisionOption"), request.RevisionSelection));
     OutRestJsonObj->SetNumberField(TEXT("SpecificRevision"), request.SpecificRevision);
     OutRestJsonObj->SetBoolField(TEXT("GeneratePlayStreamEvent"), request.GeneratePlayStreamEvent);
 
@@ -7296,8 +7271,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UpdateCharacterData(FClientUpdateCharacter
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    if (request.Permission == EPermissionEnum::PUBLIC) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Public"));
-    if (request.Permission == EPermissionEnum::PRIVATE) OutRestJsonObj->SetStringField(TEXT("Permission"), TEXT("Private"));
+    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -7574,15 +7548,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetPlayerTrades(FClientGetPlayerTradesRequ
 
 
     // Setup request object
-    if (request.StatusFilter.IsEmpty() || request.StatusFilter == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("StatusFilter"));
-    }
-    else
-    {
-        OutRestJsonObj->SetStringField(TEXT("StatusFilter"), request.StatusFilter);
-    }
-
+    OutRestJsonObj->SetStringField(TEXT("StatusFilter"), GetEnumValueToString<ETradeStatus>(TEXT("ETradeStatus"), request.StatusFilter));
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);

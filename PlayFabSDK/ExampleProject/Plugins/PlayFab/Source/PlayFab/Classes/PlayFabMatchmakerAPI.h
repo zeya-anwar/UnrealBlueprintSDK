@@ -5,13 +5,12 @@
 // This header file contains the function definitions.
 //
 // API: Matchmaker
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
 #include "PlayFabBaseModel.h"
 #include "PlayFabMatchmakerModels.h"
-#include "PlayFabPrivatePCH.h"
 #include "PlayFabMatchmakerAPI.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPlayFabMatchmakerRequestCompleted, FPlayFabBaseModel, response, bool, successful);

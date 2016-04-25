@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -314,6 +314,17 @@ FServerConsumeItemResult UPlayFabServerModelDecoder::decodeConsumeItemResultResp
     return tempStruct;
 }
 
+FServerEvaluateRandomResultTableResult UPlayFabServerModelDecoder::decodeEvaluateRandomResultTableResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerEvaluateRandomResultTableResult tempStruct;
+
+    /** Unique identifier for the item returned from the Random Result Table evaluation, for the given catalog. */
+    tempStruct.ResultItemId = response->GetObjectField("data")->GetStringField("ResultItemId");
+
+    return tempStruct;
+}
+
 FServerGetCharacterInventoryResult UPlayFabServerModelDecoder::decodeGetCharacterInventoryResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -507,7 +518,7 @@ FServerNotifyMatchmakerPlayerLeftResult UPlayFabServerModelDecoder::decodeNotify
     FServerNotifyMatchmakerPlayerLeftResult tempStruct;
 
     /** State of user leaving the Game Server Instance. */
-    tempStruct.PlayerState = response->GetObjectField("data")->GetStringField("PlayerState");
+    tempStruct.PlayerState = GetEnumValueFromString<EPlayerConnectionState>(TEXT("EPlayerConnectionState"), response->GetObjectField("data")->GetStringField("PlayerState"));
 
     return tempStruct;
 }

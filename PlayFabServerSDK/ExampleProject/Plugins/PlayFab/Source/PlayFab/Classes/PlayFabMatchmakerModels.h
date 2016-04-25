@@ -5,10 +5,11 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Matchmaker
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "PlayFabEnums.h"
 #include "PlayFabMatchmakerModels.generated.h"
 
 class UPlayFabJsonObject;
@@ -116,7 +117,7 @@ public:
 
     /** Region with which to associate the server, for filtering. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")
-        FString Region;
+        ERegion Region;
 
     /** Game mode for this Game Server Instance. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")

@@ -5,13 +5,12 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
 #include "PlayFabBaseModel.h"
 #include "PlayFabClientModels.h"
-#include "PlayFabPrivatePCH.h"
 #include "PlayFabClientAPI.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPlayFabClientRequestCompleted, FPlayFabBaseModel, response, bool, successful);

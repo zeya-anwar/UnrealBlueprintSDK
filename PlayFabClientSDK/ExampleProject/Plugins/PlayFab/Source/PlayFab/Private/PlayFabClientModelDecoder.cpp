@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Client
-// SDK Version: 0.0.160414
+// SDK Version: 0.0.160425
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -675,7 +675,7 @@ FClientPayForPurchaseResult UPlayFabClientModelDecoder::decodePayForPurchaseResu
     tempStruct.OrderId = response->GetObjectField("data")->GetStringField("OrderId");
 
     /** Status of the transaction. */
-    tempStruct.Status = response->GetObjectField("data")->GetStringField("Status");
+    tempStruct.Status = GetEnumValueFromString<ETransactionStatus>(TEXT("ETransactionStatus"), response->GetObjectField("data")->GetStringField("Status"));
 
     /** Virtual currency cost of the transaction. */
     tempStruct.VCAmount = response->GetObjectField("data")->GetObjectField("VCAmount");
@@ -895,7 +895,7 @@ FClientMatchmakeResult UPlayFabClientModelDecoder::decodeMatchmakeResultResponse
     tempStruct.PollWaitTimeMS = int(response->GetObjectField("data")->GetNumberField("PollWaitTimeMS"));
 
     /** result of match making process */
-    tempStruct.Status = response->GetObjectField("data")->GetStringField("Status");
+    tempStruct.Status = GetEnumValueFromString<EMatchmakeStatus>(TEXT("EMatchmakeStatus"), response->GetObjectField("data")->GetStringField("Status"));
 
     return tempStruct;
 }

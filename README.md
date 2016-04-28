@@ -1,12 +1,12 @@
-Unreal 4.9 Blueprint SDK-Collection for PlayFab README
+Unreal 4.9 and 4.11 Blueprint SDK-Collection for PlayFab README
 ========
 
 
 1. Overview:
 ----
-Unreal 4.9 Blueprint SDKs for PlayFab - BETA
+Unreal 4.9 and 4.11 Blueprint SDKs for PlayFab
 
-The Unreal Blueprint SDK-Collection includes three separate Unreal 4.9 plugins.  You should only install 1 of these plugins in any Unreal project.
+The Unreal Blueprint SDK-Collection includes three separate Unreal plugins.  You should only install 1 of these plugins in any Unreal project.
 
 * Unreal Client SDK for distribution to End-Users
 * Unreal Server SDK for secure machines running sensitive logic
@@ -107,68 +107,10 @@ Follow the `Blueprint Tutorial` below to populate the `Game Title Id` before inv
 
 ![05_PrintPlayFabError](Images/05_PrintPlayFabError.png)
 
-## TestRegister
-
-`TestRegister` is a custom event that registers a user given the `username`, `email`, and `password`.
-
-The `OnSuccess` delegate will be executed upon success.
-
-![00_TestRegisterBlueprint](Images/00_TestRegisterBlueprint.png)
-
-The custom event can be invoked in the console with the following line.
-
-```
-ce TestRegister "myUsername" "email@email.com" password
-```
-
-On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
-
-```
-adb shell input text "ce%sTestRegister%s\\""myUsername\\"""%s\\"""email@email.com\\"""%spassword"
-```
-
-The output log should print output similar to the following for a success event.
-
-```
-Cmd: ce TestRegister "myUsername" "email@email.com" password
-LogBlueprintUserMessages: [Test_C_1] Registering User=myUsername Email=email@email.com Password=password
-LogPlayFab: Request: {
-    "TitleId": "YOUR_GAME_TITLE_ID",
-    "Username": "myUsername",
-    "Email": "email@email.com",
-    "Password": "password",
-    "RequireBothUsernameAndEmail": false,
-    "DisplayName": null,
-    "Origination": null
-}
-LogPlayFab: Response : {
-    "code": 200,
-    "status": "OK",
-    "data":
-    {
-        "PlayFabId": "7F10A25FDB140A4C",
-        "SessionTicket": "LONG_SESSION_TICKET",
-        "Username": "myusername",
-        "SettingsForUser":
-        {
-            "NeedsAttribution": false
-        }
-    }
-}
-LogBlueprintUserMessages: [Test_C_1] Register Success:
-{"code":200,"status":"OK","data":{"PlayFabId":"7F10A25FDB140A4C",
-"SessionTicket":"LONG_SESSION_TICKET",
-"Username":"myusername","SettingsForUser":{"NeedsAttribution":false}}}
-```
-
-The `OnFailure` delegate will be executed if a `PlayFabError` occurs.
-
-![06_TestRegisterBlueprintFailure](Images/06_TestRegisterBlueprintFailure.png)
-
 
 ## TestLogin
 
-`TestLogin` is a custom event that will login a user given the corresponding `email` and `password`. A user must be registered before a successful login can occur.
+`TestLogin` is a custom event that will register and/or login a user given a unique customId
 
 The `OnSuccess` delegate will be executed upon success.
 
@@ -177,23 +119,22 @@ The `OnSuccess` delegate will be executed upon success.
 The custom event can be invoked in the console with the following line.
 
 ```
-ce TestLogin "email@email.com" password
+ce TestLogin arbitraryCustomId
 ```
 
 On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
 
 ```
-adb shell input text "ce%sTestLogin%s\\""email@email.com\\"""%spassword"
+adb shell input text "ce%sTestLogin%sarbitraryCustomId"
 ```
 
 The output log should print output similar to the following for a success event.
 
 ```
-Cmd: ce TestLogin "email@email.com" password
+Cmd: ce TestLogin arbitraryCustomId
 LogPlayFab: Request: {
     "TitleId": "YOUR_GAME_TITLE_ID",
-    "Email": "email@email.com",
-    "Password": "password"
+    "CustomId": "arbitraryCustomId"
 }
 LogPlayFab: Response : {
     "code": 200,
@@ -216,61 +157,10 @@ SessionTicket=LONG_SESSION_TICKET PlayFabId=EDC7CAE0DCB6FA8F
 
 The `OnFailure` delegate will be executed if a `PlayFabError` occurs.
 
-![07_TestLoginBlueprintFailure](Images/07_TestLoginBlueprintFailure.png)
-
-
-## GetCloudScriptUrl
-
-`GetCloudScriptUrl` is a custom event that will request a cloud script url given no parameters.
-
-The `OnSuccess` delegate will be executed upon success.
-
-![02_GetCloudScriptUrlBlueprint](Images/02_GetCloudScriptUrlBlueprint.png)
-
-The custom event can be invoked in the console with the following line.
-
-```
-ce GetCloudScriptUrl
-```
-
-On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
-
-```
-adb shell input text "ce%sGetCloudScriptUrl"
-```
-
-The output log should print output similar to the following for a success event.
-
-```
-Cmd: ce GetCloudScriptUrl
-LogPlayFab: Request: {
-    "Version": 1,
-    "Testing": false
-}
-LogPlayFab: Response : {
-    "code": 200,
-    "status": "OK",
-    "data":
-    {
-        "Url": "https://YOUR_GAME_TITLE_ID.playfablogic.com/1/prod"
-    }
-}
-LogBlueprintUserMessages: [Test_C_1] GetCloudScriptUrl Success:
-Url=https://YOUR_GAME_TITLE_ID.playfablogic.com/1/prod
-```
-
-The `OnFailure` delegate will be executed if a `PlayFabError` occurs. A failure might occur if `GetCloudScriptUrl` was invoked before the user was authenticated resulting in `Missing or invalid X-Authentication HTTP header`.
-
-![08_GetCloudScriptUrlBlueprintFailure](Images/08_GetCloudScriptUrlBlueprintFailure.png)
-
 
 ## TestCloudScript
 
-`TestCloudScript` is a custom event that will execute cloud script given no parameters. For this test to work, the following custom cloud script must be added to return a success result.
-
-```
-handlers.testMe = function(args){  return "Hello World" }
-```
+`TestCloudScript` is a custom event that will execute cloud script given no parameters.  Without changes, it is preset to call a pre-existing "helloWorld" function.
 
 The `OnSuccess` delegate will be executed upon success.
 
@@ -293,23 +183,28 @@ The output log should print output similar to the following for a success event.
 ```
 Cmd: ce TestCloudScript
 LogPlayFab: Request: {
-    "ActionId": "testMe",
-    "Params":
-    {
-    }
+    "FunctionName": "helloWorld",
+    ...
 }
 LogPlayFab: Response : {
     "code": 200,
     "status": "OK",
-    "data":
-    {
-        "ActionId": "testMe",
-        "Version": 1,
-        "Revision": 2,
-        "Results": "Hello World",
-        "ResultsEncoded": "\"Hello World\"",
-        "ActionLog": "",
-        "ExecutionTime": 0
+    "data": {
+        "FunctionName": "helloWorld",
+        "Revision": 1,
+        "FunctionResult": {
+            "messageValue": "Hello 1337D00D!"
+        },
+        "Logs": [
+            {
+                "Level": "Info",
+                "Message": "Hello 1337D00D!"
+            }
+        ],
+        "ExecutionTimeSeconds": 0.00063979999999999994,
+        "MemoryConsumedBytes": 16208,
+        "APIRequestsIssued": 0,
+        "HttpRequestsIssued": 0
     }
 }
 LogJson:Warning: Field Results is of the wrong type.
@@ -318,8 +213,6 @@ LogBlueprintUserMessages: [Test_C_1] TestCloudScript Success: "Hello World"
 ```
 
 The `OnFailure` delegate will be executed if a `PlayFabError` occurs. A failure might occur if `TestCloudScript` was invoked before the user was authenticated resulting in `Missing or invalid X-Authentication HTTP header`.
-
-![09_TestCloudScriptBlueprintFailure](Images/09_TestCloudScriptBlueprintFailure.png)
 
 
 5. Blueprint Tutorial:
@@ -340,32 +233,21 @@ Below are the steps to add an API call node, and manipulate the response JSON ob
 * Unreal Setup
  * ![Open Level Blueprint](http://api.playfab.com/images/git/ubp_OpenLevelBP.png)
  * The example project will have some pre-made blueprints that you may use as a template
- * Register and a player, and log in
-  * For this we require two api-calls: [RegisterPlayFabUser](https://api.playfab.com/Documentation/Client/method/RegisterPlayFabUser) and [LoginWithEmailAddress](https://api.playfab.com/Documentation/Client/method/LoginWithEmailAddress)
-  * Setup the register command:
-   * Right click on an empty spot and add an "Add Custom Event Node".
-   * Name it "TestRegister"
-   * Now add string variables named: "Username", "Email", and "Password" to the custom event.
-   * Right click again and search for the "Register PlayFab User" node located in "Play Fab/Client/Authentication".
-    * You can also type "register" in the search field to find it quicker.
-   * Wire up the event inputs to the RegisterPlayFabUser inputs
-   * ![TestRegister Blueprint](http://api.playfab.com/images/git/ubp_TestRegister.png)
+ * Log in a player
+  * This example will use [LoginWithCustomID](https://api.playfab.com/Documentation/Client/method/LoginWithCustomID)
   * Setup the login command:
    * Right click on an empty spot and add an "Add Custom Event Node".
    * Name it "TestLogin"
-   * Now add string variables named: "Email", and "Password" to the custom event.
-   * Right click again and search for the "Login With Email Address" node located in "Play Fab/Client/Authentication".
+   * Now add a string variables named: "customId"
+   * Right click again and search for the "Login With Custom ID" node located in "Play Fab/Client/Authentication".
     * You can also type "login" in the search field to find it quicker.
-   * Wire up the event inputs to the RegisterPlayFabUser inputs
-  * Both:
-   * The response on the node is a JSON object that can be manipulated using the provided JSON functions located in "Play Fab/Json".
-   * Drag off from the response node and search for "Encode Json"
-   * Now wire the "Encode Json" return up to a "Print String" node. Below is an image of the complete system.
-   * ![Login Blueprint](http://api.playfab.com/images/git/ubp_Login.png)
+   * Wire up the event inputs to the LoginWithCustomID inputs
+   * The response on any api call is a custom container that can be broken into more useful types
+   * Drag off from the response node and search for "Break" - In this case "Break ClientLogin Result"
+   * Now wire any useful parameters to appropriate destinations - In this case print PlayFabId, and SessionTicket
+   * ![Login Blueprint](Images/01_TestLoginBlueprint.png)
 * Now run the project and in the play in editor window hit the tilde ~ key twice. This will bring up the console manager, and make it mostly fullscreen
-* The first time you run (only), execute this: *ce TestRegister "myUsername" "email@email.com" password*
-* After you register, you can execute this every time you start a client: *ce TestLogin "email@email.com" password*
-* Notice you add quotes to email but not to password.
+* You should execute this every time you start a client: *ce TestLogin arbitraryCustomId*
 * Once you hit enter you should get the response printed out on the screen.
 
 6. Troubleshooting:

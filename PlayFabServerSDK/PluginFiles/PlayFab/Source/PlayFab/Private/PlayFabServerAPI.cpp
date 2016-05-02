@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
-// SDK Version: 0.0.160425
+// SDK Version: 0.0.160502
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -6009,17 +6009,15 @@ void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
 
     FPlayFabBaseModel myResponse;
 
-    // Check we have result to process futher
+    // Check we have result to process further
     if (!bWasSuccessful)
     {
         UE_LOG(LogPlayFab, Error, TEXT("Request failed: %s"), *Request->GetURL());
 
         // Broadcast the result event
-        myResponse.responseError.ErrorCode = 500;
-        myResponse.responseError.ErrorName = "Request Error";
-        myResponse.responseError.ErrorMessage = "HTTP Request Error";
-
-        myResponse.responseData = ResponseJsonObj;
+        myResponse.responseError.ErrorCode = 503;
+        myResponse.responseError.ErrorName = "Unable to contact server";
+        myResponse.responseError.ErrorMessage = "Unable to contact server";
 
         Server_proxy->OnPlayFabResponse.Broadcast(myResponse, false);
 
@@ -6042,59 +6040,40 @@ void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
     // Log errors
     if (!bIsValidJsonResponse)
     {
-        if (!ResponseJsonObj->GetRootObject().IsValid())
-        {
-            // As we assume it's recommended way to use current class, but not the only one,
-            // it will be the warning instead of error
-            UE_LOG(LogPlayFab, Warning, TEXT("JSON could not be decoded!"));
-        }
+        UE_LOG(LogPlayFab, Warning, TEXT("JSON could not be decoded!"));
     }
 
-    // Serialize data to json string
-    FString InputString;
-    TSharedRef< TJsonWriter<> > Writer = TJsonWriterFactory<>::Create(&InputString);
-    FJsonSerializer::Serialize(ResponseJsonObj->GetRootObject().ToSharedRef(), Writer);
-
     // Log response state
-    UE_LOG(LogPlayFab, Log, TEXT("Response : %s"), *InputString);
+    UE_LOG(LogPlayFab, Log, TEXT("Response : %s"), *ResponseContent);
 
     myResponse.responseError.decodeError(ResponseJsonObj);
     myResponse.responseData = ResponseJsonObj;
 
     // Broadcast the result event
-    Server_proxy->OnPlayFabResponse.Broadcast(myResponse, true);
+    Server_proxy->OnPlayFabResponse.Broadcast(myResponse, myResponse.responseError.hasError);
 }
 
 void UPlayFabServerAPI::Activate()
 {
-    FString RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabURL;
-
-    // Build the full request url
-    if (cloudScript)
-    {
-        RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(IPlayFab::Get().CloudScriptVersion) + TEXT("/prod");
-    }
-
-    RequestUrl = RequestUrl + PlayFabRequestURL;
+    FString RequestUrl;
+    if (!cloudScript)
+        RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
+    else
+        RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(IPlayFab::Get().CloudScriptVersion) + TEXT("/prod") + PlayFabRequestURL;
 
     TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
     HttpRequest->SetURL(RequestUrl);
-
-    if (useSessionTicket)
-    {
-        HttpRequest->SetHeader("X-Authentication", IPlayFab::Get().getSessionTicket());
-    }
-    if (useSecretKey)
-    {
-        HttpRequest->SetHeader("X-SecretKey", IPlayFab::Get().getSecretApiKey());
-    }
-
-    // Set verb
     HttpRequest->SetVerb("POST");
 
-
-    // Set content-type
+    // Headers
+    if (useSessionTicket)
+        HttpRequest->SetHeader("X-Authentication", IPlayFab::Get().getSessionTicket());
+    if (useSecretKey)
+        HttpRequest->SetHeader("X-SecretKey", IPlayFab::Get().getSecretApiKey());
     HttpRequest->SetHeader("Content-Type", "application/json");
+    HttpRequest->SetHeader("X-ReportErrorAsSuccess", "true"); // FHttpResponsePtr doesn't provide sufficient information when an error code is returned
+    for (TMap<FString, FString>::TConstIterator It(RequestHeaders); It; ++It)
+        HttpRequest->SetHeader(It.Key(), It.Value());
 
     // Serialize data to json string
     FString OutputString;
@@ -6103,12 +6082,6 @@ void UPlayFabServerAPI::Activate()
 
     // Set Json content
     HttpRequest->SetContentAsString(OutputString);
-
-    // Apply additional headers
-    for (TMap<FString, FString>::TConstIterator It(RequestHeaders); It; ++It)
-    {
-        HttpRequest->SetHeader(It.Key(), It.Value());
-    }
 
     UE_LOG(LogPlayFab, Log, TEXT("Request: %s"), *OutputString);
 

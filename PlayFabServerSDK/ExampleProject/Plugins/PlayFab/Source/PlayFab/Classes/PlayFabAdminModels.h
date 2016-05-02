@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// SDK Version: 0.0.160425
+// SDK Version: 0.0.160502
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -718,6 +718,36 @@ struct FAdminUpdateStoreItemsResult
     GENERATED_USTRUCT_BODY()
 
 public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminSetStoreSegemntOverridesResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminSetStoreSegmentOverridesRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Catalog version to use for the request. Defaults to most recent catalog if null. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        FString CatalogVersion;
+
+    /** The id of the store being overridden. Requests from the client api to store will return the store associated with the override */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        FString BaseStoreId;
+
+    /** The list of overrides in order of evaluation. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        TArray<UPlayFabJsonObject*> Overrides;
 
 };
 

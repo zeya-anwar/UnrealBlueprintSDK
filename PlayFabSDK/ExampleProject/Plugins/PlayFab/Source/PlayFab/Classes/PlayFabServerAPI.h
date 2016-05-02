@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Server
-// SDK Version: 0.0.160425
+// SDK Version: 0.0.160502
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"

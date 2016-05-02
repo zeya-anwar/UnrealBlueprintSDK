@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160425
+// SDK Version: 0.0.160502
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -682,9 +682,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString AccessToken;
 
-    /** If another user is already linked to the account, unlink the other user and re-link. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
 };
 
 USTRUCT(BlueprintType)
@@ -2533,10 +2530,6 @@ public:
     /** If true, send a test push message immediately after sucessful registration. Defaults to false. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
         bool SendPushNotificationConfirmation;
-    /** Message to display when confirming push notification. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        FString ConfirmationMessege;
-
     /** Message to display when confirming push notification. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
         FString ConfirmationMessage;

@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Admin
-// SDK Version: 0.0.160425
+// SDK Version: 0.0.160502
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -508,6 +508,19 @@ public:
     void HelperSetStoreItems(FPlayFabBaseModel response, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSetStoreSegmentOverrides, FAdminSetStoreSegemntOverridesResult, result);
+
+    /** Sets up a store to be used in an AB test using segments */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    static UPlayFabAdminAPI* SetStoreSegmentOverrides(FAdminSetStoreSegmentOverridesRequest request,
+        FDelegateOnSuccessSetStoreSegmentOverrides onSuccess,
+        FDelegateOnFailurePlayFabError onFailure);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+    void HelperSetStoreSegmentOverrides(FPlayFabBaseModel response, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSetTitleData, FAdminSetTitleDataResult, result);
 
     /** Creates and updates the key-value store of custom title settings */
@@ -959,6 +972,7 @@ private:
     FDelegateOnSuccessListVirtualCurrencyTypes OnSuccessListVirtualCurrencyTypes;
     FDelegateOnSuccessSetCatalogItems OnSuccessSetCatalogItems;
     FDelegateOnSuccessSetStoreItems OnSuccessSetStoreItems;
+    FDelegateOnSuccessSetStoreSegmentOverrides OnSuccessSetStoreSegmentOverrides;
     FDelegateOnSuccessSetTitleData OnSuccessSetTitleData;
     FDelegateOnSuccessSetupPushNotification OnSuccessSetupPushNotification;
     FDelegateOnSuccessUpdateCatalogItems OnSuccessUpdateCatalogItems;

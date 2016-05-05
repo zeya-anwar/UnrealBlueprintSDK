@@ -122,7 +122,7 @@ The custom event can be invoked in the console with the following line.
 ce TestLogin arbitraryCustomId
 ```
 
-On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line.
+On Android, the custom event can be invoked in the console and the command can be entered over `ADB` with the following line (after activating the console window with 4-finger tap).
 
 ```
 adb shell input text "ce%sTestLogin%sarbitraryCustomId"

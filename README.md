@@ -258,6 +258,7 @@ Plugin 'PlayFab' failed to load because module 'PlayFab' could not be found.  Pl
 Your Unreal project is not set up to be a C++ project.  Here is a tutorial that will help fix this problem.
 http://idkudk.blogspot.com/2015/02/how-to-get-plugins-to-package-correctly.html
 
+If you are building for iOS, there is a temporary issue where the "BSD UMETA(DisplayName = "BSD")," line in PlayFabEnums.h throws an error.  This issue will be resolved soon.  Delete that line if you are building to Apple devices.
 
 General troubleshooting:
 

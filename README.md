@@ -98,8 +98,7 @@ adb logcat
 
 # Blueprint Custom Events
 
-Follow the `Blueprint Tutorial` below to populate the `Game Title Id` before invoking the following `Blueprint Custom Events`.
-
+Follow the `Blueprint Tutorial` below to populate the `Game Title Id` before invoking the following `Blueprint Custom Events`.  Also note that these examples use the Client-api, which does not work in the server.  For the server Example project, just remove the custom events with errors before you run the program (several examples work in all plugins, but client-login and client-cloudscript do not)
 
 ## Custom Event PrintPlayFabError
 

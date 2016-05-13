@@ -249,6 +249,27 @@ Below are the steps to add an API call node, and manipulate the response JSON ob
 * You should execute this every time you start a client: *ce TestLogin arbitraryCustomId*
 * Once you hit enter you should get the response printed out on the screen.
 
+
+5. testTitleData.json file required for "StartTest" custom event
+----
+
+This sdk includes an optional custom event, and testing node that is used by PlayFab to verify sdk features are fully functional.  The testTitleData.json file provides your secret title information to this test node, so it can execute tests in your own PlayFab title.
+
+The format is as follows:
+
+    {
+    	"titleId": "your Game Title ID, found in the settings/credentials section of your dashboard on the website",
+    	"developerSecretKey": "your PlayFab API Secret Key, found in the settings/credentials section of your dashboard on the website - NEVER SHARE THIS KEY WITH PLAYERS",
+    	"titleCanUpdateSettings": "false",  // "true" or "false", based on your Allow Client to Post Player Statistics option, found in the settings/general section of your dashboard on the website
+    	"userName": "testUser", // Arbitrary username, you can change this to any valid username
+    	"userEmail": "your@email.com", // This email address will be bound to the username above
+    	"userPassword": "testPassword", // This must be the correct password for the testUser above (if that user does not exist yet, this will be the new password)
+    	"characterName": "testCharacter" // Arbitrary characterName, you can change this to any valid characterName
+    }
+
+It is read from the hard-coded loction of: TEST_TITLE_DATA_LOC in PfTestActor.h, you can redirect this to an input that matches your file location
+
+
 6. Troubleshooting:
 ----
 If you experience this error:

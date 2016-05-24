@@ -5,7 +5,7 @@
 // This header file contains the function definitions.
 //
 // API: Client
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -13,7 +13,7 @@
 #include "PlayFabClientModels.h"
 #include "PlayFabClientAPI.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPlayFabClientRequestCompleted, FPlayFabBaseModel, response, bool, successful);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnPlayFabClientRequestCompleted, FPlayFabBaseModel, response, UObject*, customData, bool, successful);
 
 UCLASS(Blueprintable, BlueprintType)
 class UPlayFabClientAPI : public UOnlineBlueprintCallProxyBase
@@ -21,27 +21,22 @@ class UPlayFabClientAPI : public UOnlineBlueprintCallProxyBase
     GENERATED_UCLASS_BODY()
 
 public:
-
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnFailurePlayFabError, FPlayFabError, error);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnFailurePlayFabError, FPlayFabError, error, UObject*, customData);
 
     UPROPERTY(BlueprintAssignable)
-    FOnPlayFabClientRequestCompleted OnPlayFabResponse;
-    
+        FOnPlayFabClientRequestCompleted OnPlayFabResponse;
+
     /** Set the Request Json object */
-    //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-        void SetRequestObject(UPlayFabJsonObject* JsonObject);
+    void SetRequestObject(UPlayFabJsonObject* JsonObject);
 
     /** Get the Response Json object */
-    //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-        UPlayFabJsonObject* GetResponseObject();
+    UPlayFabJsonObject* GetResponseObject();
 
     /** Applies percent-encoding to text */
-    //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-        static FString PercentEncode(const FString& Text);
+    static FString PercentEncode(const FString& Text);
 
     /** Reset saved response data */
-    //UFUNCTION(BlueprintCallable, Category = "PlayFab")
-        void ResetResponseData();
+    void ResetResponseData();
 
     /** UOnlineBlueprintCallProxyBase interface */
     virtual void Activate() override;
@@ -50,1622 +45,1601 @@ public:
     // Generated PlayFab Client API Functions
     //////////////////////////////////////////////////////////////////////////
 
-    
-
     ///////////////////////////////////////////////////////
     // Authentication
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPhotonAuthenticationToken, FClientGetPhotonAuthenticationTokenResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPhotonAuthenticationToken, FClientGetPhotonAuthenticationTokenResult, result, UObject*, customData);
 
     /** Gets a Photon custom authentication token that can be used to securely join the player into a Photon room. See https://api.playfab.com/docs/using-photon-with-playfab/ for more details. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPhotonAuthenticationToken(FClientGetPhotonAuthenticationTokenRequest request,
-        FDelegateOnSuccessGetPhotonAuthenticationToken onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPhotonAuthenticationToken(FClientGetPhotonAuthenticationTokenRequest request,
+            FDelegateOnSuccessGetPhotonAuthenticationToken onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPhotonAuthenticationToken(FPlayFabBaseModel response, bool successful);
+        void HelperGetPhotonAuthenticationToken(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithAndroidDeviceID, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithAndroidDeviceID, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using the Android device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithAndroidDeviceID(FClientLoginWithAndroidDeviceIDRequest request,
-        FDelegateOnSuccessLoginWithAndroidDeviceID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithAndroidDeviceID(FClientLoginWithAndroidDeviceIDRequest request,
+            FDelegateOnSuccessLoginWithAndroidDeviceID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithAndroidDeviceID(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithAndroidDeviceID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithCustomID, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithCustomID, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using a custom unique identifier generated by the title, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithCustomID(FClientLoginWithCustomIDRequest request,
-        FDelegateOnSuccessLoginWithCustomID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithCustomID(FClientLoginWithCustomIDRequest request,
+            FDelegateOnSuccessLoginWithCustomID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithCustomID(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithCustomID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithEmailAddress, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithEmailAddress, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithEmailAddress(FClientLoginWithEmailAddressRequest request,
-        FDelegateOnSuccessLoginWithEmailAddress onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithEmailAddress(FClientLoginWithEmailAddressRequest request,
+            FDelegateOnSuccessLoginWithEmailAddress onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithEmailAddress(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithEmailAddress(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithFacebook, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithFacebook, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using a Facebook access token, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithFacebook(FClientLoginWithFacebookRequest request,
-        FDelegateOnSuccessLoginWithFacebook onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithFacebook(FClientLoginWithFacebookRequest request,
+            FDelegateOnSuccessLoginWithFacebook onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithFacebook(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithFacebook(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithGameCenter, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithGameCenter, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using an iOS Game Center player identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithGameCenter(FClientLoginWithGameCenterRequest request,
-        FDelegateOnSuccessLoginWithGameCenter onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithGameCenter(FClientLoginWithGameCenterRequest request,
+            FDelegateOnSuccessLoginWithGameCenter onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithGameCenter(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithGameCenter(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithGoogleAccount, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithGoogleAccount, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using a Google account access token(https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods), returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithGoogleAccount(FClientLoginWithGoogleAccountRequest request,
-        FDelegateOnSuccessLoginWithGoogleAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithGoogleAccount(FClientLoginWithGoogleAccountRequest request,
+            FDelegateOnSuccessLoginWithGoogleAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithGoogleAccount(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithGoogleAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithIOSDeviceID, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithIOSDeviceID, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using the vendor-specific iOS device identifier, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithIOSDeviceID(FClientLoginWithIOSDeviceIDRequest request,
-        FDelegateOnSuccessLoginWithIOSDeviceID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithIOSDeviceID(FClientLoginWithIOSDeviceIDRequest request,
+            FDelegateOnSuccessLoginWithIOSDeviceID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithIOSDeviceID(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithIOSDeviceID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithKongregate, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithKongregate, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using a Kongregate player account. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithKongregate(FClientLoginWithKongregateRequest request,
-        FDelegateOnSuccessLoginWithKongregate onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithKongregate(FClientLoginWithKongregateRequest request,
+            FDelegateOnSuccessLoginWithKongregate onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithKongregate(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithKongregate(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithPlayFab, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithPlayFab, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithPlayFab(FClientLoginWithPlayFabRequest request,
-        FDelegateOnSuccessLoginWithPlayFab onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithPlayFab(FClientLoginWithPlayFabRequest request,
+            FDelegateOnSuccessLoginWithPlayFab onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithPlayFab(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithPlayFab(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLoginWithSteam, FClientLoginResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithSteam, FClientLoginResult, result, UObject*, customData);
 
     /** Signs the user in using a Steam authentication ticket, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LoginWithSteam(FClientLoginWithSteamRequest request,
-        FDelegateOnSuccessLoginWithSteam onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LoginWithSteam(FClientLoginWithSteamRequest request,
+            FDelegateOnSuccessLoginWithSteam onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLoginWithSteam(FPlayFabBaseModel response, bool successful);
+        void HelperLoginWithSteam(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRegisterPlayFabUser, FClientRegisterPlayFabUserResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRegisterPlayFabUser, FClientRegisterPlayFabUserResult, result, UObject*, customData);
 
     /** Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. You must supply either a username or an email address. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RegisterPlayFabUser(FClientRegisterPlayFabUserRequest request,
-        FDelegateOnSuccessRegisterPlayFabUser onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* RegisterPlayFabUser(FClientRegisterPlayFabUserRequest request,
+            FDelegateOnSuccessRegisterPlayFabUser onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRegisterPlayFabUser(FPlayFabBaseModel response, bool successful);
-
+        void HelperRegisterPlayFabUser(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Account Management
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAddUsernamePassword, FClientAddUsernamePasswordResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddUsernamePassword, FClientAddUsernamePasswordResult, result, UObject*, customData);
 
     /** Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* AddUsernamePassword(FClientAddUsernamePasswordRequest request,
-        FDelegateOnSuccessAddUsernamePassword onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* AddUsernamePassword(FClientAddUsernamePasswordRequest request,
+            FDelegateOnSuccessAddUsernamePassword onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperAddUsernamePassword(FPlayFabBaseModel response, bool successful);
+        void HelperAddUsernamePassword(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetAccountInfo, FClientGetAccountInfoResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAccountInfo, FClientGetAccountInfoResult, result, UObject*, customData);
 
     /** Retrieves the user's PlayFab account details */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetAccountInfo(FClientGetAccountInfoRequest request,
-        FDelegateOnSuccessGetAccountInfo onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetAccountInfo(FClientGetAccountInfoRequest request,
+            FDelegateOnSuccessGetAccountInfo onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetAccountInfo(FPlayFabBaseModel response, bool successful);
+        void HelperGetAccountInfo(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs, FClientGetPlayFabIDsFromFacebookIDsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs, FClientGetPlayFabIDsFromFacebookIDsResult, result, UObject*, customData);
 
     /** Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayFabIDsFromFacebookIDs(FClientGetPlayFabIDsFromFacebookIDsRequest request,
-        FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayFabIDsFromFacebookIDs(FClientGetPlayFabIDsFromFacebookIDsRequest request,
+            FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayFabIDsFromFacebookIDs(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayFabIDsFromFacebookIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayFabIDsFromGameCenterIDs, FClientGetPlayFabIDsFromGameCenterIDsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromGameCenterIDs, FClientGetPlayFabIDsFromGameCenterIDsResult, result, UObject*, customData);
 
     /** Retrieves the unique PlayFab identifiers for the given set of Game Center identifiers (referenced in the Game Center Programming Guide as the Player Identifier). */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayFabIDsFromGameCenterIDs(FClientGetPlayFabIDsFromGameCenterIDsRequest request,
-        FDelegateOnSuccessGetPlayFabIDsFromGameCenterIDs onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayFabIDsFromGameCenterIDs(FClientGetPlayFabIDsFromGameCenterIDsRequest request,
+            FDelegateOnSuccessGetPlayFabIDsFromGameCenterIDs onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayFabIDsFromGameCenterIDs(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayFabIDsFromGameCenterIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs, FClientGetPlayFabIDsFromGoogleIDsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs, FClientGetPlayFabIDsFromGoogleIDsResult, result, UObject*, customData);
 
     /** Retrieves the unique PlayFab identifiers for the given set of Google identifiers. The Google identifiers are the IDs for the user accounts, available as "id" in the Google+ People API calls. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayFabIDsFromGoogleIDs(FClientGetPlayFabIDsFromGoogleIDsRequest request,
-        FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayFabIDsFromGoogleIDs(FClientGetPlayFabIDsFromGoogleIDsRequest request,
+            FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayFabIDsFromGoogleIDs(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayFabIDsFromGoogleIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayFabIDsFromKongregateIDs, FClientGetPlayFabIDsFromKongregateIDsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromKongregateIDs, FClientGetPlayFabIDsFromKongregateIDsResult, result, UObject*, customData);
 
     /** Retrieves the unique PlayFab identifiers for the given set of Kongregate identifiers. The Kongregate identifiers are the IDs for the user accounts, available as "user_id" from the Kongregate API methods(ex: http://developers.kongregate.com/docs/client/getUserId). */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayFabIDsFromKongregateIDs(FClientGetPlayFabIDsFromKongregateIDsRequest request,
-        FDelegateOnSuccessGetPlayFabIDsFromKongregateIDs onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayFabIDsFromKongregateIDs(FClientGetPlayFabIDsFromKongregateIDsRequest request,
+            FDelegateOnSuccessGetPlayFabIDsFromKongregateIDs onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayFabIDsFromKongregateIDs(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayFabIDsFromKongregateIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayFabIDsFromSteamIDs, FClientGetPlayFabIDsFromSteamIDsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromSteamIDs, FClientGetPlayFabIDsFromSteamIDsResult, result, UObject*, customData);
 
     /** Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile IDs for the user accounts, available as SteamId in the Steamworks Community API calls. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayFabIDsFromSteamIDs(FClientGetPlayFabIDsFromSteamIDsRequest request,
-        FDelegateOnSuccessGetPlayFabIDsFromSteamIDs onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayFabIDsFromSteamIDs(FClientGetPlayFabIDsFromSteamIDsRequest request,
+            FDelegateOnSuccessGetPlayFabIDsFromSteamIDs onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserCombinedInfo, FClientGetUserCombinedInfoResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserCombinedInfo, FClientGetUserCombinedInfoResult, result, UObject*, customData);
 
     /** Retrieves all requested data for a user in one unified request. By default, this API returns all  data for the locally signed-in user. The input parameters may be used to limit the data retrieved to any subset of the available data, as well as retrieve the available data for a different user. Note that certain data, including inventory, virtual currency balances, and personally identifying information, may only be retrieved for the locally signed-in user. In the example below, a request is made for the account details, virtual currency balances, and specified user data for the locally signed-in user. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetUserCombinedInfo(FClientGetUserCombinedInfoRequest request,
-        FDelegateOnSuccessGetUserCombinedInfo onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetUserCombinedInfo(FClientGetUserCombinedInfoRequest request,
+            FDelegateOnSuccessGetUserCombinedInfo onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetUserCombinedInfo(FPlayFabBaseModel response, bool successful);
+        void HelperGetUserCombinedInfo(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkAndroidDeviceID, FClientLinkAndroidDeviceIDResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkAndroidDeviceID, FClientLinkAndroidDeviceIDResult, result, UObject*, customData);
 
     /** Links the Android device identifier to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkAndroidDeviceID(FClientLinkAndroidDeviceIDRequest request,
-        FDelegateOnSuccessLinkAndroidDeviceID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkAndroidDeviceID(FClientLinkAndroidDeviceIDRequest request,
+            FDelegateOnSuccessLinkAndroidDeviceID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkAndroidDeviceID(FPlayFabBaseModel response, bool successful);
+        void HelperLinkAndroidDeviceID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkCustomID, FClientLinkCustomIDResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkCustomID, FClientLinkCustomIDResult, result, UObject*, customData);
 
     /** Links the custom identifier, generated by the title, to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkCustomID(FClientLinkCustomIDRequest request,
-        FDelegateOnSuccessLinkCustomID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkCustomID(FClientLinkCustomIDRequest request,
+            FDelegateOnSuccessLinkCustomID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkCustomID(FPlayFabBaseModel response, bool successful);
+        void HelperLinkCustomID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkFacebookAccount, FClientLinkFacebookAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkFacebookAccount, FClientLinkFacebookAccountResult, result, UObject*, customData);
 
     /** Links the Facebook account associated with the provided Facebook access token to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkFacebookAccount(FClientLinkFacebookAccountRequest request,
-        FDelegateOnSuccessLinkFacebookAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkFacebookAccount(FClientLinkFacebookAccountRequest request,
+            FDelegateOnSuccessLinkFacebookAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkFacebookAccount(FPlayFabBaseModel response, bool successful);
+        void HelperLinkFacebookAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkGameCenterAccount, FClientLinkGameCenterAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkGameCenterAccount, FClientLinkGameCenterAccountResult, result, UObject*, customData);
 
     /** Links the Game Center account associated with the provided Game Center ID to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkGameCenterAccount(FClientLinkGameCenterAccountRequest request,
-        FDelegateOnSuccessLinkGameCenterAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkGameCenterAccount(FClientLinkGameCenterAccountRequest request,
+            FDelegateOnSuccessLinkGameCenterAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkGameCenterAccount(FPlayFabBaseModel response, bool successful);
+        void HelperLinkGameCenterAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkGoogleAccount, FClientLinkGoogleAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkGoogleAccount, FClientLinkGoogleAccountResult, result, UObject*, customData);
 
     /** Links the currently signed-in user account to the Google account specified by the Google account access token (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods). */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkGoogleAccount(FClientLinkGoogleAccountRequest request,
-        FDelegateOnSuccessLinkGoogleAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkGoogleAccount(FClientLinkGoogleAccountRequest request,
+            FDelegateOnSuccessLinkGoogleAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkGoogleAccount(FPlayFabBaseModel response, bool successful);
+        void HelperLinkGoogleAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkIOSDeviceID, FClientLinkIOSDeviceIDResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkIOSDeviceID, FClientLinkIOSDeviceIDResult, result, UObject*, customData);
 
     /** Links the vendor-specific iOS device identifier to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkIOSDeviceID(FClientLinkIOSDeviceIDRequest request,
-        FDelegateOnSuccessLinkIOSDeviceID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkIOSDeviceID(FClientLinkIOSDeviceIDRequest request,
+            FDelegateOnSuccessLinkIOSDeviceID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkIOSDeviceID(FPlayFabBaseModel response, bool successful);
+        void HelperLinkIOSDeviceID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkKongregate, FClientLinkKongregateAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkKongregate, FClientLinkKongregateAccountResult, result, UObject*, customData);
 
     /** Links the Kongregate identifier to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkKongregate(FClientLinkKongregateAccountRequest request,
-        FDelegateOnSuccessLinkKongregate onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkKongregate(FClientLinkKongregateAccountRequest request,
+            FDelegateOnSuccessLinkKongregate onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkKongregate(FPlayFabBaseModel response, bool successful);
+        void HelperLinkKongregate(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLinkSteamAccount, FClientLinkSteamAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkSteamAccount, FClientLinkSteamAccountResult, result, UObject*, customData);
 
     /** Links the Steam account associated with the provided Steam authentication ticket to the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LinkSteamAccount(FClientLinkSteamAccountRequest request,
-        FDelegateOnSuccessLinkSteamAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LinkSteamAccount(FClientLinkSteamAccountRequest request,
+            FDelegateOnSuccessLinkSteamAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLinkSteamAccount(FPlayFabBaseModel response, bool successful);
+        void HelperLinkSteamAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessReportPlayer, FClientReportPlayerClientResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessReportPlayer, FClientReportPlayerClientResult, result, UObject*, customData);
 
     /** Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title can take action concerning potentially toxic players. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ReportPlayer(FClientReportPlayerClientRequest request,
-        FDelegateOnSuccessReportPlayer onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* ReportPlayer(FClientReportPlayerClientRequest request,
+            FDelegateOnSuccessReportPlayer onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperReportPlayer(FPlayFabBaseModel response, bool successful);
+        void HelperReportPlayer(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSendAccountRecoveryEmail, FClientSendAccountRecoveryEmailResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSendAccountRecoveryEmail, FClientSendAccountRecoveryEmailResult, result, UObject*, customData);
 
     /** Forces an email to be sent to the registered email address for the user's account, with a link allowing the user to change the password */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* SendAccountRecoveryEmail(FClientSendAccountRecoveryEmailRequest request,
-        FDelegateOnSuccessSendAccountRecoveryEmail onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* SendAccountRecoveryEmail(FClientSendAccountRecoveryEmailRequest request,
+            FDelegateOnSuccessSendAccountRecoveryEmail onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperSendAccountRecoveryEmail(FPlayFabBaseModel response, bool successful);
+        void HelperSendAccountRecoveryEmail(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkAndroidDeviceID, FClientUnlinkAndroidDeviceIDResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkAndroidDeviceID, FClientUnlinkAndroidDeviceIDResult, result, UObject*, customData);
 
     /** Unlinks the related Android device identifier from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkAndroidDeviceID(FClientUnlinkAndroidDeviceIDRequest request,
-        FDelegateOnSuccessUnlinkAndroidDeviceID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkAndroidDeviceID(FClientUnlinkAndroidDeviceIDRequest request,
+            FDelegateOnSuccessUnlinkAndroidDeviceID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkAndroidDeviceID(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkAndroidDeviceID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkCustomID, FClientUnlinkCustomIDResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkCustomID, FClientUnlinkCustomIDResult, result, UObject*, customData);
 
     /** Unlinks the related custom identifier from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkCustomID(FClientUnlinkCustomIDRequest request,
-        FDelegateOnSuccessUnlinkCustomID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkCustomID(FClientUnlinkCustomIDRequest request,
+            FDelegateOnSuccessUnlinkCustomID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkCustomID(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkCustomID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkFacebookAccount, FClientUnlinkFacebookAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkFacebookAccount, FClientUnlinkFacebookAccountResult, result, UObject*, customData);
 
     /** Unlinks the related Facebook account from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkFacebookAccount(FClientUnlinkFacebookAccountRequest request,
-        FDelegateOnSuccessUnlinkFacebookAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkFacebookAccount(FClientUnlinkFacebookAccountRequest request,
+            FDelegateOnSuccessUnlinkFacebookAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkFacebookAccount(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkFacebookAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkGameCenterAccount, FClientUnlinkGameCenterAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkGameCenterAccount, FClientUnlinkGameCenterAccountResult, result, UObject*, customData);
 
     /** Unlinks the related Game Center account from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkGameCenterAccount(FClientUnlinkGameCenterAccountRequest request,
-        FDelegateOnSuccessUnlinkGameCenterAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkGameCenterAccount(FClientUnlinkGameCenterAccountRequest request,
+            FDelegateOnSuccessUnlinkGameCenterAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkGameCenterAccount(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkGameCenterAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkGoogleAccount, FClientUnlinkGoogleAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkGoogleAccount, FClientUnlinkGoogleAccountResult, result, UObject*, customData);
 
     /** Unlinks the related Google account from the user's PlayFab account (https://developers.google.com/android/reference/com/google/android/gms/auth/GoogleAuthUtil#public-methods). */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkGoogleAccount(FClientUnlinkGoogleAccountRequest request,
-        FDelegateOnSuccessUnlinkGoogleAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkGoogleAccount(FClientUnlinkGoogleAccountRequest request,
+            FDelegateOnSuccessUnlinkGoogleAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkGoogleAccount(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkGoogleAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkIOSDeviceID, FClientUnlinkIOSDeviceIDResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkIOSDeviceID, FClientUnlinkIOSDeviceIDResult, result, UObject*, customData);
 
     /** Unlinks the related iOS device identifier from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkIOSDeviceID(FClientUnlinkIOSDeviceIDRequest request,
-        FDelegateOnSuccessUnlinkIOSDeviceID onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkIOSDeviceID(FClientUnlinkIOSDeviceIDRequest request,
+            FDelegateOnSuccessUnlinkIOSDeviceID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkIOSDeviceID(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkIOSDeviceID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkKongregate, FClientUnlinkKongregateAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkKongregate, FClientUnlinkKongregateAccountResult, result, UObject*, customData);
 
     /** Unlinks the related Kongregate identifier from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkKongregate(FClientUnlinkKongregateAccountRequest request,
-        FDelegateOnSuccessUnlinkKongregate onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkKongregate(FClientUnlinkKongregateAccountRequest request,
+            FDelegateOnSuccessUnlinkKongregate onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkKongregate(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkKongregate(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlinkSteamAccount, FClientUnlinkSteamAccountResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkSteamAccount, FClientUnlinkSteamAccountResult, result, UObject*, customData);
 
     /** Unlinks the related Steam account from the user's PlayFab account */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlinkSteamAccount(FClientUnlinkSteamAccountRequest request,
-        FDelegateOnSuccessUnlinkSteamAccount onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlinkSteamAccount(FClientUnlinkSteamAccountRequest request,
+            FDelegateOnSuccessUnlinkSteamAccount onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlinkSteamAccount(FPlayFabBaseModel response, bool successful);
+        void HelperUnlinkSteamAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserTitleDisplayName, FClientUpdateUserTitleDisplayNameResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateUserTitleDisplayName, FClientUpdateUserTitleDisplayNameResult, result, UObject*, customData);
 
     /** Updates the title specific display name for the user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdateUserTitleDisplayName(FClientUpdateUserTitleDisplayNameRequest request,
-        FDelegateOnSuccessUpdateUserTitleDisplayName onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdateUserTitleDisplayName(FClientUpdateUserTitleDisplayNameRequest request,
+            FDelegateOnSuccessUpdateUserTitleDisplayName onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdateUserTitleDisplayName(FPlayFabBaseModel response, bool successful);
-
+        void HelperUpdateUserTitleDisplayName(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Player Data Management
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetFriendLeaderboard, FClientGetLeaderboardResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendLeaderboard, FClientGetLeaderboardResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked friends of the current player for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetFriendLeaderboard(FClientGetFriendLeaderboardRequest request,
-        FDelegateOnSuccessGetFriendLeaderboard onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetFriendLeaderboard(FClientGetFriendLeaderboardRequest request,
+            FDelegateOnSuccessGetFriendLeaderboard onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetFriendLeaderboard(FPlayFabBaseModel response, bool successful);
+        void HelperGetFriendLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser, FClientGetFriendLeaderboardAroundCurrentUserResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser, FClientGetFriendLeaderboardAroundCurrentUserResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked friends of the current player for the given statistic, centered on the currently signed-in user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetFriendLeaderboardAroundCurrentUser(FClientGetFriendLeaderboardAroundCurrentUserRequest request,
-        FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetFriendLeaderboardAroundCurrentUser(FClientGetFriendLeaderboardAroundCurrentUserRequest request,
+            FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetFriendLeaderboardAroundCurrentUser(FPlayFabBaseModel response, bool successful);
+        void HelperGetFriendLeaderboardAroundCurrentUser(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetFriendLeaderboardAroundPlayer, FClientGetFriendLeaderboardAroundPlayerResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendLeaderboardAroundPlayer, FClientGetFriendLeaderboardAroundPlayerResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab user. If PlayFabId is empty or null will return currently logged in user. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetFriendLeaderboardAroundPlayer(FClientGetFriendLeaderboardAroundPlayerRequest request,
-        FDelegateOnSuccessGetFriendLeaderboardAroundPlayer onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetFriendLeaderboardAroundPlayer(FClientGetFriendLeaderboardAroundPlayerRequest request,
+            FDelegateOnSuccessGetFriendLeaderboardAroundPlayer onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetFriendLeaderboardAroundPlayer(FPlayFabBaseModel response, bool successful);
+        void HelperGetFriendLeaderboardAroundPlayer(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetLeaderboard, FClientGetLeaderboardResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboard, FClientGetLeaderboardResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetLeaderboard(FClientGetLeaderboardRequest request,
-        FDelegateOnSuccessGetLeaderboard onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetLeaderboard(FClientGetLeaderboardRequest request,
+            FDelegateOnSuccessGetLeaderboard onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetLeaderboard(FPlayFabBaseModel response, bool successful);
+        void HelperGetLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetLeaderboardAroundCurrentUser, FClientGetLeaderboardAroundCurrentUserResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboardAroundCurrentUser, FClientGetLeaderboardAroundCurrentUserResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetLeaderboardAroundCurrentUser(FClientGetLeaderboardAroundCurrentUserRequest request,
-        FDelegateOnSuccessGetLeaderboardAroundCurrentUser onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetLeaderboardAroundCurrentUser(FClientGetLeaderboardAroundCurrentUserRequest request,
+            FDelegateOnSuccessGetLeaderboardAroundCurrentUser onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetLeaderboardAroundCurrentUser(FPlayFabBaseModel response, bool successful);
+        void HelperGetLeaderboardAroundCurrentUser(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetLeaderboardAroundPlayer, FClientGetLeaderboardAroundPlayerResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboardAroundPlayer, FClientGetLeaderboardAroundPlayerResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked users for the given statistic, centered on the requested player. If PlayFabId is empty or null will return currently logged in user. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetLeaderboardAroundPlayer(FClientGetLeaderboardAroundPlayerRequest request,
-        FDelegateOnSuccessGetLeaderboardAroundPlayer onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetLeaderboardAroundPlayer(FClientGetLeaderboardAroundPlayerRequest request,
+            FDelegateOnSuccessGetLeaderboardAroundPlayer onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetLeaderboardAroundPlayer(FPlayFabBaseModel response, bool successful);
+        void HelperGetLeaderboardAroundPlayer(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerStatistics, FClientGetPlayerStatisticsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerStatistics, FClientGetPlayerStatisticsResult, result, UObject*, customData);
 
     /** Retrieves the indicated statistics (current version and values for all statistics, if none are specified), for the local player. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayerStatistics(FClientGetPlayerStatisticsRequest request,
-        FDelegateOnSuccessGetPlayerStatistics onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayerStatistics(FClientGetPlayerStatisticsRequest request,
+            FDelegateOnSuccessGetPlayerStatistics onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayerStatistics(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayerStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerStatisticVersions, FClientGetPlayerStatisticVersionsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerStatisticVersions, FClientGetPlayerStatisticVersionsResult, result, UObject*, customData);
 
     /** Retrieves the information on the available versions of the specified statistic. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayerStatisticVersions(FClientGetPlayerStatisticVersionsRequest request,
-        FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayerStatisticVersions(FClientGetPlayerStatisticVersionsRequest request,
+            FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserData, FClientGetUserDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserData, FClientGetUserDataResult, result, UObject*, customData);
 
     /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetUserData(FClientGetUserDataRequest request,
-        FDelegateOnSuccessGetUserData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetUserData(FClientGetUserDataRequest request,
+            FDelegateOnSuccessGetUserData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetUserData(FPlayFabBaseModel response, bool successful);
+        void HelperGetUserData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserPublisherData, FClientGetUserDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserPublisherData, FClientGetUserDataResult, result, UObject*, customData);
 
     /** Retrieves the publisher-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetUserPublisherData(FClientGetUserDataRequest request,
-        FDelegateOnSuccessGetUserPublisherData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetUserPublisherData(FClientGetUserDataRequest request,
+            FDelegateOnSuccessGetUserPublisherData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetUserPublisherData(FPlayFabBaseModel response, bool successful);
+        void HelperGetUserPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserPublisherReadOnlyData, FClientGetUserDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserPublisherReadOnlyData, FClientGetUserDataResult, result, UObject*, customData);
 
     /** Retrieves the publisher-specific custom data for the user which can only be read by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetUserPublisherReadOnlyData(FClientGetUserDataRequest request,
-        FDelegateOnSuccessGetUserPublisherReadOnlyData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetUserPublisherReadOnlyData(FClientGetUserDataRequest request,
+            FDelegateOnSuccessGetUserPublisherReadOnlyData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel response, bool successful);
+        void HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserReadOnlyData, FClientGetUserDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserReadOnlyData, FClientGetUserDataResult, result, UObject*, customData);
 
     /** Retrieves the title-specific custom data for the user which can only be read by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetUserReadOnlyData(FClientGetUserDataRequest request,
-        FDelegateOnSuccessGetUserReadOnlyData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetUserReadOnlyData(FClientGetUserDataRequest request,
+            FDelegateOnSuccessGetUserReadOnlyData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetUserReadOnlyData(FPlayFabBaseModel response, bool successful);
+        void HelperGetUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserStatistics, FClientGetUserStatisticsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserStatistics, FClientGetUserStatisticsResult, result, UObject*, customData);
 
     /** Retrieves the details of all title-specific statistics for the user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetUserStatistics(FClientGetUserStatisticsRequest request,
-        FDelegateOnSuccessGetUserStatistics onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetUserStatistics(FClientGetUserStatisticsRequest request,
+            FDelegateOnSuccessGetUserStatistics onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetUserStatistics(FPlayFabBaseModel response, bool successful);
+        void HelperGetUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdatePlayerStatistics, FClientUpdatePlayerStatisticsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdatePlayerStatistics, FClientUpdatePlayerStatisticsResult, result, UObject*, customData);
 
     /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdatePlayerStatistics(FClientUpdatePlayerStatisticsRequest request,
-        FDelegateOnSuccessUpdatePlayerStatistics onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdatePlayerStatistics(FClientUpdatePlayerStatisticsRequest request,
+            FDelegateOnSuccessUpdatePlayerStatistics onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdatePlayerStatistics(FPlayFabBaseModel response, bool successful);
+        void HelperUpdatePlayerStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserData, FClientUpdateUserDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateUserData, FClientUpdateUserDataResult, result, UObject*, customData);
 
     /** Creates and updates the title-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdateUserData(FClientUpdateUserDataRequest request,
-        FDelegateOnSuccessUpdateUserData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdateUserData(FClientUpdateUserDataRequest request,
+            FDelegateOnSuccessUpdateUserData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdateUserData(FPlayFabBaseModel response, bool successful);
+        void HelperUpdateUserData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserPublisherData, FClientUpdateUserDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateUserPublisherData, FClientUpdateUserDataResult, result, UObject*, customData);
 
     /** Creates and updates the publisher-specific custom data for the user which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdateUserPublisherData(FClientUpdateUserDataRequest request,
-        FDelegateOnSuccessUpdateUserPublisherData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdateUserPublisherData(FClientUpdateUserDataRequest request,
+            FDelegateOnSuccessUpdateUserPublisherData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdateUserPublisherData(FPlayFabBaseModel response, bool successful);
+        void HelperUpdateUserPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateUserStatistics, FClientUpdateUserStatisticsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateUserStatistics, FClientUpdateUserStatisticsResult, result, UObject*, customData);
 
     /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdateUserStatistics(FClientUpdateUserStatisticsRequest request,
-        FDelegateOnSuccessUpdateUserStatistics onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdateUserStatistics(FClientUpdateUserStatisticsRequest request,
+            FDelegateOnSuccessUpdateUserStatistics onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdateUserStatistics(FPlayFabBaseModel response, bool successful);
-
+        void HelperUpdateUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Title-Wide Data Management
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCatalogItems, FClientGetCatalogItemsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCatalogItems, FClientGetCatalogItemsResult, result, UObject*, customData);
 
     /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCatalogItems(FClientGetCatalogItemsRequest request,
-        FDelegateOnSuccessGetCatalogItems onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCatalogItems(FClientGetCatalogItemsRequest request,
+            FDelegateOnSuccessGetCatalogItems onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCatalogItems(FPlayFabBaseModel response, bool successful);
+        void HelperGetCatalogItems(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPublisherData, FClientGetPublisherDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPublisherData, FClientGetPublisherDataResult, result, UObject*, customData);
 
     /** Retrieves the key-value store of custom publisher settings */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPublisherData(FClientGetPublisherDataRequest request,
-        FDelegateOnSuccessGetPublisherData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPublisherData(FClientGetPublisherDataRequest request,
+            FDelegateOnSuccessGetPublisherData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPublisherData(FPlayFabBaseModel response, bool successful);
+        void HelperGetPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetStoreItems, FClientGetStoreItemsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetStoreItems, FClientGetStoreItemsResult, result, UObject*, customData);
 
     /** Retrieves the set of items defined for the specified store, including all prices defined */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetStoreItems(FClientGetStoreItemsRequest request,
-        FDelegateOnSuccessGetStoreItems onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetStoreItems(FClientGetStoreItemsRequest request,
+            FDelegateOnSuccessGetStoreItems onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetStoreItems(FPlayFabBaseModel response, bool successful);
+        void HelperGetStoreItems(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetTitleData, FClientGetTitleDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTitleData, FClientGetTitleDataResult, result, UObject*, customData);
 
     /** Retrieves the key-value store of custom title settings */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetTitleData(FClientGetTitleDataRequest request,
-        FDelegateOnSuccessGetTitleData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetTitleData(FClientGetTitleDataRequest request,
+            FDelegateOnSuccessGetTitleData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetTitleData(FPlayFabBaseModel response, bool successful);
+        void HelperGetTitleData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetTitleNews, FClientGetTitleNewsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTitleNews, FClientGetTitleNewsResult, result, UObject*, customData);
 
     /** Retrieves the title news feed, as configured in the developer portal */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetTitleNews(FClientGetTitleNewsRequest request,
-        FDelegateOnSuccessGetTitleNews onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetTitleNews(FClientGetTitleNewsRequest request,
+            FDelegateOnSuccessGetTitleNews onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetTitleNews(FPlayFabBaseModel response, bool successful);
-
+        void HelperGetTitleNews(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Player Item Management
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAddUserVirtualCurrency, FClientModifyUserVirtualCurrencyResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddUserVirtualCurrency, FClientModifyUserVirtualCurrencyResult, result, UObject*, customData);
 
     /** Increments the user's balance of the specified virtual currency by the stated amount */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* AddUserVirtualCurrency(FClientAddUserVirtualCurrencyRequest request,
-        FDelegateOnSuccessAddUserVirtualCurrency onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* AddUserVirtualCurrency(FClientAddUserVirtualCurrencyRequest request,
+            FDelegateOnSuccessAddUserVirtualCurrency onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperAddUserVirtualCurrency(FPlayFabBaseModel response, bool successful);
+        void HelperAddUserVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessConfirmPurchase, FClientConfirmPurchaseResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessConfirmPurchase, FClientConfirmPurchaseResult, result, UObject*, customData);
 
     /** Confirms with the payment provider that the purchase was approved (if applicable) and adjusts inventory and virtual currency balances as appropriate */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ConfirmPurchase(FClientConfirmPurchaseRequest request,
-        FDelegateOnSuccessConfirmPurchase onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* ConfirmPurchase(FClientConfirmPurchaseRequest request,
+            FDelegateOnSuccessConfirmPurchase onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperConfirmPurchase(FPlayFabBaseModel response, bool successful);
+        void HelperConfirmPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessConsumeItem, FClientConsumeItemResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessConsumeItem, FClientConsumeItemResult, result, UObject*, customData);
 
     /** Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ConsumeItem(FClientConsumeItemRequest request,
-        FDelegateOnSuccessConsumeItem onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* ConsumeItem(FClientConsumeItemRequest request,
+            FDelegateOnSuccessConsumeItem onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperConsumeItem(FPlayFabBaseModel response, bool successful);
+        void HelperConsumeItem(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCharacterInventory, FClientGetCharacterInventoryResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCharacterInventory, FClientGetCharacterInventoryResult, result, UObject*, customData);
 
     /** Retrieves the specified character's current inventory of virtual goods */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCharacterInventory(FClientGetCharacterInventoryRequest request,
-        FDelegateOnSuccessGetCharacterInventory onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCharacterInventory(FClientGetCharacterInventoryRequest request,
+            FDelegateOnSuccessGetCharacterInventory onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCharacterInventory(FPlayFabBaseModel response, bool successful);
+        void HelperGetCharacterInventory(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPurchase, FClientGetPurchaseResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPurchase, FClientGetPurchaseResult, result, UObject*, customData);
 
     /** Retrieves a completed purchase along with its current PlayFab status. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPurchase(FClientGetPurchaseRequest request,
-        FDelegateOnSuccessGetPurchase onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPurchase(FClientGetPurchaseRequest request,
+            FDelegateOnSuccessGetPurchase onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPurchase(FPlayFabBaseModel response, bool successful);
+        void HelperGetPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetUserInventory, FClientGetUserInventoryResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserInventory, FClientGetUserInventoryResult, result, UObject*, customData);
 
     /** Retrieves the user's current inventory of virtual goods */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetUserInventory(FClientGetUserInventoryRequest request,
-        FDelegateOnSuccessGetUserInventory onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetUserInventory(FClientGetUserInventoryRequest request,
+            FDelegateOnSuccessGetUserInventory onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetUserInventory(FPlayFabBaseModel response, bool successful);
+        void HelperGetUserInventory(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessPayForPurchase, FClientPayForPurchaseResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessPayForPurchase, FClientPayForPurchaseResult, result, UObject*, customData);
 
     /** Selects a payment option for purchase order created via StartPurchase */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* PayForPurchase(FClientPayForPurchaseRequest request,
-        FDelegateOnSuccessPayForPurchase onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* PayForPurchase(FClientPayForPurchaseRequest request,
+            FDelegateOnSuccessPayForPurchase onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperPayForPurchase(FPlayFabBaseModel response, bool successful);
+        void HelperPayForPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessPurchaseItem, FClientPurchaseItemResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessPurchaseItem, FClientPurchaseItemResult, result, UObject*, customData);
 
     /** Buys a single item with virtual currency. You must specify both the virtual currency to use to purchase, as well as what the client believes the price to be. This lets the server fail the purchase if the price has changed. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* PurchaseItem(FClientPurchaseItemRequest request,
-        FDelegateOnSuccessPurchaseItem onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* PurchaseItem(FClientPurchaseItemRequest request,
+            FDelegateOnSuccessPurchaseItem onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperPurchaseItem(FPlayFabBaseModel response, bool successful);
+        void HelperPurchaseItem(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRedeemCoupon, FClientRedeemCouponResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRedeemCoupon, FClientRedeemCouponResult, result, UObject*, customData);
 
     /** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Promotions->Coupons tab in the PlayFab Game Manager. See this post for more information on coupons:  https://playfab.com/blog/using-stores-and-coupons-game-manager/ */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RedeemCoupon(FClientRedeemCouponRequest request,
-        FDelegateOnSuccessRedeemCoupon onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* RedeemCoupon(FClientRedeemCouponRequest request,
+            FDelegateOnSuccessRedeemCoupon onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRedeemCoupon(FPlayFabBaseModel response, bool successful);
+        void HelperRedeemCoupon(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessStartPurchase, FClientStartPurchaseResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessStartPurchase, FClientStartPurchaseResult, result, UObject*, customData);
 
     /** Creates an order for a list of items from the title catalog */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* StartPurchase(FClientStartPurchaseRequest request,
-        FDelegateOnSuccessStartPurchase onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* StartPurchase(FClientStartPurchaseRequest request,
+            FDelegateOnSuccessStartPurchase onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperStartPurchase(FPlayFabBaseModel response, bool successful);
+        void HelperStartPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSubtractUserVirtualCurrency, FClientModifyUserVirtualCurrencyResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSubtractUserVirtualCurrency, FClientModifyUserVirtualCurrencyResult, result, UObject*, customData);
 
     /** Decrements the user's balance of the specified virtual currency by the stated amount */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* SubtractUserVirtualCurrency(FClientSubtractUserVirtualCurrencyRequest request,
-        FDelegateOnSuccessSubtractUserVirtualCurrency onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* SubtractUserVirtualCurrency(FClientSubtractUserVirtualCurrencyRequest request,
+            FDelegateOnSuccessSubtractUserVirtualCurrency onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperSubtractUserVirtualCurrency(FPlayFabBaseModel response, bool successful);
+        void HelperSubtractUserVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlockContainerInstance, FClientUnlockContainerItemResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlockContainerInstance, FClientUnlockContainerItemResult, result, UObject*, customData);
 
     /** Opens the specified container, with the specified key (when required), and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlockContainerInstance(FClientUnlockContainerInstanceRequest request,
-        FDelegateOnSuccessUnlockContainerInstance onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlockContainerInstance(FClientUnlockContainerInstanceRequest request,
+            FDelegateOnSuccessUnlockContainerInstance onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlockContainerInstance(FPlayFabBaseModel response, bool successful);
+        void HelperUnlockContainerInstance(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUnlockContainerItem, FClientUnlockContainerItemResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlockContainerItem, FClientUnlockContainerItemResult, result, UObject*, customData);
 
     /** Searches target inventory for an ItemInstance matching the given CatalogItemId, if necessary unlocks it using an appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UnlockContainerItem(FClientUnlockContainerItemRequest request,
-        FDelegateOnSuccessUnlockContainerItem onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UnlockContainerItem(FClientUnlockContainerItemRequest request,
+            FDelegateOnSuccessUnlockContainerItem onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUnlockContainerItem(FPlayFabBaseModel response, bool successful);
-
+        void HelperUnlockContainerItem(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Friend List Management
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAddFriend, FClientAddFriendResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddFriend, FClientAddFriendResult, result, UObject*, customData);
 
     /** Adds the PlayFab user, based upon a match against a supplied unique identifier, to the friend list of the local user. At least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* AddFriend(FClientAddFriendRequest request,
-        FDelegateOnSuccessAddFriend onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* AddFriend(FClientAddFriendRequest request,
+            FDelegateOnSuccessAddFriend onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperAddFriend(FPlayFabBaseModel response, bool successful);
+        void HelperAddFriend(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetFriendsList, FClientGetFriendsListResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendsList, FClientGetFriendsListResult, result, UObject*, customData);
 
     /** Retrieves the current friend list for the local user, constrained to users who have PlayFab accounts. Friends from linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetFriendsList(FClientGetFriendsListRequest request,
-        FDelegateOnSuccessGetFriendsList onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetFriendsList(FClientGetFriendsListRequest request,
+            FDelegateOnSuccessGetFriendsList onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetFriendsList(FPlayFabBaseModel response, bool successful);
+        void HelperGetFriendsList(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRemoveFriend, FClientRemoveFriendResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRemoveFriend, FClientRemoveFriendResult, result, UObject*, customData);
 
     /** Removes a specified user from the friend list of the local user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RemoveFriend(FClientRemoveFriendRequest request,
-        FDelegateOnSuccessRemoveFriend onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* RemoveFriend(FClientRemoveFriendRequest request,
+            FDelegateOnSuccessRemoveFriend onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRemoveFriend(FPlayFabBaseModel response, bool successful);
+        void HelperRemoveFriend(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessSetFriendTags, FClientSetFriendTagsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetFriendTags, FClientSetFriendTagsResult, result, UObject*, customData);
 
     /** Updates the tag list for a specified user in the friend list of the local user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* SetFriendTags(FClientSetFriendTagsRequest request,
-        FDelegateOnSuccessSetFriendTags onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* SetFriendTags(FClientSetFriendTagsRequest request,
+            FDelegateOnSuccessSetFriendTags onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperSetFriendTags(FPlayFabBaseModel response, bool successful);
-
+        void HelperSetFriendTags(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // IOS-Specific APIs
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRegisterForIOSPushNotification, FClientRegisterForIOSPushNotificationResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRegisterForIOSPushNotification, FClientRegisterForIOSPushNotificationResult, result, UObject*, customData);
 
     /** Registers the iOS device to receive push notifications */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RegisterForIOSPushNotification(FClientRegisterForIOSPushNotificationRequest request,
-        FDelegateOnSuccessRegisterForIOSPushNotification onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* RegisterForIOSPushNotification(FClientRegisterForIOSPushNotificationRequest request,
+            FDelegateOnSuccessRegisterForIOSPushNotification onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRegisterForIOSPushNotification(FPlayFabBaseModel response, bool successful);
+        void HelperRegisterForIOSPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRestoreIOSPurchases, FClientRestoreIOSPurchasesResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRestoreIOSPurchases, FClientRestoreIOSPurchasesResult, result, UObject*, customData);
 
     /** Restores all in-app purchases based on the given refresh receipt. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RestoreIOSPurchases(FClientRestoreIOSPurchasesRequest request,
-        FDelegateOnSuccessRestoreIOSPurchases onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* RestoreIOSPurchases(FClientRestoreIOSPurchasesRequest request,
+            FDelegateOnSuccessRestoreIOSPurchases onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRestoreIOSPurchases(FPlayFabBaseModel response, bool successful);
+        void HelperRestoreIOSPurchases(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessValidateIOSReceipt, FClientValidateIOSReceiptResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateIOSReceipt, FClientValidateIOSReceiptResult, result, UObject*, customData);
 
     /** Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ValidateIOSReceipt(FClientValidateIOSReceiptRequest request,
-        FDelegateOnSuccessValidateIOSReceipt onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* ValidateIOSReceipt(FClientValidateIOSReceiptRequest request,
+            FDelegateOnSuccessValidateIOSReceipt onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperValidateIOSReceipt(FPlayFabBaseModel response, bool successful);
-
+        void HelperValidateIOSReceipt(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Matchmaking APIs
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCurrentGames, FClientCurrentGamesResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCurrentGames, FClientCurrentGamesResult, result, UObject*, customData);
 
     /** Get details about all current running game servers matching the given parameters. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCurrentGames(FClientCurrentGamesRequest request,
-        FDelegateOnSuccessGetCurrentGames onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCurrentGames(FClientCurrentGamesRequest request,
+            FDelegateOnSuccessGetCurrentGames onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCurrentGames(FPlayFabBaseModel response, bool successful);
+        void HelperGetCurrentGames(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetGameServerRegions, FClientGameServerRegionsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetGameServerRegions, FClientGameServerRegionsResult, result, UObject*, customData);
 
     /**  Get details about the regions hosting game servers matching the given parameters. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetGameServerRegions(FClientGameServerRegionsRequest request,
-        FDelegateOnSuccessGetGameServerRegions onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetGameServerRegions(FClientGameServerRegionsRequest request,
+            FDelegateOnSuccessGetGameServerRegions onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetGameServerRegions(FPlayFabBaseModel response, bool successful);
+        void HelperGetGameServerRegions(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessMatchmake, FClientMatchmakeResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessMatchmake, FClientMatchmakeResult, result, UObject*, customData);
 
     /** Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound. Note that EnableQueue is deprecated at this time. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* Matchmake(FClientMatchmakeRequest request,
-        FDelegateOnSuccessMatchmake onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* Matchmake(FClientMatchmakeRequest request,
+            FDelegateOnSuccessMatchmake onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperMatchmake(FPlayFabBaseModel response, bool successful);
+        void HelperMatchmake(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessStartGame, FClientStartGameResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessStartGame, FClientStartGameResult, result, UObject*, customData);
 
     /** Start a new game server with a given configuration, add the current player and return the connection information. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* StartGame(FClientStartGameRequest request,
-        FDelegateOnSuccessStartGame onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* StartGame(FClientStartGameRequest request,
+            FDelegateOnSuccessStartGame onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperStartGame(FPlayFabBaseModel response, bool successful);
-
+        void HelperStartGame(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Android-Specific APIs
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAndroidDevicePushNotificationRegistration, FClientAndroidDevicePushNotificationRegistrationResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAndroidDevicePushNotificationRegistration, FClientAndroidDevicePushNotificationRegistrationResult, result, UObject*, customData);
 
     /** Registers the Android device to receive push notifications */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* AndroidDevicePushNotificationRegistration(FClientAndroidDevicePushNotificationRegistrationRequest request,
-        FDelegateOnSuccessAndroidDevicePushNotificationRegistration onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* AndroidDevicePushNotificationRegistration(FClientAndroidDevicePushNotificationRegistrationRequest request,
+            FDelegateOnSuccessAndroidDevicePushNotificationRegistration onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperAndroidDevicePushNotificationRegistration(FPlayFabBaseModel response, bool successful);
+        void HelperAndroidDevicePushNotificationRegistration(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessValidateGooglePlayPurchase, FClientValidateGooglePlayPurchaseResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateGooglePlayPurchase, FClientValidateGooglePlayPurchaseResult, result, UObject*, customData);
 
     /** Validates a Google Play purchase and gives the corresponding item to the player. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ValidateGooglePlayPurchase(FClientValidateGooglePlayPurchaseRequest request,
-        FDelegateOnSuccessValidateGooglePlayPurchase onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* ValidateGooglePlayPurchase(FClientValidateGooglePlayPurchaseRequest request,
+            FDelegateOnSuccessValidateGooglePlayPurchase onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperValidateGooglePlayPurchase(FPlayFabBaseModel response, bool successful);
-
+        void HelperValidateGooglePlayPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Analytics
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessLogEvent, FClientLogEventResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLogEvent, FClientLogEventResult, result, UObject*, customData);
 
     /** Logs a custom analytics event */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* LogEvent(FClientLogEventRequest request,
-        FDelegateOnSuccessLogEvent onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* LogEvent(FClientLogEventRequest request,
+            FDelegateOnSuccessLogEvent onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperLogEvent(FPlayFabBaseModel response, bool successful);
+        void HelperLogEvent(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWriteCharacterEvent, FClientWriteEventResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessWriteCharacterEvent, FClientWriteEventResponse, result, UObject*, customData);
 
     /** Writes a character-based event into PlayStream. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* WriteCharacterEvent(FClientWriteClientCharacterEventRequest request,
-        FDelegateOnSuccessWriteCharacterEvent onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* WriteCharacterEvent(FClientWriteClientCharacterEventRequest request,
+            FDelegateOnSuccessWriteCharacterEvent onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperWriteCharacterEvent(FPlayFabBaseModel response, bool successful);
+        void HelperWriteCharacterEvent(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWritePlayerEvent, FClientWriteEventResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessWritePlayerEvent, FClientWriteEventResponse, result, UObject*, customData);
 
     /** Writes a player-based event into PlayStream. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* WritePlayerEvent(FClientWriteClientPlayerEventRequest request,
-        FDelegateOnSuccessWritePlayerEvent onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* WritePlayerEvent(FClientWriteClientPlayerEventRequest request,
+            FDelegateOnSuccessWritePlayerEvent onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperWritePlayerEvent(FPlayFabBaseModel response, bool successful);
+        void HelperWritePlayerEvent(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessWriteTitleEvent, FClientWriteEventResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessWriteTitleEvent, FClientWriteEventResponse, result, UObject*, customData);
 
     /** Writes a title-based event into PlayStream. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* WriteTitleEvent(FClientWriteTitleEventRequest request,
-        FDelegateOnSuccessWriteTitleEvent onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* WriteTitleEvent(FClientWriteTitleEventRequest request,
+            FDelegateOnSuccessWriteTitleEvent onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperWriteTitleEvent(FPlayFabBaseModel response, bool successful);
-
+        void HelperWriteTitleEvent(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Shared Group Data
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAddSharedGroupMembers, FClientAddSharedGroupMembersResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddSharedGroupMembers, FClientAddSharedGroupMembersResult, result, UObject*, customData);
 
     /** Adds users to the set of those able to update both the shared data, as well as the set of users in the group. Only users in the group can add new members. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* AddSharedGroupMembers(FClientAddSharedGroupMembersRequest request,
-        FDelegateOnSuccessAddSharedGroupMembers onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* AddSharedGroupMembers(FClientAddSharedGroupMembersRequest request,
+            FDelegateOnSuccessAddSharedGroupMembers onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperAddSharedGroupMembers(FPlayFabBaseModel response, bool successful);
+        void HelperAddSharedGroupMembers(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessCreateSharedGroup, FClientCreateSharedGroupResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessCreateSharedGroup, FClientCreateSharedGroupResult, result, UObject*, customData);
 
     /** Requests the creation of a shared group object, containing key/value pairs which may be updated by all members of the group. Upon creation, the current user will be the only member of the group. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* CreateSharedGroup(FClientCreateSharedGroupRequest request,
-        FDelegateOnSuccessCreateSharedGroup onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* CreateSharedGroup(FClientCreateSharedGroupRequest request,
+            FDelegateOnSuccessCreateSharedGroup onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperCreateSharedGroup(FPlayFabBaseModel response, bool successful);
+        void HelperCreateSharedGroup(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetSharedGroupData, FClientGetSharedGroupDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetSharedGroupData, FClientGetSharedGroupDataResult, result, UObject*, customData);
 
     /** Retrieves data stored in a shared group object, as well as the list of members in the group. Non-members of the group may use this to retrieve group data, including membership, but they will not receive data for keys marked as private. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetSharedGroupData(FClientGetSharedGroupDataRequest request,
-        FDelegateOnSuccessGetSharedGroupData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetSharedGroupData(FClientGetSharedGroupDataRequest request,
+            FDelegateOnSuccessGetSharedGroupData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetSharedGroupData(FPlayFabBaseModel response, bool successful);
+        void HelperGetSharedGroupData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRemoveSharedGroupMembers, FClientRemoveSharedGroupMembersResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRemoveSharedGroupMembers, FClientRemoveSharedGroupMembersResult, result, UObject*, customData);
 
     /** Removes users from the set of those able to update the shared data and the set of users in the group. Only users in the group can remove members. If as a result of the call, zero users remain with access, the group and its associated data will be deleted. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RemoveSharedGroupMembers(FClientRemoveSharedGroupMembersRequest request,
-        FDelegateOnSuccessRemoveSharedGroupMembers onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* RemoveSharedGroupMembers(FClientRemoveSharedGroupMembersRequest request,
+            FDelegateOnSuccessRemoveSharedGroupMembers onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRemoveSharedGroupMembers(FPlayFabBaseModel response, bool successful);
+        void HelperRemoveSharedGroupMembers(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateSharedGroupData, FClientUpdateSharedGroupDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateSharedGroupData, FClientUpdateSharedGroupDataResult, result, UObject*, customData);
 
     /** Adds, updates, and removes data keys for a shared group object. If the permission is set to Public, all fields updated or added in this call will be readable by users not in the group. By default, data permissions are set to Private. Regardless of the permission setting, only members of the group can update the data. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdateSharedGroupData(FClientUpdateSharedGroupDataRequest request,
-        FDelegateOnSuccessUpdateSharedGroupData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdateSharedGroupData(FClientUpdateSharedGroupDataRequest request,
+            FDelegateOnSuccessUpdateSharedGroupData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdateSharedGroupData(FPlayFabBaseModel response, bool successful);
-
+        void HelperUpdateSharedGroupData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Sony-specific APIs
     //////////////////////////////////////////////////////
 
-
     ///////////////////////////////////////////////////////
     // Server-Side Cloud Script
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessExecuteCloudScript, FClientExecuteCloudScriptResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessExecuteCloudScript, FClientExecuteCloudScriptResult, result, UObject*, customData);
 
     /** Executes a CloudScript function, with the 'currentPlayerId' set to the PlayFab ID of the authenticated player. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ExecuteCloudScript(FClientExecuteCloudScriptRequest request,
-        FDelegateOnSuccessExecuteCloudScript onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* ExecuteCloudScript(FClientExecuteCloudScriptRequest request,
+            FDelegateOnSuccessExecuteCloudScript onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperExecuteCloudScript(FPlayFabBaseModel response, bool successful);
+        void HelperExecuteCloudScript(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCloudScriptUrl, FClientGetCloudScriptUrlResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCloudScriptUrl, FClientGetCloudScriptUrlResult, result, UObject*, customData);
 
     /** Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCloudScriptUrl(FClientGetCloudScriptUrlRequest request,
-        FDelegateOnSuccessGetCloudScriptUrl onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCloudScriptUrl(FClientGetCloudScriptUrlRequest request,
+            FDelegateOnSuccessGetCloudScriptUrl onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCloudScriptUrl(FPlayFabBaseModel response, bool successful);
+        void HelperGetCloudScriptUrl(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessRunCloudScript, FClientRunCloudScriptResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRunCloudScript, FClientRunCloudScriptResult, result, UObject*, customData);
 
     /** Triggers a particular server action, passing the provided inputs to the hosted Cloud Script. An action in this context is a handler in the JavaScript. NOTE: Before calling this API, you must call GetCloudScriptUrl to be assigned a Cloud Script server URL. When using an official PlayFab SDK, this URL is stored internally in the SDK, but GetCloudScriptUrl must still be manually called. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* RunCloudScript(FClientRunCloudScriptRequest request,
-        FDelegateOnSuccessRunCloudScript onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* RunCloudScript(FClientRunCloudScriptRequest request,
+            FDelegateOnSuccessRunCloudScript onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperRunCloudScript(FPlayFabBaseModel response, bool successful);
-
+        void HelperRunCloudScript(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Content
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetContentDownloadUrl, FClientGetContentDownloadUrlResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetContentDownloadUrl, FClientGetContentDownloadUrlResult, result, UObject*, customData);
 
     /** This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent  HTTP GET to the returned URL will attempt to download the content. A HEAD query to the returned URL will attempt to  retrieve the metadata of the content. Note that a successful result does not guarantee the existence of this content -  if it has not been uploaded, the query to retrieve the data will fail. See this post for more information:  https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Content ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetContentDownloadUrl(FClientGetContentDownloadUrlRequest request,
-        FDelegateOnSuccessGetContentDownloadUrl onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetContentDownloadUrl(FClientGetContentDownloadUrlRequest request,
+            FDelegateOnSuccessGetContentDownloadUrl onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Content ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetContentDownloadUrl(FPlayFabBaseModel response, bool successful);
-
+        void HelperGetContentDownloadUrl(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Characters
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetAllUsersCharacters, FClientListUsersCharactersResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllUsersCharacters, FClientListUsersCharactersResult, result, UObject*, customData);
 
     /** Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetAllUsersCharacters(FClientListUsersCharactersRequest request,
-        FDelegateOnSuccessGetAllUsersCharacters onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetAllUsersCharacters(FClientListUsersCharactersRequest request,
+            FDelegateOnSuccessGetAllUsersCharacters onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetAllUsersCharacters(FPlayFabBaseModel response, bool successful);
+        void HelperGetAllUsersCharacters(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCharacterLeaderboard, FClientGetCharacterLeaderboardResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCharacterLeaderboard, FClientGetCharacterLeaderboardResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked characters for the given statistic, starting from the indicated point in the leaderboard */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCharacterLeaderboard(FClientGetCharacterLeaderboardRequest request,
-        FDelegateOnSuccessGetCharacterLeaderboard onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCharacterLeaderboard(FClientGetCharacterLeaderboardRequest request,
+            FDelegateOnSuccessGetCharacterLeaderboard onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCharacterLeaderboard(FPlayFabBaseModel response, bool successful);
+        void HelperGetCharacterLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCharacterStatistics, FClientGetCharacterStatisticsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCharacterStatistics, FClientGetCharacterStatisticsResult, result, UObject*, customData);
 
     /** Retrieves the details of all title-specific statistics for the user */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCharacterStatistics(FClientGetCharacterStatisticsRequest request,
-        FDelegateOnSuccessGetCharacterStatistics onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCharacterStatistics(FClientGetCharacterStatisticsRequest request,
+            FDelegateOnSuccessGetCharacterStatistics onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCharacterStatistics(FPlayFabBaseModel response, bool successful);
+        void HelperGetCharacterStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetLeaderboardAroundCharacter, FClientGetLeaderboardAroundCharacterResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboardAroundCharacter, FClientGetLeaderboardAroundCharacterResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked characters for the given statistic, centered on the requested Character ID */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetLeaderboardAroundCharacter(FClientGetLeaderboardAroundCharacterRequest request,
-        FDelegateOnSuccessGetLeaderboardAroundCharacter onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetLeaderboardAroundCharacter(FClientGetLeaderboardAroundCharacterRequest request,
+            FDelegateOnSuccessGetLeaderboardAroundCharacter onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetLeaderboardAroundCharacter(FPlayFabBaseModel response, bool successful);
+        void HelperGetLeaderboardAroundCharacter(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetLeaderboardForUserCharacters, FClientGetLeaderboardForUsersCharactersResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboardForUserCharacters, FClientGetLeaderboardForUsersCharactersResult, result, UObject*, customData);
 
     /** Retrieves a list of all of the user's characters for the given statistic. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetLeaderboardForUserCharacters(FClientGetLeaderboardForUsersCharactersRequest request,
-        FDelegateOnSuccessGetLeaderboardForUserCharacters onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetLeaderboardForUserCharacters(FClientGetLeaderboardForUsersCharactersRequest request,
+            FDelegateOnSuccessGetLeaderboardForUserCharacters onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel response, bool successful);
+        void HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGrantCharacterToUser, FClientGrantCharacterToUserResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGrantCharacterToUser, FClientGrantCharacterToUserResult, result, UObject*, customData);
 
     /** Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GrantCharacterToUser(FClientGrantCharacterToUserRequest request,
-        FDelegateOnSuccessGrantCharacterToUser onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GrantCharacterToUser(FClientGrantCharacterToUserRequest request,
+            FDelegateOnSuccessGrantCharacterToUser onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGrantCharacterToUser(FPlayFabBaseModel response, bool successful);
+        void HelperGrantCharacterToUser(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateCharacterStatistics, FClientUpdateCharacterStatisticsResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateCharacterStatistics, FClientUpdateCharacterStatisticsResult, result, UObject*, customData);
 
     /** Updates the values of the specified title-specific statistics for the specific character. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdateCharacterStatistics(FClientUpdateCharacterStatisticsRequest request,
-        FDelegateOnSuccessUpdateCharacterStatistics onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdateCharacterStatistics(FClientUpdateCharacterStatisticsRequest request,
+            FDelegateOnSuccessUpdateCharacterStatistics onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Characters ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdateCharacterStatistics(FPlayFabBaseModel response, bool successful);
-
+        void HelperUpdateCharacterStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Character Data
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCharacterData, FClientGetCharacterDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCharacterData, FClientGetCharacterDataResult, result, UObject*, customData);
 
     /** Retrieves the title-specific custom data for the character which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCharacterData(FClientGetCharacterDataRequest request,
-        FDelegateOnSuccessGetCharacterData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCharacterData(FClientGetCharacterDataRequest request,
+            FDelegateOnSuccessGetCharacterData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCharacterData(FPlayFabBaseModel response, bool successful);
+        void HelperGetCharacterData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetCharacterReadOnlyData, FClientGetCharacterDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCharacterReadOnlyData, FClientGetCharacterDataResult, result, UObject*, customData);
 
     /** Retrieves the title-specific custom data for the character which can only be read by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetCharacterReadOnlyData(FClientGetCharacterDataRequest request,
-        FDelegateOnSuccessGetCharacterReadOnlyData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetCharacterReadOnlyData(FClientGetCharacterDataRequest request,
+            FDelegateOnSuccessGetCharacterReadOnlyData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetCharacterReadOnlyData(FPlayFabBaseModel response, bool successful);
+        void HelperGetCharacterReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessUpdateCharacterData, FClientUpdateCharacterDataResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateCharacterData, FClientUpdateCharacterDataResult, result, UObject*, customData);
 
     /** Creates and updates the title-specific custom data for the user's character which is readable  and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* UpdateCharacterData(FClientUpdateCharacterDataRequest request,
-        FDelegateOnSuccessUpdateCharacterData onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* UpdateCharacterData(FClientUpdateCharacterDataRequest request,
+            FDelegateOnSuccessUpdateCharacterData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperUpdateCharacterData(FPlayFabBaseModel response, bool successful);
-
+        void HelperUpdateCharacterData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Amazon-Specific APIs
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessValidateAmazonIAPReceipt, FClientValidateAmazonReceiptResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateAmazonIAPReceipt, FClientValidateAmazonReceiptResult, result, UObject*, customData);
 
     /** Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Amazon-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request,
-        FDelegateOnSuccessValidateAmazonIAPReceipt onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request,
+            FDelegateOnSuccessValidateAmazonIAPReceipt onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Amazon-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperValidateAmazonIAPReceipt(FPlayFabBaseModel response, bool successful);
-
+        void HelperValidateAmazonIAPReceipt(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Trading
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAcceptTrade, FClientAcceptTradeResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAcceptTrade, FClientAcceptTradeResponse, result, UObject*, customData);
 
     /** Accepts an open trade. If the call is successful, the offered and accepted items will be swapped between the two players' inventories. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* AcceptTrade(FClientAcceptTradeRequest request,
-        FDelegateOnSuccessAcceptTrade onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* AcceptTrade(FClientAcceptTradeRequest request,
+            FDelegateOnSuccessAcceptTrade onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperAcceptTrade(FPlayFabBaseModel response, bool successful);
+        void HelperAcceptTrade(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessCancelTrade, FClientCancelTradeResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessCancelTrade, FClientCancelTradeResponse, result, UObject*, customData);
 
     /** Cancels an open trade. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* CancelTrade(FClientCancelTradeRequest request,
-        FDelegateOnSuccessCancelTrade onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* CancelTrade(FClientCancelTradeRequest request,
+            FDelegateOnSuccessCancelTrade onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperCancelTrade(FPlayFabBaseModel response, bool successful);
+        void HelperCancelTrade(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetPlayerTrades, FClientGetPlayerTradesResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerTrades, FClientGetPlayerTradesResponse, result, UObject*, customData);
 
     /** Gets all trades the player has either opened or accepted, optionally filtered by trade status. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetPlayerTrades(FClientGetPlayerTradesRequest request,
-        FDelegateOnSuccessGetPlayerTrades onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetPlayerTrades(FClientGetPlayerTradesRequest request,
+            FDelegateOnSuccessGetPlayerTrades onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetPlayerTrades(FPlayFabBaseModel response, bool successful);
+        void HelperGetPlayerTrades(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessGetTradeStatus, FClientGetTradeStatusResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTradeStatus, FClientGetTradeStatusResponse, result, UObject*, customData);
 
     /** Gets the current status of an existing trade. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* GetTradeStatus(FClientGetTradeStatusRequest request,
-        FDelegateOnSuccessGetTradeStatus onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* GetTradeStatus(FClientGetTradeStatusRequest request,
+            FDelegateOnSuccessGetTradeStatus onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperGetTradeStatus(FPlayFabBaseModel response, bool successful);
+        void HelperGetTradeStatus(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessOpenTrade, FClientOpenTradeResponse, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessOpenTrade, FClientOpenTradeResponse, result, UObject*, customData);
 
     /** Opens a new outstanding trade. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* OpenTrade(FClientOpenTradeRequest request,
-        FDelegateOnSuccessOpenTrade onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* OpenTrade(FClientOpenTradeRequest request,
+            FDelegateOnSuccessOpenTrade onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Trading ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperOpenTrade(FPlayFabBaseModel response, bool successful);
-
+        void HelperOpenTrade(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
     // Advertising
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_OneParam(FDelegateOnSuccessAttributeInstall, FClientAttributeInstallResult, result);
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAttributeInstall, FClientAttributeInstallResult, result, UObject*, customData);
 
     /** Attributes an install for advertisment. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Advertising ", meta = (BlueprintInternalUseOnly = "true"))
-    static UPlayFabClientAPI* AttributeInstall(FClientAttributeInstallRequest request,
-        FDelegateOnSuccessAttributeInstall onSuccess,
-        FDelegateOnFailurePlayFabError onFailure);
+        static UPlayFabClientAPI* AttributeInstall(FClientAttributeInstallRequest request,
+            FDelegateOnSuccessAttributeInstall onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Advertising ", meta = (BlueprintInternalUseOnly = "true"))
-    void HelperAttributeInstall(FPlayFabBaseModel response, bool successful);
-
+        void HelperAttributeInstall(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1684,11 +1658,8 @@ public:
     bool bIsValidJsonResponse;
     FString ResponseContent;
     int32 ResponseCode;
+    UObject* customData;
 
-private:
-    /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */
-    void OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
-    
     FDelegateOnFailurePlayFabError OnFailure;
     FDelegateOnSuccessGetPhotonAuthenticationToken OnSuccessGetPhotonAuthenticationToken;
     FDelegateOnSuccessLoginWithAndroidDeviceID OnSuccessLoginWithAndroidDeviceID;
@@ -1808,8 +1779,11 @@ private:
     FDelegateOnSuccessOpenTrade OnSuccessOpenTrade;
     FDelegateOnSuccessAttributeInstall OnSuccessAttributeInstall;
 
-protected:
+private:
+    /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */
+    void OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful);
 
+protected:
     /** Internal request data stored as JSON */
     UPROPERTY()
         UPlayFabJsonObject* RequestJsonObj;

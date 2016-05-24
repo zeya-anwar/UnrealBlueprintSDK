@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -230,6 +230,10 @@ public:
     /** Decode the RedeemMatchmakerTicketResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
         static FServerRedeemMatchmakerTicketResult decodeRedeemMatchmakerTicketResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the SetGameServerInstanceStateResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
+        static FServerSetGameServerInstanceStateResult decodeSetGameServerInstanceStateResultResponse(UPlayFabJsonObject* response);
 
 
 

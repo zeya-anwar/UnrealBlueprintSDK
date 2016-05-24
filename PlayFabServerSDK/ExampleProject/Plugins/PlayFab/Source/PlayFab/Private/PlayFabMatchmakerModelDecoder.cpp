@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Matchmaker
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -21,12 +21,13 @@ FMatchmakerAuthUserResponse UPlayFabMatchmakerModelDecoder::decodeAuthUserRespon
 {
     // Temp ustruct
     FMatchmakerAuthUserResponse tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     /** Boolean indicating if the user has been authorized to use the external match-making service. */
-    tempStruct.Authorized = response->GetObjectField("data")->GetBoolField("Authorized");
+    tempStruct.Authorized = !(dataObj->HasField("Authorized")) ? false : dataObj->GetBoolField("Authorized");
 
     /** PlayFab unique identifier of the account that has been authorized. */
-    tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
+    tempStruct.PlayFabId = !(dataObj->HasField("PlayFabId")) ? TEXT("") : dataObj->GetStringField("PlayFabId");
 
     return tempStruct;
 }
@@ -51,15 +52,16 @@ FMatchmakerStartGameResponse UPlayFabMatchmakerModelDecoder::decodeStartGameResp
 {
     // Temp ustruct
     FMatchmakerStartGameResponse tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     /** Unique identifier for the lobby in the new Game Server Instance. */
-    tempStruct.GameID = response->GetObjectField("data")->GetStringField("GameID");
+    tempStruct.GameID = !(dataObj->HasField("GameID")) ? TEXT("") : dataObj->GetStringField("GameID");
 
     /** IP address of the new Game Server Instance. */
-    tempStruct.ServerHostname = response->GetObjectField("data")->GetStringField("ServerHostname");
+    tempStruct.ServerHostname = !(dataObj->HasField("ServerHostname")) ? TEXT("") : dataObj->GetStringField("ServerHostname");
 
     /** Port number for communication with the Game Server Instance. */
-    tempStruct.ServerPort = int(response->GetObjectField("data")->GetNumberField("ServerPort"));
+    tempStruct.ServerPort = !(dataObj->HasField("ServerPort")) ? 0 : int(dataObj->GetNumberField("ServerPort"));
 
     return tempStruct;
 }
@@ -68,33 +70,33 @@ FMatchmakerUserInfoResponse UPlayFabMatchmakerModelDecoder::decodeUserInfoRespon
 {
     // Temp ustruct
     FMatchmakerUserInfoResponse tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     /** PlayFab unique identifier of the user whose information was requested. */
-    tempStruct.PlayFabId = response->GetObjectField("data")->GetStringField("PlayFabId");
+    tempStruct.PlayFabId = !(dataObj->HasField("PlayFabId")) ? TEXT("") : dataObj->GetStringField("PlayFabId");
 
     /** PlayFab unique user name. */
-    tempStruct.Username = response->GetObjectField("data")->GetStringField("Username");
+    tempStruct.Username = !(dataObj->HasField("Username")) ? TEXT("") : dataObj->GetStringField("Username");
 
     /** Title specific display name, if set. */
-    tempStruct.TitleDisplayName = response->GetObjectField("data")->GetStringField("TitleDisplayName");
+    tempStruct.TitleDisplayName = !(dataObj->HasField("TitleDisplayName")) ? TEXT("") : dataObj->GetStringField("TitleDisplayName");
 
     /** Array of inventory items in the user's current inventory. */
-    tempStruct.Inventory = response->GetObjectField("data")->GetObjectArrayField("Inventory");
+    tempStruct.Inventory = !(dataObj->HasField("Inventory")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Inventory");
 
     /** Array of virtual currency balance(s) belonging to the user. */
-    tempStruct.VirtualCurrency = response->GetObjectField("data")->GetObjectField("VirtualCurrency");
+    tempStruct.VirtualCurrency = !(dataObj->HasField("VirtualCurrency")) ? nullptr : dataObj->GetObjectField("VirtualCurrency");
 
     /** Array of remaining times and timestamps for virtual currencies. */
-    tempStruct.VirtualCurrencyRechargeTimes = response->GetObjectField("data")->GetObjectField("VirtualCurrencyRechargeTimes");
+    tempStruct.VirtualCurrencyRechargeTimes = !(dataObj->HasField("VirtualCurrencyRechargeTimes")) ? nullptr : dataObj->GetObjectField("VirtualCurrencyRechargeTimes");
 
     /** Boolean indicating whether the user is a developer. */
-    tempStruct.IsDeveloper = response->GetObjectField("data")->GetBoolField("IsDeveloper");
+    tempStruct.IsDeveloper = !(dataObj->HasField("IsDeveloper")) ? false : dataObj->GetBoolField("IsDeveloper");
 
     /** Steam unique identifier, if the user has an associated Steam account. */
-    tempStruct.SteamId = response->GetObjectField("data")->GetStringField("SteamId");
+    tempStruct.SteamId = !(dataObj->HasField("SteamId")) ? TEXT("") : dataObj->GetStringField("SteamId");
 
     return tempStruct;
 }
-
 
 

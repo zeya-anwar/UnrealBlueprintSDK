@@ -2,19 +2,16 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Matchmaker
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
 #include "PlayFabEnums.h"
 #include "PlayFabMatchmakerAPI.h"
 
-UPlayFabMatchmakerAPI* Matchmaker_proxy = NULL;
-
 UPlayFabMatchmakerAPI::UPlayFabMatchmakerAPI(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
 {
-    Matchmaker_proxy = this;
 }
 
 void UPlayFabMatchmakerAPI::SetRequestObject(UPlayFabJsonObject* JsonObject)
@@ -67,11 +64,13 @@ FString UPlayFabMatchmakerAPI::PercentEncode(const FString& Text)
 /** Validates a user with the PlayFab service */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserRequest request,
     FDelegateOnSuccessAuthUser onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessAuthUser = onSuccess;
@@ -102,14 +101,14 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserReques
 }
 
 // Implements FOnPlayFabMatchmakerRequestCompleted
-void UPlayFabMatchmakerAPI::HelperAuthUser(FPlayFabBaseModel response, bool successful)
+void UPlayFabMatchmakerAPI::HelperAuthUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -117,7 +116,7 @@ void UPlayFabMatchmakerAPI::HelperAuthUser(FPlayFabBaseModel response, bool succ
         FMatchmakerAuthUserResponse result = UPlayFabMatchmakerModelDecoder::decodeAuthUserResponseResponse(response.responseData);
         if (OnSuccessAuthUser.IsBound())
         {
-            OnSuccessAuthUser.Execute(result);
+            OnSuccessAuthUser.Execute(result, customData);
         }
     }
 }
@@ -125,11 +124,13 @@ void UPlayFabMatchmakerAPI::HelperAuthUser(FPlayFabBaseModel response, bool succ
 /** Informs the PlayFab game server hosting service that the indicated user has joined the Game Server Instance specified */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoinedRequest request,
     FDelegateOnSuccessPlayerJoined onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessPlayerJoined = onSuccess;
@@ -169,14 +170,14 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoin
 }
 
 // Implements FOnPlayFabMatchmakerRequestCompleted
-void UPlayFabMatchmakerAPI::HelperPlayerJoined(FPlayFabBaseModel response, bool successful)
+void UPlayFabMatchmakerAPI::HelperPlayerJoined(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -184,7 +185,7 @@ void UPlayFabMatchmakerAPI::HelperPlayerJoined(FPlayFabBaseModel response, bool 
         FMatchmakerPlayerJoinedResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerJoinedResponseResponse(response.responseData);
         if (OnSuccessPlayerJoined.IsBound())
         {
-            OnSuccessPlayerJoined.Execute(result);
+            OnSuccessPlayerJoined.Execute(result, customData);
         }
     }
 }
@@ -192,11 +193,13 @@ void UPlayFabMatchmakerAPI::HelperPlayerJoined(FPlayFabBaseModel response, bool 
 /** Informs the PlayFab game server hosting service that the indicated user has left the Game Server Instance specified */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRequest request,
     FDelegateOnSuccessPlayerLeft onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessPlayerLeft = onSuccess;
@@ -236,14 +239,14 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRe
 }
 
 // Implements FOnPlayFabMatchmakerRequestCompleted
-void UPlayFabMatchmakerAPI::HelperPlayerLeft(FPlayFabBaseModel response, bool successful)
+void UPlayFabMatchmakerAPI::HelperPlayerLeft(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -251,7 +254,7 @@ void UPlayFabMatchmakerAPI::HelperPlayerLeft(FPlayFabBaseModel response, bool su
         FMatchmakerPlayerLeftResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerLeftResponseResponse(response.responseData);
         if (OnSuccessPlayerLeft.IsBound())
         {
-            OnSuccessPlayerLeft.Execute(result);
+            OnSuccessPlayerLeft.Execute(result, customData);
         }
     }
 }
@@ -259,11 +262,13 @@ void UPlayFabMatchmakerAPI::HelperPlayerLeft(FPlayFabBaseModel response, bool su
 /** Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequest request,
     FDelegateOnSuccessStartGame onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessStartGame = onSuccess;
@@ -286,7 +291,9 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
         OutRestJsonObj->SetStringField(TEXT("Build"), request.Build);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Region"), GetEnumValueToString<ERegion>(TEXT("ERegion"), request.Region));
+    FString temp_Region;
+    if (GetEnumValueToString<ERegion>(TEXT("ERegion"), request.Region, temp_Region))
+        OutRestJsonObj->SetStringField(TEXT("Region"), temp_Region);
     if (request.GameMode.IsEmpty() || request.GameMode == "")
     {
         OutRestJsonObj->SetFieldNull(TEXT("GameMode"));
@@ -322,14 +329,14 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
 }
 
 // Implements FOnPlayFabMatchmakerRequestCompleted
-void UPlayFabMatchmakerAPI::HelperStartGame(FPlayFabBaseModel response, bool successful)
+void UPlayFabMatchmakerAPI::HelperStartGame(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -337,7 +344,7 @@ void UPlayFabMatchmakerAPI::HelperStartGame(FPlayFabBaseModel response, bool suc
         FMatchmakerStartGameResponse result = UPlayFabMatchmakerModelDecoder::decodeStartGameResponseResponse(response.responseData);
         if (OnSuccessStartGame.IsBound())
         {
-            OnSuccessStartGame.Execute(result);
+            OnSuccessStartGame.Execute(result, customData);
         }
     }
 }
@@ -345,11 +352,13 @@ void UPlayFabMatchmakerAPI::HelperStartGame(FPlayFabBaseModel response, bool suc
 /** Retrieves the relevant details for a specified user, which the external match-making service can then use to compute effective matches */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoRequest request,
     FDelegateOnSuccessUserInfo onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUserInfo = onSuccess;
@@ -381,14 +390,14 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoReques
 }
 
 // Implements FOnPlayFabMatchmakerRequestCompleted
-void UPlayFabMatchmakerAPI::HelperUserInfo(FPlayFabBaseModel response, bool successful)
+void UPlayFabMatchmakerAPI::HelperUserInfo(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -396,7 +405,7 @@ void UPlayFabMatchmakerAPI::HelperUserInfo(FPlayFabBaseModel response, bool succ
         FMatchmakerUserInfoResponse result = UPlayFabMatchmakerModelDecoder::decodeUserInfoResponseResponse(response.responseData);
         if (OnSuccessUserInfo.IsBound())
         {
-            OnSuccessUserInfo.Execute(result);
+            OnSuccessUserInfo.Execute(result, customData);
         }
     }
 }
@@ -407,6 +416,17 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
 {
     // Be sure that we have no data from previous response
     ResetResponseData();
+
+    if (!IsValidLowLevel())
+    {
+        UE_LOG(LogPlayFab, Error, TEXT("The request object is invalid during OnProcessRequestComplete."));
+        return;
+    }
+    if (!OnPlayFabResponse.IsBound())
+    {
+        UE_LOG(LogPlayFab, Error, TEXT("OnPlayFabResponse has come un-bound during OnProcessRequestComplete."));
+        return;
+    }
 
     FPlayFabBaseModel myResponse;
 
@@ -420,7 +440,7 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
         myResponse.responseError.ErrorName = "Unable to contact server";
         myResponse.responseError.ErrorMessage = "Unable to contact server";
 
-        Matchmaker_proxy->OnPlayFabResponse.Broadcast(myResponse, false);
+        OnPlayFabResponse.Broadcast(myResponse, customData, false);
 
         return;
     }
@@ -451,16 +471,19 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
     myResponse.responseData = ResponseJsonObj;
 
     // Broadcast the result event
-    Matchmaker_proxy->OnPlayFabResponse.Broadcast(myResponse, myResponse.responseError.hasError);
+    OnPlayFabResponse.Broadcast(myResponse, customData, myResponse.responseError.hasError);
+    pfSettings->ModifyPendingCallCount(-1);
 }
 
 void UPlayFabMatchmakerAPI::Activate()
 {
+    IPlayFab* pfSettings = &(IPlayFab::Get());
+
     FString RequestUrl;
     if (!cloudScript)
-        RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
+        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
     else
-        RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(IPlayFab::Get().CloudScriptVersion) + TEXT("/prod") + PlayFabRequestURL;
+        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(pfSettings->CloudScriptVersion) + TEXT("/prod") + PlayFabRequestURL;
 
     TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
     HttpRequest->SetURL(RequestUrl);
@@ -468,9 +491,9 @@ void UPlayFabMatchmakerAPI::Activate()
 
     // Headers
     if (useSessionTicket)
-        HttpRequest->SetHeader("X-Authentication", IPlayFab::Get().getSessionTicket());
+        HttpRequest->SetHeader("X-Authentication", pfSettings->getSessionTicket());
     if (useSecretKey)
-        HttpRequest->SetHeader("X-SecretKey", IPlayFab::Get().getSecretApiKey());
+        HttpRequest->SetHeader("X-SecretKey", pfSettings->getSecretApiKey());
     HttpRequest->SetHeader("Content-Type", "application/json");
     HttpRequest->SetHeader("X-ReportErrorAsSuccess", "true"); // FHttpResponsePtr doesn't provide sufficient information when an error code is returned
     for (TMap<FString, FString>::TConstIterator It(RequestHeaders); It; ++It)
@@ -490,12 +513,13 @@ void UPlayFabMatchmakerAPI::Activate()
     HttpRequest->OnProcessRequestComplete().BindUObject(this, &UPlayFabMatchmakerAPI::OnProcessRequestComplete);
 
     // Execute the request
+    pfSettings->ModifyPendingCallCount(1);
     HttpRequest->ProcessRequest();
 }
 
 void UPlayFabMatchmakerAPI::ResetResponseData()
 {
-    if (ResponseJsonObj != NULL)
+    if (ResponseJsonObj != nullptr)
     {
         ResponseJsonObj->Reset();
     }

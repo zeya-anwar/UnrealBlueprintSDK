@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Client
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -127,7 +127,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Email;
 
-    /** Password for the PlayFab account (6-30 characters) */
+    /** Password for the PlayFab account (6-100 characters) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Password;
 
@@ -240,7 +240,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Username;
 
-    /** Password for the PlayFab account (6-30 characters) */
+    /** Password for the PlayFab account (6-100 characters) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Password;
 
@@ -277,7 +277,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Email;
 
-    /** Password for the PlayFab account (6-30 characters) */
+    /** Password for the PlayFab account (6-100 characters) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Password;
 
@@ -339,7 +339,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString Email;
 
-    /** Password for the PlayFab account (6-30 characters) */
+    /** Password for the PlayFab account (6-100 characters) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString Password;
 
@@ -2405,6 +2405,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString CharacterId;
 
+    /** start a game session if one with an open slot is not found. Defaults to true */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+        bool StartNewIfNoneFound;
     /** [deprecated] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         bool EnableQueue;

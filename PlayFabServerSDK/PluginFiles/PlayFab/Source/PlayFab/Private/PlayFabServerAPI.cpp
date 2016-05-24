@@ -2,19 +2,16 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
 #include "PlayFabEnums.h"
 #include "PlayFabServerAPI.h"
 
-UPlayFabServerAPI* Server_proxy = NULL;
-
 UPlayFabServerAPI::UPlayFabServerAPI(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
 {
-    Server_proxy = this;
 }
 
 void UPlayFabServerAPI::SetRequestObject(UPlayFabJsonObject* JsonObject)
@@ -67,11 +64,13 @@ FString UPlayFabServerAPI::PercentEncode(const FString& Text)
 /** Validated a client's session ticket, and if successful, returns details for that user */
 UPlayFabServerAPI* UPlayFabServerAPI::AuthenticateSessionTicket(FServerAuthenticateSessionTicketRequest request,
     FDelegateOnSuccessAuthenticateSessionTicket onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessAuthenticateSessionTicket = onSuccess;
@@ -102,14 +101,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::AuthenticateSessionTicket(FServerAuthentic
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperAuthenticateSessionTicket(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperAuthenticateSessionTicket(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -117,7 +116,7 @@ void UPlayFabServerAPI::HelperAuthenticateSessionTicket(FPlayFabBaseModel respon
         FServerAuthenticateSessionTicketResult result = UPlayFabServerModelDecoder::decodeAuthenticateSessionTicketResultResponse(response.responseData);
         if (OnSuccessAuthenticateSessionTicket.IsBound())
         {
-            OnSuccessAuthenticateSessionTicket.Execute(result);
+            OnSuccessAuthenticateSessionTicket.Execute(result, customData);
         }
     }
 }
@@ -129,11 +128,13 @@ void UPlayFabServerAPI::HelperAuthenticateSessionTicket(FPlayFabBaseModel respon
 /** Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromFacebookIDs(FServerGetPlayFabIDsFromFacebookIDsRequest request,
     FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayFabIDsFromFacebookIDs = onSuccess;
@@ -167,14 +168,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromFacebookIDs(FServerGetPla
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetPlayFabIDsFromFacebookIDs(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetPlayFabIDsFromFacebookIDs(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -182,7 +183,7 @@ void UPlayFabServerAPI::HelperGetPlayFabIDsFromFacebookIDs(FPlayFabBaseModel res
         FServerGetPlayFabIDsFromFacebookIDsResult result = UPlayFabServerModelDecoder::decodeGetPlayFabIDsFromFacebookIDsResultResponse(response.responseData);
         if (OnSuccessGetPlayFabIDsFromFacebookIDs.IsBound())
         {
-            OnSuccessGetPlayFabIDsFromFacebookIDs.Execute(result);
+            OnSuccessGetPlayFabIDsFromFacebookIDs.Execute(result, customData);
         }
     }
 }
@@ -190,11 +191,13 @@ void UPlayFabServerAPI::HelperGetPlayFabIDsFromFacebookIDs(FPlayFabBaseModel res
 /** Retrieves the unique PlayFab identifiers for the given set of Steam identifiers. The Steam identifiers  are the profile IDs for the user accounts, available as SteamId in the Steamworks Community API calls. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromSteamIDs(FServerGetPlayFabIDsFromSteamIDsRequest request,
     FDelegateOnSuccessGetPlayFabIDsFromSteamIDs onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayFabIDsFromSteamIDs = onSuccess;
@@ -236,14 +239,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromSteamIDs(FServerGetPlayFa
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -251,7 +254,7 @@ void UPlayFabServerAPI::HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel respon
         FServerGetPlayFabIDsFromSteamIDsResult result = UPlayFabServerModelDecoder::decodeGetPlayFabIDsFromSteamIDsResultResponse(response.responseData);
         if (OnSuccessGetPlayFabIDsFromSteamIDs.IsBound())
         {
-            OnSuccessGetPlayFabIDsFromSteamIDs.Execute(result);
+            OnSuccessGetPlayFabIDsFromSteamIDs.Execute(result, customData);
         }
     }
 }
@@ -259,11 +262,13 @@ void UPlayFabServerAPI::HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel respon
 /** Retrieves the relevant details for a specified user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserAccountInfo(FServerGetUserAccountInfoRequest request,
     FDelegateOnSuccessGetUserAccountInfo onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserAccountInfo = onSuccess;
@@ -294,14 +299,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserAccountInfo(FServerGetUserAccountIn
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -309,7 +314,7 @@ void UPlayFabServerAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, boo
         FServerGetUserAccountInfoResult result = UPlayFabServerModelDecoder::decodeGetUserAccountInfoResultResponse(response.responseData);
         if (OnSuccessGetUserAccountInfo.IsBound())
         {
-            OnSuccessGetUserAccountInfo.Execute(result);
+            OnSuccessGetUserAccountInfo.Execute(result, customData);
         }
     }
 }
@@ -317,11 +322,13 @@ void UPlayFabServerAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, boo
 /** Sends an iOS/Android Push Notification to a specific user, if that user's device has been configured for Push Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified. */
 UPlayFabServerAPI* UPlayFabServerAPI::SendPushNotification(FServerSendPushNotificationRequest request,
     FDelegateOnSuccessSendPushNotification onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessSendPushNotification = onSuccess;
@@ -370,14 +377,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::SendPushNotification(FServerSendPushNotifi
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperSendPushNotification(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperSendPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -385,7 +392,7 @@ void UPlayFabServerAPI::HelperSendPushNotification(FPlayFabBaseModel response, b
         FServerSendPushNotificationResult result = UPlayFabServerModelDecoder::decodeSendPushNotificationResultResponse(response.responseData);
         if (OnSuccessSendPushNotification.IsBound())
         {
-            OnSuccessSendPushNotification.Execute(result);
+            OnSuccessSendPushNotification.Execute(result, customData);
         }
     }
 }
@@ -397,11 +404,13 @@ void UPlayFabServerAPI::HelperSendPushNotification(FPlayFabBaseModel response, b
 /** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. */
 UPlayFabServerAPI* UPlayFabServerAPI::DeleteUsers(FServerDeleteUsersRequest request,
     FDelegateOnSuccessDeleteUsers onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessDeleteUsers = onSuccess;
@@ -436,14 +445,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::DeleteUsers(FServerDeleteUsersRequest requ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperDeleteUsers(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperDeleteUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -451,7 +460,7 @@ void UPlayFabServerAPI::HelperDeleteUsers(FPlayFabBaseModel response, bool succe
         FServerDeleteUsersResult result = UPlayFabServerModelDecoder::decodeDeleteUsersResultResponse(response.responseData);
         if (OnSuccessDeleteUsers.IsBound())
         {
-            OnSuccessDeleteUsers.Execute(result);
+            OnSuccessDeleteUsers.Execute(result, customData);
         }
     }
 }
@@ -459,11 +468,13 @@ void UPlayFabServerAPI::HelperDeleteUsers(FPlayFabBaseModel response, bool succe
 /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboard(FServerGetLeaderboardRequest request,
     FDelegateOnSuccessGetLeaderboard onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetLeaderboard = onSuccess;
@@ -496,14 +507,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboard(FServerGetLeaderboardReques
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetLeaderboard(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -511,7 +522,7 @@ void UPlayFabServerAPI::HelperGetLeaderboard(FPlayFabBaseModel response, bool su
         FServerGetLeaderboardResult result = UPlayFabServerModelDecoder::decodeGetLeaderboardResultResponse(response.responseData);
         if (OnSuccessGetLeaderboard.IsBound())
         {
-            OnSuccessGetLeaderboard.Execute(result);
+            OnSuccessGetLeaderboard.Execute(result, customData);
         }
     }
 }
@@ -519,11 +530,13 @@ void UPlayFabServerAPI::HelperGetLeaderboard(FPlayFabBaseModel response, bool su
 /** Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundUser(FServerGetLeaderboardAroundUserRequest request,
     FDelegateOnSuccessGetLeaderboardAroundUser onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetLeaderboardAroundUser = onSuccess;
@@ -564,14 +577,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundUser(FServerGetLeaderb
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetLeaderboardAroundUser(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetLeaderboardAroundUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -579,7 +592,7 @@ void UPlayFabServerAPI::HelperGetLeaderboardAroundUser(FPlayFabBaseModel respons
         FServerGetLeaderboardAroundUserResult result = UPlayFabServerModelDecoder::decodeGetLeaderboardAroundUserResultResponse(response.responseData);
         if (OnSuccessGetLeaderboardAroundUser.IsBound())
         {
-            OnSuccessGetLeaderboardAroundUser.Execute(result);
+            OnSuccessGetLeaderboardAroundUser.Execute(result, customData);
         }
     }
 }
@@ -587,11 +600,13 @@ void UPlayFabServerAPI::HelperGetLeaderboardAroundUser(FPlayFabBaseModel respons
 /** Retrieves the current version and values for the indicated statistics, for the local player. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatistics(FServerGetPlayerStatisticsRequest request,
     FDelegateOnSuccessGetPlayerStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayerStatistics = onSuccess;
@@ -635,14 +650,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatistics(FServerGetPlayerStatis
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetPlayerStatistics(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetPlayerStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -650,7 +665,7 @@ void UPlayFabServerAPI::HelperGetPlayerStatistics(FPlayFabBaseModel response, bo
         FServerGetPlayerStatisticsResult result = UPlayFabServerModelDecoder::decodeGetPlayerStatisticsResultResponse(response.responseData);
         if (OnSuccessGetPlayerStatistics.IsBound())
         {
-            OnSuccessGetPlayerStatistics.Execute(result);
+            OnSuccessGetPlayerStatistics.Execute(result, customData);
         }
     }
 }
@@ -658,11 +673,13 @@ void UPlayFabServerAPI::HelperGetPlayerStatistics(FPlayFabBaseModel response, bo
 /** Retrieves the information on the available versions of the specified statistic. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatisticVersions(FServerGetPlayerStatisticVersionsRequest request,
     FDelegateOnSuccessGetPlayerStatisticVersions onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayerStatisticVersions = onSuccess;
@@ -693,14 +710,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatisticVersions(FServerGetPlaye
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -708,7 +725,7 @@ void UPlayFabServerAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel respo
         FServerGetPlayerStatisticVersionsResult result = UPlayFabServerModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(response.responseData);
         if (OnSuccessGetPlayerStatisticVersions.IsBound())
         {
-            OnSuccessGetPlayerStatisticVersions.Execute(result);
+            OnSuccessGetPlayerStatisticVersions.Execute(result, customData);
         }
     }
 }
@@ -716,11 +733,13 @@ void UPlayFabServerAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel respo
 /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserData(FServerGetUserDataRequest request,
     FDelegateOnSuccessGetUserData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserData = onSuccess;
@@ -764,14 +783,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserData(FServerGetUserDataRequest requ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -779,7 +798,7 @@ void UPlayFabServerAPI::HelperGetUserData(FPlayFabBaseModel response, bool succe
         FServerGetUserDataResult result = UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserData.IsBound())
         {
-            OnSuccessGetUserData.Execute(result);
+            OnSuccessGetUserData.Execute(result, customData);
         }
     }
 }
@@ -787,11 +806,13 @@ void UPlayFabServerAPI::HelperGetUserData(FPlayFabBaseModel response, bool succe
 /** Retrieves the title-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserInternalData(FServerGetUserDataRequest request,
     FDelegateOnSuccessGetUserInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserInternalData = onSuccess;
@@ -835,14 +856,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserInternalData(FServerGetUserDataRequ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -850,7 +871,7 @@ void UPlayFabServerAPI::HelperGetUserInternalData(FPlayFabBaseModel response, bo
         FServerGetUserDataResult result = UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserInternalData.IsBound())
         {
-            OnSuccessGetUserInternalData.Execute(result);
+            OnSuccessGetUserInternalData.Execute(result, customData);
         }
     }
 }
@@ -858,11 +879,13 @@ void UPlayFabServerAPI::HelperGetUserInternalData(FPlayFabBaseModel response, bo
 /** Retrieves the publisher-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherData(FServerGetUserDataRequest request,
     FDelegateOnSuccessGetUserPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserPublisherData = onSuccess;
@@ -906,14 +929,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherData(FServerGetUserDataReq
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserPublisherData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -921,7 +944,7 @@ void UPlayFabServerAPI::HelperGetUserPublisherData(FPlayFabBaseModel response, b
         FServerGetUserDataResult result = UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserPublisherData.IsBound())
         {
-            OnSuccessGetUserPublisherData.Execute(result);
+            OnSuccessGetUserPublisherData.Execute(result, customData);
         }
     }
 }
@@ -929,11 +952,13 @@ void UPlayFabServerAPI::HelperGetUserPublisherData(FPlayFabBaseModel response, b
 /** Retrieves the publisher-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherInternalData(FServerGetUserDataRequest request,
     FDelegateOnSuccessGetUserPublisherInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserPublisherInternalData = onSuccess;
@@ -977,14 +1002,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherInternalData(FServerGetUse
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserPublisherInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserPublisherInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -992,7 +1017,7 @@ void UPlayFabServerAPI::HelperGetUserPublisherInternalData(FPlayFabBaseModel res
         FServerGetUserDataResult result = UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserPublisherInternalData.IsBound())
         {
-            OnSuccessGetUserPublisherInternalData.Execute(result);
+            OnSuccessGetUserPublisherInternalData.Execute(result, customData);
         }
     }
 }
@@ -1000,11 +1025,13 @@ void UPlayFabServerAPI::HelperGetUserPublisherInternalData(FPlayFabBaseModel res
 /** Retrieves the publisher-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherReadOnlyData(FServerGetUserDataRequest request,
     FDelegateOnSuccessGetUserPublisherReadOnlyData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserPublisherReadOnlyData = onSuccess;
@@ -1048,14 +1075,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserPublisherReadOnlyData(FServerGetUse
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1063,7 +1090,7 @@ void UPlayFabServerAPI::HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel res
         FServerGetUserDataResult result = UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserPublisherReadOnlyData.IsBound())
         {
-            OnSuccessGetUserPublisherReadOnlyData.Execute(result);
+            OnSuccessGetUserPublisherReadOnlyData.Execute(result, customData);
         }
     }
 }
@@ -1071,11 +1098,13 @@ void UPlayFabServerAPI::HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel res
 /** Retrieves the title-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserReadOnlyData(FServerGetUserDataRequest request,
     FDelegateOnSuccessGetUserReadOnlyData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserReadOnlyData = onSuccess;
@@ -1119,14 +1148,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserReadOnlyData(FServerGetUserDataRequ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserReadOnlyData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1134,7 +1163,7 @@ void UPlayFabServerAPI::HelperGetUserReadOnlyData(FPlayFabBaseModel response, bo
         FServerGetUserDataResult result = UPlayFabServerModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserReadOnlyData.IsBound())
         {
-            OnSuccessGetUserReadOnlyData.Execute(result);
+            OnSuccessGetUserReadOnlyData.Execute(result, customData);
         }
     }
 }
@@ -1142,11 +1171,13 @@ void UPlayFabServerAPI::HelperGetUserReadOnlyData(FPlayFabBaseModel response, bo
 /** Retrieves the details of all title-specific statistics for the user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserStatistics(FServerGetUserStatisticsRequest request,
     FDelegateOnSuccessGetUserStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserStatistics = onSuccess;
@@ -1177,14 +1208,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserStatistics(FServerGetUserStatistics
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserStatistics(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1192,7 +1223,7 @@ void UPlayFabServerAPI::HelperGetUserStatistics(FPlayFabBaseModel response, bool
         FServerGetUserStatisticsResult result = UPlayFabServerModelDecoder::decodeGetUserStatisticsResultResponse(response.responseData);
         if (OnSuccessGetUserStatistics.IsBound())
         {
-            OnSuccessGetUserStatistics.Execute(result);
+            OnSuccessGetUserStatistics.Execute(result, customData);
         }
     }
 }
@@ -1200,11 +1231,13 @@ void UPlayFabServerAPI::HelperGetUserStatistics(FPlayFabBaseModel response, bool
 /** Updates the values of the specified title-specific statistics for the user */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdatePlayerStatistics(FServerUpdatePlayerStatisticsRequest request,
     FDelegateOnSuccessUpdatePlayerStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdatePlayerStatistics = onSuccess;
@@ -1236,14 +1269,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdatePlayerStatistics(FServerUpdatePlayer
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdatePlayerStatistics(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdatePlayerStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1251,7 +1284,7 @@ void UPlayFabServerAPI::HelperUpdatePlayerStatistics(FPlayFabBaseModel response,
         FServerUpdatePlayerStatisticsResult result = UPlayFabServerModelDecoder::decodeUpdatePlayerStatisticsResultResponse(response.responseData);
         if (OnSuccessUpdatePlayerStatistics.IsBound())
         {
-            OnSuccessUpdatePlayerStatistics.Execute(result);
+            OnSuccessUpdatePlayerStatistics.Execute(result, customData);
         }
     }
 }
@@ -1259,11 +1292,13 @@ void UPlayFabServerAPI::HelperUpdatePlayerStatistics(FPlayFabBaseModel response,
 /** Updates the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataRequest request,
     FDelegateOnSuccessUpdateUserData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserData = onSuccess;
@@ -1286,7 +1321,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataReques
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -1299,7 +1334,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataReques
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1308,14 +1345,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserData(FServerUpdateUserDataReques
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1323,7 +1360,7 @@ void UPlayFabServerAPI::HelperUpdateUserData(FPlayFabBaseModel response, bool su
         FServerUpdateUserDataResult result = UPlayFabServerModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserData.IsBound())
         {
-            OnSuccessUpdateUserData.Execute(result);
+            OnSuccessUpdateUserData.Execute(result, customData);
         }
     }
 }
@@ -1331,11 +1368,13 @@ void UPlayFabServerAPI::HelperUpdateUserData(FPlayFabBaseModel response, bool su
 /** Updates the title-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInternalData(FServerUpdateUserInternalDataRequest request,
     FDelegateOnSuccessUpdateUserInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserInternalData = onSuccess;
@@ -1358,7 +1397,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInternalData(FServerUpdateUserIn
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -1379,14 +1418,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInternalData(FServerUpdateUserIn
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1394,7 +1433,7 @@ void UPlayFabServerAPI::HelperUpdateUserInternalData(FPlayFabBaseModel response,
         FServerUpdateUserDataResult result = UPlayFabServerModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserInternalData.IsBound())
         {
-            OnSuccessUpdateUserInternalData.Execute(result);
+            OnSuccessUpdateUserInternalData.Execute(result, customData);
         }
     }
 }
@@ -1402,11 +1441,13 @@ void UPlayFabServerAPI::HelperUpdateUserInternalData(FPlayFabBaseModel response,
 /** Updates the publisher-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserDataRequest request,
     FDelegateOnSuccessUpdateUserPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserPublisherData = onSuccess;
@@ -1429,7 +1470,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserD
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -1442,7 +1483,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserD
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1451,14 +1494,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherData(FServerUpdateUserD
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserPublisherData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1466,7 +1509,7 @@ void UPlayFabServerAPI::HelperUpdateUserPublisherData(FPlayFabBaseModel response
         FServerUpdateUserDataResult result = UPlayFabServerModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserPublisherData.IsBound())
         {
-            OnSuccessUpdateUserPublisherData.Execute(result);
+            OnSuccessUpdateUserPublisherData.Execute(result, customData);
         }
     }
 }
@@ -1474,11 +1517,13 @@ void UPlayFabServerAPI::HelperUpdateUserPublisherData(FPlayFabBaseModel response
 /** Updates the publisher-specific custom data for the user which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherInternalData(FServerUpdateUserInternalDataRequest request,
     FDelegateOnSuccessUpdateUserPublisherInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserPublisherInternalData = onSuccess;
@@ -1501,7 +1546,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherInternalData(FServerUpd
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -1522,14 +1567,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherInternalData(FServerUpd
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserPublisherInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserPublisherInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1537,7 +1582,7 @@ void UPlayFabServerAPI::HelperUpdateUserPublisherInternalData(FPlayFabBaseModel 
         FServerUpdateUserDataResult result = UPlayFabServerModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserPublisherInternalData.IsBound())
         {
-            OnSuccessUpdateUserPublisherInternalData.Execute(result);
+            OnSuccessUpdateUserPublisherInternalData.Execute(result, customData);
         }
     }
 }
@@ -1545,11 +1590,13 @@ void UPlayFabServerAPI::HelperUpdateUserPublisherInternalData(FPlayFabBaseModel 
 /** Updates the publisher-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpdateUserDataRequest request,
     FDelegateOnSuccessUpdateUserPublisherReadOnlyData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserPublisherReadOnlyData = onSuccess;
@@ -1572,7 +1619,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpd
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -1585,7 +1632,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpd
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1594,14 +1643,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserPublisherReadOnlyData(FServerUpd
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserPublisherReadOnlyData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserPublisherReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1609,7 +1658,7 @@ void UPlayFabServerAPI::HelperUpdateUserPublisherReadOnlyData(FPlayFabBaseModel 
         FServerUpdateUserDataResult result = UPlayFabServerModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserPublisherReadOnlyData.IsBound())
         {
-            OnSuccessUpdateUserPublisherReadOnlyData.Execute(result);
+            OnSuccessUpdateUserPublisherReadOnlyData.Execute(result, customData);
         }
     }
 }
@@ -1617,11 +1666,13 @@ void UPlayFabServerAPI::HelperUpdateUserPublisherReadOnlyData(FPlayFabBaseModel 
 /** Updates the title-specific custom data for the user which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDataRequest request,
     FDelegateOnSuccessUpdateUserReadOnlyData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserReadOnlyData = onSuccess;
@@ -1644,7 +1695,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDa
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -1657,7 +1708,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDa
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1666,14 +1719,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserReadOnlyData(FServerUpdateUserDa
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1681,7 +1734,7 @@ void UPlayFabServerAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response,
         FServerUpdateUserDataResult result = UPlayFabServerModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserReadOnlyData.IsBound())
         {
-            OnSuccessUpdateUserReadOnlyData.Execute(result);
+            OnSuccessUpdateUserReadOnlyData.Execute(result, customData);
         }
     }
 }
@@ -1689,11 +1742,13 @@ void UPlayFabServerAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response,
 /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStatisticsRequest request,
     FDelegateOnSuccessUpdateUserStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserStatistics = onSuccess;
@@ -1716,7 +1771,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStat
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
 
-    if (request.UserStatistics != NULL) OutRestJsonObj->SetObjectField(TEXT("UserStatistics"), request.UserStatistics);
+    if (request.UserStatistics != nullptr) OutRestJsonObj->SetObjectField(TEXT("UserStatistics"), request.UserStatistics);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1725,14 +1780,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStat
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserStatistics(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1740,7 +1795,7 @@ void UPlayFabServerAPI::HelperUpdateUserStatistics(FPlayFabBaseModel response, b
         FServerUpdateUserStatisticsResult result = UPlayFabServerModelDecoder::decodeUpdateUserStatisticsResultResponse(response.responseData);
         if (OnSuccessUpdateUserStatistics.IsBound())
         {
-            OnSuccessUpdateUserStatistics.Execute(result);
+            OnSuccessUpdateUserStatistics.Execute(result, customData);
         }
     }
 }
@@ -1752,11 +1807,13 @@ void UPlayFabServerAPI::HelperUpdateUserStatistics(FPlayFabBaseModel response, b
 /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCatalogItems(FServerGetCatalogItemsRequest request,
     FDelegateOnSuccessGetCatalogItems onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCatalogItems = onSuccess;
@@ -1787,14 +1844,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCatalogItems(FServerGetCatalogItemsRequ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetCatalogItems(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetCatalogItems(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1802,7 +1859,7 @@ void UPlayFabServerAPI::HelperGetCatalogItems(FPlayFabBaseModel response, bool s
         FServerGetCatalogItemsResult result = UPlayFabServerModelDecoder::decodeGetCatalogItemsResultResponse(response.responseData);
         if (OnSuccessGetCatalogItems.IsBound())
         {
-            OnSuccessGetCatalogItems.Execute(result);
+            OnSuccessGetCatalogItems.Execute(result, customData);
         }
     }
 }
@@ -1810,11 +1867,13 @@ void UPlayFabServerAPI::HelperGetCatalogItems(FPlayFabBaseModel response, bool s
 /** Retrieves the key-value store of custom publisher settings */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPublisherData(FServerGetPublisherDataRequest request,
     FDelegateOnSuccessGetPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPublisherData = onSuccess;
@@ -1848,14 +1907,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPublisherData(FServerGetPublisherDataRe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1863,7 +1922,7 @@ void UPlayFabServerAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool 
         FServerGetPublisherDataResult result = UPlayFabServerModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
         if (OnSuccessGetPublisherData.IsBound())
         {
-            OnSuccessGetPublisherData.Execute(result);
+            OnSuccessGetPublisherData.Execute(result, customData);
         }
     }
 }
@@ -1871,11 +1930,13 @@ void UPlayFabServerAPI::HelperGetPublisherData(FPlayFabBaseModel response, bool 
 /** Retrieves the key-value store of custom title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::GetTitleData(FServerGetTitleDataRequest request,
     FDelegateOnSuccessGetTitleData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetTitleData = onSuccess;
@@ -1909,14 +1970,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetTitleData(FServerGetTitleDataRequest re
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetTitleData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetTitleData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1924,7 +1985,7 @@ void UPlayFabServerAPI::HelperGetTitleData(FPlayFabBaseModel response, bool succ
         FServerGetTitleDataResult result = UPlayFabServerModelDecoder::decodeGetTitleDataResultResponse(response.responseData);
         if (OnSuccessGetTitleData.IsBound())
         {
-            OnSuccessGetTitleData.Execute(result);
+            OnSuccessGetTitleData.Execute(result, customData);
         }
     }
 }
@@ -1932,11 +1993,13 @@ void UPlayFabServerAPI::HelperGetTitleData(FPlayFabBaseModel response, bool succ
 /** Retrieves the key-value store of custom internal title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::GetTitleInternalData(FServerGetTitleDataRequest request,
     FDelegateOnSuccessGetTitleInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetTitleInternalData = onSuccess;
@@ -1970,14 +2033,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetTitleInternalData(FServerGetTitleDataRe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetTitleInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -1985,7 +2048,7 @@ void UPlayFabServerAPI::HelperGetTitleInternalData(FPlayFabBaseModel response, b
         FServerGetTitleDataResult result = UPlayFabServerModelDecoder::decodeGetTitleDataResultResponse(response.responseData);
         if (OnSuccessGetTitleInternalData.IsBound())
         {
-            OnSuccessGetTitleInternalData.Execute(result);
+            OnSuccessGetTitleInternalData.Execute(result, customData);
         }
     }
 }
@@ -1993,11 +2056,13 @@ void UPlayFabServerAPI::HelperGetTitleInternalData(FPlayFabBaseModel response, b
 /** Retrieves the title news feed, as configured in the developer portal */
 UPlayFabServerAPI* UPlayFabServerAPI::GetTitleNews(FServerGetTitleNewsRequest request,
     FDelegateOnSuccessGetTitleNews onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetTitleNews = onSuccess;
@@ -2020,14 +2085,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetTitleNews(FServerGetTitleNewsRequest re
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetTitleNews(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetTitleNews(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2035,7 +2100,7 @@ void UPlayFabServerAPI::HelperGetTitleNews(FPlayFabBaseModel response, bool succ
         FServerGetTitleNewsResult result = UPlayFabServerModelDecoder::decodeGetTitleNewsResultResponse(response.responseData);
         if (OnSuccessGetTitleNews.IsBound())
         {
-            OnSuccessGetTitleNews.Execute(result);
+            OnSuccessGetTitleNews.Execute(result, customData);
         }
     }
 }
@@ -2043,11 +2108,13 @@ void UPlayFabServerAPI::HelperGetTitleNews(FPlayFabBaseModel response, bool succ
 /** Updates the key-value store of custom publisher settings */
 UPlayFabServerAPI* UPlayFabServerAPI::SetPublisherData(FServerSetPublisherDataRequest request,
     FDelegateOnSuccessSetPublisherData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessSetPublisherData = onSuccess;
@@ -2087,14 +2154,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::SetPublisherData(FServerSetPublisherDataRe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperSetPublisherData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperSetPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2102,7 +2169,7 @@ void UPlayFabServerAPI::HelperSetPublisherData(FPlayFabBaseModel response, bool 
         FServerSetPublisherDataResult result = UPlayFabServerModelDecoder::decodeSetPublisherDataResultResponse(response.responseData);
         if (OnSuccessSetPublisherData.IsBound())
         {
-            OnSuccessSetPublisherData.Execute(result);
+            OnSuccessSetPublisherData.Execute(result, customData);
         }
     }
 }
@@ -2110,11 +2177,13 @@ void UPlayFabServerAPI::HelperSetPublisherData(FPlayFabBaseModel response, bool 
 /** Updates the key-value store of custom title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::SetTitleData(FServerSetTitleDataRequest request,
     FDelegateOnSuccessSetTitleData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessSetTitleData = onSuccess;
@@ -2154,14 +2223,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::SetTitleData(FServerSetTitleDataRequest re
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperSetTitleData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperSetTitleData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2169,7 +2238,7 @@ void UPlayFabServerAPI::HelperSetTitleData(FPlayFabBaseModel response, bool succ
         FServerSetTitleDataResult result = UPlayFabServerModelDecoder::decodeSetTitleDataResultResponse(response.responseData);
         if (OnSuccessSetTitleData.IsBound())
         {
-            OnSuccessSetTitleData.Execute(result);
+            OnSuccessSetTitleData.Execute(result, customData);
         }
     }
 }
@@ -2177,11 +2246,13 @@ void UPlayFabServerAPI::HelperSetTitleData(FPlayFabBaseModel response, bool succ
 /** Updates the key-value store of custom title settings */
 UPlayFabServerAPI* UPlayFabServerAPI::SetTitleInternalData(FServerSetTitleDataRequest request,
     FDelegateOnSuccessSetTitleInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessSetTitleInternalData = onSuccess;
@@ -2221,14 +2292,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::SetTitleInternalData(FServerSetTitleDataRe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperSetTitleInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperSetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2236,7 +2307,7 @@ void UPlayFabServerAPI::HelperSetTitleInternalData(FPlayFabBaseModel response, b
         FServerSetTitleDataResult result = UPlayFabServerModelDecoder::decodeSetTitleDataResultResponse(response.responseData);
         if (OnSuccessSetTitleInternalData.IsBound())
         {
-            OnSuccessSetTitleInternalData.Execute(result);
+            OnSuccessSetTitleInternalData.Execute(result, customData);
         }
     }
 }
@@ -2248,11 +2319,13 @@ void UPlayFabServerAPI::HelperSetTitleInternalData(FPlayFabBaseModel response, b
 /** Increments  the character's balance of the specified virtual currency by the stated amount */
 UPlayFabServerAPI* UPlayFabServerAPI::AddCharacterVirtualCurrency(FServerAddCharacterVirtualCurrencyRequest request,
     FDelegateOnSuccessAddCharacterVirtualCurrency onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessAddCharacterVirtualCurrency = onSuccess;
@@ -2302,14 +2375,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::AddCharacterVirtualCurrency(FServerAddChar
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperAddCharacterVirtualCurrency(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperAddCharacterVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2317,7 +2390,7 @@ void UPlayFabServerAPI::HelperAddCharacterVirtualCurrency(FPlayFabBaseModel resp
         FServerModifyCharacterVirtualCurrencyResult result = UPlayFabServerModelDecoder::decodeModifyCharacterVirtualCurrencyResultResponse(response.responseData);
         if (OnSuccessAddCharacterVirtualCurrency.IsBound())
         {
-            OnSuccessAddCharacterVirtualCurrency.Execute(result);
+            OnSuccessAddCharacterVirtualCurrency.Execute(result, customData);
         }
     }
 }
@@ -2325,11 +2398,13 @@ void UPlayFabServerAPI::HelperAddCharacterVirtualCurrency(FPlayFabBaseModel resp
 /** Increments  the user's balance of the specified virtual currency by the stated amount */
 UPlayFabServerAPI* UPlayFabServerAPI::AddUserVirtualCurrency(FServerAddUserVirtualCurrencyRequest request,
     FDelegateOnSuccessAddUserVirtualCurrency onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessAddUserVirtualCurrency = onSuccess;
@@ -2370,14 +2445,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::AddUserVirtualCurrency(FServerAddUserVirtu
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperAddUserVirtualCurrency(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperAddUserVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2385,7 +2460,7 @@ void UPlayFabServerAPI::HelperAddUserVirtualCurrency(FPlayFabBaseModel response,
         FServerModifyUserVirtualCurrencyResult result = UPlayFabServerModelDecoder::decodeModifyUserVirtualCurrencyResultResponse(response.responseData);
         if (OnSuccessAddUserVirtualCurrency.IsBound())
         {
-            OnSuccessAddUserVirtualCurrency.Execute(result);
+            OnSuccessAddUserVirtualCurrency.Execute(result, customData);
         }
     }
 }
@@ -2393,11 +2468,13 @@ void UPlayFabServerAPI::HelperAddUserVirtualCurrency(FPlayFabBaseModel response,
 /** Consume uses of a consumable item. When all uses are consumed, it will be removed from the player's inventory. */
 UPlayFabServerAPI* UPlayFabServerAPI::ConsumeItem(FServerConsumeItemRequest request,
     FDelegateOnSuccessConsumeItem onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessConsumeItem = onSuccess;
@@ -2447,14 +2524,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::ConsumeItem(FServerConsumeItemRequest requ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperConsumeItem(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperConsumeItem(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2462,7 +2539,7 @@ void UPlayFabServerAPI::HelperConsumeItem(FPlayFabBaseModel response, bool succe
         FServerConsumeItemResult result = UPlayFabServerModelDecoder::decodeConsumeItemResultResponse(response.responseData);
         if (OnSuccessConsumeItem.IsBound())
         {
-            OnSuccessConsumeItem.Execute(result);
+            OnSuccessConsumeItem.Execute(result, customData);
         }
     }
 }
@@ -2470,11 +2547,13 @@ void UPlayFabServerAPI::HelperConsumeItem(FPlayFabBaseModel response, bool succe
 /** Returns the result of an evaluation of a Random Result Table - the ItemId from the game Catalog which would have been added to the player inventory, if the Random Result Table were added via a Bundle or a call to UnlockContainer. */
 UPlayFabServerAPI* UPlayFabServerAPI::EvaluateRandomResultTable(FServerEvaluateRandomResultTableRequest request,
     FDelegateOnSuccessEvaluateRandomResultTable onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessEvaluateRandomResultTable = onSuccess;
@@ -2514,14 +2593,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::EvaluateRandomResultTable(FServerEvaluateR
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperEvaluateRandomResultTable(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperEvaluateRandomResultTable(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2529,7 +2608,7 @@ void UPlayFabServerAPI::HelperEvaluateRandomResultTable(FPlayFabBaseModel respon
         FServerEvaluateRandomResultTableResult result = UPlayFabServerModelDecoder::decodeEvaluateRandomResultTableResultResponse(response.responseData);
         if (OnSuccessEvaluateRandomResultTable.IsBound())
         {
-            OnSuccessEvaluateRandomResultTable.Execute(result);
+            OnSuccessEvaluateRandomResultTable.Execute(result, customData);
         }
     }
 }
@@ -2537,11 +2616,13 @@ void UPlayFabServerAPI::HelperEvaluateRandomResultTable(FPlayFabBaseModel respon
 /** Retrieves the specified character's current inventory of virtual goods */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInventory(FServerGetCharacterInventoryRequest request,
     FDelegateOnSuccessGetCharacterInventory onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCharacterInventory = onSuccess;
@@ -2590,14 +2671,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInventory(FServerGetCharacterI
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetCharacterInventory(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetCharacterInventory(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2605,7 +2686,7 @@ void UPlayFabServerAPI::HelperGetCharacterInventory(FPlayFabBaseModel response, 
         FServerGetCharacterInventoryResult result = UPlayFabServerModelDecoder::decodeGetCharacterInventoryResultResponse(response.responseData);
         if (OnSuccessGetCharacterInventory.IsBound())
         {
-            OnSuccessGetCharacterInventory.Execute(result);
+            OnSuccessGetCharacterInventory.Execute(result, customData);
         }
     }
 }
@@ -2613,11 +2694,13 @@ void UPlayFabServerAPI::HelperGetCharacterInventory(FPlayFabBaseModel response, 
 /** Retrieves the specified user's current inventory of virtual goods */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserInventory(FServerGetUserInventoryRequest request,
     FDelegateOnSuccessGetUserInventory onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserInventory = onSuccess;
@@ -2648,14 +2731,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetUserInventory(FServerGetUserInventoryRe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserInventory(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetUserInventory(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2663,7 +2746,7 @@ void UPlayFabServerAPI::HelperGetUserInventory(FPlayFabBaseModel response, bool 
         FServerGetUserInventoryResult result = UPlayFabServerModelDecoder::decodeGetUserInventoryResultResponse(response.responseData);
         if (OnSuccessGetUserInventory.IsBound())
         {
-            OnSuccessGetUserInventory.Execute(result);
+            OnSuccessGetUserInventory.Execute(result, customData);
         }
     }
 }
@@ -2671,11 +2754,13 @@ void UPlayFabServerAPI::HelperGetUserInventory(FPlayFabBaseModel response, bool 
 /** Adds the specified items to the specified character's inventory */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToCharacter(FServerGrantItemsToCharacterRequest request,
     FDelegateOnSuccessGrantItemsToCharacter onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGrantItemsToCharacter = onSuccess;
@@ -2745,14 +2830,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToCharacter(FServerGrantItemsToC
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGrantItemsToCharacter(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGrantItemsToCharacter(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2760,7 +2845,7 @@ void UPlayFabServerAPI::HelperGrantItemsToCharacter(FPlayFabBaseModel response, 
         FServerGrantItemsToCharacterResult result = UPlayFabServerModelDecoder::decodeGrantItemsToCharacterResultResponse(response.responseData);
         if (OnSuccessGrantItemsToCharacter.IsBound())
         {
-            OnSuccessGrantItemsToCharacter.Execute(result);
+            OnSuccessGrantItemsToCharacter.Execute(result, customData);
         }
     }
 }
@@ -2768,11 +2853,13 @@ void UPlayFabServerAPI::HelperGrantItemsToCharacter(FPlayFabBaseModel response, 
 /** Adds the specified items to the specified user's inventory */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUser(FServerGrantItemsToUserRequest request,
     FDelegateOnSuccessGrantItemsToUser onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGrantItemsToUser = onSuccess;
@@ -2833,14 +2920,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUser(FServerGrantItemsToUserRe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGrantItemsToUser(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGrantItemsToUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2848,7 +2935,7 @@ void UPlayFabServerAPI::HelperGrantItemsToUser(FPlayFabBaseModel response, bool 
         FServerGrantItemsToUserResult result = UPlayFabServerModelDecoder::decodeGrantItemsToUserResultResponse(response.responseData);
         if (OnSuccessGrantItemsToUser.IsBound())
         {
-            OnSuccessGrantItemsToUser.Execute(result);
+            OnSuccessGrantItemsToUser.Execute(result, customData);
         }
     }
 }
@@ -2856,11 +2943,13 @@ void UPlayFabServerAPI::HelperGrantItemsToUser(FPlayFabBaseModel response, bool 
 /** Adds the specified items to the specified user inventories */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUsers(FServerGrantItemsToUsersRequest request,
     FDelegateOnSuccessGrantItemsToUsers onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGrantItemsToUsers = onSuccess;
@@ -2892,14 +2981,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantItemsToUsers(FServerGrantItemsToUsers
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGrantItemsToUsers(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGrantItemsToUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2907,7 +2996,7 @@ void UPlayFabServerAPI::HelperGrantItemsToUsers(FPlayFabBaseModel response, bool
         FServerGrantItemsToUsersResult result = UPlayFabServerModelDecoder::decodeGrantItemsToUsersResultResponse(response.responseData);
         if (OnSuccessGrantItemsToUsers.IsBound())
         {
-            OnSuccessGrantItemsToUsers.Execute(result);
+            OnSuccessGrantItemsToUsers.Execute(result, customData);
         }
     }
 }
@@ -2915,11 +3004,13 @@ void UPlayFabServerAPI::HelperGrantItemsToUsers(FPlayFabBaseModel response, bool
 /** Modifies the number of remaining uses of a player's inventory item */
 UPlayFabServerAPI* UPlayFabServerAPI::ModifyItemUses(FServerModifyItemUsesRequest request,
     FDelegateOnSuccessModifyItemUses onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessModifyItemUses = onSuccess;
@@ -2960,14 +3051,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::ModifyItemUses(FServerModifyItemUsesReques
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperModifyItemUses(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperModifyItemUses(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -2975,7 +3066,7 @@ void UPlayFabServerAPI::HelperModifyItemUses(FPlayFabBaseModel response, bool su
         FServerModifyItemUsesResult result = UPlayFabServerModelDecoder::decodeModifyItemUsesResultResponse(response.responseData);
         if (OnSuccessModifyItemUses.IsBound())
         {
-            OnSuccessModifyItemUses.Execute(result);
+            OnSuccessModifyItemUses.Execute(result, customData);
         }
     }
 }
@@ -2983,11 +3074,13 @@ void UPlayFabServerAPI::HelperModifyItemUses(FPlayFabBaseModel response, bool su
 /** Moves an item from a character's inventory into another of the users's character's inventory. */
 UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromCharacter(FServerMoveItemToCharacterFromCharacterRequest request,
     FDelegateOnSuccessMoveItemToCharacterFromCharacter onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessMoveItemToCharacterFromCharacter = onSuccess;
@@ -3045,14 +3138,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromCharacter(FServerMo
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperMoveItemToCharacterFromCharacter(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperMoveItemToCharacterFromCharacter(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3060,7 +3153,7 @@ void UPlayFabServerAPI::HelperMoveItemToCharacterFromCharacter(FPlayFabBaseModel
         FServerMoveItemToCharacterFromCharacterResult result = UPlayFabServerModelDecoder::decodeMoveItemToCharacterFromCharacterResultResponse(response.responseData);
         if (OnSuccessMoveItemToCharacterFromCharacter.IsBound())
         {
-            OnSuccessMoveItemToCharacterFromCharacter.Execute(result);
+            OnSuccessMoveItemToCharacterFromCharacter.Execute(result, customData);
         }
     }
 }
@@ -3068,11 +3161,13 @@ void UPlayFabServerAPI::HelperMoveItemToCharacterFromCharacter(FPlayFabBaseModel
 /** Moves an item from a user's inventory into their character's inventory. */
 UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromUser(FServerMoveItemToCharacterFromUserRequest request,
     FDelegateOnSuccessMoveItemToCharacterFromUser onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessMoveItemToCharacterFromUser = onSuccess;
@@ -3121,14 +3216,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToCharacterFromUser(FServerMoveIte
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperMoveItemToCharacterFromUser(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperMoveItemToCharacterFromUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3136,7 +3231,7 @@ void UPlayFabServerAPI::HelperMoveItemToCharacterFromUser(FPlayFabBaseModel resp
         FServerMoveItemToCharacterFromUserResult result = UPlayFabServerModelDecoder::decodeMoveItemToCharacterFromUserResultResponse(response.responseData);
         if (OnSuccessMoveItemToCharacterFromUser.IsBound())
         {
-            OnSuccessMoveItemToCharacterFromUser.Execute(result);
+            OnSuccessMoveItemToCharacterFromUser.Execute(result, customData);
         }
     }
 }
@@ -3144,11 +3239,13 @@ void UPlayFabServerAPI::HelperMoveItemToCharacterFromUser(FPlayFabBaseModel resp
 /** Moves an item from a character's inventory into the owning user's inventory. */
 UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToUserFromCharacter(FServerMoveItemToUserFromCharacterRequest request,
     FDelegateOnSuccessMoveItemToUserFromCharacter onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessMoveItemToUserFromCharacter = onSuccess;
@@ -3197,14 +3294,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::MoveItemToUserFromCharacter(FServerMoveIte
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperMoveItemToUserFromCharacter(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperMoveItemToUserFromCharacter(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3212,7 +3309,7 @@ void UPlayFabServerAPI::HelperMoveItemToUserFromCharacter(FPlayFabBaseModel resp
         FServerMoveItemToUserFromCharacterResult result = UPlayFabServerModelDecoder::decodeMoveItemToUserFromCharacterResultResponse(response.responseData);
         if (OnSuccessMoveItemToUserFromCharacter.IsBound())
         {
-            OnSuccessMoveItemToUserFromCharacter.Execute(result);
+            OnSuccessMoveItemToUserFromCharacter.Execute(result, customData);
         }
     }
 }
@@ -3220,11 +3317,13 @@ void UPlayFabServerAPI::HelperMoveItemToUserFromCharacter(FPlayFabBaseModel resp
 /** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Promotions->Coupons tab in the PlayFab Game Manager. See this post for more information on coupons:  https://playfab.com/blog/2015/06/18/using-stores-and-coupons-game-manager */
 UPlayFabServerAPI* UPlayFabServerAPI::RedeemCoupon(FServerRedeemCouponRequest request,
     FDelegateOnSuccessRedeemCoupon onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessRedeemCoupon = onSuccess;
@@ -3273,14 +3372,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::RedeemCoupon(FServerRedeemCouponRequest re
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperRedeemCoupon(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperRedeemCoupon(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3288,7 +3387,7 @@ void UPlayFabServerAPI::HelperRedeemCoupon(FPlayFabBaseModel response, bool succ
         FServerRedeemCouponResult result = UPlayFabServerModelDecoder::decodeRedeemCouponResultResponse(response.responseData);
         if (OnSuccessRedeemCoupon.IsBound())
         {
-            OnSuccessRedeemCoupon.Execute(result);
+            OnSuccessRedeemCoupon.Execute(result, customData);
         }
     }
 }
@@ -3296,11 +3395,13 @@ void UPlayFabServerAPI::HelperRedeemCoupon(FPlayFabBaseModel response, bool succ
 /** Submit a report about a player (due to bad bahavior, etc.) on behalf of another player, so that customer service representatives for the title can take action concerning potentially toxic players. */
 UPlayFabServerAPI* UPlayFabServerAPI::ReportPlayer(FServerReportPlayerServerRequest request,
     FDelegateOnSuccessReportPlayer onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessReportPlayer = onSuccess;
@@ -3350,14 +3451,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::ReportPlayer(FServerReportPlayerServerRequ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperReportPlayer(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperReportPlayer(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3365,7 +3466,7 @@ void UPlayFabServerAPI::HelperReportPlayer(FPlayFabBaseModel response, bool succ
         FServerReportPlayerServerResult result = UPlayFabServerModelDecoder::decodeReportPlayerServerResultResponse(response.responseData);
         if (OnSuccessReportPlayer.IsBound())
         {
-            OnSuccessReportPlayer.Execute(result);
+            OnSuccessReportPlayer.Execute(result, customData);
         }
     }
 }
@@ -3373,11 +3474,13 @@ void UPlayFabServerAPI::HelperReportPlayer(FPlayFabBaseModel response, bool succ
 /** Revokes access to an item in a user's inventory */
 UPlayFabServerAPI* UPlayFabServerAPI::RevokeInventoryItem(FServerRevokeInventoryItemRequest request,
     FDelegateOnSuccessRevokeInventoryItem onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessRevokeInventoryItem = onSuccess;
@@ -3426,14 +3529,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::RevokeInventoryItem(FServerRevokeInventory
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperRevokeInventoryItem(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperRevokeInventoryItem(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3441,7 +3544,7 @@ void UPlayFabServerAPI::HelperRevokeInventoryItem(FPlayFabBaseModel response, bo
         FServerRevokeInventoryResult result = UPlayFabServerModelDecoder::decodeRevokeInventoryResultResponse(response.responseData);
         if (OnSuccessRevokeInventoryItem.IsBound())
         {
-            OnSuccessRevokeInventoryItem.Execute(result);
+            OnSuccessRevokeInventoryItem.Execute(result, customData);
         }
     }
 }
@@ -3449,11 +3552,13 @@ void UPlayFabServerAPI::HelperRevokeInventoryItem(FPlayFabBaseModel response, bo
 /** Decrements the character's balance of the specified virtual currency by the stated amount */
 UPlayFabServerAPI* UPlayFabServerAPI::SubtractCharacterVirtualCurrency(FServerSubtractCharacterVirtualCurrencyRequest request,
     FDelegateOnSuccessSubtractCharacterVirtualCurrency onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessSubtractCharacterVirtualCurrency = onSuccess;
@@ -3503,14 +3608,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::SubtractCharacterVirtualCurrency(FServerSu
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperSubtractCharacterVirtualCurrency(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperSubtractCharacterVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3518,7 +3623,7 @@ void UPlayFabServerAPI::HelperSubtractCharacterVirtualCurrency(FPlayFabBaseModel
         FServerModifyCharacterVirtualCurrencyResult result = UPlayFabServerModelDecoder::decodeModifyCharacterVirtualCurrencyResultResponse(response.responseData);
         if (OnSuccessSubtractCharacterVirtualCurrency.IsBound())
         {
-            OnSuccessSubtractCharacterVirtualCurrency.Execute(result);
+            OnSuccessSubtractCharacterVirtualCurrency.Execute(result, customData);
         }
     }
 }
@@ -3526,11 +3631,13 @@ void UPlayFabServerAPI::HelperSubtractCharacterVirtualCurrency(FPlayFabBaseModel
 /** Decrements the user's balance of the specified virtual currency by the stated amount */
 UPlayFabServerAPI* UPlayFabServerAPI::SubtractUserVirtualCurrency(FServerSubtractUserVirtualCurrencyRequest request,
     FDelegateOnSuccessSubtractUserVirtualCurrency onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessSubtractUserVirtualCurrency = onSuccess;
@@ -3571,14 +3678,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::SubtractUserVirtualCurrency(FServerSubtrac
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperSubtractUserVirtualCurrency(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperSubtractUserVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3586,7 +3693,7 @@ void UPlayFabServerAPI::HelperSubtractUserVirtualCurrency(FPlayFabBaseModel resp
         FServerModifyUserVirtualCurrencyResult result = UPlayFabServerModelDecoder::decodeModifyUserVirtualCurrencyResultResponse(response.responseData);
         if (OnSuccessSubtractUserVirtualCurrency.IsBound())
         {
-            OnSuccessSubtractUserVirtualCurrency.Execute(result);
+            OnSuccessSubtractUserVirtualCurrency.Execute(result, customData);
         }
     }
 }
@@ -3594,11 +3701,13 @@ void UPlayFabServerAPI::HelperSubtractUserVirtualCurrency(FPlayFabBaseModel resp
 /** Opens a specific container (ContainerItemInstanceId), with a specific key (KeyItemInstanceId, when required), and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
 UPlayFabServerAPI* UPlayFabServerAPI::UnlockContainerInstance(FServerUnlockContainerInstanceRequest request,
     FDelegateOnSuccessUnlockContainerInstance onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUnlockContainerInstance = onSuccess;
@@ -3665,14 +3774,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UnlockContainerInstance(FServerUnlockConta
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUnlockContainerInstance(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUnlockContainerInstance(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3680,7 +3789,7 @@ void UPlayFabServerAPI::HelperUnlockContainerInstance(FPlayFabBaseModel response
         FServerUnlockContainerItemResult result = UPlayFabServerModelDecoder::decodeUnlockContainerItemResultResponse(response.responseData);
         if (OnSuccessUnlockContainerInstance.IsBound())
         {
-            OnSuccessUnlockContainerInstance.Execute(result);
+            OnSuccessUnlockContainerInstance.Execute(result, customData);
         }
     }
 }
@@ -3688,11 +3797,13 @@ void UPlayFabServerAPI::HelperUnlockContainerInstance(FPlayFabBaseModel response
 /** Searches Player or Character inventory for any ItemInstance matching the given CatalogItemId, if necessary unlocks it using any appropriate key, and returns the contents of the opened container. If the container (and key when relevant) are consumable (RemainingUses > 0), their RemainingUses will be decremented, consistent with the operation of ConsumeItem. */
 UPlayFabServerAPI* UPlayFabServerAPI::UnlockContainerItem(FServerUnlockContainerItemRequest request,
     FDelegateOnSuccessUnlockContainerItem onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUnlockContainerItem = onSuccess;
@@ -3750,14 +3861,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UnlockContainerItem(FServerUnlockContainer
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUnlockContainerItem(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUnlockContainerItem(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3765,7 +3876,7 @@ void UPlayFabServerAPI::HelperUnlockContainerItem(FPlayFabBaseModel response, bo
         FServerUnlockContainerItemResult result = UPlayFabServerModelDecoder::decodeUnlockContainerItemResultResponse(response.responseData);
         if (OnSuccessUnlockContainerItem.IsBound())
         {
-            OnSuccessUnlockContainerItem.Execute(result);
+            OnSuccessUnlockContainerItem.Execute(result, customData);
         }
     }
 }
@@ -3773,11 +3884,13 @@ void UPlayFabServerAPI::HelperUnlockContainerItem(FPlayFabBaseModel response, bo
 /** Updates the key-value pair data tagged to the specified item, which is read-only from the client. */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerUpdateUserInventoryItemDataRequest request,
     FDelegateOnSuccessUpdateUserInventoryItemCustomData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserInventoryItemCustomData = onSuccess;
@@ -3818,7 +3931,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerU
         OutRestJsonObj->SetStringField(TEXT("ItemInstanceId"), request.ItemInstanceId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -3839,14 +3952,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserInventoryItemCustomData(FServerU
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserInventoryItemCustomData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateUserInventoryItemCustomData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3854,7 +3967,7 @@ void UPlayFabServerAPI::HelperUpdateUserInventoryItemCustomData(FPlayFabBaseMode
         FServerEmptyResult result = UPlayFabServerModelDecoder::decodeEmptyResultResponse(response.responseData);
         if (OnSuccessUpdateUserInventoryItemCustomData.IsBound())
         {
-            OnSuccessUpdateUserInventoryItemCustomData.Execute(result);
+            OnSuccessUpdateUserInventoryItemCustomData.Execute(result, customData);
         }
     }
 }
@@ -3870,11 +3983,13 @@ void UPlayFabServerAPI::HelperUpdateUserInventoryItemCustomData(FPlayFabBaseMode
 /** Informs the PlayFab match-making service that the user specified has left the Game Server Instance */
 UPlayFabServerAPI* UPlayFabServerAPI::NotifyMatchmakerPlayerLeft(FServerNotifyMatchmakerPlayerLeftRequest request,
     FDelegateOnSuccessNotifyMatchmakerPlayerLeft onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessNotifyMatchmakerPlayerLeft = onSuccess;
@@ -3914,14 +4029,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::NotifyMatchmakerPlayerLeft(FServerNotifyMa
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperNotifyMatchmakerPlayerLeft(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperNotifyMatchmakerPlayerLeft(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3929,7 +4044,7 @@ void UPlayFabServerAPI::HelperNotifyMatchmakerPlayerLeft(FPlayFabBaseModel respo
         FServerNotifyMatchmakerPlayerLeftResult result = UPlayFabServerModelDecoder::decodeNotifyMatchmakerPlayerLeftResultResponse(response.responseData);
         if (OnSuccessNotifyMatchmakerPlayerLeft.IsBound())
         {
-            OnSuccessNotifyMatchmakerPlayerLeft.Execute(result);
+            OnSuccessNotifyMatchmakerPlayerLeft.Execute(result, customData);
         }
     }
 }
@@ -3937,11 +4052,13 @@ void UPlayFabServerAPI::HelperNotifyMatchmakerPlayerLeft(FPlayFabBaseModel respo
 /** Validates a Game Server session ticket and returns details about the user */
 UPlayFabServerAPI* UPlayFabServerAPI::RedeemMatchmakerTicket(FServerRedeemMatchmakerTicketRequest request,
     FDelegateOnSuccessRedeemMatchmakerTicket onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessRedeemMatchmakerTicket = onSuccess;
@@ -3981,14 +4098,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::RedeemMatchmakerTicket(FServerRedeemMatchm
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperRedeemMatchmakerTicket(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperRedeemMatchmakerTicket(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -3996,7 +4113,70 @@ void UPlayFabServerAPI::HelperRedeemMatchmakerTicket(FPlayFabBaseModel response,
         FServerRedeemMatchmakerTicketResult result = UPlayFabServerModelDecoder::decodeRedeemMatchmakerTicketResultResponse(response.responseData);
         if (OnSuccessRedeemMatchmakerTicket.IsBound())
         {
-            OnSuccessRedeemMatchmakerTicket.Execute(result);
+            OnSuccessRedeemMatchmakerTicket.Execute(result, customData);
+        }
+    }
+}
+
+/** Sets the state of the indicated Game Server Instance */
+UPlayFabServerAPI* UPlayFabServerAPI::SetGameServerInstanceState(FServerSetGameServerInstanceStateRequest request,
+    FDelegateOnSuccessSetGameServerInstanceState onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessSetGameServerInstanceState = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperSetGameServerInstanceState);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/SetGameServerInstanceState";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.LobbyId.IsEmpty() || request.LobbyId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("LobbyId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("LobbyId"), request.LobbyId);
+    }
+
+    FString temp_State;
+    if (GetEnumValueToString<EGameInstanceState>(TEXT("EGameInstanceState"), request.State, temp_State))
+        OutRestJsonObj->SetStringField(TEXT("State"), temp_State);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperSetGameServerInstanceState(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerSetGameServerInstanceStateResult result = UPlayFabServerModelDecoder::decodeSetGameServerInstanceStateResultResponse(response.responseData);
+        if (OnSuccessSetGameServerInstanceState.IsBound())
+        {
+            OnSuccessSetGameServerInstanceState.Execute(result, customData);
         }
     }
 }
@@ -4008,11 +4188,13 @@ void UPlayFabServerAPI::HelperRedeemMatchmakerTicket(FPlayFabBaseModel response,
 /** Awards the specified users the specified Steam achievements */
 UPlayFabServerAPI* UPlayFabServerAPI::AwardSteamAchievement(FServerAwardSteamAchievementRequest request,
     FDelegateOnSuccessAwardSteamAchievement onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessAwardSteamAchievement = onSuccess;
@@ -4035,14 +4217,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::AwardSteamAchievement(FServerAwardSteamAch
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperAwardSteamAchievement(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperAwardSteamAchievement(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4050,7 +4232,7 @@ void UPlayFabServerAPI::HelperAwardSteamAchievement(FPlayFabBaseModel response, 
         FServerAwardSteamAchievementResult result = UPlayFabServerModelDecoder::decodeAwardSteamAchievementResultResponse(response.responseData);
         if (OnSuccessAwardSteamAchievement.IsBound())
         {
-            OnSuccessAwardSteamAchievement.Execute(result);
+            OnSuccessAwardSteamAchievement.Execute(result, customData);
         }
     }
 }
@@ -4062,11 +4244,13 @@ void UPlayFabServerAPI::HelperAwardSteamAchievement(FPlayFabBaseModel response, 
 /** Logs a custom analytics event */
 UPlayFabServerAPI* UPlayFabServerAPI::LogEvent(FServerLogEventRequest request,
     FDelegateOnSuccessLogEvent onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessLogEvent = onSuccess;
@@ -4125,7 +4309,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::LogEvent(FServerLogEventRequest request,
         OutRestJsonObj->SetStringField(TEXT("EventName"), request.EventName);
     }
 
-    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+    if (request.Body != nullptr) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
     OutRestJsonObj->SetBoolField(TEXT("ProfileSetEvent"), request.ProfileSetEvent);
 
     // Add Request to manager
@@ -4135,14 +4319,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::LogEvent(FServerLogEventRequest request,
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperLogEvent(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperLogEvent(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4150,7 +4334,7 @@ void UPlayFabServerAPI::HelperLogEvent(FPlayFabBaseModel response, bool successf
         FServerLogEventResult result = UPlayFabServerModelDecoder::decodeLogEventResultResponse(response.responseData);
         if (OnSuccessLogEvent.IsBound())
         {
-            OnSuccessLogEvent.Execute(result);
+            OnSuccessLogEvent.Execute(result, customData);
         }
     }
 }
@@ -4158,11 +4342,13 @@ void UPlayFabServerAPI::HelperLogEvent(FPlayFabBaseModel response, bool successf
 /** Writes a character-based event into PlayStream. */
 UPlayFabServerAPI* UPlayFabServerAPI::WriteCharacterEvent(FServerWriteServerCharacterEventRequest request,
     FDelegateOnSuccessWriteCharacterEvent onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessWriteCharacterEvent = onSuccess;
@@ -4212,7 +4398,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::WriteCharacterEvent(FServerWriteServerChar
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
 
-    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+    if (request.Body != nullptr) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4221,14 +4407,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::WriteCharacterEvent(FServerWriteServerChar
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperWriteCharacterEvent(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperWriteCharacterEvent(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4236,7 +4422,7 @@ void UPlayFabServerAPI::HelperWriteCharacterEvent(FPlayFabBaseModel response, bo
         FServerWriteEventResponse result = UPlayFabServerModelDecoder::decodeWriteEventResponseResponse(response.responseData);
         if (OnSuccessWriteCharacterEvent.IsBound())
         {
-            OnSuccessWriteCharacterEvent.Execute(result);
+            OnSuccessWriteCharacterEvent.Execute(result, customData);
         }
     }
 }
@@ -4244,11 +4430,13 @@ void UPlayFabServerAPI::HelperWriteCharacterEvent(FPlayFabBaseModel response, bo
 /** Writes a player-based event into PlayStream. */
 UPlayFabServerAPI* UPlayFabServerAPI::WritePlayerEvent(FServerWriteServerPlayerEventRequest request,
     FDelegateOnSuccessWritePlayerEvent onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessWritePlayerEvent = onSuccess;
@@ -4289,7 +4477,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::WritePlayerEvent(FServerWriteServerPlayerE
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
 
-    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+    if (request.Body != nullptr) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4298,14 +4486,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::WritePlayerEvent(FServerWriteServerPlayerE
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperWritePlayerEvent(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperWritePlayerEvent(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4313,7 +4501,7 @@ void UPlayFabServerAPI::HelperWritePlayerEvent(FPlayFabBaseModel response, bool 
         FServerWriteEventResponse result = UPlayFabServerModelDecoder::decodeWriteEventResponseResponse(response.responseData);
         if (OnSuccessWritePlayerEvent.IsBound())
         {
-            OnSuccessWritePlayerEvent.Execute(result);
+            OnSuccessWritePlayerEvent.Execute(result, customData);
         }
     }
 }
@@ -4321,11 +4509,13 @@ void UPlayFabServerAPI::HelperWritePlayerEvent(FPlayFabBaseModel response, bool 
 /** Writes a title-based event into PlayStream. */
 UPlayFabServerAPI* UPlayFabServerAPI::WriteTitleEvent(FServerWriteTitleEventRequest request,
     FDelegateOnSuccessWriteTitleEvent onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessWriteTitleEvent = onSuccess;
@@ -4357,7 +4547,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::WriteTitleEvent(FServerWriteTitleEventRequ
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
 
-    if (request.Body != NULL) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
+    if (request.Body != nullptr) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4366,14 +4556,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::WriteTitleEvent(FServerWriteTitleEventRequ
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperWriteTitleEvent(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperWriteTitleEvent(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4381,7 +4571,7 @@ void UPlayFabServerAPI::HelperWriteTitleEvent(FPlayFabBaseModel response, bool s
         FServerWriteEventResponse result = UPlayFabServerModelDecoder::decodeWriteEventResponseResponse(response.responseData);
         if (OnSuccessWriteTitleEvent.IsBound())
         {
-            OnSuccessWriteTitleEvent.Execute(result);
+            OnSuccessWriteTitleEvent.Execute(result, customData);
         }
     }
 }
@@ -4393,11 +4583,13 @@ void UPlayFabServerAPI::HelperWriteTitleEvent(FPlayFabBaseModel response, bool s
 /** Adds users to the set of those able to update both the shared data, as well as the set of users in the group. Only users in the group (and the server) can add new members. */
 UPlayFabServerAPI* UPlayFabServerAPI::AddSharedGroupMembers(FServerAddSharedGroupMembersRequest request,
     FDelegateOnSuccessAddSharedGroupMembers onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessAddSharedGroupMembers = onSuccess;
@@ -4440,14 +4632,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::AddSharedGroupMembers(FServerAddSharedGrou
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperAddSharedGroupMembers(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperAddSharedGroupMembers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4455,7 +4647,7 @@ void UPlayFabServerAPI::HelperAddSharedGroupMembers(FPlayFabBaseModel response, 
         FServerAddSharedGroupMembersResult result = UPlayFabServerModelDecoder::decodeAddSharedGroupMembersResultResponse(response.responseData);
         if (OnSuccessAddSharedGroupMembers.IsBound())
         {
-            OnSuccessAddSharedGroupMembers.Execute(result);
+            OnSuccessAddSharedGroupMembers.Execute(result, customData);
         }
     }
 }
@@ -4463,11 +4655,13 @@ void UPlayFabServerAPI::HelperAddSharedGroupMembers(FPlayFabBaseModel response, 
 /** Requests the creation of a shared group object, containing key/value pairs which may be updated by all members of the group. When created by a server, the group will initially have no members. */
 UPlayFabServerAPI* UPlayFabServerAPI::CreateSharedGroup(FServerCreateSharedGroupRequest request,
     FDelegateOnSuccessCreateSharedGroup onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessCreateSharedGroup = onSuccess;
@@ -4498,14 +4692,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::CreateSharedGroup(FServerCreateSharedGroup
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperCreateSharedGroup(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperCreateSharedGroup(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4513,7 +4707,7 @@ void UPlayFabServerAPI::HelperCreateSharedGroup(FPlayFabBaseModel response, bool
         FServerCreateSharedGroupResult result = UPlayFabServerModelDecoder::decodeCreateSharedGroupResultResponse(response.responseData);
         if (OnSuccessCreateSharedGroup.IsBound())
         {
-            OnSuccessCreateSharedGroup.Execute(result);
+            OnSuccessCreateSharedGroup.Execute(result, customData);
         }
     }
 }
@@ -4521,11 +4715,13 @@ void UPlayFabServerAPI::HelperCreateSharedGroup(FPlayFabBaseModel response, bool
 /** Deletes a shared group, freeing up the shared group ID to be reused for a new group */
 UPlayFabServerAPI* UPlayFabServerAPI::DeleteSharedGroup(FServerDeleteSharedGroupRequest request,
     FDelegateOnSuccessDeleteSharedGroup onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessDeleteSharedGroup = onSuccess;
@@ -4556,14 +4752,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::DeleteSharedGroup(FServerDeleteSharedGroup
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperDeleteSharedGroup(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperDeleteSharedGroup(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4571,7 +4767,7 @@ void UPlayFabServerAPI::HelperDeleteSharedGroup(FPlayFabBaseModel response, bool
         FServerEmptyResult result = UPlayFabServerModelDecoder::decodeEmptyResultResponse(response.responseData);
         if (OnSuccessDeleteSharedGroup.IsBound())
         {
-            OnSuccessDeleteSharedGroup.Execute(result);
+            OnSuccessDeleteSharedGroup.Execute(result, customData);
         }
     }
 }
@@ -4579,11 +4775,13 @@ void UPlayFabServerAPI::HelperDeleteSharedGroup(FPlayFabBaseModel response, bool
 /** Retrieves data stored in a shared group object, as well as the list of members in the group. The server can access all public and private group data. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetSharedGroupData(FServerGetSharedGroupDataRequest request,
     FDelegateOnSuccessGetSharedGroupData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetSharedGroupData = onSuccess;
@@ -4627,14 +4825,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetSharedGroupData(FServerGetSharedGroupDa
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetSharedGroupData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetSharedGroupData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4642,7 +4840,7 @@ void UPlayFabServerAPI::HelperGetSharedGroupData(FPlayFabBaseModel response, boo
         FServerGetSharedGroupDataResult result = UPlayFabServerModelDecoder::decodeGetSharedGroupDataResultResponse(response.responseData);
         if (OnSuccessGetSharedGroupData.IsBound())
         {
-            OnSuccessGetSharedGroupData.Execute(result);
+            OnSuccessGetSharedGroupData.Execute(result, customData);
         }
     }
 }
@@ -4650,11 +4848,13 @@ void UPlayFabServerAPI::HelperGetSharedGroupData(FPlayFabBaseModel response, boo
 /** Removes users from the set of those able to update the shared data and the set of users in the group. Only users in the group can remove members. If as a result of the call, zero users remain with access, the group and its associated data will be deleted. */
 UPlayFabServerAPI* UPlayFabServerAPI::RemoveSharedGroupMembers(FServerRemoveSharedGroupMembersRequest request,
     FDelegateOnSuccessRemoveSharedGroupMembers onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessRemoveSharedGroupMembers = onSuccess;
@@ -4697,14 +4897,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::RemoveSharedGroupMembers(FServerRemoveShar
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperRemoveSharedGroupMembers(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperRemoveSharedGroupMembers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4712,7 +4912,7 @@ void UPlayFabServerAPI::HelperRemoveSharedGroupMembers(FPlayFabBaseModel respons
         FServerRemoveSharedGroupMembersResult result = UPlayFabServerModelDecoder::decodeRemoveSharedGroupMembersResultResponse(response.responseData);
         if (OnSuccessRemoveSharedGroupMembers.IsBound())
         {
-            OnSuccessRemoveSharedGroupMembers.Execute(result);
+            OnSuccessRemoveSharedGroupMembers.Execute(result, customData);
         }
     }
 }
@@ -4720,11 +4920,13 @@ void UPlayFabServerAPI::HelperRemoveSharedGroupMembers(FPlayFabBaseModel respons
 /** Adds, updates, and removes data keys for a shared group object. If the permission is set to Public, all fields updated or added in this call will be readable by users not in the group. By default, data permissions are set to Private. Regardless of the permission setting, only members of the group (and the server) can update the data. */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedGroupDataRequest request,
     FDelegateOnSuccessUpdateSharedGroupData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateSharedGroupData = onSuccess;
@@ -4747,7 +4949,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedG
         OutRestJsonObj->SetStringField(TEXT("SharedGroupId"), request.SharedGroupId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -4760,7 +4962,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedG
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4769,14 +4973,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateSharedGroupData(FServerUpdateSharedG
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateSharedGroupData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateSharedGroupData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4784,7 +4988,7 @@ void UPlayFabServerAPI::HelperUpdateSharedGroupData(FPlayFabBaseModel response, 
         FServerUpdateSharedGroupDataResult result = UPlayFabServerModelDecoder::decodeUpdateSharedGroupDataResultResponse(response.responseData);
         if (OnSuccessUpdateSharedGroupData.IsBound())
         {
-            OnSuccessUpdateSharedGroupData.Execute(result);
+            OnSuccessUpdateSharedGroupData.Execute(result, customData);
         }
     }
 }
@@ -4796,11 +5000,13 @@ void UPlayFabServerAPI::HelperUpdateSharedGroupData(FPlayFabBaseModel response, 
 /** Executes a CloudScript function, with the 'currentPlayerId' variable set to the specified PlayFabId parameter value. */
 UPlayFabServerAPI* UPlayFabServerAPI::ExecuteCloudScript(FServerExecuteCloudScriptServerRequest request,
     FDelegateOnSuccessExecuteCloudScript onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessExecuteCloudScript = onSuccess;
@@ -4832,8 +5038,10 @@ UPlayFabServerAPI* UPlayFabServerAPI::ExecuteCloudScript(FServerExecuteCloudScri
         OutRestJsonObj->SetStringField(TEXT("FunctionName"), request.FunctionName);
     }
 
-    if (request.FunctionParameter != NULL) OutRestJsonObj->SetObjectField(TEXT("FunctionParameter"), request.FunctionParameter);
-    OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), GetEnumValueToString<ECloudScriptRevisionOption>(TEXT("ECloudScriptRevisionOption"), request.RevisionSelection));
+    if (request.FunctionParameter != nullptr) OutRestJsonObj->SetObjectField(TEXT("FunctionParameter"), request.FunctionParameter);
+    FString temp_RevisionSelection;
+    if (GetEnumValueToString<ECloudScriptRevisionOption>(TEXT("ECloudScriptRevisionOption"), request.RevisionSelection, temp_RevisionSelection))
+        OutRestJsonObj->SetStringField(TEXT("RevisionSelection"), temp_RevisionSelection);
     OutRestJsonObj->SetNumberField(TEXT("SpecificRevision"), request.SpecificRevision);
     OutRestJsonObj->SetBoolField(TEXT("GeneratePlayStreamEvent"), request.GeneratePlayStreamEvent);
 
@@ -4844,14 +5052,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::ExecuteCloudScript(FServerExecuteCloudScri
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperExecuteCloudScript(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperExecuteCloudScript(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4859,7 +5067,7 @@ void UPlayFabServerAPI::HelperExecuteCloudScript(FPlayFabBaseModel response, boo
         FServerExecuteCloudScriptResult result = UPlayFabServerModelDecoder::decodeExecuteCloudScriptResultResponse(response.responseData);
         if (OnSuccessExecuteCloudScript.IsBound())
         {
-            OnSuccessExecuteCloudScript.Execute(result);
+            OnSuccessExecuteCloudScript.Execute(result, customData);
         }
     }
 }
@@ -4871,11 +5079,13 @@ void UPlayFabServerAPI::HelperExecuteCloudScript(FPlayFabBaseModel response, boo
 /** This API retrieves a pre-signed URL for accessing a content file for the title. A subsequent  HTTP GET to the returned URL will attempt to download the content. A HEAD query to the returned URL will attempt to  retrieve the metadata of the content. Note that a successful result does not guarantee the existence of this content -  if it has not been uploaded, the query to retrieve the data will fail. See this post for more information:  https://community.playfab.com/hc/en-us/community/posts/205469488-How-to-upload-files-to-PlayFab-s-Content-Service */
 UPlayFabServerAPI* UPlayFabServerAPI::GetContentDownloadUrl(FServerGetContentDownloadUrlRequest request,
     FDelegateOnSuccessGetContentDownloadUrl onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetContentDownloadUrl = onSuccess;
@@ -4916,14 +5126,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetContentDownloadUrl(FServerGetContentDow
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetContentDownloadUrl(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetContentDownloadUrl(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -4931,7 +5141,7 @@ void UPlayFabServerAPI::HelperGetContentDownloadUrl(FPlayFabBaseModel response, 
         FServerGetContentDownloadUrlResult result = UPlayFabServerModelDecoder::decodeGetContentDownloadUrlResultResponse(response.responseData);
         if (OnSuccessGetContentDownloadUrl.IsBound())
         {
-            OnSuccessGetContentDownloadUrl.Execute(result);
+            OnSuccessGetContentDownloadUrl.Execute(result, customData);
         }
     }
 }
@@ -4943,11 +5153,13 @@ void UPlayFabServerAPI::HelperGetContentDownloadUrl(FPlayFabBaseModel response, 
 /** Deletes the specific character ID from the specified user. */
 UPlayFabServerAPI* UPlayFabServerAPI::DeleteCharacterFromUser(FServerDeleteCharacterFromUserRequest request,
     FDelegateOnSuccessDeleteCharacterFromUser onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessDeleteCharacterFromUser = onSuccess;
@@ -4988,14 +5200,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::DeleteCharacterFromUser(FServerDeleteChara
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperDeleteCharacterFromUser(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperDeleteCharacterFromUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5003,7 +5215,7 @@ void UPlayFabServerAPI::HelperDeleteCharacterFromUser(FPlayFabBaseModel response
         FServerDeleteCharacterFromUserResult result = UPlayFabServerModelDecoder::decodeDeleteCharacterFromUserResultResponse(response.responseData);
         if (OnSuccessDeleteCharacterFromUser.IsBound())
         {
-            OnSuccessDeleteCharacterFromUser.Execute(result);
+            OnSuccessDeleteCharacterFromUser.Execute(result, customData);
         }
     }
 }
@@ -5011,11 +5223,13 @@ void UPlayFabServerAPI::HelperDeleteCharacterFromUser(FPlayFabBaseModel response
 /** Lists all of the characters that belong to a specific user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetAllUsersCharacters(FServerListUsersCharactersRequest request,
     FDelegateOnSuccessGetAllUsersCharacters onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetAllUsersCharacters = onSuccess;
@@ -5046,14 +5260,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetAllUsersCharacters(FServerListUsersChar
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetAllUsersCharacters(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetAllUsersCharacters(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5061,7 +5275,7 @@ void UPlayFabServerAPI::HelperGetAllUsersCharacters(FPlayFabBaseModel response, 
         FServerListUsersCharactersResult result = UPlayFabServerModelDecoder::decodeListUsersCharactersResultResponse(response.responseData);
         if (OnSuccessGetAllUsersCharacters.IsBound())
         {
-            OnSuccessGetAllUsersCharacters.Execute(result);
+            OnSuccessGetAllUsersCharacters.Execute(result, customData);
         }
     }
 }
@@ -5069,11 +5283,13 @@ void UPlayFabServerAPI::HelperGetAllUsersCharacters(FPlayFabBaseModel response, 
 /** Retrieves a list of ranked characters for the given statistic, starting from the indicated point in the leaderboard */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterLeaderboard(FServerGetCharacterLeaderboardRequest request,
     FDelegateOnSuccessGetCharacterLeaderboard onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCharacterLeaderboard = onSuccess;
@@ -5124,14 +5340,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterLeaderboard(FServerGetCharacte
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetCharacterLeaderboard(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetCharacterLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5139,7 +5355,7 @@ void UPlayFabServerAPI::HelperGetCharacterLeaderboard(FPlayFabBaseModel response
         FServerGetCharacterLeaderboardResult result = UPlayFabServerModelDecoder::decodeGetCharacterLeaderboardResultResponse(response.responseData);
         if (OnSuccessGetCharacterLeaderboard.IsBound())
         {
-            OnSuccessGetCharacterLeaderboard.Execute(result);
+            OnSuccessGetCharacterLeaderboard.Execute(result, customData);
         }
     }
 }
@@ -5147,11 +5363,13 @@ void UPlayFabServerAPI::HelperGetCharacterLeaderboard(FPlayFabBaseModel response
 /** Retrieves the details of all title-specific statistics for the specific character */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterStatistics(FServerGetCharacterStatisticsRequest request,
     FDelegateOnSuccessGetCharacterStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCharacterStatistics = onSuccess;
@@ -5191,14 +5409,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterStatistics(FServerGetCharacter
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetCharacterStatistics(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetCharacterStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5206,7 +5424,7 @@ void UPlayFabServerAPI::HelperGetCharacterStatistics(FPlayFabBaseModel response,
         FServerGetCharacterStatisticsResult result = UPlayFabServerModelDecoder::decodeGetCharacterStatisticsResultResponse(response.responseData);
         if (OnSuccessGetCharacterStatistics.IsBound())
         {
-            OnSuccessGetCharacterStatistics.Execute(result);
+            OnSuccessGetCharacterStatistics.Execute(result, customData);
         }
     }
 }
@@ -5214,11 +5432,13 @@ void UPlayFabServerAPI::HelperGetCharacterStatistics(FPlayFabBaseModel response,
 /** Retrieves a list of ranked characters for the given statistic, centered on the requested user */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundCharacter(FServerGetLeaderboardAroundCharacterRequest request,
     FDelegateOnSuccessGetLeaderboardAroundCharacter onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetLeaderboardAroundCharacter = onSuccess;
@@ -5277,14 +5497,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardAroundCharacter(FServerGetLe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetLeaderboardAroundCharacter(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetLeaderboardAroundCharacter(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5292,7 +5512,7 @@ void UPlayFabServerAPI::HelperGetLeaderboardAroundCharacter(FPlayFabBaseModel re
         FServerGetLeaderboardAroundCharacterResult result = UPlayFabServerModelDecoder::decodeGetLeaderboardAroundCharacterResultResponse(response.responseData);
         if (OnSuccessGetLeaderboardAroundCharacter.IsBound())
         {
-            OnSuccessGetLeaderboardAroundCharacter.Execute(result);
+            OnSuccessGetLeaderboardAroundCharacter.Execute(result, customData);
         }
     }
 }
@@ -5300,11 +5520,13 @@ void UPlayFabServerAPI::HelperGetLeaderboardAroundCharacter(FPlayFabBaseModel re
 /** Retrieves a list of all of the user's characters for the given statistic. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardForUserCharacters(FServerGetLeaderboardForUsersCharactersRequest request,
     FDelegateOnSuccessGetLeaderboardForUserCharacters onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetLeaderboardForUserCharacters = onSuccess;
@@ -5345,14 +5567,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetLeaderboardForUserCharacters(FServerGet
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5360,7 +5582,7 @@ void UPlayFabServerAPI::HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel 
         FServerGetLeaderboardForUsersCharactersResult result = UPlayFabServerModelDecoder::decodeGetLeaderboardForUsersCharactersResultResponse(response.responseData);
         if (OnSuccessGetLeaderboardForUserCharacters.IsBound())
         {
-            OnSuccessGetLeaderboardForUserCharacters.Execute(result);
+            OnSuccessGetLeaderboardForUserCharacters.Execute(result, customData);
         }
     }
 }
@@ -5368,11 +5590,13 @@ void UPlayFabServerAPI::HelperGetLeaderboardForUserCharacters(FPlayFabBaseModel 
 /** Grants the specified character type to the user. CharacterIds are not globally unique; characterId must be evaluated with the parent PlayFabId to guarantee uniqueness. */
 UPlayFabServerAPI* UPlayFabServerAPI::GrantCharacterToUser(FServerGrantCharacterToUserRequest request,
     FDelegateOnSuccessGrantCharacterToUser onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGrantCharacterToUser = onSuccess;
@@ -5421,14 +5645,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GrantCharacterToUser(FServerGrantCharacter
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGrantCharacterToUser(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGrantCharacterToUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5436,7 +5660,7 @@ void UPlayFabServerAPI::HelperGrantCharacterToUser(FPlayFabBaseModel response, b
         FServerGrantCharacterToUserResult result = UPlayFabServerModelDecoder::decodeGrantCharacterToUserResultResponse(response.responseData);
         if (OnSuccessGrantCharacterToUser.IsBound())
         {
-            OnSuccessGrantCharacterToUser.Execute(result);
+            OnSuccessGrantCharacterToUser.Execute(result, customData);
         }
     }
 }
@@ -5444,11 +5668,13 @@ void UPlayFabServerAPI::HelperGrantCharacterToUser(FPlayFabBaseModel response, b
 /** Updates the values of the specified title-specific statistics for the specific character */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterStatistics(FServerUpdateCharacterStatisticsRequest request,
     FDelegateOnSuccessUpdateCharacterStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateCharacterStatistics = onSuccess;
@@ -5480,7 +5706,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterStatistics(FServerUpdateCha
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    if (request.CharacterStatistics != NULL) OutRestJsonObj->SetObjectField(TEXT("CharacterStatistics"), request.CharacterStatistics);
+    if (request.CharacterStatistics != nullptr) OutRestJsonObj->SetObjectField(TEXT("CharacterStatistics"), request.CharacterStatistics);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5489,14 +5715,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterStatistics(FServerUpdateCha
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateCharacterStatistics(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateCharacterStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5504,7 +5730,7 @@ void UPlayFabServerAPI::HelperUpdateCharacterStatistics(FPlayFabBaseModel respon
         FServerUpdateCharacterStatisticsResult result = UPlayFabServerModelDecoder::decodeUpdateCharacterStatisticsResultResponse(response.responseData);
         if (OnSuccessUpdateCharacterStatistics.IsBound())
         {
-            OnSuccessUpdateCharacterStatistics.Execute(result);
+            OnSuccessUpdateCharacterStatistics.Execute(result, customData);
         }
     }
 }
@@ -5516,11 +5742,13 @@ void UPlayFabServerAPI::HelperUpdateCharacterStatistics(FPlayFabBaseModel respon
 /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterData(FServerGetCharacterDataRequest request,
     FDelegateOnSuccessGetCharacterData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCharacterData = onSuccess;
@@ -5573,14 +5801,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterData(FServerGetCharacterDataRe
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetCharacterData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetCharacterData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5588,7 +5816,7 @@ void UPlayFabServerAPI::HelperGetCharacterData(FPlayFabBaseModel response, bool 
         FServerGetCharacterDataResult result = UPlayFabServerModelDecoder::decodeGetCharacterDataResultResponse(response.responseData);
         if (OnSuccessGetCharacterData.IsBound())
         {
-            OnSuccessGetCharacterData.Execute(result);
+            OnSuccessGetCharacterData.Execute(result, customData);
         }
     }
 }
@@ -5596,11 +5824,13 @@ void UPlayFabServerAPI::HelperGetCharacterData(FPlayFabBaseModel response, bool 
 /** Retrieves the title-specific custom data for the user's character which cannot be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInternalData(FServerGetCharacterDataRequest request,
     FDelegateOnSuccessGetCharacterInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCharacterInternalData = onSuccess;
@@ -5653,14 +5883,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterInternalData(FServerGetCharact
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetCharacterInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetCharacterInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5668,7 +5898,7 @@ void UPlayFabServerAPI::HelperGetCharacterInternalData(FPlayFabBaseModel respons
         FServerGetCharacterDataResult result = UPlayFabServerModelDecoder::decodeGetCharacterDataResultResponse(response.responseData);
         if (OnSuccessGetCharacterInternalData.IsBound())
         {
-            OnSuccessGetCharacterInternalData.Execute(result);
+            OnSuccessGetCharacterInternalData.Execute(result, customData);
         }
     }
 }
@@ -5676,11 +5906,13 @@ void UPlayFabServerAPI::HelperGetCharacterInternalData(FPlayFabBaseModel respons
 /** Retrieves the title-specific custom data for the user's character which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterReadOnlyData(FServerGetCharacterDataRequest request,
     FDelegateOnSuccessGetCharacterReadOnlyData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCharacterReadOnlyData = onSuccess;
@@ -5733,14 +5965,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetCharacterReadOnlyData(FServerGetCharact
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetCharacterReadOnlyData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperGetCharacterReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5748,7 +5980,7 @@ void UPlayFabServerAPI::HelperGetCharacterReadOnlyData(FPlayFabBaseModel respons
         FServerGetCharacterDataResult result = UPlayFabServerModelDecoder::decodeGetCharacterDataResultResponse(response.responseData);
         if (OnSuccessGetCharacterReadOnlyData.IsBound())
         {
-            OnSuccessGetCharacterReadOnlyData.Execute(result);
+            OnSuccessGetCharacterReadOnlyData.Execute(result, customData);
         }
     }
 }
@@ -5756,11 +5988,13 @@ void UPlayFabServerAPI::HelperGetCharacterReadOnlyData(FPlayFabBaseModel respons
 /** Updates the title-specific custom data for the user's chjaracter which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacterDataRequest request,
     FDelegateOnSuccessUpdateCharacterData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateCharacterData = onSuccess;
@@ -5792,7 +6026,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacter
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -5805,7 +6039,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacter
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5814,14 +6050,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacter
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateCharacterData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateCharacterData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5829,7 +6065,7 @@ void UPlayFabServerAPI::HelperUpdateCharacterData(FPlayFabBaseModel response, bo
         FServerUpdateCharacterDataResult result = UPlayFabServerModelDecoder::decodeUpdateCharacterDataResultResponse(response.responseData);
         if (OnSuccessUpdateCharacterData.IsBound())
         {
-            OnSuccessUpdateCharacterData.Execute(result);
+            OnSuccessUpdateCharacterData.Execute(result, customData);
         }
     }
 }
@@ -5837,11 +6073,13 @@ void UPlayFabServerAPI::HelperUpdateCharacterData(FPlayFabBaseModel response, bo
 /** Updates the title-specific custom data for the user's character which cannot  be accessed by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateCharacterDataRequest request,
     FDelegateOnSuccessUpdateCharacterInternalData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateCharacterInternalData = onSuccess;
@@ -5873,7 +6111,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateC
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -5886,7 +6124,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateC
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5895,14 +6135,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterInternalData(FServerUpdateC
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateCharacterInternalData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateCharacterInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5910,7 +6150,7 @@ void UPlayFabServerAPI::HelperUpdateCharacterInternalData(FPlayFabBaseModel resp
         FServerUpdateCharacterDataResult result = UPlayFabServerModelDecoder::decodeUpdateCharacterDataResultResponse(response.responseData);
         if (OnSuccessUpdateCharacterInternalData.IsBound())
         {
-            OnSuccessUpdateCharacterInternalData.Execute(result);
+            OnSuccessUpdateCharacterInternalData.Execute(result, customData);
         }
     }
 }
@@ -5918,11 +6158,13 @@ void UPlayFabServerAPI::HelperUpdateCharacterInternalData(FPlayFabBaseModel resp
 /** Updates the title-specific custom data for the user's character which can only be read by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateCharacterDataRequest request,
     FDelegateOnSuccessUpdateCharacterReadOnlyData onSuccess,
-    FDelegateOnFailurePlayFabError onFailure)
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
 {
     // Objects containing request data
     UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateCharacterReadOnlyData = onSuccess;
@@ -5954,7 +6196,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateC
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
-    if (request.Data != NULL) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
+    if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
     if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
     {
@@ -5967,7 +6209,9 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateC
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
 
-    OutRestJsonObj->SetStringField(TEXT("Permission"), GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission));
+    FString temp_Permission;
+    if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
+        OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -5976,14 +6220,14 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterReadOnlyData(FServerUpdateC
 }
 
 // Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateCharacterReadOnlyData(FPlayFabBaseModel response, bool successful)
+void UPlayFabServerAPI::HelperUpdateCharacterReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
     if (error.hasError)
     {
         if (OnFailure.IsBound())
         {
-            OnFailure.Execute(error);
+            OnFailure.Execute(error, customData);
         }
     }
     else
@@ -5991,7 +6235,7 @@ void UPlayFabServerAPI::HelperUpdateCharacterReadOnlyData(FPlayFabBaseModel resp
         FServerUpdateCharacterDataResult result = UPlayFabServerModelDecoder::decodeUpdateCharacterDataResultResponse(response.responseData);
         if (OnSuccessUpdateCharacterReadOnlyData.IsBound())
         {
-            OnSuccessUpdateCharacterReadOnlyData.Execute(result);
+            OnSuccessUpdateCharacterReadOnlyData.Execute(result, customData);
         }
     }
 }
@@ -6007,6 +6251,17 @@ void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
     // Be sure that we have no data from previous response
     ResetResponseData();
 
+    if (!IsValidLowLevel())
+    {
+        UE_LOG(LogPlayFab, Error, TEXT("The request object is invalid during OnProcessRequestComplete."));
+        return;
+    }
+    if (!OnPlayFabResponse.IsBound())
+    {
+        UE_LOG(LogPlayFab, Error, TEXT("OnPlayFabResponse has come un-bound during OnProcessRequestComplete."));
+        return;
+    }
+
     FPlayFabBaseModel myResponse;
 
     // Check we have result to process further
@@ -6019,7 +6274,7 @@ void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
         myResponse.responseError.ErrorName = "Unable to contact server";
         myResponse.responseError.ErrorMessage = "Unable to contact server";
 
-        Server_proxy->OnPlayFabResponse.Broadcast(myResponse, false);
+        OnPlayFabResponse.Broadcast(myResponse, customData, false);
 
         return;
     }
@@ -6050,16 +6305,19 @@ void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
     myResponse.responseData = ResponseJsonObj;
 
     // Broadcast the result event
-    Server_proxy->OnPlayFabResponse.Broadcast(myResponse, myResponse.responseError.hasError);
+    OnPlayFabResponse.Broadcast(myResponse, customData, myResponse.responseError.hasError);
+    pfSettings->ModifyPendingCallCount(-1);
 }
 
 void UPlayFabServerAPI::Activate()
 {
+    IPlayFab* pfSettings = &(IPlayFab::Get());
+
     FString RequestUrl;
     if (!cloudScript)
-        RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
+        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
     else
-        RequestUrl = TEXT("https://") + IPlayFab::Get().getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(IPlayFab::Get().CloudScriptVersion) + TEXT("/prod") + PlayFabRequestURL;
+        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(pfSettings->CloudScriptVersion) + TEXT("/prod") + PlayFabRequestURL;
 
     TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
     HttpRequest->SetURL(RequestUrl);
@@ -6067,9 +6325,9 @@ void UPlayFabServerAPI::Activate()
 
     // Headers
     if (useSessionTicket)
-        HttpRequest->SetHeader("X-Authentication", IPlayFab::Get().getSessionTicket());
+        HttpRequest->SetHeader("X-Authentication", pfSettings->getSessionTicket());
     if (useSecretKey)
-        HttpRequest->SetHeader("X-SecretKey", IPlayFab::Get().getSecretApiKey());
+        HttpRequest->SetHeader("X-SecretKey", pfSettings->getSecretApiKey());
     HttpRequest->SetHeader("Content-Type", "application/json");
     HttpRequest->SetHeader("X-ReportErrorAsSuccess", "true"); // FHttpResponsePtr doesn't provide sufficient information when an error code is returned
     for (TMap<FString, FString>::TConstIterator It(RequestHeaders); It; ++It)
@@ -6089,12 +6347,13 @@ void UPlayFabServerAPI::Activate()
     HttpRequest->OnProcessRequestComplete().BindUObject(this, &UPlayFabServerAPI::OnProcessRequestComplete);
 
     // Execute the request
+    pfSettings->ModifyPendingCallCount(1);
     HttpRequest->ProcessRequest();
 }
 
 void UPlayFabServerAPI::ResetResponseData()
 {
-    if (ResponseJsonObj != NULL)
+    if (ResponseJsonObj != nullptr)
     {
         ResponseJsonObj->Reset();
     }

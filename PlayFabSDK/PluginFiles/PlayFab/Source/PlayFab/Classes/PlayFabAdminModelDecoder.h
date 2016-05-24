@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Admin
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -134,10 +134,6 @@ public:
     /** Decode the UpdateStoreItemsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         static FAdminUpdateStoreItemsResult decodeUpdateStoreItemsResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the SetStoreSegemntOverridesResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
-        static FAdminSetStoreSegemntOverridesResult decodeSetStoreSegemntOverridesResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the SetTitleDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")

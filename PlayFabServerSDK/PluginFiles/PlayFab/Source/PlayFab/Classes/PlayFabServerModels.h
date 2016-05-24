@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Server
-// SDK Version: 0.0.160502
+// SDK Version: 0.0.160523
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"
@@ -1487,6 +1487,32 @@ public:
     /** User account information for the user validated. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
         UPlayFabJsonObject* UserInfo;
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetGameServerInstanceStateRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique identifier of the Game Instance to be updated. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString LobbyId;
+
+    /** State to set for the specified game server instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        EGameInstanceState State;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetGameServerInstanceStateResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
 };
 
 

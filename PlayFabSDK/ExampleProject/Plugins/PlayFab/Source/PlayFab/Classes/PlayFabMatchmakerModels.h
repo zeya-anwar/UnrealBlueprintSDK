@@ -5,7 +5,7 @@
 // This model file contains the request and response USTRUCTS
 //
 // API: Matchmaker
-// SDK Version: 0.0.160523
+// SDK Version: 0.0.160606
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "Kismet/BlueprintFunctionLibrary.h"

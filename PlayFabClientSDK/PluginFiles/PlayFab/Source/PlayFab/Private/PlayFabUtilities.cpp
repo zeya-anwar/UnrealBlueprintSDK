@@ -2,7 +2,7 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 // This cpp file contains the utilities functions that supports the plugin..
 //
-// SDK Version: 0.0.160523
+// SDK Version: 0.0.160606
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -257,6 +257,9 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1220: returnText = "SegmentNotFound"; break;
     case 1221: returnText = "StoreNotFound"; break;
     case 1222: returnText = "InvalidStatisticName"; break;
+    case 1223: returnText = "TitleNotQualifiedForLimit"; break;
+    case 1224: returnText = "InvalidServiceLimitLevel"; break;
+    case 1225: returnText = "ServiceLimitLevelInTransition"; break;
     }
 
     // Return the text

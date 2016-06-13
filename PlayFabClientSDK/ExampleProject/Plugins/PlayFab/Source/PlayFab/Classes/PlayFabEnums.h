@@ -219,6 +219,14 @@ enum class ECurrency : uint8
     pfenum_ZWD UMETA(DisplayName = "ZWD"),
 };
 
+// Enum for GameInstanceState
+UENUM(BlueprintType)
+enum class EGameInstanceState : uint8
+{
+    pfenum_Open UMETA(DisplayName = "Open"),
+    pfenum_Closed UMETA(DisplayName = "Closed"),
+};
+
 // Enum for MatchmakeStatus
 UENUM(BlueprintType)
 enum class EMatchmakeStatus : uint8

@@ -5,7 +5,6 @@
 // This header file contains the function definitions.
 //
 // API: Server
-// SDK Version: 0.0.160606
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "OnlineBlueprintCallProxyBase.h"
@@ -801,6 +800,19 @@ public:
         void HelperRedeemMatchmakerTicket(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceData, FServerSetGameServerInstanceDataResult, result, UObject*, customData);
+
+    /** Sets the custom data of the indicated Game Server Instance */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* SetGameServerInstanceData(FServerSetGameServerInstanceDataRequest request,
+            FDelegateOnSuccessSetGameServerInstanceData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperSetGameServerInstanceData(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceState, FServerSetGameServerInstanceStateResult, result, UObject*, customData);
 
     /** Sets the state of the indicated Game Server Instance */
@@ -1268,6 +1280,7 @@ public:
     FDelegateOnSuccessUpdateUserInventoryItemCustomData OnSuccessUpdateUserInventoryItemCustomData;
     FDelegateOnSuccessNotifyMatchmakerPlayerLeft OnSuccessNotifyMatchmakerPlayerLeft;
     FDelegateOnSuccessRedeemMatchmakerTicket OnSuccessRedeemMatchmakerTicket;
+    FDelegateOnSuccessSetGameServerInstanceData OnSuccessSetGameServerInstanceData;
     FDelegateOnSuccessSetGameServerInstanceState OnSuccessSetGameServerInstanceState;
     FDelegateOnSuccessAwardSteamAchievement OnSuccessAwardSteamAchievement;
     FDelegateOnSuccessLogEvent OnSuccessLogEvent;

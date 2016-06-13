@@ -2,7 +2,6 @@
 // Automatically generated cpp file for the play fab models
 //
 // API: Server
-// SDK Version: 0.0.160606
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -566,6 +565,14 @@ FServerRedeemMatchmakerTicketResult UPlayFabServerModelDecoder::decodeRedeemMatc
 
     /** User account information for the user validated. */
     tempStruct.UserInfo = !(dataObj->HasField("UserInfo")) ? nullptr : dataObj->GetObjectField("UserInfo");
+
+    return tempStruct;
+}
+
+FServerSetGameServerInstanceDataResult UPlayFabServerModelDecoder::decodeSetGameServerInstanceDataResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerSetGameServerInstanceDataResult tempStruct;
 
     return tempStruct;
 }

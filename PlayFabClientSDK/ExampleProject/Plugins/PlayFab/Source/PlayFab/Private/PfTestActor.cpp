@@ -297,12 +297,14 @@ void APfTestActor::InvalidRegistrationFail(FPlayFabError error, UObject* customD
 /// </summary>
 void APfTestActor::LoginOrRegister(UPfTestContext* testContext)
 {
-    FClientLoginWithEmailAddressRequest request;
-    request.Email = userEmail;
-    request.Password = userPassword;
-    UPlayFabClientAPI::FDelegateOnSuccessLoginWithEmailAddress onSuccess; onSuccess.BindUFunction(this, "OnLoginOrRegister");
+    IPlayFab* playFabSettings = &(IPlayFab::Get());
+
+    FClientLoginWithCustomIDRequest request;
+    request.CustomId = playFabSettings->BuildIdentifier;
+    request.CreateAccount = true;
+    UPlayFabClientAPI::FDelegateOnSuccessLoginWithCustomID onSuccess; onSuccess.BindUFunction(this, "OnLoginOrRegister");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
-    UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithEmailAddress(request, onSuccess, onError, testContext);
+    UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithCustomID(request, onSuccess, onError, testContext);
     managedObjects.Add(callObj);
     callObj->Activate();
 }
@@ -323,12 +325,12 @@ void APfTestActor::LoginWithAdvertisingId(UPfTestContext* testContext)
     playFabSettings->AdvertisingIdType = playFabSettings->AD_TYPE_ANDROID_ID;
     playFabSettings->AdvertisingIdValue = TEXT("PlayFabTestId");
 
-    FClientLoginWithEmailAddressRequest request;
-    request.Email = userEmail;
-    request.Password = userPassword;
-    UPlayFabClientAPI::FDelegateOnSuccessLoginWithEmailAddress onSuccess; onSuccess.BindUFunction(this, "OnLoginWithAdvertisingId");
+    FClientLoginWithCustomIDRequest request;
+    request.CustomId = playFabSettings->BuildIdentifier;
+    request.CreateAccount = true;
+    UPlayFabClientAPI::FDelegateOnSuccessLoginWithCustomID onSuccess; onSuccess.BindUFunction(this, "OnLoginWithAdvertisingId");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
-    UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithEmailAddress(request, onSuccess, onError, testContext);
+    UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithCustomID(request, onSuccess, onError, testContext);
     managedObjects.Add(callObj);
     callObj->Activate();
 }
@@ -535,22 +537,9 @@ void APfTestActor::UserCharacter(UPfTestContext* testContext)
 }
 void APfTestActor::OnUserCharacter(FClientListUsersCharactersResult result, UObject* customData)
 {
-    bool charFound = false;
-    auto asdf = result.Characters;
-
-    for (int i = 0; i < result.Characters.Num(); i++)
-    {
-        if (result.Characters[i]->GetStringField("CharacterName") == characterName)
-        {
-            charFound = true;
-        }
-    }
-
     UPfTestContext* testContext = dynamic_cast<UPfTestContext*>(customData);
-    if (charFound)
-        EndTest(testContext, PlayFabApiTestFinishState::PASSED, "");
-    else
-        EndTest(testContext, PlayFabApiTestFinishState::FAILED, "Character not found");
+    // Generally a character won't exist
+    EndTest(testContext, PlayFabApiTestFinishState::PASSED, "");
 }
 
 /// <summary>
@@ -580,12 +569,8 @@ void APfTestActor::LeaderBoard(UPfTestContext* testContext)
 }
 void APfTestActor::OnLeaderBoard(FClientGetLeaderboardResult result, UObject* customData)
 {
-    bool foundEntry = false;
-    for (int i = 0; i < result.Leaderboard.Num(); i++)
-        if (result.Leaderboard[i]->GetStringField("PlayFabId") == playFabId)
-            foundEntry = true;
     UPfTestContext* testContext = dynamic_cast<UPfTestContext*>(customData);
-    if (foundEntry)
+    if (result.Leaderboard.Num() > 0)
         EndTest(testContext, PlayFabApiTestFinishState::PASSED, "");
     else
         EndTest(testContext, PlayFabApiTestFinishState::FAILED, "Leaderboard entry not found.");

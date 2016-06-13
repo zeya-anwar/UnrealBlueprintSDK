@@ -2,7 +2,6 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Client
-// SDK Version: 0.0.160606
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -8217,8 +8216,8 @@ void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
 
     myResponse.responseError.decodeError(ResponseJsonObj);
     myResponse.responseData = ResponseJsonObj;
-
     IPlayFab* pfSettings = &(IPlayFab::Get());
+
     if (isLoginRequest && !myResponse.responseError.hasError)
     {
         pfSettings->setSessionTicket(myResponse.responseData->GetObjectField("data")->GetStringField("SessionTicket"));
@@ -8269,6 +8268,7 @@ void UPlayFabClientAPI::Activate()
     if (useSecretKey)
         HttpRequest->SetHeader("X-SecretKey", pfSettings->getSecretApiKey());
     HttpRequest->SetHeader("Content-Type", "application/json");
+    HttpRequest->SetHeader(TEXT("X-PlayFabSDK"), pfSettings->VersionString);
     HttpRequest->SetHeader("X-ReportErrorAsSuccess", "true"); // FHttpResponsePtr doesn't provide sufficient information when an error code is returned
     for (TMap<FString, FString>::TConstIterator It(RequestHeaders); It; ++It)
         HttpRequest->SetHeader(It.Key(), It.Value());

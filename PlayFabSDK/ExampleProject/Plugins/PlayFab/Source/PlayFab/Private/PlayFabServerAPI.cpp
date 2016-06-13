@@ -2,7 +2,6 @@
 // Automatically generated cpp file for the UE4 PlayFab plugin.
 //
 // API: Server
-// SDK Version: 0.0.160606
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "PlayFabPrivatePCH.h"
@@ -4118,6 +4117,75 @@ void UPlayFabServerAPI::HelperRedeemMatchmakerTicket(FPlayFabBaseModel response,
     }
 }
 
+/** Sets the custom data of the indicated Game Server Instance */
+UPlayFabServerAPI* UPlayFabServerAPI::SetGameServerInstanceData(FServerSetGameServerInstanceDataRequest request,
+    FDelegateOnSuccessSetGameServerInstanceData onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessSetGameServerInstanceData = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperSetGameServerInstanceData);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/SetGameServerInstanceData";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.LobbyId.IsEmpty() || request.LobbyId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("LobbyId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("LobbyId"), request.LobbyId);
+    }
+
+    if (request.GameServerData.IsEmpty() || request.GameServerData == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("GameServerData"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("GameServerData"), request.GameServerData);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperSetGameServerInstanceData(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerSetGameServerInstanceDataResult result = UPlayFabServerModelDecoder::decodeSetGameServerInstanceDataResultResponse(response.responseData);
+        if (OnSuccessSetGameServerInstanceData.IsBound())
+        {
+            OnSuccessSetGameServerInstanceData.Execute(result, customData);
+        }
+    }
+}
+
 /** Sets the state of the indicated Game Server Instance */
 UPlayFabServerAPI* UPlayFabServerAPI::SetGameServerInstanceState(FServerSetGameServerInstanceStateRequest request,
     FDelegateOnSuccessSetGameServerInstanceState onSuccess,
@@ -6303,6 +6371,7 @@ void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpR
 
     myResponse.responseError.decodeError(ResponseJsonObj);
     myResponse.responseData = ResponseJsonObj;
+    IPlayFab* pfSettings = &(IPlayFab::Get());
 
     // Broadcast the result event
     OnPlayFabResponse.Broadcast(myResponse, customData, myResponse.responseError.hasError);
@@ -6329,6 +6398,7 @@ void UPlayFabServerAPI::Activate()
     if (useSecretKey)
         HttpRequest->SetHeader("X-SecretKey", pfSettings->getSecretApiKey());
     HttpRequest->SetHeader("Content-Type", "application/json");
+    HttpRequest->SetHeader(TEXT("X-PlayFabSDK"), pfSettings->VersionString);
     HttpRequest->SetHeader("X-ReportErrorAsSuccess", "true"); // FHttpResponsePtr doesn't provide sufficient information when an error code is returned
     for (TMap<FString, FString>::TConstIterator It(RequestHeaders); It; ++It)
         HttpRequest->SetHeader(It.Key(), It.Value());

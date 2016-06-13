@@ -16,6 +16,10 @@ public:
     * @return Returns singleton instance, loading the module on demand if needed
     */
 
+    const FString SdkVersion = "0.0.160613";
+    const FString BuildIdentifier = "jbuild_0";
+    const FString VersionString = "UnrealBlueprintSDK-0.0.160613";
+
     // Photon Ap Ids
     FString PhotonRealtimeAppId;
     FString PhotonTurnbasedAppId;

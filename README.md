@@ -295,7 +295,7 @@ Our Developer Success Team can assist with answering any questions as well as pr
 
 7. Acknowledgements
 ----
-The PlayFab UnrealBlueprintSDK and the Blueprint Tutorial in this document were built by [Joshua Lyons](https://github.com/JLyons1985), and submitted to PlayFab October, 2015
+The initial draft of PlayFab UnrealBlueprintSDK and the Blueprint Tutorial in this document were built by [Joshua Lyons](https://github.com/JLyons1985), and submitted to PlayFab October, 2015
 
 
 8. Copyright and Licensing Information:

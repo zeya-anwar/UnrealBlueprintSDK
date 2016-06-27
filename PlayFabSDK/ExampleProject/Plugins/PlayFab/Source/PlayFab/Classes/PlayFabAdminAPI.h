@@ -448,7 +448,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTitleData, FAdminGetTitleDataResult, result, UObject*, customData);
 
-    /** Retrieves the key-value store of custom title settings */
+    /** Retrieves the key-value store of custom title settings which can be read by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabAdminAPI* GetTitleData(FAdminGetTitleDataRequest request,
             FDelegateOnSuccessGetTitleData onSuccess,
@@ -457,6 +457,19 @@ public:
     // Implements FOnPlayFabAdminRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetTitleData(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTitleInternalData, FAdminGetTitleDataResult, result, UObject*, customData);
+
+    /** Retrieves the key-value store of custom title settings which cannot be read by the client */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetTitleInternalData(FAdminGetTitleDataRequest request,
+            FDelegateOnSuccessGetTitleInternalData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessListVirtualCurrencyTypes, FAdminListVirtualCurrencyTypesResult, result, UObject*, customData);
@@ -500,7 +513,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetTitleData, FAdminSetTitleDataResult, result, UObject*, customData);
 
-    /** Creates and updates the key-value store of custom title settings */
+    /** Creates and updates the key-value store of custom title settings which can be read by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabAdminAPI* SetTitleData(FAdminSetTitleDataRequest request,
             FDelegateOnSuccessSetTitleData onSuccess,
@@ -509,6 +522,19 @@ public:
     // Implements FOnPlayFabAdminRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperSetTitleData(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetTitleInternalData, FAdminSetTitleDataResult, result, UObject*, customData);
+
+    /** Updates the key-value store of custom title settings which cannot be read by the client */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* SetTitleInternalData(FAdminSetTitleDataRequest request,
+            FDelegateOnSuccessSetTitleInternalData onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperSetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetupPushNotification, FAdminSetupPushNotificationResult, result, UObject*, customData);
@@ -936,10 +962,12 @@ public:
     FDelegateOnSuccessGetRandomResultTables OnSuccessGetRandomResultTables;
     FDelegateOnSuccessGetStoreItems OnSuccessGetStoreItems;
     FDelegateOnSuccessGetTitleData OnSuccessGetTitleData;
+    FDelegateOnSuccessGetTitleInternalData OnSuccessGetTitleInternalData;
     FDelegateOnSuccessListVirtualCurrencyTypes OnSuccessListVirtualCurrencyTypes;
     FDelegateOnSuccessSetCatalogItems OnSuccessSetCatalogItems;
     FDelegateOnSuccessSetStoreItems OnSuccessSetStoreItems;
     FDelegateOnSuccessSetTitleData OnSuccessSetTitleData;
+    FDelegateOnSuccessSetTitleInternalData OnSuccessSetTitleInternalData;
     FDelegateOnSuccessSetupPushNotification OnSuccessSetupPushNotification;
     FDelegateOnSuccessUpdateCatalogItems OnSuccessUpdateCatalogItems;
     FDelegateOnSuccessUpdateRandomResultTables OnSuccessUpdateRandomResultTables;

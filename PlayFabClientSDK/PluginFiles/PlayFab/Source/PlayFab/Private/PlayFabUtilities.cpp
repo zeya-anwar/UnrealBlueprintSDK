@@ -259,6 +259,12 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1223: returnText = "TitleNotQualifiedForLimit"; break;
     case 1224: returnText = "InvalidServiceLimitLevel"; break;
     case 1225: returnText = "ServiceLimitLevelInTransition"; break;
+    case 1226: returnText = "CouponAlreadyRedeemed"; break;
+    case 1227: returnText = "GameServerBuildSizeLimitExceeded"; break;
+    case 1228: returnText = "GameServerBuildCountLimitExceeded"; break;
+    case 1229: returnText = "VirtualCurrencyCountLimitExceeded"; break;
+    case 1230: returnText = "VirtualCurrencyCodeExists"; break;
+    case 1231: returnText = "TitleNewsItemCountLimitExceeded"; break;
     }
 
     // Return the text

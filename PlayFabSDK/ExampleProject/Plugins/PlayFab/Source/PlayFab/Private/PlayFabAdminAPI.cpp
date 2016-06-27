@@ -2096,7 +2096,7 @@ void UPlayFabAdminAPI::HelperGetStoreItems(FPlayFabBaseModel response, UObject* 
     }
 }
 
-/** Retrieves the key-value store of custom title settings */
+/** Retrieves the key-value store of custom title settings which can be read by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleData(FAdminGetTitleDataRequest request,
     FDelegateOnSuccessGetTitleData onSuccess,
     FDelegateOnFailurePlayFabError onFailure,
@@ -2155,6 +2155,69 @@ void UPlayFabAdminAPI::HelperGetTitleData(FPlayFabBaseModel response, UObject* c
         if (OnSuccessGetTitleData.IsBound())
         {
             OnSuccessGetTitleData.Execute(result, customData);
+        }
+    }
+}
+
+/** Retrieves the key-value store of custom title settings which cannot be read by the client */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleInternalData(FAdminGetTitleDataRequest request,
+    FDelegateOnSuccessGetTitleInternalData onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetTitleInternalData = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperGetTitleInternalData);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetTitleInternalData";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.Keys.IsEmpty() || request.Keys == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Keys"));
+    }
+    else
+    {
+        TArray<FString> KeysArray;
+        FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperGetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminGetTitleDataResult result = UPlayFabAdminModelDecoder::decodeGetTitleDataResultResponse(response.responseData);
+        if (OnSuccessGetTitleInternalData.IsBound())
+        {
+            OnSuccessGetTitleInternalData.Execute(result, customData);
         }
     }
 }
@@ -2341,7 +2404,7 @@ void UPlayFabAdminAPI::HelperSetStoreItems(FPlayFabBaseModel response, UObject* 
     }
 }
 
-/** Creates and updates the key-value store of custom title settings */
+/** Creates and updates the key-value store of custom title settings which can be read by the client */
 UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleData(FAdminSetTitleDataRequest request,
     FDelegateOnSuccessSetTitleData onSuccess,
     FDelegateOnFailurePlayFabError onFailure,
@@ -2406,6 +2469,75 @@ void UPlayFabAdminAPI::HelperSetTitleData(FPlayFabBaseModel response, UObject* c
         if (OnSuccessSetTitleData.IsBound())
         {
             OnSuccessSetTitleData.Execute(result, customData);
+        }
+    }
+}
+
+/** Updates the key-value store of custom title settings which cannot be read by the client */
+UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleInternalData(FAdminSetTitleDataRequest request,
+    FDelegateOnSuccessSetTitleInternalData onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessSetTitleInternalData = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperSetTitleInternalData);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/SetTitleInternalData";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.Key.IsEmpty() || request.Key == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Key"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
+    }
+
+    if (request.Value.IsEmpty() || request.Value == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("Value"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("Value"), request.Value);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperSetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminSetTitleDataResult result = UPlayFabAdminModelDecoder::decodeSetTitleDataResultResponse(response.responseData);
+        if (OnSuccessSetTitleInternalData.IsBound())
+        {
+            OnSuccessSetTitleInternalData.Execute(result, customData);
         }
     }
 }

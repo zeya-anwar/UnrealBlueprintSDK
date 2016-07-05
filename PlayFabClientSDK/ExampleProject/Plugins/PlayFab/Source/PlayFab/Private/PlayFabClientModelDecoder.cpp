@@ -49,6 +49,9 @@ FClientLoginResult UPlayFabClientModelDecoder::decodeLoginResultResponse(UPlayFa
     /** The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue */
     tempStruct.LastLoginTime = !(dataObj->HasField("LastLoginTime")) ? TEXT("") : dataObj->GetStringField("LastLoginTime");
 
+    /** Results for requested info. */
+    tempStruct.InfoResultPayload = !(dataObj->HasField("InfoResultPayload")) ? nullptr : dataObj->GetObjectField("InfoResultPayload");
+
     return tempStruct;
 }
 
@@ -99,6 +102,21 @@ FClientGetAccountInfoResult UPlayFabClientModelDecoder::decodeGetAccountInfoResu
 
     /** Account information for the local user. */
     tempStruct.AccountInfo = !(dataObj->HasField("AccountInfo")) ? nullptr : dataObj->GetObjectField("AccountInfo");
+
+    return tempStruct;
+}
+
+FClientGetPlayerCombinedInfoResult UPlayFabClientModelDecoder::decodeGetPlayerCombinedInfoResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayerCombinedInfoResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    tempStruct.PlayFabId = !(dataObj->HasField("PlayFabId")) ? TEXT("") : dataObj->GetStringField("PlayFabId");
+
+    /** Results for requested info. */
+    tempStruct.InfoResultPayload = !(dataObj->HasField("InfoResultPayload")) ? nullptr : dataObj->GetObjectField("InfoResultPayload");
 
     return tempStruct;
 }

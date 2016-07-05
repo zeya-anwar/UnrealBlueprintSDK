@@ -73,6 +73,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString LastLoginTime;
 
+    /** Results for requested info. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoResultPayload;
 };
 
 USTRUCT(BlueprintType)
@@ -97,6 +100,9 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Android device. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -113,6 +119,9 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Custom ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -130,6 +139,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Password;
 
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -146,6 +158,9 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Facebook account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -162,6 +177,9 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Game Center id. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -182,6 +200,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString PublisherId;
 
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -203,6 +224,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString DeviceModel;
 
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
     /** Automatically create a PlayFab account if one is not currently linked to this iOS device. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
@@ -226,6 +250,9 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Kongregate account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -243,6 +270,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Password;
 
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -259,6 +289,9 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Steam account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
 };
 
 USTRUCT(BlueprintType)
@@ -392,6 +425,38 @@ public:
     /** Account information for the local user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         UPlayFabJsonObject* AccountInfo;
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayerCombinedInfoRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** PlayFabId of the user whose data will be returned. If not filled included, we return the data for the calling player.  */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString PlayFabId;
+
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        UPlayFabJsonObject* InfoRequestParameters;
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayerCombinedInfoResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString PlayFabId;
+
+    /** Results for requested info. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        UPlayFabJsonObject* InfoResultPayload;
 };
 
 USTRUCT(BlueprintType)
@@ -1320,7 +1385,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString Keys;
 
-    /** Unique PlayFab identifier of the user to load data for. Optional, defaults to yourself if not set. */
+    /** Unique PlayFab identifier of the user to load data for. Optional, defaults to yourself if not set. When specified to a PlayFab id of another player, then this will only return public keys for that account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString PlayFabId;
 
@@ -1404,7 +1469,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString KeysToRemove;
 
-    /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. */
+    /** Permission to be applied to all user data keys written in this request. Defaults to "private" if not set. This is used for requests by one player for information about another player; those requests will only return Public keys. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         EUserDataPermission Permission;
 

@@ -80,6 +80,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientGetPlayFabIDsFromSteamIDsResult decodeGetPlayFabIDsFromSteamIDsResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayFabIDsFromTwitchIDsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientGetPlayFabIDsFromTwitchIDsResult decodeGetPlayFabIDsFromTwitchIDsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetUserCombinedInfoResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientGetUserCombinedInfoResult decodeGetUserCombinedInfoResultResponse(UPlayFabJsonObject* response);
@@ -115,6 +119,10 @@ public:
     /** Decode the LinkSteamAccountResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientLinkSteamAccountResult decodeLinkSteamAccountResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the LinkTwitchAccountResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientLinkTwitchAccountResult decodeLinkTwitchAccountResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the ReportPlayerClientResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
@@ -155,6 +163,10 @@ public:
     /** Decode the UnlinkSteamAccountResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientUnlinkSteamAccountResult decodeUnlinkSteamAccountResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UnlinkTwitchAccountResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientUnlinkTwitchAccountResult decodeUnlinkTwitchAccountResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateUserTitleDisplayNameResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")

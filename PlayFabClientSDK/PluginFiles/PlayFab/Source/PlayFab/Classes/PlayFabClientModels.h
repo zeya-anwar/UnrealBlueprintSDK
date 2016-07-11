@@ -295,6 +295,25 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientLoginWithTwitchRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Token issued by Twitch's API for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        FString AccessToken;
+
+    /** Automatically create a PlayFab account if one is not currently linked to this Twitch account. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        bool CreateAccount;
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
+        UPlayFabJsonObject* InfoRequestParameters;
+};
+
+USTRUCT(BlueprintType)
 struct FClientRegisterPlayFabUserRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -594,6 +613,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromTwitchIDsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of unique Twitch identifiers (Twitch's _id) for which the title needs to get PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString TwitchIds;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromTwitchIDsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Mapping of Twitch identifiers to PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        TArray<UPlayFabJsonObject*> Data;
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientGetUserCombinedInfoRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -880,6 +925,28 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FClientLinkTwitchAccountRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Valid token issued by Twitch */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        FString AccessToken;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientLinkTwitchAccountResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientReportPlayerClientRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1086,6 +1153,24 @@ public:
 
 USTRUCT(BlueprintType)
 struct FClientUnlinkSteamAccountResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUnlinkTwitchAccountRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientUnlinkTwitchAccountResult
 {
     GENERATED_USTRUCT_BODY()
 

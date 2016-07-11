@@ -181,6 +181,18 @@ FClientGetPlayFabIDsFromSteamIDsResult UPlayFabClientModelDecoder::decodeGetPlay
     return tempStruct;
 }
 
+FClientGetPlayFabIDsFromTwitchIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromTwitchIDsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayFabIDsFromTwitchIDsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Mapping of Twitch identifiers to PlayFab identifiers. */
+    tempStruct.Data = !(dataObj->HasField("Data")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Data");
+
+    return tempStruct;
+}
+
 FClientGetUserCombinedInfoResult UPlayFabClientModelDecoder::decodeGetUserCombinedInfoResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -281,6 +293,14 @@ FClientLinkSteamAccountResult UPlayFabClientModelDecoder::decodeLinkSteamAccount
     return tempStruct;
 }
 
+FClientLinkTwitchAccountResult UPlayFabClientModelDecoder::decodeLinkTwitchAccountResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientLinkTwitchAccountResult tempStruct;
+
+    return tempStruct;
+}
+
 FClientReportPlayerClientResult UPlayFabClientModelDecoder::decodeReportPlayerClientResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -364,6 +384,14 @@ FClientUnlinkSteamAccountResult UPlayFabClientModelDecoder::decodeUnlinkSteamAcc
 {
     // Temp ustruct
     FClientUnlinkSteamAccountResult tempStruct;
+
+    return tempStruct;
+}
+
+FClientUnlinkTwitchAccountResult UPlayFabClientModelDecoder::decodeUnlinkTwitchAccountResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUnlinkTwitchAccountResult tempStruct;
 
     return tempStruct;
 }

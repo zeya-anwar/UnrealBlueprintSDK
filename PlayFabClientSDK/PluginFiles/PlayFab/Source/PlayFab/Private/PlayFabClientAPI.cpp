@@ -819,6 +819,69 @@ void UPlayFabClientAPI::HelperLoginWithSteam(FPlayFabBaseModel response, UObject
     }
 }
 
+/** Signs the user in using a Twitch access token. */
+UPlayFabClientAPI* UPlayFabClientAPI::LoginWithTwitch(FClientLoginWithTwitchRequest request,
+    FDelegateOnSuccessLoginWithTwitch onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessLoginWithTwitch = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperLoginWithTwitch);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/LoginWithTwitch";
+    manager->useSessionTicket = false;
+    manager->isLoginRequest = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetStringField(TEXT("TitleId"), IPlayFab::Get().getGameTitleId());
+    if (request.AccessToken.IsEmpty() || request.AccessToken == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AccessToken"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AccessToken"), request.AccessToken);
+    }
+
+    OutRestJsonObj->SetBoolField(TEXT("CreateAccount"), request.CreateAccount);
+    if (request.InfoRequestParameters != nullptr) OutRestJsonObj->SetObjectField(TEXT("InfoRequestParameters"), request.InfoRequestParameters);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperLoginWithTwitch(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientLoginResult result = UPlayFabClientModelDecoder::decodeLoginResultResponse(response.responseData);
+        if (OnSuccessLoginWithTwitch.IsBound())
+        {
+            OnSuccessLoginWithTwitch.Execute(result, customData);
+        }
+    }
+}
+
 /** Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. You must supply either a username or an email address. */
 UPlayFabClientAPI* UPlayFabClientAPI::RegisterPlayFabUser(FClientRegisterPlayFabUserRequest request,
     FDelegateOnSuccessRegisterPlayFabUser onSuccess,
@@ -1461,6 +1524,68 @@ void UPlayFabClientAPI::HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel respon
     }
 }
 
+/** Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods(ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser). */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromTwitchIDs(FClientGetPlayFabIDsFromTwitchIDsRequest request,
+    FDelegateOnSuccessGetPlayFabIDsFromTwitchIDs onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayFabIDsFromTwitchIDs = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetPlayFabIDsFromTwitchIDs);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPlayFabIDsFromTwitchIDs";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.TwitchIds.IsEmpty() || request.TwitchIds == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("TwitchIds"));
+    }
+    else
+    {
+        TArray<FString> TwitchIdsArray;
+        FString(request.TwitchIds).ParseIntoArray(TwitchIdsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("TwitchIds"), TwitchIdsArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperGetPlayFabIDsFromTwitchIDs(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientGetPlayFabIDsFromTwitchIDsResult result = UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromTwitchIDsResultResponse(response.responseData);
+        if (OnSuccessGetPlayFabIDsFromTwitchIDs.IsBound())
+        {
+            OnSuccessGetPlayFabIDsFromTwitchIDs.Execute(result, customData);
+        }
+    }
+}
+
 /** NOTE: This call will be deprecated soon. For fetching the data for a given user  use GetPlayerCombinedInfo. For looking up users from the client api, we are in the process of adding a new api call. Once that call is ready, this one will be deprecated.  Retrieves all requested data for a user in one unified request. By default, this API returns all  data for the locally signed-in user. The input parameters may be used to limit the data retrieved to any subset of the available data, as well as retrieve the available data for a different user. Note that certain data, including inventory, virtual currency balances, and personally identifying information, may only be retrieved for the locally signed-in user. In the example below, a request is made for the account details, virtual currency balances, and specified user data for the locally signed-in user. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetUserCombinedInfo(FClientGetUserCombinedInfoRequest request,
     FDelegateOnSuccessGetUserCombinedInfo onSuccess,
@@ -2093,6 +2218,65 @@ void UPlayFabClientAPI::HelperLinkSteamAccount(FPlayFabBaseModel response, UObje
     }
 }
 
+/** Links the Twitch account associated with the token to the user's PlayFab account */
+UPlayFabClientAPI* UPlayFabClientAPI::LinkTwitch(FClientLinkTwitchAccountRequest request,
+    FDelegateOnSuccessLinkTwitch onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessLinkTwitch = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperLinkTwitch);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/LinkTwitch";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+    if (request.AccessToken.IsEmpty() || request.AccessToken == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("AccessToken"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("AccessToken"), request.AccessToken);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperLinkTwitch(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientLinkTwitchAccountResult result = UPlayFabClientModelDecoder::decodeLinkTwitchAccountResultResponse(response.responseData);
+        if (OnSuccessLinkTwitch.IsBound())
+        {
+            OnSuccessLinkTwitch.Execute(result, customData);
+        }
+    }
+}
+
 /** Submit a report for another player (due to bad bahavior, etc.), so that customer service representatives for the title can take action concerning potentially toxic players. */
 UPlayFabClientAPI* UPlayFabClientAPI::ReportPlayer(FClientReportPlayerClientRequest request,
     FDelegateOnSuccessReportPlayer onSuccess,
@@ -2653,6 +2837,56 @@ void UPlayFabClientAPI::HelperUnlinkSteamAccount(FPlayFabBaseModel response, UOb
         if (OnSuccessUnlinkSteamAccount.IsBound())
         {
             OnSuccessUnlinkSteamAccount.Execute(result, customData);
+        }
+    }
+}
+
+/** Unlinks the related Twitch account from the user's PlayFab account */
+UPlayFabClientAPI* UPlayFabClientAPI::UnlinkTwitch(FClientUnlinkTwitchAccountRequest request,
+    FDelegateOnSuccessUnlinkTwitch onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessUnlinkTwitch = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperUnlinkTwitch);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/UnlinkTwitch";
+    manager->useSessionTicket = true;
+
+
+    // Setup request object
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperUnlinkTwitch(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientUnlinkTwitchAccountResult result = UPlayFabClientModelDecoder::decodeUnlinkTwitchAccountResultResponse(response.responseData);
+        if (OnSuccessUnlinkTwitch.IsBound())
+        {
+            OnSuccessUnlinkTwitch.Execute(result, customData);
         }
     }
 }

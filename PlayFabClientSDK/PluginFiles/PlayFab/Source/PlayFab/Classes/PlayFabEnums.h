@@ -329,5 +329,6 @@ enum class EUserOrigination : uint8
     pfenum_CustomId UMETA(DisplayName = "CustomId"),
     pfenum_XboxLive UMETA(DisplayName = "XboxLive"),
     pfenum_Parse UMETA(DisplayName = "Parse"),
+    pfenum_Twitch UMETA(DisplayName = "Twitch"),
 };
 

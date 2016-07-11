@@ -191,6 +191,19 @@ public:
         void HelperLoginWithSteam(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLoginWithTwitch, FClientLoginResult, result, UObject*, customData);
+
+    /** Signs the user in using a Twitch access token. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* LoginWithTwitch(FClientLoginWithTwitchRequest request,
+            FDelegateOnSuccessLoginWithTwitch onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperLoginWithTwitch(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRegisterPlayFabUser, FClientRegisterPlayFabUserResult, result, UObject*, customData);
 
     /** Registers a new Playfab user account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. You must supply either a username or an email address. */
@@ -312,6 +325,19 @@ public:
         void HelperGetPlayFabIDsFromSteamIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromTwitchIDs, FClientGetPlayFabIDsFromTwitchIDsResult, result, UObject*, customData);
+
+    /** Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods(ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser). */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetPlayFabIDsFromTwitchIDs(FClientGetPlayFabIDsFromTwitchIDsRequest request,
+            FDelegateOnSuccessGetPlayFabIDsFromTwitchIDs onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayFabIDsFromTwitchIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserCombinedInfo, FClientGetUserCombinedInfoResult, result, UObject*, customData);
 
     /** NOTE: This call will be deprecated soon. For fetching the data for a given user  use GetPlayerCombinedInfo. For looking up users from the client api, we are in the process of adding a new api call. Once that call is ready, this one will be deprecated.  Retrieves all requested data for a user in one unified request. By default, this API returns all  data for the locally signed-in user. The input parameters may be used to limit the data retrieved to any subset of the available data, as well as retrieve the available data for a different user. Note that certain data, including inventory, virtual currency balances, and personally identifying information, may only be retrieved for the locally signed-in user. In the example below, a request is made for the account details, virtual currency balances, and specified user data for the locally signed-in user. */
@@ -427,6 +453,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperLinkSteamAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkTwitch, FClientLinkTwitchAccountResult, result, UObject*, customData);
+
+    /** Links the Twitch account associated with the token to the user's PlayFab account */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* LinkTwitch(FClientLinkTwitchAccountRequest request,
+            FDelegateOnSuccessLinkTwitch onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperLinkTwitch(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessReportPlayer, FClientReportPlayerClientResult, result, UObject*, customData);
@@ -557,6 +596,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperUnlinkSteamAccount(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkTwitch, FClientUnlinkTwitchAccountResult, result, UObject*, customData);
+
+    /** Unlinks the related Twitch account from the user's PlayFab account */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* UnlinkTwitch(FClientUnlinkTwitchAccountRequest request,
+            FDelegateOnSuccessUnlinkTwitch onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperUnlinkTwitch(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateUserTitleDisplayName, FClientUpdateUserTitleDisplayNameResult, result, UObject*, customData);
@@ -1684,6 +1736,7 @@ public:
     FDelegateOnSuccessLoginWithKongregate OnSuccessLoginWithKongregate;
     FDelegateOnSuccessLoginWithPlayFab OnSuccessLoginWithPlayFab;
     FDelegateOnSuccessLoginWithSteam OnSuccessLoginWithSteam;
+    FDelegateOnSuccessLoginWithTwitch OnSuccessLoginWithTwitch;
     FDelegateOnSuccessRegisterPlayFabUser OnSuccessRegisterPlayFabUser;
     FDelegateOnSuccessAddUsernamePassword OnSuccessAddUsernamePassword;
     FDelegateOnSuccessGetAccountInfo OnSuccessGetAccountInfo;
@@ -1693,6 +1746,7 @@ public:
     FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs OnSuccessGetPlayFabIDsFromGoogleIDs;
     FDelegateOnSuccessGetPlayFabIDsFromKongregateIDs OnSuccessGetPlayFabIDsFromKongregateIDs;
     FDelegateOnSuccessGetPlayFabIDsFromSteamIDs OnSuccessGetPlayFabIDsFromSteamIDs;
+    FDelegateOnSuccessGetPlayFabIDsFromTwitchIDs OnSuccessGetPlayFabIDsFromTwitchIDs;
     FDelegateOnSuccessGetUserCombinedInfo OnSuccessGetUserCombinedInfo;
     FDelegateOnSuccessLinkAndroidDeviceID OnSuccessLinkAndroidDeviceID;
     FDelegateOnSuccessLinkCustomID OnSuccessLinkCustomID;
@@ -1702,6 +1756,7 @@ public:
     FDelegateOnSuccessLinkIOSDeviceID OnSuccessLinkIOSDeviceID;
     FDelegateOnSuccessLinkKongregate OnSuccessLinkKongregate;
     FDelegateOnSuccessLinkSteamAccount OnSuccessLinkSteamAccount;
+    FDelegateOnSuccessLinkTwitch OnSuccessLinkTwitch;
     FDelegateOnSuccessReportPlayer OnSuccessReportPlayer;
     FDelegateOnSuccessSendAccountRecoveryEmail OnSuccessSendAccountRecoveryEmail;
     FDelegateOnSuccessUnlinkAndroidDeviceID OnSuccessUnlinkAndroidDeviceID;
@@ -1712,6 +1767,7 @@ public:
     FDelegateOnSuccessUnlinkIOSDeviceID OnSuccessUnlinkIOSDeviceID;
     FDelegateOnSuccessUnlinkKongregate OnSuccessUnlinkKongregate;
     FDelegateOnSuccessUnlinkSteamAccount OnSuccessUnlinkSteamAccount;
+    FDelegateOnSuccessUnlinkTwitch OnSuccessUnlinkTwitch;
     FDelegateOnSuccessUpdateUserTitleDisplayName OnSuccessUpdateUserTitleDisplayName;
     FDelegateOnSuccessGetFriendLeaderboard OnSuccessGetFriendLeaderboard;
     FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser OnSuccessGetFriendLeaderboardAroundCurrentUser;

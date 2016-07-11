@@ -265,6 +265,8 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1229: returnText = "VirtualCurrencyCountLimitExceeded"; break;
     case 1230: returnText = "VirtualCurrencyCodeExists"; break;
     case 1231: returnText = "TitleNewsItemCountLimitExceeded"; break;
+    case 1232: returnText = "InvalidTwitchToken"; break;
+    case 1233: returnText = "TwitchResponseError"; break;
     }
 
     // Return the text

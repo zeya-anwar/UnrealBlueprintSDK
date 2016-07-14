@@ -1177,7 +1177,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString Timestamp;
 
-    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected */
+    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString TitleId;
 
@@ -1229,7 +1229,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString Timestamp;
 
-    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected */
+    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString TitleId;
 
@@ -1367,7 +1367,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString Timestamp;
 
-    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected */
+    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString TitleId;
 

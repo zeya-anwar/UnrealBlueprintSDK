@@ -483,7 +483,7 @@ FAdminAddServerBuildResult UPlayFabAdminModelDecoder::decodeAddServerBuildResult
     /** time this build was last modified (or uploaded, if this build has never been modified) */
     tempStruct.Timestamp = !(dataObj->HasField("Timestamp")) ? TEXT("") : dataObj->GetStringField("Timestamp");
 
-    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected */
+    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected. */
     tempStruct.TitleId = !(dataObj->HasField("TitleId")) ? TEXT("") : dataObj->GetStringField("TitleId");
 
     /** the current status of the build validation and processing steps */
@@ -516,7 +516,7 @@ FAdminGetServerBuildInfoResult UPlayFabAdminModelDecoder::decodeGetServerBuildIn
     /** time this build was last modified (or uploaded, if this build has never been modified) */
     tempStruct.Timestamp = !(dataObj->HasField("Timestamp")) ? TEXT("") : dataObj->GetStringField("Timestamp");
 
-    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected */
+    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected. */
     tempStruct.TitleId = !(dataObj->HasField("TitleId")) ? TEXT("") : dataObj->GetStringField("TitleId");
 
     /** the current status of the build validation and processing steps */
@@ -582,7 +582,7 @@ FAdminModifyServerBuildResult UPlayFabAdminModelDecoder::decodeModifyServerBuild
     /** time this build was last modified (or uploaded, if this build has never been modified) */
     tempStruct.Timestamp = !(dataObj->HasField("Timestamp")) ? TEXT("") : dataObj->GetStringField("Timestamp");
 
-    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected */
+    /** Unique identifier for the title, found in the Settings > Game Properties section of the PlayFab developer site when a title has been selected. */
     tempStruct.TitleId = !(dataObj->HasField("TitleId")) ? TEXT("") : dataObj->GetStringField("TitleId");
 
     /** the current status of the build validation and processing steps */

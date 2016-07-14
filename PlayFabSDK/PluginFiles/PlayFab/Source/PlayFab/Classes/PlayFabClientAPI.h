@@ -327,7 +327,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromTwitchIDs, FClientGetPlayFabIDsFromTwitchIDsResult, result, UObject*, customData);
 
-    /** Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods(ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser). */
+    /** Retrieves the unique PlayFab identifiers for the given set of Twitch identifiers. The Twitch identifiers are the IDs for the user accounts, available as "_id" from the Twitch API methods (ex: https://github.com/justintv/Twitch-API/blob/master/v3_resources/users.md#get-usersuser). */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetPlayFabIDsFromTwitchIDs(FClientGetPlayFabIDsFromTwitchIDsRequest request,
             FDelegateOnSuccessGetPlayFabIDsFromTwitchIDs onSuccess,
@@ -457,7 +457,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLinkTwitch, FClientLinkTwitchAccountResult, result, UObject*, customData);
 
-    /** Links the Twitch account associated with the token to the user's PlayFab account */
+    /** Links the Twitch account associated with the token to the user's PlayFab account. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* LinkTwitch(FClientLinkTwitchAccountRequest request,
             FDelegateOnSuccessLinkTwitch onSuccess,
@@ -600,7 +600,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUnlinkTwitch, FClientUnlinkTwitchAccountResult, result, UObject*, customData);
 
-    /** Unlinks the related Twitch account from the user's PlayFab account */
+    /** Unlinks the related Twitch account from the user's PlayFab account. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* UnlinkTwitch(FClientUnlinkTwitchAccountRequest request,
             FDelegateOnSuccessUnlinkTwitch onSuccess,

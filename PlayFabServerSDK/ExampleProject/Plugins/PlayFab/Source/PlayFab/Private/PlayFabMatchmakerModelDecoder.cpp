@@ -53,7 +53,7 @@ FMatchmakerStartGameResponse UPlayFabMatchmakerModelDecoder::decodeStartGameResp
     FMatchmakerStartGameResponse tempStruct;
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
-    /** Unique identifier for the lobby in the new Game Server Instance. */
+    /** Unique identifier for the game/lobby in the new Game Server Instance. */
     tempStruct.GameID = !(dataObj->HasField("GameID")) ? TEXT("") : dataObj->GetStringField("GameID");
 
     /** IP address of the new Game Server Instance. */

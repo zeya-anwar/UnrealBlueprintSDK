@@ -2460,22 +2460,25 @@ struct FClientCurrentGamesRequest
 
 public:
 
-    /** region to check for game instances */
+    /** Region to check for Game Server Instances. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         ERegion Region;
 
-    /** version of build to match against */
+    /** Build to match against. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString BuildVersion;
 
-    /** game mode to look for (optional) */
+    /** Game mode to look for. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString GameMode;
 
-    /** statistic name to find statistic-based matches (optional) */
+    /** Statistic name to find statistic-based matches. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString StatisticName;
 
+    /** Filter to include and/or exclude Game Server Instances associated with certain tags. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+        UPlayFabJsonObject* TagFilter;
 };
 
 USTRUCT(BlueprintType)
@@ -2530,33 +2533,36 @@ struct FClientMatchmakeRequest
 
 public:
 
-    /** build version to match against [Note: Required if LobbyId is not specified] */
+    /** Build version to match against. [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString BuildVersion;
 
-    /** region to match make against [Note: Required if LobbyId is not specified] */
+    /** Region to match make against. [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         ERegion Region;
 
-    /** game mode to match make against [Note: Required if LobbyId is not specified] */
+    /** Game mode to match make against. [Note: Required if LobbyId is not specified] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString GameMode;
 
-    /** lobby identifier to match make against (used to select a specific server) */
+    /** Lobby identifier to match make against. This is used to select a specific Game Server Instance. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString LobbyId;
 
-    /** player statistic to use in finding a match. May be null for no stat-based matching */
+    /** Player statistic to use in finding a match. May be null for no stat-based matching. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString StatisticName;
 
-    /** character to use for stats based matching. Leave null to use account stats */
+    /** Character to use for stats based matching. Leave null to use account stats. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString CharacterId;
 
-    /** start a game session if one with an open slot is not found. Defaults to true */
+    /** Start a game session if one with an open slot is not found. Defaults to true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         bool StartNewIfNoneFound;
+    /** Filter to include and/or exclude Game Server Instances associated with certain Tags */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+        UPlayFabJsonObject* TagFilter;
     /** [deprecated] */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         bool EnableQueue;

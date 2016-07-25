@@ -4186,7 +4186,7 @@ void UPlayFabServerAPI::HelperSetGameServerInstanceData(FPlayFabBaseModel respon
     }
 }
 
-/** Sets the state of the indicated Game Server Instance */
+/** Set the state of the indicated Game Server Instance. */
 UPlayFabServerAPI* UPlayFabServerAPI::SetGameServerInstanceState(FServerSetGameServerInstanceStateRequest request,
     FDelegateOnSuccessSetGameServerInstanceState onSuccess,
     FDelegateOnFailurePlayFabError onFailure,

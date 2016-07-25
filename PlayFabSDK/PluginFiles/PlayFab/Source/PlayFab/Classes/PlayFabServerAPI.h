@@ -815,7 +815,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceState, FServerSetGameServerInstanceStateResult, result, UObject*, customData);
 
-    /** Sets the state of the indicated Game Server Instance */
+    /** Set the state of the indicated Game Server Instance. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* SetGameServerInstanceState(FServerSetGameServerInstanceStateRequest request,
             FDelegateOnSuccessSetGameServerInstanceState onSuccess,

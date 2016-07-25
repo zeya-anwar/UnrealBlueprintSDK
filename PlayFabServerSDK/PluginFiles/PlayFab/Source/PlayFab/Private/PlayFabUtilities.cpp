@@ -147,7 +147,6 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1111: returnText = "InvalidReportDate"; break;
     case 1112: returnText = "ReportNotAvailable"; break;
     case 1113: returnText = "DatabaseThroughputExceeded"; break;
-    case 1114: returnText = "InvalidLobbyId"; break;
     case 1115: returnText = "InvalidGameTicket"; break;
     case 1116: returnText = "ExpiredGameTicket"; break;
     case 1117: returnText = "GameTicketDoesNotMatchLobby"; break;
@@ -267,6 +266,8 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1231: returnText = "TitleNewsItemCountLimitExceeded"; break;
     case 1232: returnText = "InvalidTwitchToken"; break;
     case 1233: returnText = "TwitchResponseError"; break;
+    case 1234: returnText = "ProfaneDisplayName"; break;
+    case 1235: returnText = "UserAlreadyAdded"; break;
     }
 
     // Return the text

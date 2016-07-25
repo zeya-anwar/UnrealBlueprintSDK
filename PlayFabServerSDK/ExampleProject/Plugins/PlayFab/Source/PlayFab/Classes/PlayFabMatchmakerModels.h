@@ -139,7 +139,7 @@ struct FMatchmakerStartGameResponse
 
 public:
 
-    /** Unique identifier for the lobby in the new Game Server Instance. */
+    /** Unique identifier for the game/lobby in the new Game Server Instance. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")
         FString GameID;
 

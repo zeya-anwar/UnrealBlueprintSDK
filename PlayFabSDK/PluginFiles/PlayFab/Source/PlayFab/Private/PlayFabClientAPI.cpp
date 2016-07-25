@@ -5867,6 +5867,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::GetCurrentGames(FClientCurrentGamesRequest
         OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
     }
 
+    if (request.TagFilter != nullptr) OutRestJsonObj->SetObjectField(TEXT("TagFilter"), request.TagFilter);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -6028,6 +6029,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::Matchmake(FClientMatchmakeRequest request,
     }
 
     OutRestJsonObj->SetBoolField(TEXT("StartNewIfNoneFound"), request.StartNewIfNoneFound);
+    if (request.TagFilter != nullptr) OutRestJsonObj->SetObjectField(TEXT("TagFilter"), request.TagFilter);
     OutRestJsonObj->SetBoolField(TEXT("EnableQueue"), request.EnableQueue);
 
     // Add Request to manager

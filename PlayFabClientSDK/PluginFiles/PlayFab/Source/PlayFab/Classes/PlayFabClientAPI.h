@@ -221,6 +221,19 @@ public:
     // Account Management
     //////////////////////////////////////////////////////
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddGenericID, FClientAddGenericIDResult, result, UObject*, customData);
+
+    /** Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as authentication credentials, as the intent is that it is easily accessible by other players. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* AddGenericID(FClientAddGenericIDRequest request,
+            FDelegateOnSuccessAddGenericID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperAddGenericID(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddUsernamePassword, FClientAddUsernamePasswordResult, result, UObject*, customData);
 
     /** Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method. */
@@ -284,6 +297,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetPlayFabIDsFromGameCenterIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromGenericIDs, FClientGetPlayFabIDsFromGenericIDsResult, result, UObject*, customData);
+
+    /** Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the service name plus the service-specific ID for the player, as specified by the title when the generic identifier was added to the player account. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetPlayFabIDsFromGenericIDs(FClientGetPlayFabIDsFromGenericIDsRequest request,
+            FDelegateOnSuccessGetPlayFabIDsFromGenericIDs onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayFabIDsFromGenericIDs(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs, FClientGetPlayFabIDsFromGoogleIDsResult, result, UObject*, customData);
@@ -466,6 +492,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperLinkTwitch(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRemoveGenericID, FClientRemoveGenericIDResult, result, UObject*, customData);
+
+    /** Removes the specified generic service identifier from the player's PlayFab account. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* RemoveGenericID(FClientRemoveGenericIDRequest request,
+            FDelegateOnSuccessRemoveGenericID onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRemoveGenericID(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessReportPlayer, FClientReportPlayerClientResult, result, UObject*, customData);
@@ -1710,6 +1749,23 @@ public:
     // Guilds
     //////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////
+    // PlayStream
+    //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerSegments, FClientGetPlayerSegmentsResult, result, UObject*, customData);
+
+    /** List all segments that a player currently belongs to at this moment in time. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetPlayerSegments(FClientGetPlayerSegmentsRequest request,
+            FDelegateOnSuccessGetPlayerSegments onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayerSegments(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+
 
     /** PlayFab Request Info */
     FString PlayFabRequestURL;
@@ -1738,11 +1794,13 @@ public:
     FDelegateOnSuccessLoginWithSteam OnSuccessLoginWithSteam;
     FDelegateOnSuccessLoginWithTwitch OnSuccessLoginWithTwitch;
     FDelegateOnSuccessRegisterPlayFabUser OnSuccessRegisterPlayFabUser;
+    FDelegateOnSuccessAddGenericID OnSuccessAddGenericID;
     FDelegateOnSuccessAddUsernamePassword OnSuccessAddUsernamePassword;
     FDelegateOnSuccessGetAccountInfo OnSuccessGetAccountInfo;
     FDelegateOnSuccessGetPlayerCombinedInfo OnSuccessGetPlayerCombinedInfo;
     FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs OnSuccessGetPlayFabIDsFromFacebookIDs;
     FDelegateOnSuccessGetPlayFabIDsFromGameCenterIDs OnSuccessGetPlayFabIDsFromGameCenterIDs;
+    FDelegateOnSuccessGetPlayFabIDsFromGenericIDs OnSuccessGetPlayFabIDsFromGenericIDs;
     FDelegateOnSuccessGetPlayFabIDsFromGoogleIDs OnSuccessGetPlayFabIDsFromGoogleIDs;
     FDelegateOnSuccessGetPlayFabIDsFromKongregateIDs OnSuccessGetPlayFabIDsFromKongregateIDs;
     FDelegateOnSuccessGetPlayFabIDsFromSteamIDs OnSuccessGetPlayFabIDsFromSteamIDs;
@@ -1757,6 +1815,7 @@ public:
     FDelegateOnSuccessLinkKongregate OnSuccessLinkKongregate;
     FDelegateOnSuccessLinkSteamAccount OnSuccessLinkSteamAccount;
     FDelegateOnSuccessLinkTwitch OnSuccessLinkTwitch;
+    FDelegateOnSuccessRemoveGenericID OnSuccessRemoveGenericID;
     FDelegateOnSuccessReportPlayer OnSuccessReportPlayer;
     FDelegateOnSuccessSendAccountRecoveryEmail OnSuccessSendAccountRecoveryEmail;
     FDelegateOnSuccessUnlinkAndroidDeviceID OnSuccessUnlinkAndroidDeviceID;
@@ -1847,6 +1906,7 @@ public:
     FDelegateOnSuccessGetTradeStatus OnSuccessGetTradeStatus;
     FDelegateOnSuccessOpenTrade OnSuccessOpenTrade;
     FDelegateOnSuccessAttributeInstall OnSuccessAttributeInstall;
+    FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
 
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */

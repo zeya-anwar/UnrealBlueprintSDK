@@ -82,6 +82,14 @@ FClientRegisterPlayFabUserResult UPlayFabClientModelDecoder::decodeRegisterPlayF
 // Account Management
 //////////////////////////////////////////////////////
 
+FClientAddGenericIDResult UPlayFabClientModelDecoder::decodeAddGenericIDResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientAddGenericIDResult tempStruct;
+
+    return tempStruct;
+}
+
 FClientAddUsernamePasswordResult UPlayFabClientModelDecoder::decodeAddUsernamePasswordResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -140,6 +148,18 @@ FClientGetPlayFabIDsFromGameCenterIDsResult UPlayFabClientModelDecoder::decodeGe
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     /** Mapping of Game Center identifiers to PlayFab identifiers. */
+    tempStruct.Data = !(dataObj->HasField("Data")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Data");
+
+    return tempStruct;
+}
+
+FClientGetPlayFabIDsFromGenericIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromGenericIDsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayFabIDsFromGenericIDsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Mapping of generic service identifiers to PlayFab identifiers. */
     tempStruct.Data = !(dataObj->HasField("Data")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Data");
 
     return tempStruct;
@@ -297,6 +317,14 @@ FClientLinkTwitchAccountResult UPlayFabClientModelDecoder::decodeLinkTwitchAccou
 {
     // Temp ustruct
     FClientLinkTwitchAccountResult tempStruct;
+
+    return tempStruct;
+}
+
+FClientRemoveGenericIDResult UPlayFabClientModelDecoder::decodeRemoveGenericIDResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientRemoveGenericIDResult tempStruct;
 
     return tempStruct;
 }
@@ -1459,5 +1487,23 @@ FClientAttributeInstallResult UPlayFabClientModelDecoder::decodeAttributeInstall
 ///////////////////////////////////////////////////////
 // Guilds
 //////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+
+FClientGetPlayerSegmentsResult UPlayFabClientModelDecoder::decodeGetPlayerSegmentsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayerSegmentsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Array of segments the requested player currently belongs to. */
+    tempStruct.Segments = !(dataObj->HasField("Segments")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Segments");
+
+    return tempStruct;
+}
 
 

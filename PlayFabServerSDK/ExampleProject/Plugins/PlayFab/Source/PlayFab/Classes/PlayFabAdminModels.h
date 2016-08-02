@@ -665,6 +665,19 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminRemoveVirtualCurrencyTypesRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** List of virtual currencies to delete */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        TArray<UPlayFabJsonObject*> VirtualCurrencies;
+
+};
+
+USTRUCT(BlueprintType)
 struct FAdminUpdateCatalogItemsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1672,6 +1685,103 @@ struct FAdminResetCharacterStatisticsResult
     GENERATED_USTRUCT_BODY()
 
 public:
+
+};
+
+
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FAdminGetAllSegmentsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetAllSegmentsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of segments for this title. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        TArray<UPlayFabJsonObject*> Segments;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayerSegmentsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of segments the requested player currently belongs to. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        TArray<UPlayFabJsonObject*> Segments;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayersSegmentsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        FString PlayFabId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayersInSegmentRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique identifier for this segment. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        FString SegmentId;
+
+    /** Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        int32 SecondsToLive;
+    /** Maximum number of profiles to load. Default is 1,000. Maximum is 10,000. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        int32 MaxBatchSize;
+    /** Continuation token if retrieving subsequent pages of results. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        FString ContinuationToken;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayersInSegmentResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Count of profiles matching this segment. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        int32 ProfilesInSegment;
+    /** Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        FString ContinuationToken;
+
+    /** Array of player profiles in this segment. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        TArray<UPlayFabJsonObject*> PlayerProfiles;
 
 };
 

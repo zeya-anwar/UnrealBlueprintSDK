@@ -268,6 +268,15 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1233: returnText = "TwitchResponseError"; break;
     case 1234: returnText = "ProfaneDisplayName"; break;
     case 1235: returnText = "UserAlreadyAdded"; break;
+    case 1236: returnText = "InvalidVirtualCurrencyCode"; break;
+    case 1237: returnText = "VirtualCurrencyCannotBeDeleted"; break;
+    case 1238: returnText = "IdentifierAlreadyClaimed"; break;
+    case 1239: returnText = "IdentifierNotLinked"; break;
+    case 1240: returnText = "InvalidContinuationToken"; break;
+    case 1241: returnText = "ExpiredContinuationToken"; break;
+    case 1242: returnText = "InvalidSegment"; break;
+    case 1243: returnText = "InvalidSessionId"; break;
+    case 1244: returnText = "SessionLogNotFound"; break;
     }
 
     // Return the text

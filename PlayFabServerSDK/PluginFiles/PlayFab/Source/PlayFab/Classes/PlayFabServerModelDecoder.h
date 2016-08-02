@@ -74,6 +74,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetLeaderboardAroundUserResult decodeGetLeaderboardAroundUserResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayerCombinedInfoResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
+        static FServerGetPlayerCombinedInfoResult decodeGetPlayerCombinedInfoResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetPlayerStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetPlayerStatisticsResult decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response);
@@ -365,6 +369,24 @@ public:
     ///////////////////////////////////////////////////////
     // Guilds
     //////////////////////////////////////////////////////
+
+
+
+    ///////////////////////////////////////////////////////
+    // PlayStream
+    //////////////////////////////////////////////////////
+
+    /** Decode the GetAllSegmentsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
+        static FServerGetAllSegmentsResult decodeGetAllSegmentsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayerSegmentsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
+        static FServerGetPlayerSegmentsResult decodeGetPlayerSegmentsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayersInSegmentResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
+        static FServerGetPlayersInSegmentResult decodeGetPlayersInSegmentResultResponse(UPlayFabJsonObject* response);
 
 
 

@@ -996,6 +996,58 @@ void UPlayFabClientAPI::HelperRegisterPlayFabUser(FPlayFabBaseModel response, UO
 ///////////////////////////////////////////////////////
 // Account Management
 //////////////////////////////////////////////////////
+/** Adds the specified generic service identifier to the player's PlayFab account. This is designed to allow for a PlayFab ID lookup of any arbitrary service identifier a title wants to add. This identifier should never be used as authentication credentials, as the intent is that it is easily accessible by other players. */
+UPlayFabClientAPI* UPlayFabClientAPI::AddGenericID(FClientAddGenericIDRequest request,
+    FDelegateOnSuccessAddGenericID onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessAddGenericID = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperAddGenericID);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/AddGenericID";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    if (request.GenericId != nullptr) OutRestJsonObj->SetObjectField(TEXT("GenericId"), request.GenericId);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperAddGenericID(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientAddGenericIDResult result = UPlayFabClientModelDecoder::decodeAddGenericIDResultResponse(response.responseData);
+        if (OnSuccessAddGenericID.IsBound())
+        {
+            OnSuccessAddGenericID.Execute(result, customData);
+        }
+    }
+}
+
 /** Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method. */
 UPlayFabClientAPI* UPlayFabClientAPI::AddUsernamePassword(FClientAddUsernamePasswordRequest request,
     FDelegateOnSuccessAddUsernamePassword onSuccess,
@@ -1344,6 +1396,58 @@ void UPlayFabClientAPI::HelperGetPlayFabIDsFromGameCenterIDs(FPlayFabBaseModel r
         if (OnSuccessGetPlayFabIDsFromGameCenterIDs.IsBound())
         {
             OnSuccessGetPlayFabIDsFromGameCenterIDs.Execute(result, customData);
+        }
+    }
+}
+
+/** Retrieves the unique PlayFab identifiers for the given set of generic service identifiers. A generic identifier is the service name plus the service-specific ID for the player, as specified by the title when the generic identifier was added to the player account. */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromGenericIDs(FClientGetPlayFabIDsFromGenericIDsRequest request,
+    FDelegateOnSuccessGetPlayFabIDsFromGenericIDs onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayFabIDsFromGenericIDs = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetPlayFabIDsFromGenericIDs);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPlayFabIDsFromGenericIDs";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    OutRestJsonObj->SetObjectArrayField(TEXT("GenericIDs"), request.GenericIDs);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperGetPlayFabIDsFromGenericIDs(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientGetPlayFabIDsFromGenericIDsResult result = UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromGenericIDsResultResponse(response.responseData);
+        if (OnSuccessGetPlayFabIDsFromGenericIDs.IsBound())
+        {
+            OnSuccessGetPlayFabIDsFromGenericIDs.Execute(result, customData);
         }
     }
 }
@@ -2305,6 +2409,58 @@ void UPlayFabClientAPI::HelperLinkTwitch(FPlayFabBaseModel response, UObject* cu
         if (OnSuccessLinkTwitch.IsBound())
         {
             OnSuccessLinkTwitch.Execute(result, customData);
+        }
+    }
+}
+
+/** Removes the specified generic service identifier from the player's PlayFab account. */
+UPlayFabClientAPI* UPlayFabClientAPI::RemoveGenericID(FClientRemoveGenericIDRequest request,
+    FDelegateOnSuccessRemoveGenericID onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRemoveGenericID = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperRemoveGenericID);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/RemoveGenericID";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+    if (request.GenericId != nullptr) OutRestJsonObj->SetObjectField(TEXT("GenericId"), request.GenericId);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperRemoveGenericID(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientRemoveGenericIDResult result = UPlayFabClientModelDecoder::decodeRemoveGenericIDResultResponse(response.responseData);
+        if (OnSuccessRemoveGenericID.IsBound())
+        {
+            OnSuccessRemoveGenericID.Execute(result, customData);
         }
     }
 }
@@ -8468,6 +8624,61 @@ void UPlayFabClientAPI::HelperAttributeInstall(FPlayFabBaseModel response, UObje
 ///////////////////////////////////////////////////////
 // Guilds
 //////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+/** List all segments that a player currently belongs to at this moment in time. */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPlayerSegments(FClientGetPlayerSegmentsRequest request,
+    FDelegateOnSuccessGetPlayerSegments onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayerSegments = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetPlayerSegments);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPlayerSegments";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+
+    // Setup request object
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperGetPlayerSegments(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientGetPlayerSegmentsResult result = UPlayFabClientModelDecoder::decodeGetPlayerSegmentsResultResponse(response.responseData);
+        if (OnSuccessGetPlayerSegments.IsBound())
+        {
+            OnSuccessGetPlayerSegments.Execute(result, customData);
+        }
+    }
+}
+
 
 
 void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

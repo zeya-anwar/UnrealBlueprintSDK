@@ -258,6 +258,38 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetPlayerCombinedInfoRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** PlayFabId of the user whose data will be returned */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** Flags for which pieces of info to return for the user. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        UPlayFabJsonObject* InfoRequestParameters;
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayerCombinedInfoResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+
+    /** Results for requested info. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        UPlayFabJsonObject* InfoResultPayload;
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetPlayerStatisticsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -2369,5 +2401,102 @@ public:
 ///////////////////////////////////////////////////////
 // Guilds
 //////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FServerGetAllSegmentsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetAllSegmentsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of segments for this title. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        TArray<UPlayFabJsonObject*> Segments;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayerSegmentsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of segments the requested player currently belongs to. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        TArray<UPlayFabJsonObject*> Segments;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayersSegmentsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        FString PlayFabId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayersInSegmentRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique identifier for this segment. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        FString SegmentId;
+
+    /** Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        int32 SecondsToLive;
+    /** Maximum number of profiles to load. Default is 1,000. Maximum is 10,000. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        int32 MaxBatchSize;
+    /** Continuation token if retrieving subsequent pages of results. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        FString ContinuationToken;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayersInSegmentResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Count of profiles matching this segment. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        int32 ProfilesInSegment;
+    /** Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        FString ContinuationToken;
+
+    /** Array of player profiles in this segment. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        TArray<UPlayFabJsonObject*> PlayerProfiles;
+
+};
 
 

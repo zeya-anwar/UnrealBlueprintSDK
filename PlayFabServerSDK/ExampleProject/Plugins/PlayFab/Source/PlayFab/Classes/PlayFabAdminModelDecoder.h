@@ -274,4 +274,22 @@ public:
 
 
 
+    ///////////////////////////////////////////////////////
+    // PlayStream
+    //////////////////////////////////////////////////////
+
+    /** Decode the GetAllSegmentsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream Models")
+        static FAdminGetAllSegmentsResult decodeGetAllSegmentsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayerSegmentsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream Models")
+        static FAdminGetPlayerSegmentsResult decodeGetPlayerSegmentsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayersInSegmentResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream Models")
+        static FAdminGetPlayersInSegmentResult decodeGetPlayersInSegmentResultResponse(UPlayFabJsonObject* response);
+
+
+
 };

@@ -3,11 +3,11 @@
 
     "FriendlyName" : "PlayFabServerSDK",
     "Version" : 1,
-    "VersionName" : "0.0.160725",
+    "VersionName" : "0.0.160801",
     "CreatedBy" : "Joshua Lyons, 2015",
     "CreatedByURL" : "https://playfab.com/",
     "EngineVersion" : "4.8.0",
-    "Description" : "PlayFab Blueprint SDK for Unreal Engine 4. Current API version: 0.0.160725",
+    "Description" : "PlayFab Blueprint SDK for Unreal Engine 4. Current API version: 0.0.160801",
     "Category" : "PlayFab",
     "EnabledByDefault" : true,
     "CanContainContent": true,

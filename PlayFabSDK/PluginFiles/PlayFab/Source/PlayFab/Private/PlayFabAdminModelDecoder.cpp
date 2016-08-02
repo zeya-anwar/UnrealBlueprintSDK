@@ -729,3 +729,51 @@ FAdminResetCharacterStatisticsResult UPlayFabAdminModelDecoder::decodeResetChara
 }
 
 
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+
+FAdminGetAllSegmentsResult UPlayFabAdminModelDecoder::decodeGetAllSegmentsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetAllSegmentsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Array of segments for this title. */
+    tempStruct.Segments = !(dataObj->HasField("Segments")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Segments");
+
+    return tempStruct;
+}
+
+FAdminGetPlayerSegmentsResult UPlayFabAdminModelDecoder::decodeGetPlayerSegmentsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetPlayerSegmentsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Array of segments the requested player currently belongs to. */
+    tempStruct.Segments = !(dataObj->HasField("Segments")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Segments");
+
+    return tempStruct;
+}
+
+FAdminGetPlayersInSegmentResult UPlayFabAdminModelDecoder::decodeGetPlayersInSegmentResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetPlayersInSegmentResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Count of profiles matching this segment. */
+    tempStruct.ProfilesInSegment = !(dataObj->HasField("ProfilesInSegment")) ? 0 : int(dataObj->GetNumberField("ProfilesInSegment"));
+
+    /** Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results. */
+    tempStruct.ContinuationToken = !(dataObj->HasField("ContinuationToken")) ? TEXT("") : dataObj->GetStringField("ContinuationToken");
+
+    /** Array of player profiles in this segment. */
+    tempStruct.PlayerProfiles = !(dataObj->HasField("PlayerProfiles")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("PlayerProfiles");
+
+    return tempStruct;
+}
+
+

@@ -160,6 +160,19 @@ public:
         void HelperGetLeaderboardAroundUser(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerCombinedInfo, FServerGetPlayerCombinedInfoResult, result, UObject*, customData);
+
+    /** Returns whatever info is requested in the response for the user. Note that PII (like email address, facebook id)             may be returned. All parameters default to false. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetPlayerCombinedInfo(FServerGetPlayerCombinedInfoRequest request,
+            FDelegateOnSuccessGetPlayerCombinedInfo onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayerCombinedInfo(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerStatistics, FServerGetPlayerStatisticsResult, result, UObject*, customData);
 
     /** Retrieves the current version and values for the indicated statistics, for the local player. */
@@ -1209,6 +1222,49 @@ public:
     // Guilds
     //////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////
+    // PlayStream
+    //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllSegments, FServerGetAllSegmentsResult, result, UObject*, customData);
+
+    /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetAllSegments(FServerGetAllSegmentsRequest request,
+            FDelegateOnSuccessGetAllSegments onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetAllSegments(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerSegments, FServerGetPlayerSegmentsResult, result, UObject*, customData);
+
+    /** List all segments that a player currently belongs to at this moment in time. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetPlayerSegments(FServerGetPlayersSegmentsRequest request,
+            FDelegateOnSuccessGetPlayerSegments onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayerSegments(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayersInSegment, FServerGetPlayersInSegmentResult, result, UObject*, customData);
+
+    /** Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected in the results. AB Test segments are currently not supported by this operation. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetPlayersInSegment(FServerGetPlayersInSegmentRequest request,
+            FDelegateOnSuccessGetPlayersInSegment onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayersInSegment(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+
 
     /** PlayFab Request Info */
     FString PlayFabRequestURL;
@@ -1232,6 +1288,7 @@ public:
     FDelegateOnSuccessDeleteUsers OnSuccessDeleteUsers;
     FDelegateOnSuccessGetLeaderboard OnSuccessGetLeaderboard;
     FDelegateOnSuccessGetLeaderboardAroundUser OnSuccessGetLeaderboardAroundUser;
+    FDelegateOnSuccessGetPlayerCombinedInfo OnSuccessGetPlayerCombinedInfo;
     FDelegateOnSuccessGetPlayerStatistics OnSuccessGetPlayerStatistics;
     FDelegateOnSuccessGetPlayerStatisticVersions OnSuccessGetPlayerStatisticVersions;
     FDelegateOnSuccessGetUserData OnSuccessGetUserData;
@@ -1309,6 +1366,9 @@ public:
     FDelegateOnSuccessUpdateCharacterData OnSuccessUpdateCharacterData;
     FDelegateOnSuccessUpdateCharacterInternalData OnSuccessUpdateCharacterInternalData;
     FDelegateOnSuccessUpdateCharacterReadOnlyData OnSuccessUpdateCharacterReadOnlyData;
+    FDelegateOnSuccessGetAllSegments OnSuccessGetAllSegments;
+    FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
+    FDelegateOnSuccessGetPlayersInSegment OnSuccessGetPlayersInSegment;
 
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */

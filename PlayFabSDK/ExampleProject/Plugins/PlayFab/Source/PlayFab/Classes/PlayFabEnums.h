@@ -221,6 +221,33 @@ enum class EGameBuildStatus : uint8
     pfenum_FailedToProcess UMETA(DisplayName = "FailedToProcess"),
 };
 
+// Enum for LoginIdentityProvider
+UENUM(BlueprintType)
+enum class ELoginIdentityProvider : uint8
+{
+    pfenum_Unknown UMETA(DisplayName = "Unknown"),
+    pfenum_PlayFab UMETA(DisplayName = "PlayFab"),
+    pfenum_Custom UMETA(DisplayName = "Custom"),
+    pfenum_GameCenter UMETA(DisplayName = "GameCenter"),
+    pfenum_GooglePlay UMETA(DisplayName = "GooglePlay"),
+    pfenum_Steam UMETA(DisplayName = "Steam"),
+    pfenum_XBoxLive UMETA(DisplayName = "XBoxLive"),
+    pfenum_PSN UMETA(DisplayName = "PSN"),
+    pfenum_Kongregate UMETA(DisplayName = "Kongregate"),
+    pfenum_Facebook UMETA(DisplayName = "Facebook"),
+    pfenum_IOSDevice UMETA(DisplayName = "IOSDevice"),
+    pfenum_AndroidDevice UMETA(DisplayName = "AndroidDevice"),
+    pfenum_Twitch UMETA(DisplayName = "Twitch"),
+};
+
+// Enum for PushNotificationPlatform
+UENUM(BlueprintType)
+enum class EPushNotificationPlatform : uint8
+{
+    pfenum_ApplePushNotificationService UMETA(DisplayName = "ApplePushNotificationService"),
+    pfenum_GoogleCloudMessaging UMETA(DisplayName = "GoogleCloudMessaging"),
+};
+
 // Enum for Region
 UENUM(BlueprintType)
 enum class ERegion : uint8

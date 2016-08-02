@@ -48,6 +48,10 @@ public:
     // Account Management
     //////////////////////////////////////////////////////
 
+    /** Decode the AddGenericIDResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientAddGenericIDResult decodeAddGenericIDResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the AddUsernamePasswordResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientAddUsernamePasswordResult decodeAddUsernamePasswordResultResponse(UPlayFabJsonObject* response);
@@ -67,6 +71,10 @@ public:
     /** Decode the GetPlayFabIDsFromGameCenterIDsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientGetPlayFabIDsFromGameCenterIDsResult decodeGetPlayFabIDsFromGameCenterIDsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayFabIDsFromGenericIDsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientGetPlayFabIDsFromGenericIDsResult decodeGetPlayFabIDsFromGenericIDsResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetPlayFabIDsFromGoogleIDsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
@@ -123,6 +131,10 @@ public:
     /** Decode the LinkTwitchAccountResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientLinkTwitchAccountResult decodeLinkTwitchAccountResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RemoveGenericIDResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientRemoveGenericIDResult decodeRemoveGenericIDResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the ReportPlayerClientResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
@@ -551,6 +563,16 @@ public:
     ///////////////////////////////////////////////////////
     // Guilds
     //////////////////////////////////////////////////////
+
+
+
+    ///////////////////////////////////////////////////////
+    // PlayStream
+    //////////////////////////////////////////////////////
+
+    /** Decode the GetPlayerSegmentsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream Models")
+        static FClientGetPlayerSegmentsResult decodeGetPlayerSegmentsResultResponse(UPlayFabJsonObject* response);
 
 
 

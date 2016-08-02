@@ -596,6 +596,67 @@ void UPlayFabServerAPI::HelperGetLeaderboardAroundUser(FPlayFabBaseModel respons
     }
 }
 
+/** Returns whatever info is requested in the response for the user. Note that PII (like email address, facebook id)             may be returned. All parameters default to false. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerCombinedInfo(FServerGetPlayerCombinedInfoRequest request,
+    FDelegateOnSuccessGetPlayerCombinedInfo onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayerCombinedInfo = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetPlayerCombinedInfo);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetPlayerCombinedInfo";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    if (request.InfoRequestParameters != nullptr) OutRestJsonObj->SetObjectField(TEXT("InfoRequestParameters"), request.InfoRequestParameters);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetPlayerCombinedInfo(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerGetPlayerCombinedInfoResult result = UPlayFabServerModelDecoder::decodeGetPlayerCombinedInfoResultResponse(response.responseData);
+        if (OnSuccessGetPlayerCombinedInfo.IsBound())
+        {
+            OnSuccessGetPlayerCombinedInfo.Execute(result, customData);
+        }
+    }
+}
+
 /** Retrieves the current version and values for the indicated statistics, for the local player. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerStatistics(FServerGetPlayerStatisticsRequest request,
     FDelegateOnSuccessGetPlayerStatistics onSuccess,
@@ -6312,6 +6373,192 @@ void UPlayFabServerAPI::HelperUpdateCharacterReadOnlyData(FPlayFabBaseModel resp
 ///////////////////////////////////////////////////////
 // Guilds
 //////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+/** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetAllSegments(FServerGetAllSegmentsRequest request,
+    FDelegateOnSuccessGetAllSegments onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetAllSegments = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetAllSegments);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetAllSegments";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetAllSegments(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerGetAllSegmentsResult result = UPlayFabServerModelDecoder::decodeGetAllSegmentsResultResponse(response.responseData);
+        if (OnSuccessGetAllSegments.IsBound())
+        {
+            OnSuccessGetAllSegments.Execute(result, customData);
+        }
+    }
+}
+
+/** List all segments that a player currently belongs to at this moment in time. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetPlayerSegments(FServerGetPlayersSegmentsRequest request,
+    FDelegateOnSuccessGetPlayerSegments onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayerSegments = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetPlayerSegments);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetPlayerSegments";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetPlayerSegments(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerGetPlayerSegmentsResult result = UPlayFabServerModelDecoder::decodeGetPlayerSegmentsResultResponse(response.responseData);
+        if (OnSuccessGetPlayerSegments.IsBound())
+        {
+            OnSuccessGetPlayerSegments.Execute(result, customData);
+        }
+    }
+}
+
+/** Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected in the results. AB Test segments are currently not supported by this operation. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetPlayersInSegment(FServerGetPlayersInSegmentRequest request,
+    FDelegateOnSuccessGetPlayersInSegment onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayersInSegment = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetPlayersInSegment);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetPlayersInSegment";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.SegmentId.IsEmpty() || request.SegmentId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("SegmentId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("SegmentId"), request.SegmentId);
+    }
+
+    OutRestJsonObj->SetNumberField(TEXT("SecondsToLive"), request.SecondsToLive);
+    OutRestJsonObj->SetNumberField(TEXT("MaxBatchSize"), request.MaxBatchSize);
+    if (request.ContinuationToken.IsEmpty() || request.ContinuationToken == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("ContinuationToken"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("ContinuationToken"), request.ContinuationToken);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetPlayersInSegment(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerGetPlayersInSegmentResult result = UPlayFabServerModelDecoder::decodeGetPlayersInSegmentResultResponse(response.responseData);
+        if (OnSuccessGetPlayersInSegment.IsBound())
+        {
+            OnSuccessGetPlayersInSegment.Execute(result, customData);
+        }
+    }
+}
+
 
 
 void UPlayFabServerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

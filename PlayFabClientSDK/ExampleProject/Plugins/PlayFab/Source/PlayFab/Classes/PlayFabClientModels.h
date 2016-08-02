@@ -376,6 +376,27 @@ public:
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
+struct FClientAddGenericIDRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Generic service identifier to add to the player account. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        UPlayFabJsonObject* GenericId;
+};
+
+USTRUCT(BlueprintType)
+struct FClientAddGenericIDResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FClientAddUsernamePasswordRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -525,6 +546,32 @@ struct FClientGetPlayFabIDsFromGameCenterIDsResult
 public:
 
     /** Mapping of Game Center identifiers to PlayFab identifiers. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        TArray<UPlayFabJsonObject*> Data;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromGenericIDsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of unique generic service identifiers for which the title needs to get PlayFab identifiers. Currently limited to a maximum of 10 in a single request. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        TArray<UPlayFabJsonObject*> GenericIDs;
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayFabIDsFromGenericIDsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Mapping of generic service identifiers to PlayFab identifiers. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         TArray<UPlayFabJsonObject*> Data;
 
@@ -939,6 +986,27 @@ public:
 
 USTRUCT(BlueprintType)
 struct FClientLinkTwitchAccountResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientRemoveGenericIDRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Generic service identifier to be removed from the player. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
+        UPlayFabJsonObject* GenericId;
+};
+
+USTRUCT(BlueprintType)
+struct FClientRemoveGenericIDResult
 {
     GENERATED_USTRUCT_BODY()
 
@@ -3756,5 +3824,33 @@ public:
 ///////////////////////////////////////////////////////
 // Guilds
 //////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayerSegmentsRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FClientGetPlayerSegmentsResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Array of segments the requested player currently belongs to. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | PlayStream Models")
+        TArray<UPlayFabJsonObject*> Segments;
+
+};
 
 

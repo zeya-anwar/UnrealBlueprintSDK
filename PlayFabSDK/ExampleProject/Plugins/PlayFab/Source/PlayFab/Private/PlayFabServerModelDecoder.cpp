@@ -116,6 +116,21 @@ FServerGetLeaderboardAroundUserResult UPlayFabServerModelDecoder::decodeGetLeade
     return tempStruct;
 }
 
+FServerGetPlayerCombinedInfoResult UPlayFabServerModelDecoder::decodeGetPlayerCombinedInfoResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayerCombinedInfoResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    tempStruct.PlayFabId = !(dataObj->HasField("PlayFabId")) ? TEXT("") : dataObj->GetStringField("PlayFabId");
+
+    /** Results for requested info. */
+    tempStruct.InfoResultPayload = !(dataObj->HasField("InfoResultPayload")) ? nullptr : dataObj->GetObjectField("InfoResultPayload");
+
+    return tempStruct;
+}
+
 FServerGetPlayerStatisticsResult UPlayFabServerModelDecoder::decodeGetPlayerStatisticsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -890,5 +905,53 @@ FServerUpdateCharacterDataResult UPlayFabServerModelDecoder::decodeUpdateCharact
 ///////////////////////////////////////////////////////
 // Guilds
 //////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////
+// PlayStream
+//////////////////////////////////////////////////////
+
+FServerGetAllSegmentsResult UPlayFabServerModelDecoder::decodeGetAllSegmentsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetAllSegmentsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Array of segments for this title. */
+    tempStruct.Segments = !(dataObj->HasField("Segments")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Segments");
+
+    return tempStruct;
+}
+
+FServerGetPlayerSegmentsResult UPlayFabServerModelDecoder::decodeGetPlayerSegmentsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayerSegmentsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Array of segments the requested player currently belongs to. */
+    tempStruct.Segments = !(dataObj->HasField("Segments")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Segments");
+
+    return tempStruct;
+}
+
+FServerGetPlayersInSegmentResult UPlayFabServerModelDecoder::decodeGetPlayersInSegmentResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayersInSegmentResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Count of profiles matching this segment. */
+    tempStruct.ProfilesInSegment = !(dataObj->HasField("ProfilesInSegment")) ? 0 : int(dataObj->GetNumberField("ProfilesInSegment"));
+
+    /** Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results. */
+    tempStruct.ContinuationToken = !(dataObj->HasField("ContinuationToken")) ? TEXT("") : dataObj->GetStringField("ContinuationToken");
+
+    /** Array of player profiles in this segment. */
+    tempStruct.PlayerProfiles = !(dataObj->HasField("PlayerProfiles")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("PlayerProfiles");
+
+    return tempStruct;
+}
 
 

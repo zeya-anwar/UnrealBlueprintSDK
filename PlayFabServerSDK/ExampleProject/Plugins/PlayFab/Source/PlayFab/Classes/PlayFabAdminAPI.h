@@ -485,6 +485,19 @@ public:
         void HelperListVirtualCurrencyTypes(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRemoveVirtualCurrencyTypes, FAdminBlankResult, result, UObject*, customData);
+
+    /** Removes one or more virtual currencies from the set defined for the title. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* RemoveVirtualCurrencyTypes(FAdminRemoveVirtualCurrencyTypesRequest request,
+            FDelegateOnSuccessRemoveVirtualCurrencyTypes onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRemoveVirtualCurrencyTypes(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetCatalogItems, FAdminUpdateCatalogItemsResult, result, UObject*, customData);
 
     /** Creates the catalog configuration of all virtual goods for the specified catalog version */
@@ -916,6 +929,49 @@ public:
         void HelperResetCharacterStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
+    ///////////////////////////////////////////////////////
+    // PlayStream
+    //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllSegments, FAdminGetAllSegmentsResult, result, UObject*, customData);
+
+    /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetAllSegments(FAdminGetAllSegmentsRequest request,
+            FDelegateOnSuccessGetAllSegments onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetAllSegments(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerSegments, FAdminGetPlayerSegmentsResult, result, UObject*, customData);
+
+    /** List all segments that a player currently belongs to at this moment in time. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetPlayerSegments(FAdminGetPlayersSegmentsRequest request,
+            FDelegateOnSuccessGetPlayerSegments onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayerSegments(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayersInSegment, FAdminGetPlayersInSegmentResult, result, UObject*, customData);
+
+    /** Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected in the results. AB Test segments are currently not supported by this operation. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetPlayersInSegment(FAdminGetPlayersInSegmentRequest request,
+            FDelegateOnSuccessGetPlayersInSegment onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayersInSegment(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+
 
     /** PlayFab Request Info */
     FString PlayFabRequestURL;
@@ -964,6 +1020,7 @@ public:
     FDelegateOnSuccessGetTitleData OnSuccessGetTitleData;
     FDelegateOnSuccessGetTitleInternalData OnSuccessGetTitleInternalData;
     FDelegateOnSuccessListVirtualCurrencyTypes OnSuccessListVirtualCurrencyTypes;
+    FDelegateOnSuccessRemoveVirtualCurrencyTypes OnSuccessRemoveVirtualCurrencyTypes;
     FDelegateOnSuccessSetCatalogItems OnSuccessSetCatalogItems;
     FDelegateOnSuccessSetStoreItems OnSuccessSetStoreItems;
     FDelegateOnSuccessSetTitleData OnSuccessSetTitleData;
@@ -995,6 +1052,9 @@ public:
     FDelegateOnSuccessGetContentList OnSuccessGetContentList;
     FDelegateOnSuccessGetContentUploadUrl OnSuccessGetContentUploadUrl;
     FDelegateOnSuccessResetCharacterStatistics OnSuccessResetCharacterStatistics;
+    FDelegateOnSuccessGetAllSegments OnSuccessGetAllSegments;
+    FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
+    FDelegateOnSuccessGetPlayersInSegment OnSuccessGetPlayersInSegment;
 
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */

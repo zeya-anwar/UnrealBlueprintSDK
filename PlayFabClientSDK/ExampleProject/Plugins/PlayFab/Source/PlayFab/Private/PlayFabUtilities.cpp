@@ -277,6 +277,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1242: returnText = "InvalidSegment"; break;
     case 1243: returnText = "InvalidSessionId"; break;
     case 1244: returnText = "SessionLogNotFound"; break;
+    case 1245: returnText = "InvalidSearchTerm"; break;
     }
 
     // Return the text

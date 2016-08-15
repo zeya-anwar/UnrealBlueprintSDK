@@ -304,6 +304,7 @@ void APfTestActor::LoginOrRegister(UPfTestContext* testContext)
     FClientLoginWithCustomIDRequest request;
     request.CustomId = playFabSettings->BuildIdentifier;
     request.CreateAccount = true;
+    request.InfoRequestParameters = nullptr;
     UPlayFabClientAPI::FDelegateOnSuccessLoginWithCustomID onSuccess; onSuccess.BindUFunction(this, "OnLoginOrRegister");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithCustomID(request, onSuccess, onError, testContext);
@@ -330,6 +331,7 @@ void APfTestActor::LoginWithAdvertisingId(UPfTestContext* testContext)
     FClientLoginWithCustomIDRequest request;
     request.CustomId = playFabSettings->BuildIdentifier;
     request.CreateAccount = true;
+    request.InfoRequestParameters = nullptr;
     UPlayFabClientAPI::FDelegateOnSuccessLoginWithCustomID onSuccess; onSuccess.BindUFunction(this, "OnLoginWithAdvertisingId");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithCustomID(request, onSuccess, onError, testContext);

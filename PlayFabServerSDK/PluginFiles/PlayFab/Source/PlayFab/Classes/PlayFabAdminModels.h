@@ -515,7 +515,7 @@ struct FAdminGetCatalogItemsRequest
 
 public:
 
-    /** Which catalog is being requested. */
+    /** Which catalog is being requested. If null, uses the default catalog. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         FString CatalogVersion;
 
@@ -684,7 +684,7 @@ struct FAdminUpdateCatalogItemsRequest
 
 public:
 
-    /** Which catalog is being updated */
+    /** Which catalog is being updated. If null, uses the default catalog. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         FString CatalogVersion;
 
@@ -710,7 +710,7 @@ struct FAdminUpdateStoreItemsRequest
 
 public:
 
-    /** catalog version of the store to update. Use default catalog version if null */
+    /** catalog version of the store to update. If null, uses the default catalog. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         FString CatalogVersion;
 

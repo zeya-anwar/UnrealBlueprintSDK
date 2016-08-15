@@ -236,7 +236,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddUsernamePassword, FClientAddUsernamePasswordResult, result, UObject*, customData);
 
-    /** Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method. */
+    /** Adds playfab username/password auth to an existing account created via an anonymous auth method, e.g. automatic device ID login. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* AddUsernamePassword(FClientAddUsernamePasswordRequest request,
             FDelegateOnSuccessAddUsernamePassword onSuccess,

@@ -1675,7 +1675,7 @@ struct FClientGetCatalogItemsRequest
 
 public:
 
-    /** Which catalog is being requested. */
+    /** Which catalog is being requested. If null, uses the default catalog. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         FString CatalogVersion;
 

@@ -1048,7 +1048,7 @@ void UPlayFabClientAPI::HelperAddGenericID(FPlayFabBaseModel response, UObject* 
     }
 }
 
-/** Adds playfab username/password auth to an existing semi-anonymous account created via a 3rd party auth method. */
+/** Adds playfab username/password auth to an existing account created via an anonymous auth method, e.g. automatic device ID login. */
 UPlayFabClientAPI* UPlayFabClientAPI::AddUsernamePassword(FClientAddUsernamePasswordRequest request,
     FDelegateOnSuccessAddUsernamePassword onSuccess,
     FDelegateOnFailurePlayFabError onFailure,

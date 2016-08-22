@@ -1002,7 +1002,7 @@ FClientMatchmakeResult UPlayFabClientModelDecoder::decodeMatchmakeResultResponse
     /** port number to use for non-http communications with the server */
     tempStruct.ServerPort = !(dataObj->HasField("ServerPort")) ? 0 : int(dataObj->GetNumberField("ServerPort"));
 
-    /** server authorization ticket (used by RedeemCoupon to validate user insertion into the game) */
+    /** server authorization ticket (used by RedeemMatchmakerTicket to validate user insertion into the game) */
     tempStruct.Ticket = !(dataObj->HasField("Ticket")) ? TEXT("") : dataObj->GetStringField("Ticket");
 
     /** timestamp for when the server will expire, if applicable */

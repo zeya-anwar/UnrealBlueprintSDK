@@ -23,6 +23,32 @@ class UPlayFabJsonObject;
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
+struct FAdminBanUsersRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** List of ban requests to be applied. Maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        TArray<UPlayFabJsonObject*> Bans;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminBanUsersResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were applied */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
 struct FAdminLookupUserAccountInfoRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -60,6 +86,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminGetUserBansRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        FString PlayFabId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetUserBansResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information about the bans */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
 struct FAdminBlankResult
 {
     GENERATED_USTRUCT_BODY()
@@ -82,6 +134,58 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminRevokeAllBansForUserRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        FString PlayFabId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminRevokeAllBansForUserResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were revoked. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminRevokeBansRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Ids of the bans to be revoked. Maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        FString BanIds;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminRevokeBansResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were revoked */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
 struct FAdminSendAccountRecoveryEmailRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -100,6 +204,32 @@ struct FAdminSendAccountRecoveryEmailResult
     GENERATED_USTRUCT_BODY()
 
 public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminUpdateBansRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** List of bans to be updated. Maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        TArray<UPlayFabJsonObject*> Bans;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminUpdateBansResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were updated */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
 
 };
 
@@ -509,6 +639,32 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminDeleteStoreRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** catalog version of the store to delete. If null, uses the default catalog. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        FString CatalogVersion;
+
+    /** unqiue identifier for the store which is to be deleted */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        FString StoreId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FAdminDeleteStoreResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+};
+
+USTRUCT(BlueprintType)
 struct FAdminGetCatalogItemsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -688,6 +844,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         FString CatalogVersion;
 
+    /** Should this catalog be set as the default catalog. Defaults to true. If there is currently no default catalog, this will always set it. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        bool SetAsDefaultCatalog;
     /** Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Catalog;
@@ -1544,7 +1703,7 @@ struct FAdminUpdateCloudScriptRequest
 
 public:
 
-    /** Deprecated - unused */
+    /** Deprecated - Do not use */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
         int32 Version;
     /** List of Cloud Script files to upload to create the new revision. Must have at least one file. */

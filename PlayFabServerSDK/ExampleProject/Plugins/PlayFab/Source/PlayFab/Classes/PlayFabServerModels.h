@@ -54,6 +54,32 @@ public:
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
+struct FServerBanUsersRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** List of ban requests to be applied. Maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> Bans;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerBanUsersResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were applied */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetPlayFabIDsFromFacebookIDsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -135,6 +161,84 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetUserBansRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString PlayFabId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetUserBansResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information about the bans */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerRevokeAllBansForUserRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString PlayFabId;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerRevokeAllBansForUserResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were revoked. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerRevokeBansRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Ids of the bans to be revoked. Maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString BanIds;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerRevokeBansResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were revoked */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
+
+};
+
+USTRUCT(BlueprintType)
 struct FServerSendPushNotificationRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -161,6 +265,32 @@ struct FServerSendPushNotificationResult
     GENERATED_USTRUCT_BODY()
 
 public:
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerUpdateBansRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** List of bans to be updated. Maximum 100. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> Bans;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerUpdateBansResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Information on the bans that were updated */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        TArray<UPlayFabJsonObject*> BanData;
 
 };
 
@@ -900,6 +1030,36 @@ public:
     /** Array of remaining times and timestamps for virtual currencies. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         UPlayFabJsonObject* VirtualCurrencyRechargeTimes;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetRandomResultTablesRequest
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** Specifies the catalog version that should be used to retrieve the Random Result Tables.  If unspecified, uses default/primary catalog. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CatalogVersion;
+
+    /** The unique identifier of the Random Result Table to use. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString TableIDs;
+
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetRandomResultTablesResult
+{
+    GENERATED_USTRUCT_BODY()
+
+public:
+
+    /** array of random result tables currently available */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        UPlayFabJsonObject* Tables;
 
 };
 

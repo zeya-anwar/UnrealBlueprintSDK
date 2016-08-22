@@ -196,7 +196,7 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Google account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
-    /** Deprecated - unused */
+    /** Deprecated - Do not use */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString PublisherId;
 
@@ -339,7 +339,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString DisplayName;
 
-    /** [Deprecated - The Origination of a user is determined by the API call used to create the account. In the case of RegisterPlayFabUser, it will be Organic. */
+    /** The Origination of a user is determined by the API call used to create the account. In the case of RegisterPlayFabUser, it will be Organic. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString Origination;
 
@@ -1057,7 +1057,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString Email;
 
-    /** Deprecated - unused */
+    /** Deprecated - Do not use */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString PublisherId;
 
@@ -2158,7 +2158,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CouponCode;
 
-    /** Catalog version of the coupon. */
+    /** Catalog version of the coupon. If null, uses the default catalog */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CatalogVersion;
 
@@ -2631,7 +2631,7 @@ public:
     /** Filter to include and/or exclude Game Server Instances associated with certain Tags */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         UPlayFabJsonObject* TagFilter;
-    /** [deprecated] */
+    /** Deprecated - Do not use */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         bool EnableQueue;
 };
@@ -2654,7 +2654,7 @@ public:
     /** port number to use for non-http communications with the server */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         int32 ServerPort;
-    /** server authorization ticket (used by RedeemCoupon to validate user insertion into the game) */
+    /** server authorization ticket (used by RedeemMatchmakerTicket to validate user insertion into the game) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         FString Ticket;
 

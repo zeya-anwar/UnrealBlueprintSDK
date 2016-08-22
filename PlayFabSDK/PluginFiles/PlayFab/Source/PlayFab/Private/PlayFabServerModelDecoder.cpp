@@ -34,6 +34,18 @@ FServerAuthenticateSessionTicketResult UPlayFabServerModelDecoder::decodeAuthent
 // Account Management
 //////////////////////////////////////////////////////
 
+FServerBanUsersResult UPlayFabServerModelDecoder::decodeBanUsersResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerBanUsersResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were applied */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
 FServerGetPlayFabIDsFromFacebookIDsResult UPlayFabServerModelDecoder::decodeGetPlayFabIDsFromFacebookIDsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -70,10 +82,58 @@ FServerGetUserAccountInfoResult UPlayFabServerModelDecoder::decodeGetUserAccount
     return tempStruct;
 }
 
+FServerGetUserBansResult UPlayFabServerModelDecoder::decodeGetUserBansResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetUserBansResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information about the bans */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
+FServerRevokeAllBansForUserResult UPlayFabServerModelDecoder::decodeRevokeAllBansForUserResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRevokeAllBansForUserResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were revoked. */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
+FServerRevokeBansResult UPlayFabServerModelDecoder::decodeRevokeBansResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRevokeBansResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were revoked */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
 FServerSendPushNotificationResult UPlayFabServerModelDecoder::decodeSendPushNotificationResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FServerSendPushNotificationResult tempStruct;
+
+    return tempStruct;
+}
+
+FServerUpdateBansResult UPlayFabServerModelDecoder::decodeUpdateBansResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerUpdateBansResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were updated */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
 
     return tempStruct;
 }
@@ -378,6 +438,18 @@ FServerGetCharacterInventoryResult UPlayFabServerModelDecoder::decodeGetCharacte
 
     /** Array of remaining times and timestamps for virtual currencies. */
     tempStruct.VirtualCurrencyRechargeTimes = !(dataObj->HasField("VirtualCurrencyRechargeTimes")) ? nullptr : dataObj->GetObjectField("VirtualCurrencyRechargeTimes");
+
+    return tempStruct;
+}
+
+FServerGetRandomResultTablesResult UPlayFabServerModelDecoder::decodeGetRandomResultTablesResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetRandomResultTablesResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** array of random result tables currently available */
+    tempStruct.Tables = !(dataObj->HasField("Tables")) ? nullptr : dataObj->GetObjectField("Tables");
 
     return tempStruct;
 }

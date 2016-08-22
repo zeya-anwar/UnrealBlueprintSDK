@@ -124,6 +124,58 @@ void UPlayFabServerAPI::HelperAuthenticateSessionTicket(FPlayFabBaseModel respon
 ///////////////////////////////////////////////////////
 // Account Management
 //////////////////////////////////////////////////////
+/** Bans users by PlayFab ID with optional IP address, or MAC address for the provided game. */
+UPlayFabServerAPI* UPlayFabServerAPI::BanUsers(FServerBanUsersRequest request,
+    FDelegateOnSuccessBanUsers onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessBanUsers = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperBanUsers);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/BanUsers";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperBanUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerBanUsersResult result = UPlayFabServerModelDecoder::decodeBanUsersResultResponse(response.responseData);
+        if (OnSuccessBanUsers.IsBound())
+        {
+            OnSuccessBanUsers.Execute(result, customData);
+        }
+    }
+}
+
 /** Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromFacebookIDs(FServerGetPlayFabIDsFromFacebookIDsRequest request,
     FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs onSuccess,
@@ -318,6 +370,189 @@ void UPlayFabServerAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, UOb
     }
 }
 
+/** Gets all bans for a user. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetUserBans(FServerGetUserBansRequest request,
+    FDelegateOnSuccessGetUserBans onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetUserBans = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetUserBans);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetUserBans";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetUserBans(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerGetUserBansResult result = UPlayFabServerModelDecoder::decodeGetUserBansResultResponse(response.responseData);
+        if (OnSuccessGetUserBans.IsBound())
+        {
+            OnSuccessGetUserBans.Execute(result, customData);
+        }
+    }
+}
+
+/** Revoke all active bans for a user. */
+UPlayFabServerAPI* UPlayFabServerAPI::RevokeAllBansForUser(FServerRevokeAllBansForUserRequest request,
+    FDelegateOnSuccessRevokeAllBansForUser onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRevokeAllBansForUser = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperRevokeAllBansForUser);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/RevokeAllBansForUser";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperRevokeAllBansForUser(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerRevokeAllBansForUserResult result = UPlayFabServerModelDecoder::decodeRevokeAllBansForUserResultResponse(response.responseData);
+        if (OnSuccessRevokeAllBansForUser.IsBound())
+        {
+            OnSuccessRevokeAllBansForUser.Execute(result, customData);
+        }
+    }
+}
+
+/** Revoke all active bans specified with BanId. */
+UPlayFabServerAPI* UPlayFabServerAPI::RevokeBans(FServerRevokeBansRequest request,
+    FDelegateOnSuccessRevokeBans onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRevokeBans = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperRevokeBans);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/RevokeBans";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.BanIds.IsEmpty() || request.BanIds == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("BanIds"));
+    }
+    else
+    {
+        TArray<FString> BanIdsArray;
+        FString(request.BanIds).ParseIntoArray(BanIdsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("BanIds"), BanIdsArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperRevokeBans(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerRevokeBansResult result = UPlayFabServerModelDecoder::decodeRevokeBansResultResponse(response.responseData);
+        if (OnSuccessRevokeBans.IsBound())
+        {
+            OnSuccessRevokeBans.Execute(result, customData);
+        }
+    }
+}
+
 /** Sends an iOS/Android Push Notification to a specific user, if that user's device has been configured for Push Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified. */
 UPlayFabServerAPI* UPlayFabServerAPI::SendPushNotification(FServerSendPushNotificationRequest request,
     FDelegateOnSuccessSendPushNotification onSuccess,
@@ -392,6 +627,58 @@ void UPlayFabServerAPI::HelperSendPushNotification(FPlayFabBaseModel response, U
         if (OnSuccessSendPushNotification.IsBound())
         {
             OnSuccessSendPushNotification.Execute(result, customData);
+        }
+    }
+}
+
+/** Updates information of a list of existing bans specified with Ban Ids. */
+UPlayFabServerAPI* UPlayFabServerAPI::UpdateBans(FServerUpdateBansRequest request,
+    FDelegateOnSuccessUpdateBans onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessUpdateBans = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperUpdateBans);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/UpdateBans";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperUpdateBans(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerUpdateBansResult result = UPlayFabServerModelDecoder::decodeUpdateBansResultResponse(response.responseData);
+        if (OnSuccessUpdateBans.IsBound())
+        {
+            OnSuccessUpdateBans.Execute(result, customData);
         }
     }
 }
@@ -2751,6 +3038,78 @@ void UPlayFabServerAPI::HelperGetCharacterInventory(FPlayFabBaseModel response, 
     }
 }
 
+/** Retrieves the configuration information for the specified random results tables for the title, including all ItemId values and weights */
+UPlayFabServerAPI* UPlayFabServerAPI::GetRandomResultTables(FServerGetRandomResultTablesRequest request,
+    FDelegateOnSuccessGetRandomResultTables onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetRandomResultTables = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetRandomResultTables);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetRandomResultTables";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+    // Check to see if string is empty
+    if (request.TableIDs.IsEmpty() || request.TableIDs == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("TableIDs"));
+    }
+    else
+    {
+        TArray<FString> TableIDsArray;
+        FString(request.TableIDs).ParseIntoArray(TableIDsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("TableIDs"), TableIDsArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetRandomResultTables(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerGetRandomResultTablesResult result = UPlayFabServerModelDecoder::decodeGetRandomResultTablesResultResponse(response.responseData);
+        if (OnSuccessGetRandomResultTables.IsBound())
+        {
+            OnSuccessGetRandomResultTables.Execute(result, customData);
+        }
+    }
+}
+
 /** Retrieves the specified user's current inventory of virtual goods */
 UPlayFabServerAPI* UPlayFabServerAPI::GetUserInventory(FServerGetUserInventoryRequest request,
     FDelegateOnSuccessGetUserInventory onSuccess,
@@ -3374,7 +3733,7 @@ void UPlayFabServerAPI::HelperMoveItemToUserFromCharacter(FPlayFabBaseModel resp
     }
 }
 
-/** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Promotions->Coupons tab in the PlayFab Game Manager. See this post for more information on coupons:  https://playfab.com/blog/2015/06/18/using-stores-and-coupons-game-manager */
+/** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Economy->Catalogs tab in the PlayFab Game Manager. */
 UPlayFabServerAPI* UPlayFabServerAPI::RedeemCoupon(FServerRedeemCouponRequest request,
     FDelegateOnSuccessRedeemCoupon onSuccess,
     FDelegateOnFailurePlayFabError onFailure,

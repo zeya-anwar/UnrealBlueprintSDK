@@ -40,6 +40,10 @@ public:
     // Account Management
     //////////////////////////////////////////////////////
 
+    /** Decode the BanUsersResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
+        static FServerBanUsersResult decodeBanUsersResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetPlayFabIDsFromFacebookIDsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
         static FServerGetPlayFabIDsFromFacebookIDsResult decodeGetPlayFabIDsFromFacebookIDsResultResponse(UPlayFabJsonObject* response);
@@ -52,9 +56,25 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
         static FServerGetUserAccountInfoResult decodeGetUserAccountInfoResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetUserBansResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
+        static FServerGetUserBansResult decodeGetUserBansResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RevokeAllBansForUserResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
+        static FServerRevokeAllBansForUserResult decodeRevokeAllBansForUserResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RevokeBansResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
+        static FServerRevokeBansResult decodeRevokeBansResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the SendPushNotificationResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
         static FServerSendPushNotificationResult decodeSendPushNotificationResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdateBansResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
+        static FServerUpdateBansResult decodeUpdateBansResultResponse(UPlayFabJsonObject* response);
 
 
 
@@ -161,6 +181,10 @@ public:
     /** Decode the GetCharacterInventoryResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerGetCharacterInventoryResult decodeGetCharacterInventoryResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetRandomResultTablesResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
+        static FServerGetRandomResultTablesResult decodeGetRandomResultTablesResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetUserInventoryResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")

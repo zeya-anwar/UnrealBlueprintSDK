@@ -30,17 +30,37 @@ public:
     // Account Management
     //////////////////////////////////////////////////////
 
+    /** Decode the BanUsersResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
+        static FAdminBanUsersResult decodeBanUsersResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the LookupUserAccountInfoResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
         static FAdminLookupUserAccountInfoResult decodeLookupUserAccountInfoResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetUserBansResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
+        static FAdminGetUserBansResult decodeGetUserBansResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the BlankResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
         static FAdminBlankResult decodeBlankResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the RevokeAllBansForUserResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
+        static FAdminRevokeAllBansForUserResult decodeRevokeAllBansForUserResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RevokeBansResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
+        static FAdminRevokeBansResult decodeRevokeBansResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the SendAccountRecoveryEmailResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
         static FAdminSendAccountRecoveryEmailResult decodeSendAccountRecoveryEmailResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdateBansResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
+        static FAdminUpdateBansResult decodeUpdateBansResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateUserTitleDisplayNameResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
@@ -101,6 +121,10 @@ public:
     /** Decode the AddNewsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         static FAdminAddNewsResult decodeAddNewsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the DeleteStoreResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")
+        static FAdminDeleteStoreResult decodeDeleteStoreResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetCatalogItemsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Title-Wide Data Management Models")

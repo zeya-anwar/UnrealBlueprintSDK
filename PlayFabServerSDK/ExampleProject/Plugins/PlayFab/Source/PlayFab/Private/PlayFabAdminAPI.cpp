@@ -60,6 +60,58 @@ FString UPlayFabAdminAPI::PercentEncode(const FString& Text)
 ///////////////////////////////////////////////////////
 // Account Management
 //////////////////////////////////////////////////////
+/** Bans users by PlayFab ID with optional IP address, or MAC address for the provided game. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::BanUsers(FAdminBanUsersRequest request,
+    FDelegateOnSuccessBanUsers onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessBanUsers = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperBanUsers);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/BanUsers";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperBanUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminBanUsersResult result = UPlayFabAdminModelDecoder::decodeBanUsersResultResponse(response.responseData);
+        if (OnSuccessBanUsers.IsBound())
+        {
+            OnSuccessBanUsers.Execute(result, customData);
+        }
+    }
+}
+
 /** Retrieves the relevant details for a specified user, based upon a match against a supplied unique identifier */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserAccountInfo(FAdminLookupUserAccountInfoRequest request,
     FDelegateOnSuccessGetUserAccountInfo onSuccess,
@@ -147,6 +199,66 @@ void UPlayFabAdminAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, UObj
     }
 }
 
+/** Gets all bans for a user. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserBans(FAdminGetUserBansRequest request,
+    FDelegateOnSuccessGetUserBans onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetUserBans = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperGetUserBans);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetUserBans";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperGetUserBans(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminGetUserBansResult result = UPlayFabAdminModelDecoder::decodeGetUserBansResultResponse(response.responseData);
+        if (OnSuccessGetUserBans.IsBound())
+        {
+            OnSuccessGetUserBans.Execute(result, customData);
+        }
+    }
+}
+
 /** Resets all title-specific information about a particular account, including user data, virtual currency balances, inventory, purchase history, and statistics */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUsers(FAdminResetUsersRequest request,
     FDelegateOnSuccessResetUsers onSuccess,
@@ -195,6 +307,129 @@ void UPlayFabAdminAPI::HelperResetUsers(FPlayFabBaseModel response, UObject* cus
         if (OnSuccessResetUsers.IsBound())
         {
             OnSuccessResetUsers.Execute(result, customData);
+        }
+    }
+}
+
+/** Revoke all active bans for a user. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeAllBansForUser(FAdminRevokeAllBansForUserRequest request,
+    FDelegateOnSuccessRevokeAllBansForUser onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRevokeAllBansForUser = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperRevokeAllBansForUser);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/RevokeAllBansForUser";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperRevokeAllBansForUser(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminRevokeAllBansForUserResult result = UPlayFabAdminModelDecoder::decodeRevokeAllBansForUserResultResponse(response.responseData);
+        if (OnSuccessRevokeAllBansForUser.IsBound())
+        {
+            OnSuccessRevokeAllBansForUser.Execute(result, customData);
+        }
+    }
+}
+
+/** Revoke all active bans specified with BanId. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeBans(FAdminRevokeBansRequest request,
+    FDelegateOnSuccessRevokeBans onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRevokeBans = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperRevokeBans);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/RevokeBans";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    // Check to see if string is empty
+    if (request.BanIds.IsEmpty() || request.BanIds == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("BanIds"));
+    }
+    else
+    {
+        TArray<FString> BanIdsArray;
+        FString(request.BanIds).ParseIntoArray(BanIdsArray, TEXT(","), false);
+        OutRestJsonObj->SetStringArrayField(TEXT("BanIds"), BanIdsArray);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperRevokeBans(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminRevokeBansResult result = UPlayFabAdminModelDecoder::decodeRevokeBansResultResponse(response.responseData);
+        if (OnSuccessRevokeBans.IsBound())
+        {
+            OnSuccessRevokeBans.Execute(result, customData);
         }
     }
 }
@@ -255,6 +490,58 @@ void UPlayFabAdminAPI::HelperSendAccountRecoveryEmail(FPlayFabBaseModel response
         if (OnSuccessSendAccountRecoveryEmail.IsBound())
         {
             OnSuccessSendAccountRecoveryEmail.Execute(result, customData);
+        }
+    }
+}
+
+/** Updates information of a list of existing bans specified with Ban Ids. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateBans(FAdminUpdateBansRequest request,
+    FDelegateOnSuccessUpdateBans onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessUpdateBans = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperUpdateBans);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/UpdateBans";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperUpdateBans(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminUpdateBansResult result = UPlayFabAdminModelDecoder::decodeUpdateBansResultResponse(response.responseData);
+        if (OnSuccessUpdateBans.IsBound())
+        {
+            OnSuccessUpdateBans.Execute(result, customData);
         }
     }
 }
@@ -1844,6 +2131,75 @@ void UPlayFabAdminAPI::HelperAddVirtualCurrencyTypes(FPlayFabBaseModel response,
     }
 }
 
+/** Deletes an existing virtual item store */
+UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteStore(FAdminDeleteStoreRequest request,
+    FDelegateOnSuccessDeleteStore onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessDeleteStore = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperDeleteStore);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/DeleteStore";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+
+    // Setup request object
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+
+    if (request.StoreId.IsEmpty() || request.StoreId == "")
+    {
+        OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
+    }
+    else
+    {
+        OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
+    }
+
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperDeleteStore(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminDeleteStoreResult result = UPlayFabAdminModelDecoder::decodeDeleteStoreResultResponse(response.responseData);
+        if (OnSuccessDeleteStore.IsBound())
+        {
+            OnSuccessDeleteStore.Execute(result, customData);
+        }
+    }
+}
+
 /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetCatalogItems(FAdminGetCatalogItemsRequest request,
     FDelegateOnSuccessGetCatalogItems onSuccess,
@@ -2357,6 +2713,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetCatalogItems(FAdminUpdateCatalogItemsRequ
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
 
+    OutRestJsonObj->SetBoolField(TEXT("SetAsDefaultCatalog"), request.SetAsDefaultCatalog);
     OutRestJsonObj->SetObjectArrayField(TEXT("Catalog"), request.Catalog);
 
     // Add Request to manager
@@ -2714,6 +3071,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCatalogItems(FAdminUpdateCatalogItemsR
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
 
+    OutRestJsonObj->SetBoolField(TEXT("SetAsDefaultCatalog"), request.SetAsDefaultCatalog);
     OutRestJsonObj->SetObjectArrayField(TEXT("Catalog"), request.Catalog);
 
     // Add Request to manager

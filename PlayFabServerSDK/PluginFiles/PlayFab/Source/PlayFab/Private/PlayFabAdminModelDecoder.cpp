@@ -16,6 +16,18 @@
 // Account Management
 //////////////////////////////////////////////////////
 
+FAdminBanUsersResult UPlayFabAdminModelDecoder::decodeBanUsersResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminBanUsersResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were applied */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
 FAdminLookupUserAccountInfoResult UPlayFabAdminModelDecoder::decodeLookupUserAccountInfoResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -28,6 +40,18 @@ FAdminLookupUserAccountInfoResult UPlayFabAdminModelDecoder::decodeLookupUserAcc
     return tempStruct;
 }
 
+FAdminGetUserBansResult UPlayFabAdminModelDecoder::decodeGetUserBansResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetUserBansResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information about the bans */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
 FAdminBlankResult UPlayFabAdminModelDecoder::decodeBlankResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -36,10 +60,46 @@ FAdminBlankResult UPlayFabAdminModelDecoder::decodeBlankResultResponse(UPlayFabJ
     return tempStruct;
 }
 
+FAdminRevokeAllBansForUserResult UPlayFabAdminModelDecoder::decodeRevokeAllBansForUserResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminRevokeAllBansForUserResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were revoked. */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
+FAdminRevokeBansResult UPlayFabAdminModelDecoder::decodeRevokeBansResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminRevokeBansResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were revoked */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
+
+    return tempStruct;
+}
+
 FAdminSendAccountRecoveryEmailResult UPlayFabAdminModelDecoder::decodeSendAccountRecoveryEmailResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FAdminSendAccountRecoveryEmailResult tempStruct;
+
+    return tempStruct;
+}
+
+FAdminUpdateBansResult UPlayFabAdminModelDecoder::decodeUpdateBansResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminUpdateBansResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    /** Information on the bans that were updated */
+    tempStruct.BanData = !(dataObj->HasField("BanData")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("BanData");
 
     return tempStruct;
 }
@@ -194,6 +254,14 @@ FAdminAddNewsResult UPlayFabAdminModelDecoder::decodeAddNewsResultResponse(UPlay
 
     /** Unique id of the new news item */
     tempStruct.NewsId = !(dataObj->HasField("NewsId")) ? TEXT("") : dataObj->GetStringField("NewsId");
+
+    return tempStruct;
+}
+
+FAdminDeleteStoreResult UPlayFabAdminModelDecoder::decodeDeleteStoreResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminDeleteStoreResult tempStruct;
 
     return tempStruct;
 }

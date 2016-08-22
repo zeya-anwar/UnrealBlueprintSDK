@@ -65,6 +65,19 @@ public:
     // Account Management
     //////////////////////////////////////////////////////
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessBanUsers, FServerBanUsersResult, result, UObject*, customData);
+
+    /** Bans users by PlayFab ID with optional IP address, or MAC address for the provided game. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* BanUsers(FServerBanUsersRequest request,
+            FDelegateOnSuccessBanUsers onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperBanUsers(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs, FServerGetPlayFabIDsFromFacebookIDsResult, result, UObject*, customData);
 
     /** Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers. */
@@ -104,6 +117,45 @@ public:
         void HelperGetUserAccountInfo(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserBans, FServerGetUserBansResult, result, UObject*, customData);
+
+    /** Gets all bans for a user. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetUserBans(FServerGetUserBansRequest request,
+            FDelegateOnSuccessGetUserBans onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetUserBans(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRevokeAllBansForUser, FServerRevokeAllBansForUserResult, result, UObject*, customData);
+
+    /** Revoke all active bans for a user. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* RevokeAllBansForUser(FServerRevokeAllBansForUserRequest request,
+            FDelegateOnSuccessRevokeAllBansForUser onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRevokeAllBansForUser(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRevokeBans, FServerRevokeBansResult, result, UObject*, customData);
+
+    /** Revoke all active bans specified with BanId. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* RevokeBans(FServerRevokeBansRequest request,
+            FDelegateOnSuccessRevokeBans onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRevokeBans(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSendPushNotification, FServerSendPushNotificationResult, result, UObject*, customData);
 
     /** Sends an iOS/Android Push Notification to a specific user, if that user's device has been configured for Push Notifications in PlayFab. If a user has linked both Android and iOS devices, both will be notified. */
@@ -115,6 +167,19 @@ public:
     // Implements FOnPlayFabServerRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperSendPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateBans, FServerUpdateBansResult, result, UObject*, customData);
+
+    /** Updates information of a list of existing bans specified with Ban Ids. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* UpdateBans(FServerUpdateBansRequest request,
+            FDelegateOnSuccessUpdateBans onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperUpdateBans(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -571,6 +636,19 @@ public:
         void HelperGetCharacterInventory(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetRandomResultTables, FServerGetRandomResultTablesResult, result, UObject*, customData);
+
+    /** Retrieves the configuration information for the specified random results tables for the title, including all ItemId values and weights */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetRandomResultTables(FServerGetRandomResultTablesRequest request,
+            FDelegateOnSuccessGetRandomResultTables onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetRandomResultTables(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserInventory, FServerGetUserInventoryResult, result, UObject*, customData);
 
     /** Retrieves the specified user's current inventory of virtual goods */
@@ -677,7 +755,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRedeemCoupon, FServerRedeemCouponResult, result, UObject*, customData);
 
-    /** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Promotions->Coupons tab in the PlayFab Game Manager. See this post for more information on coupons:  https://playfab.com/blog/2015/06/18/using-stores-and-coupons-game-manager */
+    /** Adds the virtual goods associated with the coupon to the user's inventory. Coupons can be generated  via the Economy->Catalogs tab in the PlayFab Game Manager. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* RedeemCoupon(FServerRedeemCouponRequest request,
             FDelegateOnSuccessRedeemCoupon onSuccess,
@@ -1281,10 +1359,15 @@ public:
 
     FDelegateOnFailurePlayFabError OnFailure;
     FDelegateOnSuccessAuthenticateSessionTicket OnSuccessAuthenticateSessionTicket;
+    FDelegateOnSuccessBanUsers OnSuccessBanUsers;
     FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs OnSuccessGetPlayFabIDsFromFacebookIDs;
     FDelegateOnSuccessGetPlayFabIDsFromSteamIDs OnSuccessGetPlayFabIDsFromSteamIDs;
     FDelegateOnSuccessGetUserAccountInfo OnSuccessGetUserAccountInfo;
+    FDelegateOnSuccessGetUserBans OnSuccessGetUserBans;
+    FDelegateOnSuccessRevokeAllBansForUser OnSuccessRevokeAllBansForUser;
+    FDelegateOnSuccessRevokeBans OnSuccessRevokeBans;
     FDelegateOnSuccessSendPushNotification OnSuccessSendPushNotification;
+    FDelegateOnSuccessUpdateBans OnSuccessUpdateBans;
     FDelegateOnSuccessDeleteUsers OnSuccessDeleteUsers;
     FDelegateOnSuccessGetLeaderboard OnSuccessGetLeaderboard;
     FDelegateOnSuccessGetLeaderboardAroundUser OnSuccessGetLeaderboardAroundUser;
@@ -1319,6 +1402,7 @@ public:
     FDelegateOnSuccessConsumeItem OnSuccessConsumeItem;
     FDelegateOnSuccessEvaluateRandomResultTable OnSuccessEvaluateRandomResultTable;
     FDelegateOnSuccessGetCharacterInventory OnSuccessGetCharacterInventory;
+    FDelegateOnSuccessGetRandomResultTables OnSuccessGetRandomResultTables;
     FDelegateOnSuccessGetUserInventory OnSuccessGetUserInventory;
     FDelegateOnSuccessGrantItemsToCharacter OnSuccessGrantItemsToCharacter;
     FDelegateOnSuccessGrantItemsToUser OnSuccessGrantItemsToUser;

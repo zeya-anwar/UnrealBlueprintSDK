@@ -1765,6 +1765,19 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetPlayerSegments(FPlayFabBaseModel response, UObject* customData, bool successful);
 
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerTags, FClientGetPlayerTagsResult, result, UObject*, customData);
+
+    /** Get all tags with a given Namespace (optional) from a player profile. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetPlayerTags(FClientGetPlayerTagsRequest request,
+            FDelegateOnSuccessGetPlayerTags onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayerTags(FPlayFabBaseModel response, UObject* customData, bool successful);
+
 
 
     /** PlayFab Request Info */
@@ -1907,6 +1920,7 @@ public:
     FDelegateOnSuccessOpenTrade OnSuccessOpenTrade;
     FDelegateOnSuccessAttributeInstall OnSuccessAttributeInstall;
     FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
+    FDelegateOnSuccessGetPlayerTags OnSuccessGetPlayerTags;
 
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */

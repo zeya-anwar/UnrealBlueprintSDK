@@ -1011,6 +1011,19 @@ public:
     // PlayStream
     //////////////////////////////////////////////////////
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddPlayerTag, FAdminAddPlayerTagResult, result, UObject*, customData);
+
+    /** Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* AddPlayerTag(FAdminAddPlayerTagRequest request,
+            FDelegateOnSuccessAddPlayerTag onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperAddPlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllSegments, FAdminGetAllSegmentsResult, result, UObject*, customData);
 
     /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
@@ -1048,6 +1061,32 @@ public:
     // Implements FOnPlayFabAdminRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetPlayersInSegment(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerTags, FAdminGetPlayerTagsResult, result, UObject*, customData);
+
+    /** Get all tags with a given Namespace (optional) from a player profile. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetPlayerTags(FAdminGetPlayerTagsRequest request,
+            FDelegateOnSuccessGetPlayerTags onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayerTags(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRemovePlayerTag, FAdminRemovePlayerTagResult, result, UObject*, customData);
+
+    /** Remove a given tag from a player profile. The tag's namespace is automatically generated based on the source of the tag. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* RemovePlayerTag(FAdminRemovePlayerTagRequest request,
+            FDelegateOnSuccessRemovePlayerTag onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRemovePlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
 
@@ -1136,9 +1175,12 @@ public:
     FDelegateOnSuccessGetContentList OnSuccessGetContentList;
     FDelegateOnSuccessGetContentUploadUrl OnSuccessGetContentUploadUrl;
     FDelegateOnSuccessResetCharacterStatistics OnSuccessResetCharacterStatistics;
+    FDelegateOnSuccessAddPlayerTag OnSuccessAddPlayerTag;
     FDelegateOnSuccessGetAllSegments OnSuccessGetAllSegments;
     FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
     FDelegateOnSuccessGetPlayersInSegment OnSuccessGetPlayersInSegment;
+    FDelegateOnSuccessGetPlayerTags OnSuccessGetPlayerTags;
+    FDelegateOnSuccessRemovePlayerTag OnSuccessRemovePlayerTag;
 
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */

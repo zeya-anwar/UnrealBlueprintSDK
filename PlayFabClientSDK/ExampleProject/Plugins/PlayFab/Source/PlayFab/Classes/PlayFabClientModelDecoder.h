@@ -574,6 +574,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream Models")
         static FClientGetPlayerSegmentsResult decodeGetPlayerSegmentsResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayerTagsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream Models")
+        static FClientGetPlayerTagsResult decodeGetPlayerTagsResultResponse(UPlayFabJsonObject* response);
+
 
 
 };

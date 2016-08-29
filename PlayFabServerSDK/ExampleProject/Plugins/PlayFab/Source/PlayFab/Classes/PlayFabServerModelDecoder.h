@@ -400,6 +400,10 @@ public:
     // PlayStream
     //////////////////////////////////////////////////////
 
+    /** Decode the AddPlayerTagResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
+        static FServerAddPlayerTagResult decodeAddPlayerTagResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetAllSegmentsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
         static FServerGetAllSegmentsResult decodeGetAllSegmentsResultResponse(UPlayFabJsonObject* response);
@@ -411,6 +415,14 @@ public:
     /** Decode the GetPlayersInSegmentResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
         static FServerGetPlayersInSegmentResult decodeGetPlayersInSegmentResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayerTagsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
+        static FServerGetPlayerTagsResult decodeGetPlayerTagsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RemovePlayerTagResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
+        static FServerRemovePlayerTagResult decodeRemovePlayerTagResultResponse(UPlayFabJsonObject* response);
 
 
 

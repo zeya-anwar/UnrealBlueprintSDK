@@ -251,6 +251,18 @@ enum class ERegion : uint8
     pfenum_Australia UMETA(DisplayName = "Australia"),
 };
 
+// Enum for SourceType
+UENUM(BlueprintType)
+enum class ESourceType : uint8
+{
+    pfenum_Admin UMETA(DisplayName = "Admin"),
+    pfenum_BackEnd UMETA(DisplayName = "BackEnd"),
+    pfenum_GameClient UMETA(DisplayName = "GameClient"),
+    pfenum_GameServer UMETA(DisplayName = "GameServer"),
+    pfenum_Partner UMETA(DisplayName = "Partner"),
+    pfenum_Stream UMETA(DisplayName = "Stream"),
+};
+
 // Enum for TitleActivationStatus
 UENUM(BlueprintType)
 enum class ETitleActivationStatus : uint8

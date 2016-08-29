@@ -81,17 +81,12 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserReques
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.AuthorizationTicket.IsEmpty() || request.AuthorizationTicket == "")
-    {
+    // Serialize all the request properties to json
+    if (request.AuthorizationTicket.IsEmpty() || request.AuthorizationTicket == "") {
         OutRestJsonObj->SetFieldNull(TEXT("AuthorizationTicket"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("AuthorizationTicket"), request.AuthorizationTicket);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -141,26 +136,17 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoin
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.LobbyId.IsEmpty() || request.LobbyId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.LobbyId.IsEmpty() || request.LobbyId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("LobbyId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("LobbyId"), request.LobbyId);
     }
-
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -210,26 +196,17 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRe
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.LobbyId.IsEmpty() || request.LobbyId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.LobbyId.IsEmpty() || request.LobbyId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("LobbyId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("LobbyId"), request.LobbyId);
     }
-
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -279,47 +256,30 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Build.IsEmpty() || request.Build == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Build.IsEmpty() || request.Build == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Build"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Build"), request.Build);
     }
-
     FString temp_Region;
     if (GetEnumValueToString<ERegion>(TEXT("ERegion"), request.Region, temp_Region))
         OutRestJsonObj->SetStringField(TEXT("Region"), temp_Region);
-    if (request.GameMode.IsEmpty() || request.GameMode == "")
-    {
+    if (request.GameMode.IsEmpty() || request.GameMode == "") {
         OutRestJsonObj->SetFieldNull(TEXT("GameMode"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("GameMode"), request.GameMode);
     }
-
-    if (request.CustomCommandLineData.IsEmpty() || request.CustomCommandLineData == "")
-    {
+    if (request.CustomCommandLineData.IsEmpty() || request.CustomCommandLineData == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CustomCommandLineData"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CustomCommandLineData"), request.CustomCommandLineData);
     }
-
-    if (request.ExternalMatchmakerEventEndpoint.IsEmpty() || request.ExternalMatchmakerEventEndpoint == "")
-    {
+    if (request.ExternalMatchmakerEventEndpoint.IsEmpty() || request.ExternalMatchmakerEventEndpoint == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ExternalMatchmakerEventEndpoint"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("ExternalMatchmakerEventEndpoint"), request.ExternalMatchmakerEventEndpoint);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -369,17 +329,12 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoReques
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("MinCatalogVersion"), request.MinCatalogVersion);
 
     // Add Request to manager

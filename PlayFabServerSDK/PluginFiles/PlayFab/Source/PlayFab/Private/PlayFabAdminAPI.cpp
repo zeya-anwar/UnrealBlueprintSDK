@@ -81,9 +81,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::BanUsers(FAdminBanUsersRequest request,
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+    // Serialize all the request properties to json
+    if (request.Bans.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Bans"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -133,44 +136,27 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserAccountInfo(FAdminLookupUserAccountIn
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
-    if (request.Email.IsEmpty() || request.Email == "")
-    {
+    if (request.Email.IsEmpty() || request.Email == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Email"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Email"), request.Email);
     }
-
-    if (request.Username.IsEmpty() || request.Username == "")
-    {
+    if (request.Username.IsEmpty() || request.Username == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Username"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Username"), request.Username);
     }
-
-    if (request.TitleDisplayName.IsEmpty() || request.TitleDisplayName == "")
-    {
+    if (request.TitleDisplayName.IsEmpty() || request.TitleDisplayName == "") {
         OutRestJsonObj->SetFieldNull(TEXT("TitleDisplayName"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("TitleDisplayName"), request.TitleDisplayName);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -220,17 +206,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserBans(FAdminGetUserBansRequest request
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -280,9 +261,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUsers(FAdminResetUsersRequest request,
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    OutRestJsonObj->SetObjectArrayField(TEXT("Users"), request.Users);
+    // Serialize all the request properties to json
+    if (request.Users.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Users"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Users"), request.Users);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -332,17 +316,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeAllBansForUser(FAdminRevokeAllBansForU
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -392,20 +371,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeBans(FAdminRevokeBansRequest request,
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     // Check to see if string is empty
-    if (request.BanIds.IsEmpty() || request.BanIds == "")
-    {
+    if (request.BanIds.IsEmpty() || request.BanIds == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BanIds"));
-    }
-    else
-    {
+    } else {
         TArray<FString> BanIdsArray;
         FString(request.BanIds).ParseIntoArray(BanIdsArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("BanIds"), BanIdsArray);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -455,17 +429,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SendAccountRecoveryEmail(FAdminSendAccountRe
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Email.IsEmpty() || request.Email == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Email.IsEmpty() || request.Email == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Email"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Email"), request.Email);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -515,9 +484,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateBans(FAdminUpdateBansRequest request,
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+    // Serialize all the request properties to json
+    if (request.Bans.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Bans"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Bans"), request.Bans);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -567,26 +539,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserT
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
-    if (request.DisplayName.IsEmpty() || request.DisplayName == "")
-    {
+    if (request.DisplayName.IsEmpty() || request.DisplayName == "") {
         OutRestJsonObj->SetFieldNull(TEXT("DisplayName"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("DisplayName"), request.DisplayName);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -640,17 +603,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreate
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
-    {
+    // Serialize all the request properties to json
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
     }
-
     FString temp_VersionChangeInterval;
     if (GetEnumValueToString<EStatisticResetIntervalOption>(TEXT("EStatisticResetIntervalOption"), request.VersionChangeInterval, temp_VersionChangeInterval))
         OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), temp_VersionChangeInterval);
@@ -706,20 +664,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     // Check to see if string is empty
-    if (request.PlayFabIds.IsEmpty() || request.PlayFabIds == "")
-    {
+    if (request.PlayFabIds.IsEmpty() || request.PlayFabIds == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabIds"));
-    }
-    else
-    {
+    } else {
         TArray<FString> PlayFabIdsArray;
         FString(request.PlayFabIds).ParseIntoArray(PlayFabIdsArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("PlayFabIds"), PlayFabIdsArray);
     }
-
     OutRestJsonObj->SetStringField(TEXT("TitleId"), IPlayFab::Get().getGameTitleId());
 
     // Add Request to manager
@@ -770,17 +723,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest req
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.ReportName.IsEmpty() || request.ReportName == "")
-    {
+    // Serialize all the request properties to json
+    if (request.ReportName.IsEmpty() || request.ReportName == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ReportName"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("ReportName"), request.ReportName);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("Year"), request.Year);
     OutRestJsonObj->SetNumberField(TEXT("Month"), request.Month);
     OutRestJsonObj->SetNumberField(TEXT("Day"), request.Day);
@@ -833,8 +781,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticDefinitions(FAdminGetPlaye
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -884,17 +831,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticVersions(FAdminGetPlayerSt
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
-    {
+    // Serialize all the request properties to json
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -944,29 +886,20 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserData(FAdminGetUserDataRequest request
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("IfChangedFromDataVersion"), request.IfChangedFromDataVersion);
 
     // Add Request to manager
@@ -1017,29 +950,20 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInternalData(FAdminGetUserDataRequest
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("IfChangedFromDataVersion"), request.IfChangedFromDataVersion);
 
     // Add Request to manager
@@ -1090,29 +1014,20 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherData(FAdminGetUserDataReques
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("IfChangedFromDataVersion"), request.IfChangedFromDataVersion);
 
     // Add Request to manager
@@ -1163,29 +1078,20 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherInternalData(FAdminGetUserDa
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("IfChangedFromDataVersion"), request.IfChangedFromDataVersion);
 
     // Add Request to manager
@@ -1236,29 +1142,20 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherReadOnlyData(FAdminGetUserDa
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("IfChangedFromDataVersion"), request.IfChangedFromDataVersion);
 
     // Add Request to manager
@@ -1309,29 +1206,20 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("IfChangedFromDataVersion"), request.IfChangedFromDataVersion);
 
     // Add Request to manager
@@ -1382,17 +1270,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::IncrementPlayerStatisticVersion(FAdminIncrem
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
-    {
+    // Serialize all the request properties to json
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1442,17 +1325,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatistic
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1502,17 +1380,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdate
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.StatisticName.IsEmpty() || request.StatisticName == "")
-    {
+    // Serialize all the request properties to json
+    if (request.StatisticName.IsEmpty() || request.StatisticName == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StatisticName"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StatisticName"), request.StatisticName);
     }
-
     FString temp_VersionChangeInterval;
     if (GetEnumValueToString<EStatisticResetIntervalOption>(TEXT("EStatisticResetIntervalOption"), request.VersionChangeInterval, temp_VersionChangeInterval))
         OutRestJsonObj->SetStringField(TEXT("VersionChangeInterval"), temp_VersionChangeInterval);
@@ -1568,30 +1441,21 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
-    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
-    {
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "") {
         OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysToRemoveArray;
         FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
-
     FString temp_Permission;
     if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
         OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
@@ -1644,30 +1508,21 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInter
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
-    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
-    {
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "") {
         OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysToRemoveArray;
         FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1717,30 +1572,21 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
-    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
-    {
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "") {
         OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysToRemoveArray;
         FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
-
     FString temp_Permission;
     if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
         OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
@@ -1793,30 +1639,21 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdate
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
-    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
-    {
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "") {
         OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysToRemoveArray;
         FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1866,30 +1703,21 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
-    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
-    {
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "") {
         OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysToRemoveArray;
         FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
-
     FString temp_Permission;
     if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
         OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
@@ -1942,30 +1770,21 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
     if (request.Data != nullptr) OutRestJsonObj->SetObjectField(TEXT("Data"), request.Data);
     // Check to see if string is empty
-    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "")
-    {
+    if (request.KeysToRemove.IsEmpty() || request.KeysToRemove == "") {
         OutRestJsonObj->SetFieldNull(TEXT("KeysToRemove"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysToRemoveArray;
         FString(request.KeysToRemove).ParseIntoArray(KeysToRemoveArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("KeysToRemove"), KeysToRemoveArray);
     }
-
     FString temp_Permission;
     if (GetEnumValueToString<EUserDataPermission>(TEXT("EUserDataPermission"), request.Permission, temp_Permission))
         OutRestJsonObj->SetStringField(TEXT("Permission"), temp_Permission);
@@ -2022,35 +1841,22 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddNews(FAdminAddNewsRequest request,
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Timestamp.IsEmpty() || request.Timestamp == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Timestamp.IsEmpty() || request.Timestamp == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Timestamp"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
-
-    if (request.Title.IsEmpty() || request.Title == "")
-    {
+    if (request.Title.IsEmpty() || request.Title == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Title"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Title"), request.Title);
     }
-
-    if (request.Body.IsEmpty() || request.Body == "")
-    {
+    if (request.Body.IsEmpty() || request.Body == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Body"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Body"), request.Body);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2100,9 +1906,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddVirtualCurrencyTypes(FAdminAddVirtualCurr
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    OutRestJsonObj->SetObjectArrayField(TEXT("VirtualCurrencies"), request.VirtualCurrencies);
+    // Serialize all the request properties to json
+    if (request.VirtualCurrencies.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("VirtualCurrencies"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("VirtualCurrencies"), request.VirtualCurrencies);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2152,26 +1961,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteStore(FAdminDeleteStoreRequest request
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
-    if (request.StoreId.IsEmpty() || request.StoreId == "")
-    {
+    if (request.StoreId.IsEmpty() || request.StoreId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2221,17 +2021,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCatalogItems(FAdminGetCatalogItemsRequest
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2281,20 +2076,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPublisherData(FAdminGetPublisherDataReque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2344,17 +2134,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetRandomResultTables(FAdminGetRandomResultT
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2404,26 +2189,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetStoreItems(FAdminGetStoreItemsRequest req
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
-    if (request.StoreId.IsEmpty() || request.StoreId == "")
-    {
+    if (request.StoreId.IsEmpty() || request.StoreId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2473,20 +2249,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleData(FAdminGetTitleDataRequest reque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2536,20 +2307,15 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleInternalData(FAdminGetTitleDataReque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     // Check to see if string is empty
-    if (request.Keys.IsEmpty() || request.Keys == "")
-    {
+    if (request.Keys.IsEmpty() || request.Keys == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Keys"));
-    }
-    else
-    {
+    } else {
         TArray<FString> KeysArray;
         FString(request.Keys).ParseIntoArray(KeysArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("Keys"), KeysArray);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2599,8 +2365,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListVirtualCurrencyTypes(FAdminListVirtualCu
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2650,9 +2415,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveVirtualCurrencyTypes(FAdminRemoveVirtu
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    OutRestJsonObj->SetObjectArrayField(TEXT("VirtualCurrencies"), request.VirtualCurrencies);
+    // Serialize all the request properties to json
+    if (request.VirtualCurrencies.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("VirtualCurrencies"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("VirtualCurrencies"), request.VirtualCurrencies);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2702,19 +2470,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetCatalogItems(FAdminUpdateCatalogItemsRequ
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
     OutRestJsonObj->SetBoolField(TEXT("SetAsDefaultCatalog"), request.SetAsDefaultCatalog);
-    OutRestJsonObj->SetObjectArrayField(TEXT("Catalog"), request.Catalog);
+    if (request.Catalog.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Catalog"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Catalog"), request.Catalog);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2764,27 +2531,23 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetStoreItems(FAdminUpdateStoreItemsRequest 
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
-    if (request.StoreId.IsEmpty() || request.StoreId == "")
-    {
+    if (request.StoreId.IsEmpty() || request.StoreId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
     }
-
-    OutRestJsonObj->SetObjectArrayField(TEXT("Store"), request.Store);
+    if (request.MarketingData != nullptr) OutRestJsonObj->SetObjectField(TEXT("MarketingData"), request.MarketingData);
+    if (request.Store.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Store"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Store"), request.Store);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2834,26 +2597,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleData(FAdminSetTitleDataRequest reque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Key.IsEmpty() || request.Key == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Key.IsEmpty() || request.Key == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Key"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
     }
-
-    if (request.Value.IsEmpty() || request.Value == "")
-    {
+    if (request.Value.IsEmpty() || request.Value == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Value"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Value"), request.Value);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2903,26 +2657,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleInternalData(FAdminSetTitleDataReque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Key.IsEmpty() || request.Key == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Key.IsEmpty() || request.Key == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Key"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
     }
-
-    if (request.Value.IsEmpty() || request.Value == "")
-    {
+    if (request.Value.IsEmpty() || request.Value == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Value"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Value"), request.Value);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2972,44 +2717,27 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetupPushNotification(FAdminSetupPushNotific
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Name.IsEmpty() || request.Name == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Name.IsEmpty() || request.Name == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Name"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Name"), request.Name);
     }
-
-    if (request.Platform.IsEmpty() || request.Platform == "")
-    {
+    if (request.Platform.IsEmpty() || request.Platform == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Platform"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Platform"), request.Platform);
     }
-
-    if (request.Key.IsEmpty() || request.Key == "")
-    {
+    if (request.Key.IsEmpty() || request.Key == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Key"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
     }
-
-    if (request.Credential.IsEmpty() || request.Credential == "")
-    {
+    if (request.Credential.IsEmpty() || request.Credential == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Credential"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Credential"), request.Credential);
     }
-
     OutRestJsonObj->SetBoolField(TEXT("OverwriteOldARN"), request.OverwriteOldARN);
 
     // Add Request to manager
@@ -3060,19 +2788,18 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCatalogItems(FAdminUpdateCatalogItemsR
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
     OutRestJsonObj->SetBoolField(TEXT("SetAsDefaultCatalog"), request.SetAsDefaultCatalog);
-    OutRestJsonObj->SetObjectArrayField(TEXT("Catalog"), request.Catalog);
+    if (request.Catalog.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Catalog"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Catalog"), request.Catalog);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3122,18 +2849,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateRandomResultTables(FAdminUpdateRandomR
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
-    OutRestJsonObj->SetObjectArrayField(TEXT("Tables"), request.Tables);
+    if (request.Tables.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Tables"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Tables"), request.Tables);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3183,27 +2909,23 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateStoreItems(FAdminUpdateStoreItemsReque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
-    if (request.StoreId.IsEmpty() || request.StoreId == "")
-    {
+    if (request.StoreId.IsEmpty() || request.StoreId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("StoreId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("StoreId"), request.StoreId);
     }
-
-    OutRestJsonObj->SetObjectArrayField(TEXT("Store"), request.Store);
+    if (request.MarketingData != nullptr) OutRestJsonObj->SetObjectField(TEXT("MarketingData"), request.MarketingData);
+    if (request.Store.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Store"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Store"), request.Store);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3257,26 +2979,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddUserVirtualCurrency(FAdminAddUserVirtualC
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
-    if (request.VirtualCurrency.IsEmpty() || request.VirtualCurrency == "")
-    {
+    if (request.VirtualCurrency.IsEmpty() || request.VirtualCurrency == "") {
         OutRestJsonObj->SetFieldNull(TEXT("VirtualCurrency"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("VirtualCurrency"), request.VirtualCurrency);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("Amount"), request.Amount);
 
     // Add Request to manager
@@ -3327,17 +3040,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInventory(FAdminGetUserInventoryReque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3387,18 +3095,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GrantItemsToUsers(FAdminGrantItemsToUsersReq
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
-
-    OutRestJsonObj->SetObjectArrayField(TEXT("ItemGrants"), request.ItemGrants);
+    if (request.ItemGrants.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("ItemGrants"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("ItemGrants"), request.ItemGrants);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3448,35 +3155,22 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeInventoryItem(FAdminRevokeInventoryIte
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
-    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
-    {
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
-
-    if (request.ItemInstanceId.IsEmpty() || request.ItemInstanceId == "")
-    {
+    if (request.ItemInstanceId.IsEmpty() || request.ItemInstanceId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ItemInstanceId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("ItemInstanceId"), request.ItemInstanceId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3526,26 +3220,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SubtractUserVirtualCurrency(FAdminSubtractUs
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
-    if (request.VirtualCurrency.IsEmpty() || request.VirtualCurrency == "")
-    {
+    if (request.VirtualCurrency.IsEmpty() || request.VirtualCurrency == "") {
         OutRestJsonObj->SetFieldNull(TEXT("VirtualCurrency"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("VirtualCurrency"), request.VirtualCurrency);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("Amount"), request.Amount);
 
     // Add Request to manager
@@ -3600,17 +3285,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameInfo(FAdminGetMatchmakerGam
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.LobbyId.IsEmpty() || request.LobbyId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.LobbyId.IsEmpty() || request.LobbyId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("LobbyId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("LobbyId"), request.LobbyId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3660,17 +3340,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameModes(FAdminGetMatchmakerGa
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.BuildVersion.IsEmpty() || request.BuildVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.BuildVersion.IsEmpty() || request.BuildVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BuildVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("BuildVersion"), request.BuildVersion);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3720,18 +3395,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyMatchmakerGameModes(FAdminModifyMatchm
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.BuildVersion.IsEmpty() || request.BuildVersion == "")
-    {
+    // Serialize all the request properties to json
+    if (request.BuildVersion.IsEmpty() || request.BuildVersion == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BuildVersion"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("BuildVersion"), request.BuildVersion);
     }
-
-    OutRestJsonObj->SetObjectArrayField(TEXT("GameModes"), request.GameModes);
+    if (request.GameModes.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("GameModes"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("GameModes"), request.GameModes);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3785,56 +3459,35 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddServerBuild(FAdminAddServerBuildRequest r
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.BuildId.IsEmpty() || request.BuildId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.BuildId.IsEmpty() || request.BuildId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BuildId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("BuildId"), request.BuildId);
     }
-
-    if (request.CommandLineTemplate.IsEmpty() || request.CommandLineTemplate == "")
-    {
+    if (request.CommandLineTemplate.IsEmpty() || request.CommandLineTemplate == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CommandLineTemplate"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CommandLineTemplate"), request.CommandLineTemplate);
     }
-
-    if (request.ExecutablePath.IsEmpty() || request.ExecutablePath == "")
-    {
+    if (request.ExecutablePath.IsEmpty() || request.ExecutablePath == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ExecutablePath"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("ExecutablePath"), request.ExecutablePath);
     }
-
     // Check to see if string is empty
-    if (request.ActiveRegions.IsEmpty() || request.ActiveRegions == "")
-    {
+    if (request.ActiveRegions.IsEmpty() || request.ActiveRegions == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ActiveRegions"));
-    }
-    else
-    {
+    } else {
         TArray<FString> ActiveRegionsArray;
         FString(request.ActiveRegions).ParseIntoArray(ActiveRegionsArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("ActiveRegions"), ActiveRegionsArray);
     }
-
-    if (request.Comment.IsEmpty() || request.Comment == "")
-    {
+    if (request.Comment.IsEmpty() || request.Comment == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Comment"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Comment"), request.Comment);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("MaxGamesPerHost"), request.MaxGamesPerHost);
     OutRestJsonObj->SetNumberField(TEXT("MinFreeGameSlots"), request.MinFreeGameSlots);
 
@@ -3886,17 +3539,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoR
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.BuildId.IsEmpty() || request.BuildId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.BuildId.IsEmpty() || request.BuildId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BuildId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("BuildId"), request.BuildId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3946,17 +3594,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildUploadUrl(FAdminGetServerBuild
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.BuildId.IsEmpty() || request.BuildId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.BuildId.IsEmpty() || request.BuildId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BuildId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("BuildId"), request.BuildId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4006,8 +3649,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListServerBuilds(FAdminListBuildsRequest req
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4057,67 +3699,42 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyServerBuild(FAdminModifyServerBuildReq
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.BuildId.IsEmpty() || request.BuildId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.BuildId.IsEmpty() || request.BuildId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BuildId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("BuildId"), request.BuildId);
     }
-
-    if (request.Timestamp.IsEmpty() || request.Timestamp == "")
-    {
+    if (request.Timestamp.IsEmpty() || request.Timestamp == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Timestamp"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
     }
-
     // Check to see if string is empty
-    if (request.ActiveRegions.IsEmpty() || request.ActiveRegions == "")
-    {
+    if (request.ActiveRegions.IsEmpty() || request.ActiveRegions == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ActiveRegions"));
-    }
-    else
-    {
+    } else {
         TArray<FString> ActiveRegionsArray;
         FString(request.ActiveRegions).ParseIntoArray(ActiveRegionsArray, TEXT(","), false);
         OutRestJsonObj->SetStringArrayField(TEXT("ActiveRegions"), ActiveRegionsArray);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("MaxGamesPerHost"), request.MaxGamesPerHost);
     OutRestJsonObj->SetNumberField(TEXT("MinFreeGameSlots"), request.MinFreeGameSlots);
-    if (request.CommandLineTemplate.IsEmpty() || request.CommandLineTemplate == "")
-    {
+    if (request.CommandLineTemplate.IsEmpty() || request.CommandLineTemplate == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CommandLineTemplate"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CommandLineTemplate"), request.CommandLineTemplate);
     }
-
-    if (request.ExecutablePath.IsEmpty() || request.ExecutablePath == "")
-    {
+    if (request.ExecutablePath.IsEmpty() || request.ExecutablePath == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ExecutablePath"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("ExecutablePath"), request.ExecutablePath);
     }
-
-    if (request.Comment.IsEmpty() || request.Comment == "")
-    {
+    if (request.Comment.IsEmpty() || request.Comment == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Comment"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Comment"), request.Comment);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4167,17 +3784,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveServerBuild(FAdminRemoveServerBuildReq
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.BuildId.IsEmpty() || request.BuildId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.BuildId.IsEmpty() || request.BuildId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("BuildId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("BuildId"), request.BuildId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4231,26 +3843,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublisherData(FAdminSetPublisherDataReque
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Key.IsEmpty() || request.Key == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Key.IsEmpty() || request.Key == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Key"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
     }
-
-    if (request.Value.IsEmpty() || request.Value == "")
-    {
+    if (request.Value.IsEmpty() || request.Value == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Value"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Value"), request.Value);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4304,8 +3907,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptRevision(FAdminGetCloudScriptR
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     OutRestJsonObj->SetNumberField(TEXT("Version"), request.Version);
     OutRestJsonObj->SetNumberField(TEXT("Revision"), request.Revision);
 
@@ -4357,8 +3959,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptVersions(FAdminGetCloudScriptV
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4408,8 +4009,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublishedRevision(FAdminSetPublishedRevis
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     OutRestJsonObj->SetNumberField(TEXT("Version"), request.Version);
     OutRestJsonObj->SetNumberField(TEXT("Revision"), request.Revision);
 
@@ -4461,20 +4061,19 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
     OutRestJsonObj->SetNumberField(TEXT("Version"), request.Version);
-    OutRestJsonObj->SetObjectArrayField(TEXT("Files"), request.Files);
-    OutRestJsonObj->SetBoolField(TEXT("Publish"), request.Publish);
-    if (request.DeveloperPlayFabId.IsEmpty() || request.DeveloperPlayFabId == "")
-    {
-        OutRestJsonObj->SetFieldNull(TEXT("DeveloperPlayFabId"));
+    if (request.Files.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Files"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Files"), request.Files);
     }
-    else
-    {
+    OutRestJsonObj->SetBoolField(TEXT("Publish"), request.Publish);
+    if (request.DeveloperPlayFabId.IsEmpty() || request.DeveloperPlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("DeveloperPlayFabId"));
+    } else {
         OutRestJsonObj->SetStringField(TEXT("DeveloperPlayFabId"), request.DeveloperPlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4528,17 +4127,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteContent(FAdminDeleteContentRequest req
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Key.IsEmpty() || request.Key == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Key.IsEmpty() || request.Key == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Key"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4588,17 +4182,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentList(FAdminGetContentListRequest r
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Prefix.IsEmpty() || request.Prefix == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Prefix.IsEmpty() || request.Prefix == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Prefix"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Prefix"), request.Prefix);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4648,26 +4237,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentUploadUrl(FAdminGetContentUploadUr
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.Key.IsEmpty() || request.Key == "")
-    {
+    // Serialize all the request properties to json
+    if (request.Key.IsEmpty() || request.Key == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Key"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("Key"), request.Key);
     }
-
-    if (request.ContentType.IsEmpty() || request.ContentType == "")
-    {
+    if (request.ContentType.IsEmpty() || request.ContentType == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ContentType"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("ContentType"), request.ContentType);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4721,26 +4301,17 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetCharacterStatistics(FAdminResetCharacte
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
-    if (request.CharacterId.IsEmpty() || request.CharacterId == "")
-    {
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4773,6 +4344,66 @@ void UPlayFabAdminAPI::HelperResetCharacterStatistics(FPlayFabBaseModel response
 ///////////////////////////////////////////////////////
 // PlayStream
 //////////////////////////////////////////////////////
+/** Adds a given tag to a player profile. The tag's namespace is automatically generated based on the source of the tag. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::AddPlayerTag(FAdminAddPlayerTagRequest request,
+    FDelegateOnSuccessAddPlayerTag onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessAddPlayerTag = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperAddPlayerTag);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/AddPlayerTag";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+    if (request.TagName.IsEmpty() || request.TagName == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("TagName"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("TagName"), request.TagName);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperAddPlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminAddPlayerTagResult result = UPlayFabAdminModelDecoder::decodeAddPlayerTagResultResponse(response.responseData);
+        if (OnSuccessAddPlayerTag.IsBound())
+        {
+            OnSuccessAddPlayerTag.Execute(result, customData);
+        }
+    }
+}
+
 /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllSegments(FAdminGetAllSegmentsRequest request,
     FDelegateOnSuccessGetAllSegments onSuccess,
@@ -4794,8 +4425,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllSegments(FAdminGetAllSegmentsRequest r
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
+    // Serialize all the request properties to json
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4845,17 +4475,12 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerSegments(FAdminGetPlayersSegmentsRe
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4905,28 +4530,19 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayersInSegment(FAdminGetPlayersInSegmen
     manager->useSessionTicket = false;
     manager->useSecretKey = true;
 
-
-    // Setup request object
-    if (request.SegmentId.IsEmpty() || request.SegmentId == "")
-    {
+    // Serialize all the request properties to json
+    if (request.SegmentId.IsEmpty() || request.SegmentId == "") {
         OutRestJsonObj->SetFieldNull(TEXT("SegmentId"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("SegmentId"), request.SegmentId);
     }
-
     OutRestJsonObj->SetNumberField(TEXT("SecondsToLive"), request.SecondsToLive);
     OutRestJsonObj->SetNumberField(TEXT("MaxBatchSize"), request.MaxBatchSize);
-    if (request.ContinuationToken.IsEmpty() || request.ContinuationToken == "")
-    {
+    if (request.ContinuationToken.IsEmpty() || request.ContinuationToken == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ContinuationToken"));
-    }
-    else
-    {
+    } else {
         OutRestJsonObj->SetStringField(TEXT("ContinuationToken"), request.ContinuationToken);
     }
-
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -4951,6 +4567,126 @@ void UPlayFabAdminAPI::HelperGetPlayersInSegment(FPlayFabBaseModel response, UOb
         if (OnSuccessGetPlayersInSegment.IsBound())
         {
             OnSuccessGetPlayersInSegment.Execute(result, customData);
+        }
+    }
+}
+
+/** Get all tags with a given Namespace (optional) from a player profile. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerTags(FAdminGetPlayerTagsRequest request,
+    FDelegateOnSuccessGetPlayerTags onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayerTags = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperGetPlayerTags);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetPlayerTags";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+    if (request.Namespace.IsEmpty() || request.Namespace == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("Namespace"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("Namespace"), request.Namespace);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperGetPlayerTags(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminGetPlayerTagsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerTagsResultResponse(response.responseData);
+        if (OnSuccessGetPlayerTags.IsBound())
+        {
+            OnSuccessGetPlayerTags.Execute(result, customData);
+        }
+    }
+}
+
+/** Remove a given tag from a player profile. The tag's namespace is automatically generated based on the source of the tag. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::RemovePlayerTag(FAdminRemovePlayerTagRequest request,
+    FDelegateOnSuccessRemovePlayerTag onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRemovePlayerTag = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperRemovePlayerTag);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/RemovePlayerTag";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+    if (request.TagName.IsEmpty() || request.TagName == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("TagName"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("TagName"), request.TagName);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperRemovePlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminRemovePlayerTagResult result = UPlayFabAdminModelDecoder::decodeRemovePlayerTagResultResponse(response.responseData);
+        if (OnSuccessRemovePlayerTag.IsBound())
+        {
+            OnSuccessRemovePlayerTag.Execute(result, customData);
         }
     }
 }

@@ -269,6 +269,18 @@ enum class EResultTableNodeType : uint8
     pfenum_TableId UMETA(DisplayName = "TableId"),
 };
 
+// Enum for SourceType
+UENUM(BlueprintType)
+enum class ESourceType : uint8
+{
+    pfenum_Admin UMETA(DisplayName = "Admin"),
+    pfenum_BackEnd UMETA(DisplayName = "BackEnd"),
+    pfenum_GameClient UMETA(DisplayName = "GameClient"),
+    pfenum_GameServer UMETA(DisplayName = "GameServer"),
+    pfenum_Partner UMETA(DisplayName = "Partner"),
+    pfenum_Stream UMETA(DisplayName = "Stream"),
+};
+
 // Enum for StatisticAggregationMethod
 UENUM(BlueprintType)
 enum class EStatisticAggregationMethod : uint8

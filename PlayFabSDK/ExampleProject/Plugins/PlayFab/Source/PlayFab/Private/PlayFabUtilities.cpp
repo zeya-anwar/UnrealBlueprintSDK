@@ -280,6 +280,8 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1245: returnText = "InvalidSearchTerm"; break;
     case 1246: returnText = "TwoFactorAuthenticationTokenRequired"; break;
     case 1247: returnText = "GameServerHostCountLimitExceeded"; break;
+    case 1248: returnText = "PlayerTagCountLimitExceeded"; break;
+    case 1249: returnText = "RequestAlreadyRunning"; break;
     }
 
     // Return the text

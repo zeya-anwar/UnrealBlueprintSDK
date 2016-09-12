@@ -5962,6 +5962,56 @@ void UPlayFabServerAPI::HelperAddPlayerTag(FPlayFabBaseModel response, UObject* 
     }
 }
 
+/** Retrieve a list of all PlayStream actions groups. */
+UPlayFabServerAPI* UPlayFabServerAPI::GetAllActionGroups(FServerGetAllActionGroupsRequest request,
+    FDelegateOnSuccessGetAllActionGroups onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetAllActionGroups = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetAllActionGroups);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/GetAllActionGroups";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperGetAllActionGroups(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerGetAllActionGroupsResult result = UPlayFabServerModelDecoder::decodeGetAllActionGroupsResultResponse(response.responseData);
+        if (OnSuccessGetAllActionGroups.IsBound())
+        {
+            OnSuccessGetAllActionGroups.Execute(result, customData);
+        }
+    }
+}
+
 /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
 UPlayFabServerAPI* UPlayFabServerAPI::GetAllSegments(FServerGetAllSegmentsRequest request,
     FDelegateOnSuccessGetAllSegments onSuccess,

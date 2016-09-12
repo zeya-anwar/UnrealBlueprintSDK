@@ -282,6 +282,9 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1247: returnText = "GameServerHostCountLimitExceeded"; break;
     case 1248: returnText = "PlayerTagCountLimitExceeded"; break;
     case 1249: returnText = "RequestAlreadyRunning"; break;
+    case 1250: returnText = "ActionGroupNotFound"; break;
+    case 1251: returnText = "MaximumSegmentBulkActionJobsRunning"; break;
+    case 1252: returnText = "NoActionsOnPlayersInSegmentJob"; break;
     }
 
     // Return the text

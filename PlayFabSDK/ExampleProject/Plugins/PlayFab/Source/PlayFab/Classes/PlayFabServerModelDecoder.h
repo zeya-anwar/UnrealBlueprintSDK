@@ -404,6 +404,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
         static FServerAddPlayerTagResult decodeAddPlayerTagResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetAllActionGroupsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
+        static FServerGetAllActionGroupsResult decodeGetAllActionGroupsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetAllSegmentsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream Models")
         static FServerGetAllSegmentsResult decodeGetAllSegmentsResultResponse(UPlayFabJsonObject* response);

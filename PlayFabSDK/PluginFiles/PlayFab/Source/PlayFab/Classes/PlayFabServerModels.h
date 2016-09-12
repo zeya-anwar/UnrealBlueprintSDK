@@ -1639,6 +1639,9 @@ public:
         TArray<UPlayFabJsonObject*> Logs;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         int32 ExecutionTimeSeconds;
+    /** Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP requests. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
+        int32 ProcessorTimeSeconds;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         int32 MemoryConsumedBytes;
     /** Number of PlayFab API requests issued by the CloudScript function */
@@ -2027,6 +2030,23 @@ struct FServerAddPlayerTagResult
 {
     GENERATED_USTRUCT_BODY()
 public:
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetAllActionGroupsRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetAllActionGroupsResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** List of Action Groups. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | PlayStream Models")
+        TArray<UPlayFabJsonObject*> ActionGroups;
 };
 
 USTRUCT(BlueprintType)

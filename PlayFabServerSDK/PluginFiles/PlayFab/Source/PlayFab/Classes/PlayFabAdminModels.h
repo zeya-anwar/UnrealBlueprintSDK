@@ -1494,6 +1494,23 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminGetAllActionGroupsRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetAllActionGroupsResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** List of Action Groups. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
+        TArray<UPlayFabJsonObject*> ActionGroups;
+};
+
+USTRUCT(BlueprintType)
 struct FAdminGetAllSegmentsRequest
 {
     GENERATED_USTRUCT_BODY()

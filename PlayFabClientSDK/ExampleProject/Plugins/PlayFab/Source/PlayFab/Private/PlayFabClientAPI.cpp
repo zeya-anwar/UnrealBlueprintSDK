@@ -612,7 +612,7 @@ void UPlayFabClientAPI::HelperLoginWithKongregate(FPlayFabBaseModel response, UO
     }
 }
 
-/** Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user */
+/** Signs the user into the PlayFab account, returning a session identifier that can subsequently be used for API calls which require an authenticated user. Unlike other login API calls, LoginWithEmailAddress does not permit the creation of new accounts via the CreateAccountFlag. Email accounts must be created using the RegisterPlayFabUser API or added to existing accounts using AddUsernamePassword. */
 UPlayFabClientAPI* UPlayFabClientAPI::LoginWithPlayFab(FClientLoginWithPlayFabRequest request,
     FDelegateOnSuccessLoginWithPlayFab onSuccess,
     FDelegateOnFailurePlayFabError onFailure,
@@ -1640,6 +1640,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkAndroidDeviceID(FClientLinkAndroidDevi
     } else {
         OutRestJsonObj->SetStringField(TEXT("AndroidDevice"), request.AndroidDevice);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1694,6 +1695,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkCustomID(FClientLinkCustomIDRequest re
     } else {
         OutRestJsonObj->SetStringField(TEXT("CustomId"), request.CustomId);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1748,6 +1750,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkFacebookAccount(FClientLinkFacebookAcc
     } else {
         OutRestJsonObj->SetStringField(TEXT("AccessToken"), request.AccessToken);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1802,6 +1805,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkGameCenterAccount(FClientLinkGameCente
     } else {
         OutRestJsonObj->SetStringField(TEXT("GameCenterId"), request.GameCenterId);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1856,6 +1860,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkGoogleAccount(FClientLinkGoogleAccount
     } else {
         OutRestJsonObj->SetStringField(TEXT("AccessToken"), request.AccessToken);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1920,6 +1925,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkIOSDeviceID(FClientLinkIOSDeviceIDRequ
     } else {
         OutRestJsonObj->SetStringField(TEXT("DeviceModel"), request.DeviceModel);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -1979,6 +1985,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkKongregate(FClientLinkKongregateAccoun
     } else {
         OutRestJsonObj->SetStringField(TEXT("AuthTicket"), request.AuthTicket);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2033,6 +2040,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkSteamAccount(FClientLinkSteamAccountRe
     } else {
         OutRestJsonObj->SetStringField(TEXT("SteamTicket"), request.SteamTicket);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -2087,6 +2095,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkTwitch(FClientLinkTwitchAccountRequest
     } else {
         OutRestJsonObj->SetStringField(TEXT("AccessToken"), request.AccessToken);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceLink"), request.ForceLink);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);

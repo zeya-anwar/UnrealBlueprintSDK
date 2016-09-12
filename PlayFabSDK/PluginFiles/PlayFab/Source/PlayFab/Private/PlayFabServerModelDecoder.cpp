@@ -716,6 +716,7 @@ FServerExecuteCloudScriptResult UPlayFabServerModelDecoder::decodeExecuteCloudSc
     tempStruct.FunctionResult = !(dataObj->HasField("FunctionResult")) ? nullptr : dataObj->GetObjectField("FunctionResult");
     tempStruct.Logs = !(dataObj->HasField("Logs")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Logs");
     tempStruct.ExecutionTimeSeconds = !(dataObj->HasField("ExecutionTimeSeconds")) ? 0 : int(dataObj->GetNumberField("ExecutionTimeSeconds"));
+    tempStruct.ProcessorTimeSeconds = !(dataObj->HasField("ProcessorTimeSeconds")) ? 0 : int(dataObj->GetNumberField("ProcessorTimeSeconds"));
     tempStruct.MemoryConsumedBytes = !(dataObj->HasField("MemoryConsumedBytes")) ? 0 : int(dataObj->GetNumberField("MemoryConsumedBytes"));
     tempStruct.APIRequestsIssued = !(dataObj->HasField("APIRequestsIssued")) ? 0 : int(dataObj->GetNumberField("APIRequestsIssued"));
     tempStruct.HttpRequestsIssued = !(dataObj->HasField("HttpRequestsIssued")) ? 0 : int(dataObj->GetNumberField("HttpRequestsIssued"));
@@ -881,6 +882,17 @@ FServerAddPlayerTagResult UPlayFabServerModelDecoder::decodeAddPlayerTagResultRe
     // Temp ustruct
     FServerAddPlayerTagResult tempStruct;
 
+
+    return tempStruct;
+}
+
+FServerGetAllActionGroupsResult UPlayFabServerModelDecoder::decodeGetAllActionGroupsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetAllActionGroupsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.ActionGroups = !(dataObj->HasField("ActionGroups")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("ActionGroups");
 
     return tempStruct;
 }

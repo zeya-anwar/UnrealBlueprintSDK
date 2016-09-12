@@ -1317,6 +1317,19 @@ public:
         void HelperAddPlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllActionGroups, FServerGetAllActionGroupsResult, result, UObject*, customData);
+
+    /** Retrieve a list of all PlayStream actions groups. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetAllActionGroups(FServerGetAllActionGroupsRequest request,
+            FDelegateOnSuccessGetAllActionGroups onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetAllActionGroups(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllSegments, FServerGetAllSegmentsResult, result, UObject*, customData);
 
     /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
@@ -1490,6 +1503,7 @@ public:
     FDelegateOnSuccessUpdateCharacterInternalData OnSuccessUpdateCharacterInternalData;
     FDelegateOnSuccessUpdateCharacterReadOnlyData OnSuccessUpdateCharacterReadOnlyData;
     FDelegateOnSuccessAddPlayerTag OnSuccessAddPlayerTag;
+    FDelegateOnSuccessGetAllActionGroups OnSuccessGetAllActionGroups;
     FDelegateOnSuccessGetAllSegments OnSuccessGetAllSegments;
     FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
     FDelegateOnSuccessGetPlayersInSegment OnSuccessGetPlayersInSegment;

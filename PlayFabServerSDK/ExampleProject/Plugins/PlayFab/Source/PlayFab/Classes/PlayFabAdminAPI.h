@@ -184,7 +184,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessDeleteUsers, FAdminDeleteUsersResult, result, UObject*, customData);
 
-    /** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. */
+    /** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. This method does not remove the player's event history, login history, inventory items, nor virtual currencies. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabAdminAPI* DeleteUsers(FAdminDeleteUsersRequest request,
             FDelegateOnSuccessDeleteUsers onSuccess,
@@ -1024,6 +1024,19 @@ public:
         void HelperAddPlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllActionGroups, FAdminGetAllActionGroupsResult, result, UObject*, customData);
+
+    /** Retrieve a list of all PlayStream actions groups. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetAllActionGroups(FAdminGetAllActionGroupsRequest request,
+            FDelegateOnSuccessGetAllActionGroups onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetAllActionGroups(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetAllSegments, FAdminGetAllSegmentsResult, result, UObject*, customData);
 
     /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
@@ -1176,6 +1189,7 @@ public:
     FDelegateOnSuccessGetContentUploadUrl OnSuccessGetContentUploadUrl;
     FDelegateOnSuccessResetCharacterStatistics OnSuccessResetCharacterStatistics;
     FDelegateOnSuccessAddPlayerTag OnSuccessAddPlayerTag;
+    FDelegateOnSuccessGetAllActionGroups OnSuccessGetAllActionGroups;
     FDelegateOnSuccessGetAllSegments OnSuccessGetAllSegments;
     FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
     FDelegateOnSuccessGetPlayersInSegment OnSuccessGetPlayersInSegment;

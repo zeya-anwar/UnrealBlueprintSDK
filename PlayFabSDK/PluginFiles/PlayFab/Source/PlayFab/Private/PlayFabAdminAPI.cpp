@@ -643,7 +643,7 @@ void UPlayFabAdminAPI::HelperCreatePlayerStatisticDefinition(FPlayFabBaseModel r
     }
 }
 
-/** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. */
+/** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. This method does not remove the player's event history, login history, inventory items, nor virtual currencies. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request,
     FDelegateOnSuccessDeleteUsers onSuccess,
     FDelegateOnFailurePlayFabError onFailure,
@@ -4400,6 +4400,56 @@ void UPlayFabAdminAPI::HelperAddPlayerTag(FPlayFabBaseModel response, UObject* c
         if (OnSuccessAddPlayerTag.IsBound())
         {
             OnSuccessAddPlayerTag.Execute(result, customData);
+        }
+    }
+}
+
+/** Retrieve a list of all PlayStream actions groups. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllActionGroups(FAdminGetAllActionGroupsRequest request,
+    FDelegateOnSuccessGetAllActionGroups onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetAllActionGroups = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperGetAllActionGroups);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetAllActionGroups";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperGetAllActionGroups(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminGetAllActionGroupsResult result = UPlayFabAdminModelDecoder::decodeGetAllActionGroupsResultResponse(response.responseData);
+        if (OnSuccessGetAllActionGroups.IsBound())
+        {
+            OnSuccessGetAllActionGroups.Execute(result, customData);
         }
     }
 }

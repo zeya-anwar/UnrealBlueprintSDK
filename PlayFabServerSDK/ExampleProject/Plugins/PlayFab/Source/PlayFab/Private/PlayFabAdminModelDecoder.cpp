@@ -692,6 +692,17 @@ FAdminAddPlayerTagResult UPlayFabAdminModelDecoder::decodeAddPlayerTagResultResp
     return tempStruct;
 }
 
+FAdminGetAllActionGroupsResult UPlayFabAdminModelDecoder::decodeGetAllActionGroupsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetAllActionGroupsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.ActionGroups = !(dataObj->HasField("ActionGroups")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("ActionGroups");
+
+    return tempStruct;
+}
+
 FAdminGetAllSegmentsResult UPlayFabAdminModelDecoder::decodeGetAllSegmentsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

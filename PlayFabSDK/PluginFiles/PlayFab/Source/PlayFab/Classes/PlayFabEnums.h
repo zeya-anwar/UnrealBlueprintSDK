@@ -261,6 +261,15 @@ enum class ERegion : uint8
     pfenum_Australia UMETA(DisplayName = "Australia"),
 };
 
+// Enum for ResolutionOutcome
+UENUM(BlueprintType)
+enum class EResolutionOutcome : uint8
+{
+    pfenum_Revoke UMETA(DisplayName = "Revoke"),
+    pfenum_Reinstate UMETA(DisplayName = "Reinstate"),
+    pfenum_Manual UMETA(DisplayName = "Manual"),
+};
+
 // Enum for ResultTableNodeType
 UENUM(BlueprintType)
 enum class EResultTableNodeType : uint8

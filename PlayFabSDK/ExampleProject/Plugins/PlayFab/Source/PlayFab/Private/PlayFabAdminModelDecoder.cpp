@@ -194,11 +194,33 @@ FAdminIncrementPlayerStatisticVersionResult UPlayFabAdminModelDecoder::decodeInc
     return tempStruct;
 }
 
+FAdminRefundPurchaseResponse UPlayFabAdminModelDecoder::decodeRefundPurchaseResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminRefundPurchaseResponse tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.PurchaseStatus = !(dataObj->HasField("PurchaseStatus")) ? TEXT("") : dataObj->GetStringField("PurchaseStatus");
+
+    return tempStruct;
+}
+
 FAdminResetUserStatisticsResult UPlayFabAdminModelDecoder::decodeResetUserStatisticsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FAdminResetUserStatisticsResult tempStruct;
 
+
+    return tempStruct;
+}
+
+FAdminResolvePurchaseDisputeResponse UPlayFabAdminModelDecoder::decodeResolvePurchaseDisputeResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminResolvePurchaseDisputeResponse tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.PurchaseStatus = !(dataObj->HasField("PurchaseStatus")) ? TEXT("") : dataObj->GetStringField("PurchaseStatus");
 
     return tempStruct;
 }

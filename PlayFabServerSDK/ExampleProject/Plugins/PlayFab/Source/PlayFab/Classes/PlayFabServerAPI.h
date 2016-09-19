@@ -199,6 +199,19 @@ public:
         void HelperDeleteUsers(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendLeaderboard, FServerGetLeaderboardResult, result, UObject*, customData);
+
+    /** Retrieves a list of ranked friends of the given player for the given statistic, starting from the indicated point in the leaderboard */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetFriendLeaderboard(FServerGetFriendLeaderboardRequest request,
+            FDelegateOnSuccessGetFriendLeaderboard onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetFriendLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboard, FServerGetLeaderboardResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked users for the given statistic, starting from the indicated point in the leaderboard */
@@ -860,10 +873,62 @@ public:
     ///////////////////////////////////////////////////////
     // Friend List Management
     //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAddFriend, FServerEmptyResult, result, UObject*, customData);
+
+    /** Adds the Friend user to the friendlist of the user with PlayFabId. At least one of FriendPlayFabId,FriendUsername,FriendEmail, or FriendTitleDisplayName should be initialized. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* AddFriend(FServerAddFriendRequest request,
+            FDelegateOnSuccessAddFriend onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperAddFriend(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendsList, FServerGetFriendsListResult, result, UObject*, customData);
+
+    /** Retrieves the current friends for the user with PlayFabId, constrained to users who have PlayFab accounts. Friends from linked accounts (Facebook, Steam) are also included. You may optionally exclude some linked services' friends. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetFriendsList(FServerGetFriendsListRequest request,
+            FDelegateOnSuccessGetFriendsList onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetFriendsList(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRemoveFriend, FServerEmptyResult, result, UObject*, customData);
+
+    /** Removes the specified friend from the the user's friend list */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* RemoveFriend(FServerRemoveFriendRequest request,
+            FDelegateOnSuccessRemoveFriend onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRemoveFriend(FPlayFabBaseModel response, UObject* customData, bool successful);
+
 
     ///////////////////////////////////////////////////////
     // Matchmaking APIs
     //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessDeregisterGame, FServerDeregisterGameResponse, result, UObject*, customData);
+
+    /** Inform the matchmaker that a Game Server Instance is removed. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* DeregisterGame(FServerDeregisterGameRequest request,
+            FDelegateOnSuccessDeregisterGame onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperDeregisterGame(FPlayFabBaseModel response, UObject* customData, bool successful);
+
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessNotifyMatchmakerPlayerLeft, FServerNotifyMatchmakerPlayerLeftResult, result, UObject*, customData);
 
@@ -891,6 +956,32 @@ public:
         void HelperRedeemMatchmakerTicket(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRefreshGameServerInstanceHeartbeat, FServerRefreshGameServerInstanceHeartbeatResult, result, UObject*, customData);
+
+    /** Set the state of the indicated Game Server Instance. Also update the heartbeat for the instance. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* RefreshGameServerInstanceHeartbeat(FServerRefreshGameServerInstanceHeartbeatRequest request,
+            FDelegateOnSuccessRefreshGameServerInstanceHeartbeat onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRefreshGameServerInstanceHeartbeat(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRegisterGame, FServerRegisterGameResponse, result, UObject*, customData);
+
+    /** Inform the matchmaker that a new Game Server Instance is added. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* RegisterGame(FServerRegisterGameRequest request,
+            FDelegateOnSuccessRegisterGame onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRegisterGame(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceData, FServerSetGameServerInstanceDataResult, result, UObject*, customData);
 
     /** Sets the custom data of the indicated Game Server Instance */
@@ -915,6 +1006,19 @@ public:
     // Implements FOnPlayFabServerRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperSetGameServerInstanceState(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceTags, FServerSetGameServerInstanceTagsResult, result, UObject*, customData);
+
+    /** Set custom tags for the specified Game Server Instance */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* SetGameServerInstanceTags(FServerSetGameServerInstanceTagsRequest request,
+            FDelegateOnSuccessSetGameServerInstanceTags onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperSetGameServerInstanceTags(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1421,6 +1525,7 @@ public:
     FDelegateOnSuccessSendPushNotification OnSuccessSendPushNotification;
     FDelegateOnSuccessUpdateBans OnSuccessUpdateBans;
     FDelegateOnSuccessDeleteUsers OnSuccessDeleteUsers;
+    FDelegateOnSuccessGetFriendLeaderboard OnSuccessGetFriendLeaderboard;
     FDelegateOnSuccessGetLeaderboard OnSuccessGetLeaderboard;
     FDelegateOnSuccessGetLeaderboardAroundUser OnSuccessGetLeaderboardAroundUser;
     FDelegateOnSuccessGetPlayerCombinedInfo OnSuccessGetPlayerCombinedInfo;
@@ -1471,10 +1576,17 @@ public:
     FDelegateOnSuccessUnlockContainerInstance OnSuccessUnlockContainerInstance;
     FDelegateOnSuccessUnlockContainerItem OnSuccessUnlockContainerItem;
     FDelegateOnSuccessUpdateUserInventoryItemCustomData OnSuccessUpdateUserInventoryItemCustomData;
+    FDelegateOnSuccessAddFriend OnSuccessAddFriend;
+    FDelegateOnSuccessGetFriendsList OnSuccessGetFriendsList;
+    FDelegateOnSuccessRemoveFriend OnSuccessRemoveFriend;
+    FDelegateOnSuccessDeregisterGame OnSuccessDeregisterGame;
     FDelegateOnSuccessNotifyMatchmakerPlayerLeft OnSuccessNotifyMatchmakerPlayerLeft;
     FDelegateOnSuccessRedeemMatchmakerTicket OnSuccessRedeemMatchmakerTicket;
+    FDelegateOnSuccessRefreshGameServerInstanceHeartbeat OnSuccessRefreshGameServerInstanceHeartbeat;
+    FDelegateOnSuccessRegisterGame OnSuccessRegisterGame;
     FDelegateOnSuccessSetGameServerInstanceData OnSuccessSetGameServerInstanceData;
     FDelegateOnSuccessSetGameServerInstanceState OnSuccessSetGameServerInstanceState;
+    FDelegateOnSuccessSetGameServerInstanceTags OnSuccessSetGameServerInstanceTags;
     FDelegateOnSuccessAwardSteamAchievement OnSuccessAwardSteamAchievement;
     FDelegateOnSuccessLogEvent OnSuccessLogEvent;
     FDelegateOnSuccessWriteCharacterEvent OnSuccessWriteCharacterEvent;

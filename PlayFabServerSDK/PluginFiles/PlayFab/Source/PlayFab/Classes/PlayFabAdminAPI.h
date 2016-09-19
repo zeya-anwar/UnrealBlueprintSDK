@@ -325,6 +325,19 @@ public:
         void HelperIncrementPlayerStatisticVersion(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRefundPurchase, FAdminRefundPurchaseResponse, result, UObject*, customData);
+
+    /** Attempts to process an order refund through the original real money payment provider. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* RefundPurchase(FAdminRefundPurchaseRequest request,
+            FDelegateOnSuccessRefundPurchase onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRefundPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessResetUserStatistics, FAdminResetUserStatisticsResult, result, UObject*, customData);
 
     /** Completely removes all statistics for the specified user, for the current game */
@@ -336,6 +349,19 @@ public:
     // Implements FOnPlayFabAdminRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperResetUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessResolvePurchaseDispute, FAdminResolvePurchaseDisputeResponse, result, UObject*, customData);
+
+    /** Attempts to resolve a dispute with the original order's payment provider. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* ResolvePurchaseDispute(FAdminResolvePurchaseDisputeRequest request,
+            FDelegateOnSuccessResolvePurchaseDispute onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperResolvePurchaseDispute(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdatePlayerStatisticDefinition, FAdminUpdatePlayerStatisticDefinitionResult, result, UObject*, customData);
@@ -1138,7 +1164,9 @@ public:
     FDelegateOnSuccessGetUserPublisherReadOnlyData OnSuccessGetUserPublisherReadOnlyData;
     FDelegateOnSuccessGetUserReadOnlyData OnSuccessGetUserReadOnlyData;
     FDelegateOnSuccessIncrementPlayerStatisticVersion OnSuccessIncrementPlayerStatisticVersion;
+    FDelegateOnSuccessRefundPurchase OnSuccessRefundPurchase;
     FDelegateOnSuccessResetUserStatistics OnSuccessResetUserStatistics;
+    FDelegateOnSuccessResolvePurchaseDispute OnSuccessResolvePurchaseDispute;
     FDelegateOnSuccessUpdatePlayerStatisticDefinition OnSuccessUpdatePlayerStatisticDefinition;
     FDelegateOnSuccessUpdateUserData OnSuccessUpdateUserData;
     FDelegateOnSuccessUpdateUserInternalData OnSuccessUpdateUserInternalData;

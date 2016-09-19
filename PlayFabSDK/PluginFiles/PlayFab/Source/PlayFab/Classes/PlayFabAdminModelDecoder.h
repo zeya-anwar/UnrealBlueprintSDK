@@ -100,9 +100,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
         static FAdminIncrementPlayerStatisticVersionResult decodeIncrementPlayerStatisticVersionResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the RefundPurchaseResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
+        static FAdminRefundPurchaseResponse decodeRefundPurchaseResponseResponse(UPlayFabJsonObject* response);
+
     /** Decode the ResetUserStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
         static FAdminResetUserStatisticsResult decodeResetUserStatisticsResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the ResolvePurchaseDisputeResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")
+        static FAdminResolvePurchaseDisputeResponse decodeResolvePurchaseDisputeResponseResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdatePlayerStatisticDefinitionResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Player Data Management Models")

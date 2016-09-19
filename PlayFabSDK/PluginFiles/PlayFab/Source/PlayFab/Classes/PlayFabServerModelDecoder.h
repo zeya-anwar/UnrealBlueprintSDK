@@ -244,11 +244,19 @@ public:
     // Friend List Management
     //////////////////////////////////////////////////////
 
+    /** Decode the GetFriendsListResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management Models")
+        static FServerGetFriendsListResult decodeGetFriendsListResultResponse(UPlayFabJsonObject* response);
+
 
 
     ///////////////////////////////////////////////////////
     // Matchmaking APIs
     //////////////////////////////////////////////////////
+
+    /** Decode the DeregisterGameResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
+        static FServerDeregisterGameResponse decodeDeregisterGameResponseResponse(UPlayFabJsonObject* response);
 
     /** Decode the NotifyMatchmakerPlayerLeftResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
@@ -258,6 +266,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
         static FServerRedeemMatchmakerTicketResult decodeRedeemMatchmakerTicketResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the RefreshGameServerInstanceHeartbeatResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
+        static FServerRefreshGameServerInstanceHeartbeatResult decodeRefreshGameServerInstanceHeartbeatResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RegisterGameResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
+        static FServerRegisterGameResponse decodeRegisterGameResponseResponse(UPlayFabJsonObject* response);
+
     /** Decode the SetGameServerInstanceDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
         static FServerSetGameServerInstanceDataResult decodeSetGameServerInstanceDataResultResponse(UPlayFabJsonObject* response);
@@ -265,6 +281,10 @@ public:
     /** Decode the SetGameServerInstanceStateResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
         static FServerSetGameServerInstanceStateResult decodeSetGameServerInstanceStateResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the SetGameServerInstanceTagsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs Models")
+        static FServerSetGameServerInstanceTagsResult decodeSetGameServerInstanceTagsResultResponse(UPlayFabJsonObject* response);
 
 
 

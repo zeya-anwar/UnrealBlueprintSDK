@@ -256,6 +256,41 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetFriendLeaderboardRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** The player whose friend leaderboard to get */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString PlayFabId;
+    /** Statistic used to rank friends for this leaderboard. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString StatisticName;
+    /** Position in the leaderboard to start this listing (defaults to the first entry). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        int32 StartPosition;
+    /** Maximum number of entries to retrieve. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        int32 MaxResultsCount;
+    /** Indicates whether Steam service friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        bool IncludeSteamFriends;
+    /** Indicates whether Facebook friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        bool IncludeFacebookFriends;
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetLeaderboardResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Ordered list of leaderboard entries. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        TArray<UPlayFabJsonObject*> Leaderboard;
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetLeaderboardRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -269,16 +304,6 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetLeaderboardResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Ordered list of leaderboard entries. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> Leaderboard;
 };
 
 USTRUCT(BlueprintType)
@@ -1256,10 +1281,88 @@ public:
 // Friend List Management
 //////////////////////////////////////////////////////
 
+USTRUCT(BlueprintType)
+struct FServerAddFriendRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** PlayFab identifier of the player to add a new friend. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString PlayFabId;
+    /** The PlayFab identifier of the user being added. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString FriendPlayFabId;
+    /** The PlayFab username of the user being added */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString FriendUsername;
+    /** Email address of the user being added. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString FriendEmail;
+    /** Title-specific display name of the user to being added. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString FriendTitleDisplayName;
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetFriendsListRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** PlayFab identifier of the player whose friend list to get. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString PlayFabId;
+    /** Indicates whether Steam service friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        bool IncludeSteamFriends;
+    /** Indicates whether Facebook friends should be included in the response. Default is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        bool IncludeFacebookFriends;
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetFriendsListResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Array of friends found. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        TArray<UPlayFabJsonObject*> Friends;
+};
+
+USTRUCT(BlueprintType)
+struct FServerRemoveFriendRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** PlayFab identifier of the friend account which is to be removed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString FriendPlayFabId;
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString PlayFabId;
+};
+
 
 ///////////////////////////////////////////////////////
 // Matchmaking APIs
 //////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FServerDeregisterGameRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique identifier for the Game Server Instance that is being deregistered. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString LobbyId;
+};
+
+USTRUCT(BlueprintType)
+struct FServerDeregisterGameResponse
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
 
 USTRUCT(BlueprintType)
 struct FServerNotifyMatchmakerPlayerLeftRequest
@@ -1314,6 +1417,58 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerRefreshGameServerInstanceHeartbeatRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique identifier of the Game Server Instance for which the heartbeat is updated. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString LobbyId;
+};
+
+USTRUCT(BlueprintType)
+struct FServerRefreshGameServerInstanceHeartbeatResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FServerRegisterGameRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** IP address of the Game Server Instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString ServerHost;
+    /** Port number for communication with the Game Server Instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString ServerPort;
+    /** Unique identifier of the build running on the Game Server Instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString Build;
+    /** Unique identifier of the build running on the Game Server Instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        ERegion Region;
+    /** Unique identifier of the build running on the Game Server Instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString GameMode;
+    /** Tags for the Game Server Instance */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        UPlayFabJsonObject* Tags;
+};
+
+USTRUCT(BlueprintType)
+struct FServerRegisterGameResponse
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique identifier generated for the Game Server Instance that is registered. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString LobbyId;
+};
+
+USTRUCT(BlueprintType)
 struct FServerSetGameServerInstanceDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1348,6 +1503,26 @@ public:
 
 USTRUCT(BlueprintType)
 struct FServerSetGameServerInstanceStateResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetGameServerInstanceTagsRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique identifier of the Game Server Instance to be updated. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        FString LobbyId;
+    /** Tags to set for the specified Game Server Instance. Note that this is the complete list of tags to be associated with the Game Server Instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+        UPlayFabJsonObject* Tags;
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetGameServerInstanceTagsResult
 {
     GENERATED_USTRUCT_BODY()
 public:

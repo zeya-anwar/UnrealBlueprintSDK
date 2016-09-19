@@ -552,11 +552,31 @@ FServerEmptyResult UPlayFabServerModelDecoder::decodeEmptyResultResponse(UPlayFa
 // Friend List Management
 //////////////////////////////////////////////////////
 
+FServerGetFriendsListResult UPlayFabServerModelDecoder::decodeGetFriendsListResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetFriendsListResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Friends = !(dataObj->HasField("Friends")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Friends");
+
+    return tempStruct;
+}
+
 
 
 ///////////////////////////////////////////////////////
 // Matchmaking APIs
 //////////////////////////////////////////////////////
+
+FServerDeregisterGameResponse UPlayFabServerModelDecoder::decodeDeregisterGameResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerDeregisterGameResponse tempStruct;
+
+
+    return tempStruct;
+}
 
 FServerNotifyMatchmakerPlayerLeftResult UPlayFabServerModelDecoder::decodeNotifyMatchmakerPlayerLeftResultResponse(UPlayFabJsonObject* response)
 {
@@ -582,6 +602,26 @@ FServerRedeemMatchmakerTicketResult UPlayFabServerModelDecoder::decodeRedeemMatc
     return tempStruct;
 }
 
+FServerRefreshGameServerInstanceHeartbeatResult UPlayFabServerModelDecoder::decodeRefreshGameServerInstanceHeartbeatResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRefreshGameServerInstanceHeartbeatResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FServerRegisterGameResponse UPlayFabServerModelDecoder::decodeRegisterGameResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerRegisterGameResponse tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.LobbyId = !(dataObj->HasField("LobbyId")) ? TEXT("") : dataObj->GetStringField("LobbyId");
+
+    return tempStruct;
+}
+
 FServerSetGameServerInstanceDataResult UPlayFabServerModelDecoder::decodeSetGameServerInstanceDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -595,6 +635,15 @@ FServerSetGameServerInstanceStateResult UPlayFabServerModelDecoder::decodeSetGam
 {
     // Temp ustruct
     FServerSetGameServerInstanceStateResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FServerSetGameServerInstanceTagsResult UPlayFabServerModelDecoder::decodeSetGameServerInstanceTagsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerSetGameServerInstanceTagsResult tempStruct;
 
 
     return tempStruct;

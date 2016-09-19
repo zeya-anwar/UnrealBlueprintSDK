@@ -1304,6 +1304,71 @@ void UPlayFabAdminAPI::HelperIncrementPlayerStatisticVersion(FPlayFabBaseModel r
     }
 }
 
+/** Attempts to process an order refund through the original real money payment provider. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::RefundPurchase(FAdminRefundPurchaseRequest request,
+    FDelegateOnSuccessRefundPurchase onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRefundPurchase = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperRefundPurchase);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/RefundPurchase";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+    if (request.OrderId.IsEmpty() || request.OrderId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("OrderId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("OrderId"), request.OrderId);
+    }
+    if (request.Reason.IsEmpty() || request.Reason == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("Reason"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("Reason"), request.Reason);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperRefundPurchase(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminRefundPurchaseResponse result = UPlayFabAdminModelDecoder::decodeRefundPurchaseResponseResponse(response.responseData);
+        if (OnSuccessRefundPurchase.IsBound())
+        {
+            OnSuccessRefundPurchase.Execute(result, customData);
+        }
+    }
+}
+
 /** Completely removes all statistics for the specified user, for the current game */
 UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatisticsRequest request,
     FDelegateOnSuccessResetUserStatistics onSuccess,
@@ -1355,6 +1420,74 @@ void UPlayFabAdminAPI::HelperResetUserStatistics(FPlayFabBaseModel response, UOb
         if (OnSuccessResetUserStatistics.IsBound())
         {
             OnSuccessResetUserStatistics.Execute(result, customData);
+        }
+    }
+}
+
+/** Attempts to resolve a dispute with the original order's payment provider. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::ResolvePurchaseDispute(FAdminResolvePurchaseDisputeRequest request,
+    FDelegateOnSuccessResolvePurchaseDispute onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->customData = customData;
+
+    // Assign delegates
+    manager->OnSuccessResolvePurchaseDispute = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperResolvePurchaseDispute);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/ResolvePurchaseDispute";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+    if (request.OrderId.IsEmpty() || request.OrderId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("OrderId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("OrderId"), request.OrderId);
+    }
+    if (request.Reason.IsEmpty() || request.Reason == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("Reason"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("Reason"), request.Reason);
+    }
+    FString temp_Outcome;
+    if (GetEnumValueToString<EResolutionOutcome>(TEXT("EResolutionOutcome"), request.Outcome, temp_Outcome))
+        OutRestJsonObj->SetStringField(TEXT("Outcome"), temp_Outcome);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperResolvePurchaseDispute(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminResolvePurchaseDisputeResponse result = UPlayFabAdminModelDecoder::decodeResolvePurchaseDisputeResponseResponse(response.responseData);
+        if (OnSuccessResolvePurchaseDispute.IsBound())
+        {
+            OnSuccessResolvePurchaseDispute.Execute(result, customData);
         }
     }
 }

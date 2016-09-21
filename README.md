@@ -1,4 +1,4 @@
-Unreal 4.9 and 4.12 Blueprint SDK-Collection for PlayFab README
+Unreal 4 Blueprint SDK-Collection for PlayFab README
 ========
 
 

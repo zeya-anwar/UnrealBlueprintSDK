@@ -708,6 +708,7 @@ FClientPayForPurchaseResult UPlayFabClientModelDecoder::decodePayForPurchaseResu
     tempStruct.ProviderData = !(dataObj->HasField("ProviderData")) ? TEXT("") : dataObj->GetStringField("ProviderData");
     tempStruct.PurchaseConfirmationPageURL = !(dataObj->HasField("PurchaseConfirmationPageURL")) ? TEXT("") : dataObj->GetStringField("PurchaseConfirmationPageURL");
     tempStruct.VirtualCurrency = !(dataObj->HasField("VirtualCurrency")) ? nullptr : dataObj->GetObjectField("VirtualCurrency");
+    tempStruct.ProviderToken = !(dataObj->HasField("ProviderToken")) ? TEXT("") : dataObj->GetStringField("ProviderToken");
 
     return tempStruct;
 }

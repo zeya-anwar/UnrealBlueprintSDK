@@ -1511,7 +1511,7 @@ public:
     bool bIsValidJsonResponse;
     FString ResponseContent;
     int32 ResponseCode;
-    UObject* customData;
+    UObject* mCustomData;
 
     FDelegateOnFailurePlayFabError OnFailure;
     FDelegateOnSuccessAuthenticateSessionTicket OnSuccessAuthenticateSessionTicket;

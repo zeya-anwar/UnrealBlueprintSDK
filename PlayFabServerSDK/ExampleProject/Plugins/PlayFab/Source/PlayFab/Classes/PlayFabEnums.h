@@ -287,7 +287,6 @@ enum class ESourceType : uint8
     pfenum_GameClient UMETA(DisplayName = "GameClient"),
     pfenum_GameServer UMETA(DisplayName = "GameServer"),
     pfenum_Partner UMETA(DisplayName = "Partner"),
-    pfenum_Stream UMETA(DisplayName = "Stream"),
 };
 
 // Enum for StatisticAggregationMethod

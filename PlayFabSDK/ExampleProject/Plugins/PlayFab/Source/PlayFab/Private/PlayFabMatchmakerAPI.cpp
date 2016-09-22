@@ -69,7 +69,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserReques
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessAuthUser = onSuccess;
@@ -110,7 +110,7 @@ void UPlayFabMatchmakerAPI::HelperAuthUser(FPlayFabBaseModel response, UObject* 
         FMatchmakerAuthUserResponse result = UPlayFabMatchmakerModelDecoder::decodeAuthUserResponseResponse(response.responseData);
         if (OnSuccessAuthUser.IsBound())
         {
-            OnSuccessAuthUser.Execute(result, customData);
+            OnSuccessAuthUser.Execute(result, mCustomData);
         }
     }
 }
@@ -124,7 +124,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoin
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessPlayerJoined = onSuccess;
@@ -170,7 +170,7 @@ void UPlayFabMatchmakerAPI::HelperPlayerJoined(FPlayFabBaseModel response, UObje
         FMatchmakerPlayerJoinedResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerJoinedResponseResponse(response.responseData);
         if (OnSuccessPlayerJoined.IsBound())
         {
-            OnSuccessPlayerJoined.Execute(result, customData);
+            OnSuccessPlayerJoined.Execute(result, mCustomData);
         }
     }
 }
@@ -184,7 +184,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRe
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessPlayerLeft = onSuccess;
@@ -230,7 +230,7 @@ void UPlayFabMatchmakerAPI::HelperPlayerLeft(FPlayFabBaseModel response, UObject
         FMatchmakerPlayerLeftResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerLeftResponseResponse(response.responseData);
         if (OnSuccessPlayerLeft.IsBound())
         {
-            OnSuccessPlayerLeft.Execute(result, customData);
+            OnSuccessPlayerLeft.Execute(result, mCustomData);
         }
     }
 }
@@ -244,7 +244,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessStartGame = onSuccess;
@@ -303,7 +303,7 @@ void UPlayFabMatchmakerAPI::HelperStartGame(FPlayFabBaseModel response, UObject*
         FMatchmakerStartGameResponse result = UPlayFabMatchmakerModelDecoder::decodeStartGameResponseResponse(response.responseData);
         if (OnSuccessStartGame.IsBound())
         {
-            OnSuccessStartGame.Execute(result, customData);
+            OnSuccessStartGame.Execute(result, mCustomData);
         }
     }
 }
@@ -317,7 +317,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoReques
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUserInfo = onSuccess;
@@ -359,7 +359,7 @@ void UPlayFabMatchmakerAPI::HelperUserInfo(FPlayFabBaseModel response, UObject* 
         FMatchmakerUserInfoResponse result = UPlayFabMatchmakerModelDecoder::decodeUserInfoResponseResponse(response.responseData);
         if (OnSuccessUserInfo.IsBound())
         {
-            OnSuccessUserInfo.Execute(result, customData);
+            OnSuccessUserInfo.Execute(result, mCustomData);
         }
     }
 }
@@ -394,7 +394,7 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
         myResponse.responseError.ErrorName = "Unable to contact server";
         myResponse.responseError.ErrorMessage = "Unable to contact server";
 
-        OnPlayFabResponse.Broadcast(myResponse, customData, false);
+        OnPlayFabResponse.Broadcast(myResponse, mCustomData, false);
 
         return;
     }
@@ -426,7 +426,7 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
     IPlayFab* pfSettings = &(IPlayFab::Get());
 
     // Broadcast the result event
-    OnPlayFabResponse.Broadcast(myResponse, customData, myResponse.responseError.hasError);
+    OnPlayFabResponse.Broadcast(myResponse, mCustomData, myResponse.responseError.hasError);
     pfSettings->ModifyPendingCallCount(-1);
 }
 

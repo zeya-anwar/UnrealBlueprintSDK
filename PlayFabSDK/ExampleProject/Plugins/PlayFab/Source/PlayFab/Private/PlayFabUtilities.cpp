@@ -285,6 +285,11 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1250: returnText = "ActionGroupNotFound"; break;
     case 1251: returnText = "MaximumSegmentBulkActionJobsRunning"; break;
     case 1252: returnText = "NoActionsOnPlayersInSegmentJob"; break;
+    case 1253: returnText = "DuplicateStatisticName"; break;
+    case 1254: returnText = "CronNameConflict"; break;
+    case 1255: returnText = "CronCreateConflict"; break;
+    case 1256: returnText = "InvalidCronName"; break;
+    case 1257: returnText = "InvalidCronSchedule"; break;
     }
 
     // Return the text

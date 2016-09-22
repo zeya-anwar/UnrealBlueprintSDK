@@ -110,11 +110,7 @@ public:
     UPROPERTY()
         FString TEST_TITLE_DATA_LOC = "C:/depot/pf-main/tools/SDKBuildScripts/testTitleData.json";
     UPROPERTY()
-        FString userName;
-    UPROPERTY()
         FString userEmail;
-    UPROPERTY()
-        FString userPassword;
     UPROPERTY()
         FString characterName;
     UPROPERTY()

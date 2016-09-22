@@ -69,7 +69,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::BanUsers(FAdminBanUsersRequest request,
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessBanUsers = onSuccess;
@@ -110,7 +110,7 @@ void UPlayFabAdminAPI::HelperBanUsers(FPlayFabBaseModel response, UObject* custo
         FAdminBanUsersResult result = UPlayFabAdminModelDecoder::decodeBanUsersResultResponse(response.responseData);
         if (OnSuccessBanUsers.IsBound())
         {
-            OnSuccessBanUsers.Execute(result, customData);
+            OnSuccessBanUsers.Execute(result, mCustomData);
         }
     }
 }
@@ -124,7 +124,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserAccountInfo(FAdminLookupUserAccountIn
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserAccountInfo = onSuccess;
@@ -180,7 +180,7 @@ void UPlayFabAdminAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, UObj
         FAdminLookupUserAccountInfoResult result = UPlayFabAdminModelDecoder::decodeLookupUserAccountInfoResultResponse(response.responseData);
         if (OnSuccessGetUserAccountInfo.IsBound())
         {
-            OnSuccessGetUserAccountInfo.Execute(result, customData);
+            OnSuccessGetUserAccountInfo.Execute(result, mCustomData);
         }
     }
 }
@@ -194,7 +194,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserBans(FAdminGetUserBansRequest request
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserBans = onSuccess;
@@ -235,7 +235,7 @@ void UPlayFabAdminAPI::HelperGetUserBans(FPlayFabBaseModel response, UObject* cu
         FAdminGetUserBansResult result = UPlayFabAdminModelDecoder::decodeGetUserBansResultResponse(response.responseData);
         if (OnSuccessGetUserBans.IsBound())
         {
-            OnSuccessGetUserBans.Execute(result, customData);
+            OnSuccessGetUserBans.Execute(result, mCustomData);
         }
     }
 }
@@ -249,7 +249,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUsers(FAdminResetUsersRequest request,
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessResetUsers = onSuccess;
@@ -290,7 +290,7 @@ void UPlayFabAdminAPI::HelperResetUsers(FPlayFabBaseModel response, UObject* cus
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
         if (OnSuccessResetUsers.IsBound())
         {
-            OnSuccessResetUsers.Execute(result, customData);
+            OnSuccessResetUsers.Execute(result, mCustomData);
         }
     }
 }
@@ -304,7 +304,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeAllBansForUser(FAdminRevokeAllBansForU
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessRevokeAllBansForUser = onSuccess;
@@ -345,7 +345,7 @@ void UPlayFabAdminAPI::HelperRevokeAllBansForUser(FPlayFabBaseModel response, UO
         FAdminRevokeAllBansForUserResult result = UPlayFabAdminModelDecoder::decodeRevokeAllBansForUserResultResponse(response.responseData);
         if (OnSuccessRevokeAllBansForUser.IsBound())
         {
-            OnSuccessRevokeAllBansForUser.Execute(result, customData);
+            OnSuccessRevokeAllBansForUser.Execute(result, mCustomData);
         }
     }
 }
@@ -359,7 +359,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeBans(FAdminRevokeBansRequest request,
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessRevokeBans = onSuccess;
@@ -403,7 +403,7 @@ void UPlayFabAdminAPI::HelperRevokeBans(FPlayFabBaseModel response, UObject* cus
         FAdminRevokeBansResult result = UPlayFabAdminModelDecoder::decodeRevokeBansResultResponse(response.responseData);
         if (OnSuccessRevokeBans.IsBound())
         {
-            OnSuccessRevokeBans.Execute(result, customData);
+            OnSuccessRevokeBans.Execute(result, mCustomData);
         }
     }
 }
@@ -417,7 +417,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SendAccountRecoveryEmail(FAdminSendAccountRe
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSendAccountRecoveryEmail = onSuccess;
@@ -458,7 +458,7 @@ void UPlayFabAdminAPI::HelperSendAccountRecoveryEmail(FPlayFabBaseModel response
         FAdminSendAccountRecoveryEmailResult result = UPlayFabAdminModelDecoder::decodeSendAccountRecoveryEmailResultResponse(response.responseData);
         if (OnSuccessSendAccountRecoveryEmail.IsBound())
         {
-            OnSuccessSendAccountRecoveryEmail.Execute(result, customData);
+            OnSuccessSendAccountRecoveryEmail.Execute(result, mCustomData);
         }
     }
 }
@@ -472,7 +472,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateBans(FAdminUpdateBansRequest request,
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateBans = onSuccess;
@@ -513,7 +513,7 @@ void UPlayFabAdminAPI::HelperUpdateBans(FPlayFabBaseModel response, UObject* cus
         FAdminUpdateBansResult result = UPlayFabAdminModelDecoder::decodeUpdateBansResultResponse(response.responseData);
         if (OnSuccessUpdateBans.IsBound())
         {
-            OnSuccessUpdateBans.Execute(result, customData);
+            OnSuccessUpdateBans.Execute(result, mCustomData);
         }
     }
 }
@@ -527,7 +527,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserT
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserTitleDisplayName = onSuccess;
@@ -573,7 +573,7 @@ void UPlayFabAdminAPI::HelperUpdateUserTitleDisplayName(FPlayFabBaseModel respon
         FAdminUpdateUserTitleDisplayNameResult result = UPlayFabAdminModelDecoder::decodeUpdateUserTitleDisplayNameResultResponse(response.responseData);
         if (OnSuccessUpdateUserTitleDisplayName.IsBound())
         {
-            OnSuccessUpdateUserTitleDisplayName.Execute(result, customData);
+            OnSuccessUpdateUserTitleDisplayName.Execute(result, mCustomData);
         }
     }
 }
@@ -591,7 +591,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreate
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessCreatePlayerStatisticDefinition = onSuccess;
@@ -638,7 +638,7 @@ void UPlayFabAdminAPI::HelperCreatePlayerStatisticDefinition(FPlayFabBaseModel r
         FAdminCreatePlayerStatisticDefinitionResult result = UPlayFabAdminModelDecoder::decodeCreatePlayerStatisticDefinitionResultResponse(response.responseData);
         if (OnSuccessCreatePlayerStatisticDefinition.IsBound())
         {
-            OnSuccessCreatePlayerStatisticDefinition.Execute(result, customData);
+            OnSuccessCreatePlayerStatisticDefinition.Execute(result, mCustomData);
         }
     }
 }
@@ -652,7 +652,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessDeleteUsers = onSuccess;
@@ -697,7 +697,7 @@ void UPlayFabAdminAPI::HelperDeleteUsers(FPlayFabBaseModel response, UObject* cu
         FAdminDeleteUsersResult result = UPlayFabAdminModelDecoder::decodeDeleteUsersResultResponse(response.responseData);
         if (OnSuccessDeleteUsers.IsBound())
         {
-            OnSuccessDeleteUsers.Execute(result, customData);
+            OnSuccessDeleteUsers.Execute(result, mCustomData);
         }
     }
 }
@@ -711,7 +711,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest req
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetDataReport = onSuccess;
@@ -755,7 +755,7 @@ void UPlayFabAdminAPI::HelperGetDataReport(FPlayFabBaseModel response, UObject* 
         FAdminGetDataReportResult result = UPlayFabAdminModelDecoder::decodeGetDataReportResultResponse(response.responseData);
         if (OnSuccessGetDataReport.IsBound())
         {
-            OnSuccessGetDataReport.Execute(result, customData);
+            OnSuccessGetDataReport.Execute(result, mCustomData);
         }
     }
 }
@@ -769,7 +769,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticDefinitions(FAdminGetPlaye
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayerStatisticDefinitions = onSuccess;
@@ -805,7 +805,7 @@ void UPlayFabAdminAPI::HelperGetPlayerStatisticDefinitions(FPlayFabBaseModel res
         FAdminGetPlayerStatisticDefinitionsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerStatisticDefinitionsResultResponse(response.responseData);
         if (OnSuccessGetPlayerStatisticDefinitions.IsBound())
         {
-            OnSuccessGetPlayerStatisticDefinitions.Execute(result, customData);
+            OnSuccessGetPlayerStatisticDefinitions.Execute(result, mCustomData);
         }
     }
 }
@@ -819,7 +819,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticVersions(FAdminGetPlayerSt
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayerStatisticVersions = onSuccess;
@@ -860,7 +860,7 @@ void UPlayFabAdminAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel respon
         FAdminGetPlayerStatisticVersionsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(response.responseData);
         if (OnSuccessGetPlayerStatisticVersions.IsBound())
         {
-            OnSuccessGetPlayerStatisticVersions.Execute(result, customData);
+            OnSuccessGetPlayerStatisticVersions.Execute(result, mCustomData);
         }
     }
 }
@@ -874,7 +874,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserData(FAdminGetUserDataRequest request
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserData = onSuccess;
@@ -924,7 +924,7 @@ void UPlayFabAdminAPI::HelperGetUserData(FPlayFabBaseModel response, UObject* cu
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserData.IsBound())
         {
-            OnSuccessGetUserData.Execute(result, customData);
+            OnSuccessGetUserData.Execute(result, mCustomData);
         }
     }
 }
@@ -938,7 +938,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInternalData(FAdminGetUserDataRequest
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserInternalData = onSuccess;
@@ -988,7 +988,7 @@ void UPlayFabAdminAPI::HelperGetUserInternalData(FPlayFabBaseModel response, UOb
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserInternalData.IsBound())
         {
-            OnSuccessGetUserInternalData.Execute(result, customData);
+            OnSuccessGetUserInternalData.Execute(result, mCustomData);
         }
     }
 }
@@ -1002,7 +1002,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherData(FAdminGetUserDataReques
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserPublisherData = onSuccess;
@@ -1052,7 +1052,7 @@ void UPlayFabAdminAPI::HelperGetUserPublisherData(FPlayFabBaseModel response, UO
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserPublisherData.IsBound())
         {
-            OnSuccessGetUserPublisherData.Execute(result, customData);
+            OnSuccessGetUserPublisherData.Execute(result, mCustomData);
         }
     }
 }
@@ -1066,7 +1066,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherInternalData(FAdminGetUserDa
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserPublisherInternalData = onSuccess;
@@ -1116,7 +1116,7 @@ void UPlayFabAdminAPI::HelperGetUserPublisherInternalData(FPlayFabBaseModel resp
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserPublisherInternalData.IsBound())
         {
-            OnSuccessGetUserPublisherInternalData.Execute(result, customData);
+            OnSuccessGetUserPublisherInternalData.Execute(result, mCustomData);
         }
     }
 }
@@ -1130,7 +1130,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherReadOnlyData(FAdminGetUserDa
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserPublisherReadOnlyData = onSuccess;
@@ -1180,7 +1180,7 @@ void UPlayFabAdminAPI::HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel resp
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserPublisherReadOnlyData.IsBound())
         {
-            OnSuccessGetUserPublisherReadOnlyData.Execute(result, customData);
+            OnSuccessGetUserPublisherReadOnlyData.Execute(result, mCustomData);
         }
     }
 }
@@ -1194,7 +1194,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserReadOnlyData = onSuccess;
@@ -1244,7 +1244,7 @@ void UPlayFabAdminAPI::HelperGetUserReadOnlyData(FPlayFabBaseModel response, UOb
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
         if (OnSuccessGetUserReadOnlyData.IsBound())
         {
-            OnSuccessGetUserReadOnlyData.Execute(result, customData);
+            OnSuccessGetUserReadOnlyData.Execute(result, mCustomData);
         }
     }
 }
@@ -1258,7 +1258,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::IncrementPlayerStatisticVersion(FAdminIncrem
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessIncrementPlayerStatisticVersion = onSuccess;
@@ -1299,7 +1299,7 @@ void UPlayFabAdminAPI::HelperIncrementPlayerStatisticVersion(FPlayFabBaseModel r
         FAdminIncrementPlayerStatisticVersionResult result = UPlayFabAdminModelDecoder::decodeIncrementPlayerStatisticVersionResultResponse(response.responseData);
         if (OnSuccessIncrementPlayerStatisticVersion.IsBound())
         {
-            OnSuccessIncrementPlayerStatisticVersion.Execute(result, customData);
+            OnSuccessIncrementPlayerStatisticVersion.Execute(result, mCustomData);
         }
     }
 }
@@ -1313,7 +1313,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RefundPurchase(FAdminRefundPurchaseRequest r
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessRefundPurchase = onSuccess;
@@ -1364,7 +1364,7 @@ void UPlayFabAdminAPI::HelperRefundPurchase(FPlayFabBaseModel response, UObject*
         FAdminRefundPurchaseResponse result = UPlayFabAdminModelDecoder::decodeRefundPurchaseResponseResponse(response.responseData);
         if (OnSuccessRefundPurchase.IsBound())
         {
-            OnSuccessRefundPurchase.Execute(result, customData);
+            OnSuccessRefundPurchase.Execute(result, mCustomData);
         }
     }
 }
@@ -1378,7 +1378,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatistic
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessResetUserStatistics = onSuccess;
@@ -1419,7 +1419,7 @@ void UPlayFabAdminAPI::HelperResetUserStatistics(FPlayFabBaseModel response, UOb
         FAdminResetUserStatisticsResult result = UPlayFabAdminModelDecoder::decodeResetUserStatisticsResultResponse(response.responseData);
         if (OnSuccessResetUserStatistics.IsBound())
         {
-            OnSuccessResetUserStatistics.Execute(result, customData);
+            OnSuccessResetUserStatistics.Execute(result, mCustomData);
         }
     }
 }
@@ -1433,7 +1433,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResolvePurchaseDispute(FAdminResolvePurchase
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessResolvePurchaseDispute = onSuccess;
@@ -1487,7 +1487,7 @@ void UPlayFabAdminAPI::HelperResolvePurchaseDispute(FPlayFabBaseModel response, 
         FAdminResolvePurchaseDisputeResponse result = UPlayFabAdminModelDecoder::decodeResolvePurchaseDisputeResponseResponse(response.responseData);
         if (OnSuccessResolvePurchaseDispute.IsBound())
         {
-            OnSuccessResolvePurchaseDispute.Execute(result, customData);
+            OnSuccessResolvePurchaseDispute.Execute(result, mCustomData);
         }
     }
 }
@@ -1501,7 +1501,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdate
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdatePlayerStatisticDefinition = onSuccess;
@@ -1548,7 +1548,7 @@ void UPlayFabAdminAPI::HelperUpdatePlayerStatisticDefinition(FPlayFabBaseModel r
         FAdminUpdatePlayerStatisticDefinitionResult result = UPlayFabAdminModelDecoder::decodeUpdatePlayerStatisticDefinitionResultResponse(response.responseData);
         if (OnSuccessUpdatePlayerStatisticDefinition.IsBound())
         {
-            OnSuccessUpdatePlayerStatisticDefinition.Execute(result, customData);
+            OnSuccessUpdatePlayerStatisticDefinition.Execute(result, mCustomData);
         }
     }
 }
@@ -1562,7 +1562,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserData = onSuccess;
@@ -1615,7 +1615,7 @@ void UPlayFabAdminAPI::HelperUpdateUserData(FPlayFabBaseModel response, UObject*
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserData.IsBound())
         {
-            OnSuccessUpdateUserData.Execute(result, customData);
+            OnSuccessUpdateUserData.Execute(result, mCustomData);
         }
     }
 }
@@ -1629,7 +1629,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInter
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserInternalData = onSuccess;
@@ -1679,7 +1679,7 @@ void UPlayFabAdminAPI::HelperUpdateUserInternalData(FPlayFabBaseModel response, 
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserInternalData.IsBound())
         {
-            OnSuccessUpdateUserInternalData.Execute(result, customData);
+            OnSuccessUpdateUserInternalData.Execute(result, mCustomData);
         }
     }
 }
@@ -1693,7 +1693,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserPublisherData = onSuccess;
@@ -1746,7 +1746,7 @@ void UPlayFabAdminAPI::HelperUpdateUserPublisherData(FPlayFabBaseModel response,
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserPublisherData.IsBound())
         {
-            OnSuccessUpdateUserPublisherData.Execute(result, customData);
+            OnSuccessUpdateUserPublisherData.Execute(result, mCustomData);
         }
     }
 }
@@ -1760,7 +1760,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdate
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserPublisherInternalData = onSuccess;
@@ -1810,7 +1810,7 @@ void UPlayFabAdminAPI::HelperUpdateUserPublisherInternalData(FPlayFabBaseModel r
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserPublisherInternalData.IsBound())
         {
-            OnSuccessUpdateUserPublisherInternalData.Execute(result, customData);
+            OnSuccessUpdateUserPublisherInternalData.Execute(result, mCustomData);
         }
     }
 }
@@ -1824,7 +1824,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserPublisherReadOnlyData = onSuccess;
@@ -1877,7 +1877,7 @@ void UPlayFabAdminAPI::HelperUpdateUserPublisherReadOnlyData(FPlayFabBaseModel r
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserPublisherReadOnlyData.IsBound())
         {
-            OnSuccessUpdateUserPublisherReadOnlyData.Execute(result, customData);
+            OnSuccessUpdateUserPublisherReadOnlyData.Execute(result, mCustomData);
         }
     }
 }
@@ -1891,7 +1891,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateUserReadOnlyData = onSuccess;
@@ -1944,7 +1944,7 @@ void UPlayFabAdminAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response, 
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
         if (OnSuccessUpdateUserReadOnlyData.IsBound())
         {
-            OnSuccessUpdateUserReadOnlyData.Execute(result, customData);
+            OnSuccessUpdateUserReadOnlyData.Execute(result, mCustomData);
         }
     }
 }
@@ -1962,7 +1962,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddNews(FAdminAddNewsRequest request,
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessAddNews = onSuccess;
@@ -2013,7 +2013,7 @@ void UPlayFabAdminAPI::HelperAddNews(FPlayFabBaseModel response, UObject* custom
         FAdminAddNewsResult result = UPlayFabAdminModelDecoder::decodeAddNewsResultResponse(response.responseData);
         if (OnSuccessAddNews.IsBound())
         {
-            OnSuccessAddNews.Execute(result, customData);
+            OnSuccessAddNews.Execute(result, mCustomData);
         }
     }
 }
@@ -2027,7 +2027,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddVirtualCurrencyTypes(FAdminAddVirtualCurr
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessAddVirtualCurrencyTypes = onSuccess;
@@ -2068,7 +2068,7 @@ void UPlayFabAdminAPI::HelperAddVirtualCurrencyTypes(FPlayFabBaseModel response,
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
         if (OnSuccessAddVirtualCurrencyTypes.IsBound())
         {
-            OnSuccessAddVirtualCurrencyTypes.Execute(result, customData);
+            OnSuccessAddVirtualCurrencyTypes.Execute(result, mCustomData);
         }
     }
 }
@@ -2082,7 +2082,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteStore(FAdminDeleteStoreRequest request
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessDeleteStore = onSuccess;
@@ -2128,7 +2128,7 @@ void UPlayFabAdminAPI::HelperDeleteStore(FPlayFabBaseModel response, UObject* cu
         FAdminDeleteStoreResult result = UPlayFabAdminModelDecoder::decodeDeleteStoreResultResponse(response.responseData);
         if (OnSuccessDeleteStore.IsBound())
         {
-            OnSuccessDeleteStore.Execute(result, customData);
+            OnSuccessDeleteStore.Execute(result, mCustomData);
         }
     }
 }
@@ -2142,7 +2142,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCatalogItems(FAdminGetCatalogItemsRequest
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCatalogItems = onSuccess;
@@ -2183,7 +2183,7 @@ void UPlayFabAdminAPI::HelperGetCatalogItems(FPlayFabBaseModel response, UObject
         FAdminGetCatalogItemsResult result = UPlayFabAdminModelDecoder::decodeGetCatalogItemsResultResponse(response.responseData);
         if (OnSuccessGetCatalogItems.IsBound())
         {
-            OnSuccessGetCatalogItems.Execute(result, customData);
+            OnSuccessGetCatalogItems.Execute(result, mCustomData);
         }
     }
 }
@@ -2197,7 +2197,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPublisherData(FAdminGetPublisherDataReque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPublisherData = onSuccess;
@@ -2241,7 +2241,7 @@ void UPlayFabAdminAPI::HelperGetPublisherData(FPlayFabBaseModel response, UObjec
         FAdminGetPublisherDataResult result = UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
         if (OnSuccessGetPublisherData.IsBound())
         {
-            OnSuccessGetPublisherData.Execute(result, customData);
+            OnSuccessGetPublisherData.Execute(result, mCustomData);
         }
     }
 }
@@ -2255,7 +2255,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetRandomResultTables(FAdminGetRandomResultT
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetRandomResultTables = onSuccess;
@@ -2296,7 +2296,7 @@ void UPlayFabAdminAPI::HelperGetRandomResultTables(FPlayFabBaseModel response, U
         FAdminGetRandomResultTablesResult result = UPlayFabAdminModelDecoder::decodeGetRandomResultTablesResultResponse(response.responseData);
         if (OnSuccessGetRandomResultTables.IsBound())
         {
-            OnSuccessGetRandomResultTables.Execute(result, customData);
+            OnSuccessGetRandomResultTables.Execute(result, mCustomData);
         }
     }
 }
@@ -2310,7 +2310,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetStoreItems(FAdminGetStoreItemsRequest req
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetStoreItems = onSuccess;
@@ -2356,7 +2356,7 @@ void UPlayFabAdminAPI::HelperGetStoreItems(FPlayFabBaseModel response, UObject* 
         FAdminGetStoreItemsResult result = UPlayFabAdminModelDecoder::decodeGetStoreItemsResultResponse(response.responseData);
         if (OnSuccessGetStoreItems.IsBound())
         {
-            OnSuccessGetStoreItems.Execute(result, customData);
+            OnSuccessGetStoreItems.Execute(result, mCustomData);
         }
     }
 }
@@ -2370,7 +2370,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleData(FAdminGetTitleDataRequest reque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetTitleData = onSuccess;
@@ -2414,7 +2414,7 @@ void UPlayFabAdminAPI::HelperGetTitleData(FPlayFabBaseModel response, UObject* c
         FAdminGetTitleDataResult result = UPlayFabAdminModelDecoder::decodeGetTitleDataResultResponse(response.responseData);
         if (OnSuccessGetTitleData.IsBound())
         {
-            OnSuccessGetTitleData.Execute(result, customData);
+            OnSuccessGetTitleData.Execute(result, mCustomData);
         }
     }
 }
@@ -2428,7 +2428,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleInternalData(FAdminGetTitleDataReque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetTitleInternalData = onSuccess;
@@ -2472,7 +2472,7 @@ void UPlayFabAdminAPI::HelperGetTitleInternalData(FPlayFabBaseModel response, UO
         FAdminGetTitleDataResult result = UPlayFabAdminModelDecoder::decodeGetTitleDataResultResponse(response.responseData);
         if (OnSuccessGetTitleInternalData.IsBound())
         {
-            OnSuccessGetTitleInternalData.Execute(result, customData);
+            OnSuccessGetTitleInternalData.Execute(result, mCustomData);
         }
     }
 }
@@ -2486,7 +2486,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListVirtualCurrencyTypes(FAdminListVirtualCu
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessListVirtualCurrencyTypes = onSuccess;
@@ -2522,7 +2522,7 @@ void UPlayFabAdminAPI::HelperListVirtualCurrencyTypes(FPlayFabBaseModel response
         FAdminListVirtualCurrencyTypesResult result = UPlayFabAdminModelDecoder::decodeListVirtualCurrencyTypesResultResponse(response.responseData);
         if (OnSuccessListVirtualCurrencyTypes.IsBound())
         {
-            OnSuccessListVirtualCurrencyTypes.Execute(result, customData);
+            OnSuccessListVirtualCurrencyTypes.Execute(result, mCustomData);
         }
     }
 }
@@ -2536,7 +2536,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveVirtualCurrencyTypes(FAdminRemoveVirtu
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessRemoveVirtualCurrencyTypes = onSuccess;
@@ -2577,7 +2577,7 @@ void UPlayFabAdminAPI::HelperRemoveVirtualCurrencyTypes(FPlayFabBaseModel respon
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
         if (OnSuccessRemoveVirtualCurrencyTypes.IsBound())
         {
-            OnSuccessRemoveVirtualCurrencyTypes.Execute(result, customData);
+            OnSuccessRemoveVirtualCurrencyTypes.Execute(result, mCustomData);
         }
     }
 }
@@ -2591,7 +2591,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetCatalogItems(FAdminUpdateCatalogItemsRequ
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSetCatalogItems = onSuccess;
@@ -2638,7 +2638,7 @@ void UPlayFabAdminAPI::HelperSetCatalogItems(FPlayFabBaseModel response, UObject
         FAdminUpdateCatalogItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateCatalogItemsResultResponse(response.responseData);
         if (OnSuccessSetCatalogItems.IsBound())
         {
-            OnSuccessSetCatalogItems.Execute(result, customData);
+            OnSuccessSetCatalogItems.Execute(result, mCustomData);
         }
     }
 }
@@ -2652,7 +2652,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetStoreItems(FAdminUpdateStoreItemsRequest 
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSetStoreItems = onSuccess;
@@ -2704,7 +2704,7 @@ void UPlayFabAdminAPI::HelperSetStoreItems(FPlayFabBaseModel response, UObject* 
         FAdminUpdateStoreItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateStoreItemsResultResponse(response.responseData);
         if (OnSuccessSetStoreItems.IsBound())
         {
-            OnSuccessSetStoreItems.Execute(result, customData);
+            OnSuccessSetStoreItems.Execute(result, mCustomData);
         }
     }
 }
@@ -2718,7 +2718,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleData(FAdminSetTitleDataRequest reque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSetTitleData = onSuccess;
@@ -2764,7 +2764,7 @@ void UPlayFabAdminAPI::HelperSetTitleData(FPlayFabBaseModel response, UObject* c
         FAdminSetTitleDataResult result = UPlayFabAdminModelDecoder::decodeSetTitleDataResultResponse(response.responseData);
         if (OnSuccessSetTitleData.IsBound())
         {
-            OnSuccessSetTitleData.Execute(result, customData);
+            OnSuccessSetTitleData.Execute(result, mCustomData);
         }
     }
 }
@@ -2778,7 +2778,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleInternalData(FAdminSetTitleDataReque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSetTitleInternalData = onSuccess;
@@ -2824,7 +2824,7 @@ void UPlayFabAdminAPI::HelperSetTitleInternalData(FPlayFabBaseModel response, UO
         FAdminSetTitleDataResult result = UPlayFabAdminModelDecoder::decodeSetTitleDataResultResponse(response.responseData);
         if (OnSuccessSetTitleInternalData.IsBound())
         {
-            OnSuccessSetTitleInternalData.Execute(result, customData);
+            OnSuccessSetTitleInternalData.Execute(result, mCustomData);
         }
     }
 }
@@ -2838,7 +2838,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetupPushNotification(FAdminSetupPushNotific
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSetupPushNotification = onSuccess;
@@ -2895,7 +2895,7 @@ void UPlayFabAdminAPI::HelperSetupPushNotification(FPlayFabBaseModel response, U
         FAdminSetupPushNotificationResult result = UPlayFabAdminModelDecoder::decodeSetupPushNotificationResultResponse(response.responseData);
         if (OnSuccessSetupPushNotification.IsBound())
         {
-            OnSuccessSetupPushNotification.Execute(result, customData);
+            OnSuccessSetupPushNotification.Execute(result, mCustomData);
         }
     }
 }
@@ -2909,7 +2909,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCatalogItems(FAdminUpdateCatalogItemsR
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateCatalogItems = onSuccess;
@@ -2956,7 +2956,7 @@ void UPlayFabAdminAPI::HelperUpdateCatalogItems(FPlayFabBaseModel response, UObj
         FAdminUpdateCatalogItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateCatalogItemsResultResponse(response.responseData);
         if (OnSuccessUpdateCatalogItems.IsBound())
         {
-            OnSuccessUpdateCatalogItems.Execute(result, customData);
+            OnSuccessUpdateCatalogItems.Execute(result, mCustomData);
         }
     }
 }
@@ -2970,7 +2970,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateRandomResultTables(FAdminUpdateRandomR
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateRandomResultTables = onSuccess;
@@ -3016,7 +3016,7 @@ void UPlayFabAdminAPI::HelperUpdateRandomResultTables(FPlayFabBaseModel response
         FAdminUpdateRandomResultTablesResult result = UPlayFabAdminModelDecoder::decodeUpdateRandomResultTablesResultResponse(response.responseData);
         if (OnSuccessUpdateRandomResultTables.IsBound())
         {
-            OnSuccessUpdateRandomResultTables.Execute(result, customData);
+            OnSuccessUpdateRandomResultTables.Execute(result, mCustomData);
         }
     }
 }
@@ -3030,7 +3030,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateStoreItems(FAdminUpdateStoreItemsReque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateStoreItems = onSuccess;
@@ -3082,7 +3082,7 @@ void UPlayFabAdminAPI::HelperUpdateStoreItems(FPlayFabBaseModel response, UObjec
         FAdminUpdateStoreItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateStoreItemsResultResponse(response.responseData);
         if (OnSuccessUpdateStoreItems.IsBound())
         {
-            OnSuccessUpdateStoreItems.Execute(result, customData);
+            OnSuccessUpdateStoreItems.Execute(result, mCustomData);
         }
     }
 }
@@ -3100,7 +3100,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddUserVirtualCurrency(FAdminAddUserVirtualC
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessAddUserVirtualCurrency = onSuccess;
@@ -3147,7 +3147,7 @@ void UPlayFabAdminAPI::HelperAddUserVirtualCurrency(FPlayFabBaseModel response, 
         FAdminModifyUserVirtualCurrencyResult result = UPlayFabAdminModelDecoder::decodeModifyUserVirtualCurrencyResultResponse(response.responseData);
         if (OnSuccessAddUserVirtualCurrency.IsBound())
         {
-            OnSuccessAddUserVirtualCurrency.Execute(result, customData);
+            OnSuccessAddUserVirtualCurrency.Execute(result, mCustomData);
         }
     }
 }
@@ -3161,7 +3161,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInventory(FAdminGetUserInventoryReque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetUserInventory = onSuccess;
@@ -3202,7 +3202,7 @@ void UPlayFabAdminAPI::HelperGetUserInventory(FPlayFabBaseModel response, UObjec
         FAdminGetUserInventoryResult result = UPlayFabAdminModelDecoder::decodeGetUserInventoryResultResponse(response.responseData);
         if (OnSuccessGetUserInventory.IsBound())
         {
-            OnSuccessGetUserInventory.Execute(result, customData);
+            OnSuccessGetUserInventory.Execute(result, mCustomData);
         }
     }
 }
@@ -3216,7 +3216,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GrantItemsToUsers(FAdminGrantItemsToUsersReq
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGrantItemsToUsers = onSuccess;
@@ -3262,7 +3262,7 @@ void UPlayFabAdminAPI::HelperGrantItemsToUsers(FPlayFabBaseModel response, UObje
         FAdminGrantItemsToUsersResult result = UPlayFabAdminModelDecoder::decodeGrantItemsToUsersResultResponse(response.responseData);
         if (OnSuccessGrantItemsToUsers.IsBound())
         {
-            OnSuccessGrantItemsToUsers.Execute(result, customData);
+            OnSuccessGrantItemsToUsers.Execute(result, mCustomData);
         }
     }
 }
@@ -3276,7 +3276,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeInventoryItem(FAdminRevokeInventoryIte
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessRevokeInventoryItem = onSuccess;
@@ -3327,7 +3327,7 @@ void UPlayFabAdminAPI::HelperRevokeInventoryItem(FPlayFabBaseModel response, UOb
         FAdminRevokeInventoryResult result = UPlayFabAdminModelDecoder::decodeRevokeInventoryResultResponse(response.responseData);
         if (OnSuccessRevokeInventoryItem.IsBound())
         {
-            OnSuccessRevokeInventoryItem.Execute(result, customData);
+            OnSuccessRevokeInventoryItem.Execute(result, mCustomData);
         }
     }
 }
@@ -3341,7 +3341,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SubtractUserVirtualCurrency(FAdminSubtractUs
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSubtractUserVirtualCurrency = onSuccess;
@@ -3388,7 +3388,7 @@ void UPlayFabAdminAPI::HelperSubtractUserVirtualCurrency(FPlayFabBaseModel respo
         FAdminModifyUserVirtualCurrencyResult result = UPlayFabAdminModelDecoder::decodeModifyUserVirtualCurrencyResultResponse(response.responseData);
         if (OnSuccessSubtractUserVirtualCurrency.IsBound())
         {
-            OnSuccessSubtractUserVirtualCurrency.Execute(result, customData);
+            OnSuccessSubtractUserVirtualCurrency.Execute(result, mCustomData);
         }
     }
 }
@@ -3406,7 +3406,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameInfo(FAdminGetMatchmakerGam
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetMatchmakerGameInfo = onSuccess;
@@ -3447,7 +3447,7 @@ void UPlayFabAdminAPI::HelperGetMatchmakerGameInfo(FPlayFabBaseModel response, U
         FAdminGetMatchmakerGameInfoResult result = UPlayFabAdminModelDecoder::decodeGetMatchmakerGameInfoResultResponse(response.responseData);
         if (OnSuccessGetMatchmakerGameInfo.IsBound())
         {
-            OnSuccessGetMatchmakerGameInfo.Execute(result, customData);
+            OnSuccessGetMatchmakerGameInfo.Execute(result, mCustomData);
         }
     }
 }
@@ -3461,7 +3461,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameModes(FAdminGetMatchmakerGa
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetMatchmakerGameModes = onSuccess;
@@ -3502,7 +3502,7 @@ void UPlayFabAdminAPI::HelperGetMatchmakerGameModes(FPlayFabBaseModel response, 
         FAdminGetMatchmakerGameModesResult result = UPlayFabAdminModelDecoder::decodeGetMatchmakerGameModesResultResponse(response.responseData);
         if (OnSuccessGetMatchmakerGameModes.IsBound())
         {
-            OnSuccessGetMatchmakerGameModes.Execute(result, customData);
+            OnSuccessGetMatchmakerGameModes.Execute(result, mCustomData);
         }
     }
 }
@@ -3516,7 +3516,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyMatchmakerGameModes(FAdminModifyMatchm
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessModifyMatchmakerGameModes = onSuccess;
@@ -3562,7 +3562,7 @@ void UPlayFabAdminAPI::HelperModifyMatchmakerGameModes(FPlayFabBaseModel respons
         FAdminModifyMatchmakerGameModesResult result = UPlayFabAdminModelDecoder::decodeModifyMatchmakerGameModesResultResponse(response.responseData);
         if (OnSuccessModifyMatchmakerGameModes.IsBound())
         {
-            OnSuccessModifyMatchmakerGameModes.Execute(result, customData);
+            OnSuccessModifyMatchmakerGameModes.Execute(result, mCustomData);
         }
     }
 }
@@ -3580,7 +3580,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddServerBuild(FAdminAddServerBuildRequest r
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessAddServerBuild = onSuccess;
@@ -3646,7 +3646,7 @@ void UPlayFabAdminAPI::HelperAddServerBuild(FPlayFabBaseModel response, UObject*
         FAdminAddServerBuildResult result = UPlayFabAdminModelDecoder::decodeAddServerBuildResultResponse(response.responseData);
         if (OnSuccessAddServerBuild.IsBound())
         {
-            OnSuccessAddServerBuild.Execute(result, customData);
+            OnSuccessAddServerBuild.Execute(result, mCustomData);
         }
     }
 }
@@ -3660,7 +3660,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoR
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetServerBuildInfo = onSuccess;
@@ -3701,7 +3701,7 @@ void UPlayFabAdminAPI::HelperGetServerBuildInfo(FPlayFabBaseModel response, UObj
         FAdminGetServerBuildInfoResult result = UPlayFabAdminModelDecoder::decodeGetServerBuildInfoResultResponse(response.responseData);
         if (OnSuccessGetServerBuildInfo.IsBound())
         {
-            OnSuccessGetServerBuildInfo.Execute(result, customData);
+            OnSuccessGetServerBuildInfo.Execute(result, mCustomData);
         }
     }
 }
@@ -3715,7 +3715,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildUploadUrl(FAdminGetServerBuild
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetServerBuildUploadUrl = onSuccess;
@@ -3756,7 +3756,7 @@ void UPlayFabAdminAPI::HelperGetServerBuildUploadUrl(FPlayFabBaseModel response,
         FAdminGetServerBuildUploadURLResult result = UPlayFabAdminModelDecoder::decodeGetServerBuildUploadURLResultResponse(response.responseData);
         if (OnSuccessGetServerBuildUploadUrl.IsBound())
         {
-            OnSuccessGetServerBuildUploadUrl.Execute(result, customData);
+            OnSuccessGetServerBuildUploadUrl.Execute(result, mCustomData);
         }
     }
 }
@@ -3770,7 +3770,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListServerBuilds(FAdminListBuildsRequest req
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessListServerBuilds = onSuccess;
@@ -3806,7 +3806,7 @@ void UPlayFabAdminAPI::HelperListServerBuilds(FPlayFabBaseModel response, UObjec
         FAdminListBuildsResult result = UPlayFabAdminModelDecoder::decodeListBuildsResultResponse(response.responseData);
         if (OnSuccessListServerBuilds.IsBound())
         {
-            OnSuccessListServerBuilds.Execute(result, customData);
+            OnSuccessListServerBuilds.Execute(result, mCustomData);
         }
     }
 }
@@ -3820,7 +3820,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyServerBuild(FAdminModifyServerBuildReq
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessModifyServerBuild = onSuccess;
@@ -3891,7 +3891,7 @@ void UPlayFabAdminAPI::HelperModifyServerBuild(FPlayFabBaseModel response, UObje
         FAdminModifyServerBuildResult result = UPlayFabAdminModelDecoder::decodeModifyServerBuildResultResponse(response.responseData);
         if (OnSuccessModifyServerBuild.IsBound())
         {
-            OnSuccessModifyServerBuild.Execute(result, customData);
+            OnSuccessModifyServerBuild.Execute(result, mCustomData);
         }
     }
 }
@@ -3905,7 +3905,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveServerBuild(FAdminRemoveServerBuildReq
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessRemoveServerBuild = onSuccess;
@@ -3946,7 +3946,7 @@ void UPlayFabAdminAPI::HelperRemoveServerBuild(FPlayFabBaseModel response, UObje
         FAdminRemoveServerBuildResult result = UPlayFabAdminModelDecoder::decodeRemoveServerBuildResultResponse(response.responseData);
         if (OnSuccessRemoveServerBuild.IsBound())
         {
-            OnSuccessRemoveServerBuild.Execute(result, customData);
+            OnSuccessRemoveServerBuild.Execute(result, mCustomData);
         }
     }
 }
@@ -3964,7 +3964,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublisherData(FAdminSetPublisherDataReque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSetPublisherData = onSuccess;
@@ -4010,7 +4010,7 @@ void UPlayFabAdminAPI::HelperSetPublisherData(FPlayFabBaseModel response, UObjec
         FAdminSetPublisherDataResult result = UPlayFabAdminModelDecoder::decodeSetPublisherDataResultResponse(response.responseData);
         if (OnSuccessSetPublisherData.IsBound())
         {
-            OnSuccessSetPublisherData.Execute(result, customData);
+            OnSuccessSetPublisherData.Execute(result, mCustomData);
         }
     }
 }
@@ -4028,7 +4028,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptRevision(FAdminGetCloudScriptR
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCloudScriptRevision = onSuccess;
@@ -4066,7 +4066,7 @@ void UPlayFabAdminAPI::HelperGetCloudScriptRevision(FPlayFabBaseModel response, 
         FAdminGetCloudScriptRevisionResult result = UPlayFabAdminModelDecoder::decodeGetCloudScriptRevisionResultResponse(response.responseData);
         if (OnSuccessGetCloudScriptRevision.IsBound())
         {
-            OnSuccessGetCloudScriptRevision.Execute(result, customData);
+            OnSuccessGetCloudScriptRevision.Execute(result, mCustomData);
         }
     }
 }
@@ -4080,7 +4080,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptVersions(FAdminGetCloudScriptV
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetCloudScriptVersions = onSuccess;
@@ -4116,7 +4116,7 @@ void UPlayFabAdminAPI::HelperGetCloudScriptVersions(FPlayFabBaseModel response, 
         FAdminGetCloudScriptVersionsResult result = UPlayFabAdminModelDecoder::decodeGetCloudScriptVersionsResultResponse(response.responseData);
         if (OnSuccessGetCloudScriptVersions.IsBound())
         {
-            OnSuccessGetCloudScriptVersions.Execute(result, customData);
+            OnSuccessGetCloudScriptVersions.Execute(result, mCustomData);
         }
     }
 }
@@ -4130,7 +4130,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublishedRevision(FAdminSetPublishedRevis
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessSetPublishedRevision = onSuccess;
@@ -4168,7 +4168,7 @@ void UPlayFabAdminAPI::HelperSetPublishedRevision(FPlayFabBaseModel response, UO
         FAdminSetPublishedRevisionResult result = UPlayFabAdminModelDecoder::decodeSetPublishedRevisionResultResponse(response.responseData);
         if (OnSuccessSetPublishedRevision.IsBound())
         {
-            OnSuccessSetPublishedRevision.Execute(result, customData);
+            OnSuccessSetPublishedRevision.Execute(result, mCustomData);
         }
     }
 }
@@ -4182,7 +4182,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessUpdateCloudScript = onSuccess;
@@ -4230,7 +4230,7 @@ void UPlayFabAdminAPI::HelperUpdateCloudScript(FPlayFabBaseModel response, UObje
         FAdminUpdateCloudScriptResult result = UPlayFabAdminModelDecoder::decodeUpdateCloudScriptResultResponse(response.responseData);
         if (OnSuccessUpdateCloudScript.IsBound())
         {
-            OnSuccessUpdateCloudScript.Execute(result, customData);
+            OnSuccessUpdateCloudScript.Execute(result, mCustomData);
         }
     }
 }
@@ -4248,7 +4248,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteContent(FAdminDeleteContentRequest req
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessDeleteContent = onSuccess;
@@ -4289,7 +4289,7 @@ void UPlayFabAdminAPI::HelperDeleteContent(FPlayFabBaseModel response, UObject* 
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
         if (OnSuccessDeleteContent.IsBound())
         {
-            OnSuccessDeleteContent.Execute(result, customData);
+            OnSuccessDeleteContent.Execute(result, mCustomData);
         }
     }
 }
@@ -4303,7 +4303,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentList(FAdminGetContentListRequest r
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetContentList = onSuccess;
@@ -4344,7 +4344,7 @@ void UPlayFabAdminAPI::HelperGetContentList(FPlayFabBaseModel response, UObject*
         FAdminGetContentListResult result = UPlayFabAdminModelDecoder::decodeGetContentListResultResponse(response.responseData);
         if (OnSuccessGetContentList.IsBound())
         {
-            OnSuccessGetContentList.Execute(result, customData);
+            OnSuccessGetContentList.Execute(result, mCustomData);
         }
     }
 }
@@ -4358,7 +4358,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentUploadUrl(FAdminGetContentUploadUr
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetContentUploadUrl = onSuccess;
@@ -4404,7 +4404,7 @@ void UPlayFabAdminAPI::HelperGetContentUploadUrl(FPlayFabBaseModel response, UOb
         FAdminGetContentUploadUrlResult result = UPlayFabAdminModelDecoder::decodeGetContentUploadUrlResultResponse(response.responseData);
         if (OnSuccessGetContentUploadUrl.IsBound())
         {
-            OnSuccessGetContentUploadUrl.Execute(result, customData);
+            OnSuccessGetContentUploadUrl.Execute(result, mCustomData);
         }
     }
 }
@@ -4422,7 +4422,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetCharacterStatistics(FAdminResetCharacte
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessResetCharacterStatistics = onSuccess;
@@ -4468,7 +4468,7 @@ void UPlayFabAdminAPI::HelperResetCharacterStatistics(FPlayFabBaseModel response
         FAdminResetCharacterStatisticsResult result = UPlayFabAdminModelDecoder::decodeResetCharacterStatisticsResultResponse(response.responseData);
         if (OnSuccessResetCharacterStatistics.IsBound())
         {
-            OnSuccessResetCharacterStatistics.Execute(result, customData);
+            OnSuccessResetCharacterStatistics.Execute(result, mCustomData);
         }
     }
 }
@@ -4486,7 +4486,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddPlayerTag(FAdminAddPlayerTagRequest reque
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessAddPlayerTag = onSuccess;
@@ -4532,7 +4532,7 @@ void UPlayFabAdminAPI::HelperAddPlayerTag(FPlayFabBaseModel response, UObject* c
         FAdminAddPlayerTagResult result = UPlayFabAdminModelDecoder::decodeAddPlayerTagResultResponse(response.responseData);
         if (OnSuccessAddPlayerTag.IsBound())
         {
-            OnSuccessAddPlayerTag.Execute(result, customData);
+            OnSuccessAddPlayerTag.Execute(result, mCustomData);
         }
     }
 }
@@ -4546,7 +4546,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllActionGroups(FAdminGetAllActionGroupsR
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetAllActionGroups = onSuccess;
@@ -4582,7 +4582,7 @@ void UPlayFabAdminAPI::HelperGetAllActionGroups(FPlayFabBaseModel response, UObj
         FAdminGetAllActionGroupsResult result = UPlayFabAdminModelDecoder::decodeGetAllActionGroupsResultResponse(response.responseData);
         if (OnSuccessGetAllActionGroups.IsBound())
         {
-            OnSuccessGetAllActionGroups.Execute(result, customData);
+            OnSuccessGetAllActionGroups.Execute(result, mCustomData);
         }
     }
 }
@@ -4596,7 +4596,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllSegments(FAdminGetAllSegmentsRequest r
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetAllSegments = onSuccess;
@@ -4632,7 +4632,7 @@ void UPlayFabAdminAPI::HelperGetAllSegments(FPlayFabBaseModel response, UObject*
         FAdminGetAllSegmentsResult result = UPlayFabAdminModelDecoder::decodeGetAllSegmentsResultResponse(response.responseData);
         if (OnSuccessGetAllSegments.IsBound())
         {
-            OnSuccessGetAllSegments.Execute(result, customData);
+            OnSuccessGetAllSegments.Execute(result, mCustomData);
         }
     }
 }
@@ -4646,7 +4646,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerSegments(FAdminGetPlayersSegmentsRe
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayerSegments = onSuccess;
@@ -4687,7 +4687,7 @@ void UPlayFabAdminAPI::HelperGetPlayerSegments(FPlayFabBaseModel response, UObje
         FAdminGetPlayerSegmentsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerSegmentsResultResponse(response.responseData);
         if (OnSuccessGetPlayerSegments.IsBound())
         {
-            OnSuccessGetPlayerSegments.Execute(result, customData);
+            OnSuccessGetPlayerSegments.Execute(result, mCustomData);
         }
     }
 }
@@ -4701,7 +4701,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayersInSegment(FAdminGetPlayersInSegmen
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayersInSegment = onSuccess;
@@ -4749,7 +4749,7 @@ void UPlayFabAdminAPI::HelperGetPlayersInSegment(FPlayFabBaseModel response, UOb
         FAdminGetPlayersInSegmentResult result = UPlayFabAdminModelDecoder::decodeGetPlayersInSegmentResultResponse(response.responseData);
         if (OnSuccessGetPlayersInSegment.IsBound())
         {
-            OnSuccessGetPlayersInSegment.Execute(result, customData);
+            OnSuccessGetPlayersInSegment.Execute(result, mCustomData);
         }
     }
 }
@@ -4763,7 +4763,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerTags(FAdminGetPlayerTagsRequest req
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessGetPlayerTags = onSuccess;
@@ -4809,7 +4809,7 @@ void UPlayFabAdminAPI::HelperGetPlayerTags(FPlayFabBaseModel response, UObject* 
         FAdminGetPlayerTagsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerTagsResultResponse(response.responseData);
         if (OnSuccessGetPlayerTags.IsBound())
         {
-            OnSuccessGetPlayerTags.Execute(result, customData);
+            OnSuccessGetPlayerTags.Execute(result, mCustomData);
         }
     }
 }
@@ -4823,7 +4823,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemovePlayerTag(FAdminRemovePlayerTagRequest
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->customData = customData;
+    manager->mCustomData = customData;
 
     // Assign delegates
     manager->OnSuccessRemovePlayerTag = onSuccess;
@@ -4869,7 +4869,7 @@ void UPlayFabAdminAPI::HelperRemovePlayerTag(FPlayFabBaseModel response, UObject
         FAdminRemovePlayerTagResult result = UPlayFabAdminModelDecoder::decodeRemovePlayerTagResultResponse(response.responseData);
         if (OnSuccessRemovePlayerTag.IsBound())
         {
-            OnSuccessRemovePlayerTag.Execute(result, customData);
+            OnSuccessRemovePlayerTag.Execute(result, mCustomData);
         }
     }
 }
@@ -4904,7 +4904,7 @@ void UPlayFabAdminAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpRe
         myResponse.responseError.ErrorName = "Unable to contact server";
         myResponse.responseError.ErrorMessage = "Unable to contact server";
 
-        OnPlayFabResponse.Broadcast(myResponse, customData, false);
+        OnPlayFabResponse.Broadcast(myResponse, mCustomData, false);
 
         return;
     }
@@ -4936,7 +4936,7 @@ void UPlayFabAdminAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpRe
     IPlayFab* pfSettings = &(IPlayFab::Get());
 
     // Broadcast the result event
-    OnPlayFabResponse.Broadcast(myResponse, customData, myResponse.responseError.hasError);
+    OnPlayFabResponse.Broadcast(myResponse, mCustomData, myResponse.responseError.hasError);
     pfSettings->ModifyPendingCallCount(-1);
 }
 

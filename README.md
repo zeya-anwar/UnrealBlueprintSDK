@@ -228,9 +228,9 @@ Below are the steps to add an API call node, and manipulate the response JSON ob
   * In the Level Blueprint, there is a call to SetPlayFabSettings.  Fill in any relevant information including:
   * The TitleId field is mandatory for all api-calls
   * The DevSecretKey is required for all server/admin/matchmaker calls - For security reasons you must never expose this value to players, and neither input nor publish this value into a client build
-  * ![TitleId Blueprint](http://api.playfab.com/images/git/ubp_TitleId.png)
+  * ![TitleId Blueprint](Images/02_TitleId.png)
 * Unreal Setup
- * ![Open Level Blueprint](http://api.playfab.com/images/git/ubp_OpenLevelBP.png)
+ * ![Open Level Blueprint](Images/06_LevelBlueprint.png)
  * The example project will have some pre-made blueprints that you may use as a template
  * Log in a player
   * This example will use [LoginWithCustomID](https://api.playfab.com/Documentation/Client/method/LoginWithCustomID)

@@ -583,6 +583,17 @@ FClientGetStoreItemsResult UPlayFabClientModelDecoder::decodeGetStoreItemsResult
     return tempStruct;
 }
 
+FClientGetTimeResult UPlayFabClientModelDecoder::decodeGetTimeResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetTimeResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Time = !(dataObj->HasField("Time")) ? TEXT("") : dataObj->GetStringField("Time");
+
+    return tempStruct;
+}
+
 FClientGetTitleDataResult UPlayFabClientModelDecoder::decodeGetTitleDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

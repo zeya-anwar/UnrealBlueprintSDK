@@ -931,6 +931,19 @@ public:
         void HelperGetStoreItems(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTime, FClientGetTimeResult, result, UObject*, customData);
+
+    /** Retrieves the current server time */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetTime(FClientGetTimeRequest request,
+            FDelegateOnSuccessGetTime onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetTime(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTitleData, FClientGetTitleDataResult, result, UObject*, customData);
 
     /** Retrieves the key-value store of custom title settings */
@@ -1861,6 +1874,7 @@ public:
     FDelegateOnSuccessGetCatalogItems OnSuccessGetCatalogItems;
     FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetStoreItems OnSuccessGetStoreItems;
+    FDelegateOnSuccessGetTime OnSuccessGetTime;
     FDelegateOnSuccessGetTitleData OnSuccessGetTitleData;
     FDelegateOnSuccessGetTitleNews OnSuccessGetTitleNews;
     FDelegateOnSuccessAddUserVirtualCurrency OnSuccessAddUserVirtualCurrency;

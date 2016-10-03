@@ -284,6 +284,17 @@ FServerGetPublisherDataResult UPlayFabServerModelDecoder::decodeGetPublisherData
     return tempStruct;
 }
 
+FServerGetTimeResult UPlayFabServerModelDecoder::decodeGetTimeResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetTimeResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Time = !(dataObj->HasField("Time")) ? TEXT("") : dataObj->GetStringField("Time");
+
+    return tempStruct;
+}
+
 FServerGetTitleDataResult UPlayFabServerModelDecoder::decodeGetTitleDataResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

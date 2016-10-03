@@ -593,6 +593,23 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetTimeRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetTimeResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Current server time when the request was received, in UTC */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Title-Wide Data Management Models")
+        FString Time;
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetTitleDataRequest
 {
     GENERATED_USTRUCT_BODY()

@@ -4039,6 +4039,56 @@ void UPlayFabClientAPI::HelperGetStoreItems(FPlayFabBaseModel response, UObject*
     }
 }
 
+/** Retrieves the current server time */
+UPlayFabClientAPI* UPlayFabClientAPI::GetTime(FClientGetTimeRequest request,
+    FDelegateOnSuccessGetTime onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetTime = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetTime);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetTime";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+    // Serialize all the request properties to json
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperGetTime(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientGetTimeResult result = UPlayFabClientModelDecoder::decodeGetTimeResultResponse(response.responseData);
+        if (OnSuccessGetTime.IsBound())
+        {
+            OnSuccessGetTime.Execute(result, mCustomData);
+        }
+    }
+}
+
 /** Retrieves the key-value store of custom title settings */
 UPlayFabClientAPI* UPlayFabClientAPI::GetTitleData(FClientGetTitleDataRequest request,
     FDelegateOnSuccessGetTitleData onSuccess,

@@ -502,6 +502,19 @@ public:
         void HelperGetPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTime, FServerGetTimeResult, result, UObject*, customData);
+
+    /** Retrieves the current server time */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* GetTime(FServerGetTimeRequest request,
+            FDelegateOnSuccessGetTime onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Title-Wide Data Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetTime(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTitleData, FServerGetTitleDataResult, result, UObject*, customData);
 
     /** Retrieves the key-value store of custom title settings */
@@ -1548,6 +1561,7 @@ public:
     FDelegateOnSuccessUpdateUserStatistics OnSuccessUpdateUserStatistics;
     FDelegateOnSuccessGetCatalogItems OnSuccessGetCatalogItems;
     FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
+    FDelegateOnSuccessGetTime OnSuccessGetTime;
     FDelegateOnSuccessGetTitleData OnSuccessGetTitleData;
     FDelegateOnSuccessGetTitleInternalData OnSuccessGetTitleInternalData;
     FDelegateOnSuccessGetTitleNews OnSuccessGetTitleNews;

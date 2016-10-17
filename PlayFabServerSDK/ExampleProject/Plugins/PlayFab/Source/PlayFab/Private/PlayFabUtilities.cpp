@@ -7,8 +7,7 @@
 #include "PlayFabPrivatePCH.h"
 #include "PlayFabUtilities.h"
 
-void UPlayFabUtilities::setPlayFabSettings(FString GameTitleId, FString PlayFabSecretApiKey, FString PhotonRealtimeAppId,
-    FString PhotonTurnbasedAppId, FString PhotonChatAppId, int32 CloudScriptVersion)
+void UPlayFabUtilities::setPlayFabSettings(FString GameTitleId, FString PlayFabSecretApiKey, FString PhotonRealtimeAppId, FString PhotonTurnbasedAppId, FString PhotonChatAppId)
 {
     // Set the settings
     IPlayFab::Get().setGameTitleId(GameTitleId);
@@ -16,15 +15,8 @@ void UPlayFabUtilities::setPlayFabSettings(FString GameTitleId, FString PlayFabS
     IPlayFab::Get().PhotonRealtimeAppId = PhotonRealtimeAppId;
     IPlayFab::Get().PhotonTurnbasedAppId = PhotonTurnbasedAppId;
     IPlayFab::Get().PhotonChatAppId = PhotonChatAppId;
-    IPlayFab::Get().CloudScriptVersion = CloudScriptVersion;
 }
 
-
-void UPlayFabUtilities::setCloudScriptVersion(int32 CloudScriptVersion)
-{
-    // Set the CloudScriptVersion
-    IPlayFab::Get().CloudScriptVersion = CloudScriptVersion;
-}
 
 FString UPlayFabUtilities::getPhotonAppId(bool Realtime, bool Chat, bool Turnbased)
 {
@@ -290,6 +282,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1255: returnText = "ScheduledTaskCreateConflict"; break;
     case 1256: returnText = "InvalidScheduledTaskName"; break;
     case 1257: returnText = "InvalidTaskSchedule"; break;
+    case 1258: returnText = "SteamNotEnabledForTitle"; break;
     }
 
     // Return the text

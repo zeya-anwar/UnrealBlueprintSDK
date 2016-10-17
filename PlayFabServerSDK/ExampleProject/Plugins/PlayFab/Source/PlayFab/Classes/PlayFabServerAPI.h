@@ -355,19 +355,6 @@ public:
         void HelperGetUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserStatistics, FServerGetUserStatisticsResult, result, UObject*, customData);
-
-    /** Retrieves the details of all title-specific statistics for the user */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* GetUserStatistics(FServerGetUserStatisticsRequest request,
-            FDelegateOnSuccessGetUserStatistics onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperGetUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdatePlayerStatistics, FServerUpdatePlayerStatisticsResult, result, UObject*, customData);
 
     /** Updates the values of the specified title-specific statistics for the user */
@@ -457,19 +444,6 @@ public:
     // Implements FOnPlayFabServerRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperUpdateUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateUserStatistics, FServerUpdateUserStatisticsResult, result, UObject*, customData);
-
-    /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* UpdateUserStatistics(FServerUpdateUserStatisticsRequest request,
-            FDelegateOnSuccessUpdateUserStatistics onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperUpdateUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1055,19 +1029,6 @@ public:
     // Analytics
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLogEvent, FServerLogEventResult, result, UObject*, customData);
-
-    /** Logs a custom analytics event */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* LogEvent(FServerLogEventRequest request,
-            FDelegateOnSuccessLogEvent onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperLogEvent(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessWriteCharacterEvent, FServerWriteEventResponse, result, UObject*, customData);
 
     /** Writes a character-based event into PlayStream. */
@@ -1517,7 +1478,6 @@ public:
     FString PlayFabRequestURL;
     bool useSecretKey = false;
     bool useSessionTicket = false;
-    bool cloudScript = false;
     bool isLoginRequest = false;
 
     /** Is the response valid JSON? */
@@ -1550,7 +1510,6 @@ public:
     FDelegateOnSuccessGetUserPublisherInternalData OnSuccessGetUserPublisherInternalData;
     FDelegateOnSuccessGetUserPublisherReadOnlyData OnSuccessGetUserPublisherReadOnlyData;
     FDelegateOnSuccessGetUserReadOnlyData OnSuccessGetUserReadOnlyData;
-    FDelegateOnSuccessGetUserStatistics OnSuccessGetUserStatistics;
     FDelegateOnSuccessUpdatePlayerStatistics OnSuccessUpdatePlayerStatistics;
     FDelegateOnSuccessUpdateUserData OnSuccessUpdateUserData;
     FDelegateOnSuccessUpdateUserInternalData OnSuccessUpdateUserInternalData;
@@ -1558,7 +1517,6 @@ public:
     FDelegateOnSuccessUpdateUserPublisherInternalData OnSuccessUpdateUserPublisherInternalData;
     FDelegateOnSuccessUpdateUserPublisherReadOnlyData OnSuccessUpdateUserPublisherReadOnlyData;
     FDelegateOnSuccessUpdateUserReadOnlyData OnSuccessUpdateUserReadOnlyData;
-    FDelegateOnSuccessUpdateUserStatistics OnSuccessUpdateUserStatistics;
     FDelegateOnSuccessGetCatalogItems OnSuccessGetCatalogItems;
     FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetTime OnSuccessGetTime;
@@ -1602,7 +1560,6 @@ public:
     FDelegateOnSuccessSetGameServerInstanceState OnSuccessSetGameServerInstanceState;
     FDelegateOnSuccessSetGameServerInstanceTags OnSuccessSetGameServerInstanceTags;
     FDelegateOnSuccessAwardSteamAchievement OnSuccessAwardSteamAchievement;
-    FDelegateOnSuccessLogEvent OnSuccessLogEvent;
     FDelegateOnSuccessWriteCharacterEvent OnSuccessWriteCharacterEvent;
     FDelegateOnSuccessWritePlayerEvent OnSuccessWritePlayerEvent;
     FDelegateOnSuccessWriteTitleEvent OnSuccessWriteTitleEvent;

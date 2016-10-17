@@ -118,7 +118,6 @@ public:
     FString PlayFabRequestURL;
     bool useSecretKey = false;
     bool useSessionTicket = false;
-    bool cloudScript = false;
     bool isLoginRequest = false;
 
     /** Is the response valid JSON? */

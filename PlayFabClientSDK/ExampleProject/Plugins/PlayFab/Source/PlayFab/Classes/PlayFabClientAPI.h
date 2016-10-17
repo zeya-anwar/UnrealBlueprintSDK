@@ -680,19 +680,6 @@ public:
         void HelperGetFriendLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser, FClientGetFriendLeaderboardAroundCurrentUserResult, result, UObject*, customData);
-
-    /** Retrieves a list of ranked friends of the current player for the given statistic, centered on the currently signed-in user */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* GetFriendLeaderboardAroundCurrentUser(FClientGetFriendLeaderboardAroundCurrentUserRequest request,
-            FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperGetFriendLeaderboardAroundCurrentUser(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetFriendLeaderboardAroundPlayer, FClientGetFriendLeaderboardAroundPlayerResult, result, UObject*, customData);
 
     /** Retrieves a list of ranked friends of the current player for the given statistic, centered on the requested PlayFab user. If PlayFabId is empty or null will return currently logged in user. */
@@ -717,19 +704,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetLeaderboard(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboardAroundCurrentUser, FClientGetLeaderboardAroundCurrentUserResult, result, UObject*, customData);
-
-    /** Retrieves a list of ranked users for the given statistic, centered on the currently signed-in user */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* GetLeaderboardAroundCurrentUser(FClientGetLeaderboardAroundCurrentUserRequest request,
-            FDelegateOnSuccessGetLeaderboardAroundCurrentUser onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperGetLeaderboardAroundCurrentUser(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetLeaderboardAroundPlayer, FClientGetLeaderboardAroundPlayerResult, result, UObject*, customData);
@@ -823,19 +797,6 @@ public:
         void HelperGetUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserStatistics, FClientGetUserStatisticsResult, result, UObject*, customData);
-
-    /** Retrieves the details of all title-specific statistics for the user */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* GetUserStatistics(FClientGetUserStatisticsRequest request,
-            FDelegateOnSuccessGetUserStatistics onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperGetUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdatePlayerStatistics, FClientUpdatePlayerStatisticsResult, result, UObject*, customData);
 
     /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
@@ -873,19 +834,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperUpdateUserPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateUserStatistics, FClientUpdateUserStatisticsResult, result, UObject*, customData);
-
-    /** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* UpdateUserStatistics(FClientUpdateUserStatisticsRequest request,
-            FDelegateOnSuccessUpdateUserStatistics onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperUpdateUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1332,19 +1280,6 @@ public:
     // Analytics
     //////////////////////////////////////////////////////
     // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessLogEvent, FClientLogEventResult, result, UObject*, customData);
-
-    /** Logs a custom analytics event */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* LogEvent(FClientLogEventRequest request,
-            FDelegateOnSuccessLogEvent onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperLogEvent(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessWriteCharacterEvent, FClientWriteEventResponse, result, UObject*, customData);
 
     /** Writes a character-based event into PlayStream. */
@@ -1472,32 +1407,6 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperExecuteCloudScript(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCloudScriptUrl, FClientGetCloudScriptUrlResult, result, UObject*, customData);
-
-    /** Retrieves the title-specific URL for Cloud Script servers. This must be queried once, prior  to making any calls to RunCloudScript. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* GetCloudScriptUrl(FClientGetCloudScriptUrlRequest request,
-            FDelegateOnSuccessGetCloudScriptUrl onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperGetCloudScriptUrl(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRunCloudScript, FClientRunCloudScriptResult, result, UObject*, customData);
-
-    /** Triggers a particular server action, passing the provided inputs to the hosted Cloud Script. An action in this context is a handler in the JavaScript. NOTE: Before calling this API, you must call GetCloudScriptUrl to be assigned a Cloud Script server URL. When using an official PlayFab SDK, this URL is stored internally in the SDK, but GetCloudScriptUrl must still be manually called. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* RunCloudScript(FClientRunCloudScriptRequest request,
-            FDelegateOnSuccessRunCloudScript onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperRunCloudScript(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1797,7 +1706,6 @@ public:
     FString PlayFabRequestURL;
     bool useSecretKey = false;
     bool useSessionTicket = false;
-    bool cloudScript = false;
     bool isLoginRequest = false;
 
     /** Is the response valid JSON? */
@@ -1855,10 +1763,8 @@ public:
     FDelegateOnSuccessUnlinkTwitch OnSuccessUnlinkTwitch;
     FDelegateOnSuccessUpdateUserTitleDisplayName OnSuccessUpdateUserTitleDisplayName;
     FDelegateOnSuccessGetFriendLeaderboard OnSuccessGetFriendLeaderboard;
-    FDelegateOnSuccessGetFriendLeaderboardAroundCurrentUser OnSuccessGetFriendLeaderboardAroundCurrentUser;
     FDelegateOnSuccessGetFriendLeaderboardAroundPlayer OnSuccessGetFriendLeaderboardAroundPlayer;
     FDelegateOnSuccessGetLeaderboard OnSuccessGetLeaderboard;
-    FDelegateOnSuccessGetLeaderboardAroundCurrentUser OnSuccessGetLeaderboardAroundCurrentUser;
     FDelegateOnSuccessGetLeaderboardAroundPlayer OnSuccessGetLeaderboardAroundPlayer;
     FDelegateOnSuccessGetPlayerStatistics OnSuccessGetPlayerStatistics;
     FDelegateOnSuccessGetPlayerStatisticVersions OnSuccessGetPlayerStatisticVersions;
@@ -1866,11 +1772,9 @@ public:
     FDelegateOnSuccessGetUserPublisherData OnSuccessGetUserPublisherData;
     FDelegateOnSuccessGetUserPublisherReadOnlyData OnSuccessGetUserPublisherReadOnlyData;
     FDelegateOnSuccessGetUserReadOnlyData OnSuccessGetUserReadOnlyData;
-    FDelegateOnSuccessGetUserStatistics OnSuccessGetUserStatistics;
     FDelegateOnSuccessUpdatePlayerStatistics OnSuccessUpdatePlayerStatistics;
     FDelegateOnSuccessUpdateUserData OnSuccessUpdateUserData;
     FDelegateOnSuccessUpdateUserPublisherData OnSuccessUpdateUserPublisherData;
-    FDelegateOnSuccessUpdateUserStatistics OnSuccessUpdateUserStatistics;
     FDelegateOnSuccessGetCatalogItems OnSuccessGetCatalogItems;
     FDelegateOnSuccessGetPublisherData OnSuccessGetPublisherData;
     FDelegateOnSuccessGetStoreItems OnSuccessGetStoreItems;
@@ -1903,7 +1807,6 @@ public:
     FDelegateOnSuccessStartGame OnSuccessStartGame;
     FDelegateOnSuccessAndroidDevicePushNotificationRegistration OnSuccessAndroidDevicePushNotificationRegistration;
     FDelegateOnSuccessValidateGooglePlayPurchase OnSuccessValidateGooglePlayPurchase;
-    FDelegateOnSuccessLogEvent OnSuccessLogEvent;
     FDelegateOnSuccessWriteCharacterEvent OnSuccessWriteCharacterEvent;
     FDelegateOnSuccessWritePlayerEvent OnSuccessWritePlayerEvent;
     FDelegateOnSuccessWriteTitleEvent OnSuccessWriteTitleEvent;
@@ -1913,8 +1816,6 @@ public:
     FDelegateOnSuccessRemoveSharedGroupMembers OnSuccessRemoveSharedGroupMembers;
     FDelegateOnSuccessUpdateSharedGroupData OnSuccessUpdateSharedGroupData;
     FDelegateOnSuccessExecuteCloudScript OnSuccessExecuteCloudScript;
-    FDelegateOnSuccessGetCloudScriptUrl OnSuccessGetCloudScriptUrl;
-    FDelegateOnSuccessRunCloudScript OnSuccessRunCloudScript;
     FDelegateOnSuccessGetContentDownloadUrl OnSuccessGetContentDownloadUrl;
     FDelegateOnSuccessGetAllUsersCharacters OnSuccessGetAllUsersCharacters;
     FDelegateOnSuccessGetCharacterLeaderboard OnSuccessGetCharacterLeaderboard;

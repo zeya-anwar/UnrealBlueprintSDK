@@ -4195,7 +4195,6 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
     manager->useSecretKey = true;
 
     // Serialize all the request properties to json
-    OutRestJsonObj->SetNumberField(TEXT("Version"), request.Version);
     if (request.Files.Num() == 0) {
         OutRestJsonObj->SetFieldNull(TEXT("Files"));
     } else {
@@ -4945,10 +4944,7 @@ void UPlayFabAdminAPI::Activate()
     IPlayFab* pfSettings = &(IPlayFab::Get());
 
     FString RequestUrl;
-    if (!cloudScript)
-        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
-    else
-        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(pfSettings->CloudScriptVersion) + TEXT("/prod") + PlayFabRequestURL;
+    RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
 
     TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
     HttpRequest->SetURL(RequestUrl);

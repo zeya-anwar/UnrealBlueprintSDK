@@ -215,18 +215,6 @@ FServerGetUserDataResult UPlayFabServerModelDecoder::decodeGetUserDataResultResp
     return tempStruct;
 }
 
-FServerGetUserStatisticsResult UPlayFabServerModelDecoder::decodeGetUserStatisticsResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerGetUserStatisticsResult tempStruct;
-    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
-
-    tempStruct.PlayFabId = !(dataObj->HasField("PlayFabId")) ? TEXT("") : dataObj->GetStringField("PlayFabId");
-    tempStruct.UserStatistics = !(dataObj->HasField("UserStatistics")) ? nullptr : dataObj->GetObjectField("UserStatistics");
-
-    return tempStruct;
-}
-
 FServerUpdatePlayerStatisticsResult UPlayFabServerModelDecoder::decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -243,15 +231,6 @@ FServerUpdateUserDataResult UPlayFabServerModelDecoder::decodeUpdateUserDataResu
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.DataVersion = !(dataObj->HasField("DataVersion")) ? 0 : int(dataObj->GetNumberField("DataVersion"));
-
-    return tempStruct;
-}
-
-FServerUpdateUserStatisticsResult UPlayFabServerModelDecoder::decodeUpdateUserStatisticsResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerUpdateUserStatisticsResult tempStruct;
-
 
     return tempStruct;
 }
@@ -682,15 +661,6 @@ FServerAwardSteamAchievementResult UPlayFabServerModelDecoder::decodeAwardSteamA
 ///////////////////////////////////////////////////////
 // Analytics
 //////////////////////////////////////////////////////
-
-FServerLogEventResult UPlayFabServerModelDecoder::decodeLogEventResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerLogEventResult tempStruct;
-
-
-    return tempStruct;
-}
 
 FServerWriteEventResponse UPlayFabServerModelDecoder::decodeWriteEventResponseResponse(UPlayFabJsonObject* response)
 {

@@ -388,7 +388,6 @@ enum class EPlayerConnectionState : uint8
     pfenum_Connecting UMETA(DisplayName = "Connecting"),
     pfenum_Participating UMETA(DisplayName = "Participating"),
     pfenum_Participated UMETA(DisplayName = "Participated"),
-    pfenum_Reconnecting UMETA(DisplayName = "Reconnecting"),
 };
 
 // Enum for MatchmakeStatus

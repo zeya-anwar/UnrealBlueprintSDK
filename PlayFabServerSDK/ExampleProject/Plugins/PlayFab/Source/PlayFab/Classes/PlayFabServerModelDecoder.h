@@ -110,10 +110,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerGetUserDataResult decodeGetUserDataResultResponse(UPlayFabJsonObject* response);
 
-    /** Decode the GetUserStatisticsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
-        static FServerGetUserStatisticsResult decodeGetUserStatisticsResultResponse(UPlayFabJsonObject* response);
-
     /** Decode the UpdatePlayerStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerUpdatePlayerStatisticsResult decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response);
@@ -121,10 +117,6 @@ public:
     /** Decode the UpdateUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
         static FServerUpdateUserDataResult decodeUpdateUserDataResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the UpdateUserStatisticsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Data Management Models")
-        static FServerUpdateUserStatisticsResult decodeUpdateUserStatisticsResultResponse(UPlayFabJsonObject* response);
 
 
 
@@ -305,10 +297,6 @@ public:
     ///////////////////////////////////////////////////////
     // Analytics
     //////////////////////////////////////////////////////
-
-    /** Decode the LogEventResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics Models")
-        static FServerLogEventResult decodeLogEventResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the WriteEventResponse response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Analytics Models")

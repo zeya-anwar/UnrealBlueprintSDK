@@ -194,17 +194,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetLeaderboardResult decodeGetLeaderboardResultResponse(UPlayFabJsonObject* response);
 
-    /** Decode the GetFriendLeaderboardAroundCurrentUserResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
-        static FClientGetFriendLeaderboardAroundCurrentUserResult decodeGetFriendLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response);
-
     /** Decode the GetFriendLeaderboardAroundPlayerResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetFriendLeaderboardAroundPlayerResult decodeGetFriendLeaderboardAroundPlayerResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the GetLeaderboardAroundCurrentUserResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
-        static FClientGetLeaderboardAroundCurrentUserResult decodeGetLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetLeaderboardAroundPlayerResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
@@ -222,10 +214,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientGetUserDataResult decodeGetUserDataResultResponse(UPlayFabJsonObject* response);
 
-    /** Decode the GetUserStatisticsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
-        static FClientGetUserStatisticsResult decodeGetUserStatisticsResultResponse(UPlayFabJsonObject* response);
-
     /** Decode the UpdatePlayerStatisticsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientUpdatePlayerStatisticsResult decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response);
@@ -233,10 +221,6 @@ public:
     /** Decode the UpdateUserDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
         static FClientUpdateUserDataResult decodeUpdateUserDataResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the UpdateUserStatisticsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Data Management Models")
-        static FClientUpdateUserStatisticsResult decodeUpdateUserStatisticsResultResponse(UPlayFabJsonObject* response);
 
 
 
@@ -400,10 +384,6 @@ public:
     // Analytics
     //////////////////////////////////////////////////////
 
-    /** Decode the LogEventResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics Models")
-        static FClientLogEventResult decodeLogEventResultResponse(UPlayFabJsonObject* response);
-
     /** Decode the WriteEventResponse response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Analytics Models")
         static FClientWriteEventResponse decodeWriteEventResponseResponse(UPlayFabJsonObject* response);
@@ -449,14 +429,6 @@ public:
     /** Decode the ExecuteCloudScriptResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         static FClientExecuteCloudScriptResult decodeExecuteCloudScriptResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the GetCloudScriptUrlResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        static FClientGetCloudScriptUrlResult decodeGetCloudScriptUrlResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the RunCloudScriptResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        static FClientRunCloudScriptResult decodeRunCloudScriptResultResponse(UPlayFabJsonObject* response);
 
 
 

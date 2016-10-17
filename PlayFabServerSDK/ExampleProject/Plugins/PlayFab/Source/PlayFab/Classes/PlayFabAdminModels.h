@@ -1407,9 +1407,6 @@ struct FAdminUpdateCloudScriptRequest
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Deprecated - Do not use */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Version;
     /** List of Cloud Script files to upload to create the new revision. Must have at least one file. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
         TArray<UPlayFabJsonObject*> Files;

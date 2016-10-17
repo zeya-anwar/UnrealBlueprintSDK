@@ -164,9 +164,6 @@ public:
     /** Automatically create a PlayFab account if one is not currently linked to this Google account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool CreateAccount;
-    /** Deprecated - Do not use */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        FString PublisherId;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         UPlayFabJsonObject* InfoRequestParameters;
@@ -281,9 +278,6 @@ public:
     /** An optional parameter for setting the display name for this title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString DisplayName;
-    /** The Origination of a user is determined by the API call used to create the account. In the case of RegisterPlayFabUser, it will be Organic. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        FString Origination;
 };
 
 USTRUCT(BlueprintType)
@@ -513,9 +507,6 @@ struct FClientGetPlayFabIDsFromSteamIDsRequest
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Deprecated: Please use SteamStringIDs */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        TArray<int32> SteamIDs;
     /** Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString SteamStringIDs;
@@ -871,9 +862,6 @@ public:
     /** User email address attached to their account */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString Email;
-    /** Deprecated - Do not use */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        FString PublisherId;
 };
 
 USTRUCT(BlueprintType)
@@ -1076,35 +1064,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FClientGetFriendLeaderboardAroundCurrentUserRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Statistic used to rank players for this leaderboard. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        FString StatisticName;
-    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 MaxResultsCount;
-    /** Indicates whether Steam service friends should be included in the response. Default is true. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool IncludeSteamFriends;
-    /** Indicates whether Facebook friends should be included in the response. Default is true. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool IncludeFacebookFriends;
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetFriendLeaderboardAroundCurrentUserResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Ordered listing of users and their positions in the requested leaderboard. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> Leaderboard;
-};
-
-USTRUCT(BlueprintType)
 struct FClientGetFriendLeaderboardAroundPlayerRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1150,29 +1109,6 @@ public:
     /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 MaxResultsCount;
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetLeaderboardAroundCurrentUserRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Statistic used to rank players for this leaderboard. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        FString StatisticName;
-    /** Maximum number of entries to retrieve. Default 10, maximum 100. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 MaxResultsCount;
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetLeaderboardAroundCurrentUserResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Ordered listing of users and their positions in the requested leaderboard. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        TArray<UPlayFabJsonObject*> Leaderboard;
 };
 
 USTRUCT(BlueprintType)
@@ -1274,23 +1210,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FClientGetUserStatisticsRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetUserStatisticsResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** User statistics for the active title. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* UserStatistics;
-};
-
-USTRUCT(BlueprintType)
 struct FClientUpdatePlayerStatisticsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1331,23 +1250,6 @@ public:
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 DataVersion;
-};
-
-USTRUCT(BlueprintType)
-struct FClientUpdateUserStatisticsRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Statistics to be updated with the provided values. UserStatistics object must follow the Key(string), Value(int) pattern. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* UserStatistics;
-};
-
-USTRUCT(BlueprintType)
-struct FClientUpdateUserStatisticsResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
 };
 
 
@@ -2139,9 +2041,6 @@ public:
     /** Filter to include and/or exclude Game Server Instances associated with certain Tags */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
         UPlayFabJsonObject* TagFilter;
-    /** Deprecated - Do not use */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
-        bool EnableQueue;
 };
 
 USTRUCT(BlueprintType)
@@ -2280,32 +2179,6 @@ public:
 ///////////////////////////////////////////////////////
 // Analytics
 //////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FClientLogEventRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Optional timestamp for this event. If null, the a timestamp is auto-assigned to the event on the server. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
-        FString Timestamp;
-    /** A unique event name which will be used as the table name in the Redshift database. The name will be made lower case, and cannot not contain spaces. The use of underscores is recommended, for readability. Events also cannot match reserved terms. The PlayFab reserved terms are 'log_in' and 'purchase', 'create' and 'request', while the Redshift reserved terms can be found here: http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
-        FString EventName;
-    /** Contains all the data for this event. Event Values can be strings, booleans or numerics (float, double, integer, long) and must be consistent on a per-event basis (if the Value for Key 'A' in Event 'Foo' is an integer the first time it is sent, it must be an integer in all subsequent 'Foo' events). As with event names, Keys must also not use reserved words (see above). Finally, the size of the Body for an event must be less than 32KB (UTF-8 format). */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
-        UPlayFabJsonObject* Body;
-    /** Flag to set event Body as profile details in the Redshift database as well as a standard event. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
-        bool ProfileSetEvent;
-};
-
-USTRUCT(BlueprintType)
-struct FClientLogEventResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
 
 USTRUCT(BlueprintType)
 struct FClientWriteClientCharacterEventRequest
@@ -2553,73 +2426,6 @@ public:
     /** Information about the error, if any, that occured during execution */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         UPlayFabJsonObject* Error;
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetCloudScriptUrlRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Cloud Script Version to use. Defaults to 1. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 Version;
-    /** Specifies whether the URL returned should be the one for the most recently uploaded Revision of the Cloud Script (true), or the Revision most recently set to live (false). Defaults to false. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        bool Testing;
-};
-
-USTRUCT(BlueprintType)
-struct FClientGetCloudScriptUrlResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** URL of the Cloud Script logic server. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        FString Url;
-};
-
-USTRUCT(BlueprintType)
-struct FClientRunCloudScriptRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** server action to trigger */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        FString ActionId;
-    /** parameters to pass into the action (If you use this, don't use ParamsEncoded) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        UPlayFabJsonObject* Params;
-    /** json-encoded parameters to pass into the action (If you use this, don't use Params) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        FString ParamsEncoded;
-};
-
-USTRUCT(BlueprintType)
-struct FClientRunCloudScriptResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** id of Cloud Script run */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        FString ActionId;
-    /** version of Cloud Script run */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 Version;
-    /** revision of Cloud Script run */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 Revision;
-    /** return values from the server action as a dynamic object */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        UPlayFabJsonObject* Results;
-    /** return values from the server action as a JSON encoded string */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        FString ResultsEncoded;
-    /** any log statements generated during the run of this action */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        FString ActionLog;
-    /** time this script took to run, in seconds */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 ExecutionTime;
 };
 
 
@@ -3070,9 +2876,12 @@ public:
     /** The IdentifierForAdvertisers for iOS Devices. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Advertising Models")
         FString Idfa;
-    /** The Android Id for this Android device. */
+    /** The android advertising id. This field is deprecated in favor of Adid for clarity. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Advertising Models")
         FString Android_Id;
+    /** The adid for this device. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Advertising Models")
+        FString Adid;
 };
 
 USTRUCT(BlueprintType)

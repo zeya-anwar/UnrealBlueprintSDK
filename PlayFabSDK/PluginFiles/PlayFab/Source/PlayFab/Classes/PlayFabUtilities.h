@@ -15,17 +15,10 @@ UCLASS()
 class PLAYFAB_API UPlayFabUtilities : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
-
 public:
-
     /** Setup the PlayFab settings used throughout the plugin. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Settings")
-        static void setPlayFabSettings(FString GameTitleId, FString PlayFabSecretApiKey = "", FString PhotonRealtimeAppId = "", FString PhotonTurnbasedAppId = "", FString PhotonChatAppId = "", int32 CloudScriptVersion = 1);
-
-
-    /** Set the cloud script version from the get cloud script version call. This is called when needed by the api. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Settings")
-        static void setCloudScriptVersion(int32 CloudScriptVersion);
+        static void setPlayFabSettings(FString GameTitleId, FString PlayFabSecretApiKey = "", FString PhotonRealtimeAppId = "", FString PhotonTurnbasedAppId = "", FString PhotonChatAppId = "");
 
     /** Returns the error code text given the error code */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Errors")
@@ -34,5 +27,4 @@ public:
     /** Returns the requested photon application id. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Photon | Authentication")
         static FString getPhotonAppId(bool Realtime = false, bool Chat = false, bool Turnbased = false);
-
 };

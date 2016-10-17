@@ -422,32 +422,10 @@ FClientGetLeaderboardResult UPlayFabClientModelDecoder::decodeGetLeaderboardResu
     return tempStruct;
 }
 
-FClientGetFriendLeaderboardAroundCurrentUserResult UPlayFabClientModelDecoder::decodeGetFriendLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientGetFriendLeaderboardAroundCurrentUserResult tempStruct;
-    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
-
-    tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
-
-    return tempStruct;
-}
-
 FClientGetFriendLeaderboardAroundPlayerResult UPlayFabClientModelDecoder::decodeGetFriendLeaderboardAroundPlayerResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
     FClientGetFriendLeaderboardAroundPlayerResult tempStruct;
-    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
-
-    tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
-
-    return tempStruct;
-}
-
-FClientGetLeaderboardAroundCurrentUserResult UPlayFabClientModelDecoder::decodeGetLeaderboardAroundCurrentUserResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientGetLeaderboardAroundCurrentUserResult tempStruct;
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
@@ -500,17 +478,6 @@ FClientGetUserDataResult UPlayFabClientModelDecoder::decodeGetUserDataResultResp
     return tempStruct;
 }
 
-FClientGetUserStatisticsResult UPlayFabClientModelDecoder::decodeGetUserStatisticsResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientGetUserStatisticsResult tempStruct;
-    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
-
-    tempStruct.UserStatistics = !(dataObj->HasField("UserStatistics")) ? nullptr : dataObj->GetObjectField("UserStatistics");
-
-    return tempStruct;
-}
-
 FClientUpdatePlayerStatisticsResult UPlayFabClientModelDecoder::decodeUpdatePlayerStatisticsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -527,15 +494,6 @@ FClientUpdateUserDataResult UPlayFabClientModelDecoder::decodeUpdateUserDataResu
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.DataVersion = !(dataObj->HasField("DataVersion")) ? 0 : int(dataObj->GetNumberField("DataVersion"));
-
-    return tempStruct;
-}
-
-FClientUpdateUserStatisticsResult UPlayFabClientModelDecoder::decodeUpdateUserStatisticsResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientUpdateUserStatisticsResult tempStruct;
-
 
     return tempStruct;
 }
@@ -946,15 +904,6 @@ FClientValidateGooglePlayPurchaseResult UPlayFabClientModelDecoder::decodeValida
 // Analytics
 //////////////////////////////////////////////////////
 
-FClientLogEventResult UPlayFabClientModelDecoder::decodeLogEventResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientLogEventResult tempStruct;
-
-
-    return tempStruct;
-}
-
 FClientWriteEventResponse UPlayFabClientModelDecoder::decodeWriteEventResponseResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -1050,34 +999,6 @@ FClientExecuteCloudScriptResult UPlayFabClientModelDecoder::decodeExecuteCloudSc
     tempStruct.APIRequestsIssued = !(dataObj->HasField("APIRequestsIssued")) ? 0 : int(dataObj->GetNumberField("APIRequestsIssued"));
     tempStruct.HttpRequestsIssued = !(dataObj->HasField("HttpRequestsIssued")) ? 0 : int(dataObj->GetNumberField("HttpRequestsIssued"));
     tempStruct.Error = !(dataObj->HasField("Error")) ? nullptr : dataObj->GetObjectField("Error");
-
-    return tempStruct;
-}
-
-FClientGetCloudScriptUrlResult UPlayFabClientModelDecoder::decodeGetCloudScriptUrlResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientGetCloudScriptUrlResult tempStruct;
-    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
-
-    tempStruct.Url = !(dataObj->HasField("Url")) ? TEXT("") : dataObj->GetStringField("Url");
-
-    return tempStruct;
-}
-
-FClientRunCloudScriptResult UPlayFabClientModelDecoder::decodeRunCloudScriptResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientRunCloudScriptResult tempStruct;
-    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
-
-    tempStruct.ActionId = !(dataObj->HasField("ActionId")) ? TEXT("") : dataObj->GetStringField("ActionId");
-    tempStruct.Version = !(dataObj->HasField("Version")) ? 0 : int(dataObj->GetNumberField("Version"));
-    tempStruct.Revision = !(dataObj->HasField("Revision")) ? 0 : int(dataObj->GetNumberField("Revision"));
-    tempStruct.Results = !(dataObj->HasField("Results")) ? nullptr : dataObj->GetObjectField("Results");
-    tempStruct.ResultsEncoded = !(dataObj->HasField("ResultsEncoded")) ? TEXT("") : dataObj->GetStringField("ResultsEncoded");
-    tempStruct.ActionLog = !(dataObj->HasField("ActionLog")) ? TEXT("") : dataObj->GetStringField("ActionLog");
-    tempStruct.ExecutionTime = !(dataObj->HasField("ExecutionTime")) ? 0 : int(dataObj->GetNumberField("ExecutionTime"));
 
     return tempStruct;
 }

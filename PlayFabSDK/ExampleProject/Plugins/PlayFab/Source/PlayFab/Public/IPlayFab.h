@@ -16,15 +16,14 @@ public:
     * @return Returns singleton instance, loading the module on demand if needed
     */
 
-    const FString SdkVersion = "0.0.161003";
-    const FString BuildIdentifier = "jbuild_unrealblueprintsdk_1";
-    const FString VersionString = "UnrealBlueprintSDK-0.0.161003";
+    const FString SdkVersion = "0.0.161017";
+    const FString BuildIdentifier = "jbuild_unrealblueprintsdk_0";
+    const FString VersionString = "UnrealBlueprintSDK-0.0.161017";
 
     // Photon Ap Ids
     FString PhotonRealtimeAppId;
     FString PhotonTurnbasedAppId;
     FString PhotonChatAppId;
-    int32 CloudScriptVersion;
 
     // PlayFab Advertising-related values
     FString AdvertisingIdType; // Set this to the appropriate AD_TYPE_X constant below
@@ -34,11 +33,10 @@ public:
     // Disabling this may prevent your advertising-related PlayFab marketplace partners from working correctly
     bool DisableAdvertising = false;
     const FString AD_TYPE_IDFA = TEXT("Idfa");
-    const FString AD_TYPE_ANDROID_ID = TEXT("Android_Id");
+    const FString AD_TYPE_ANDROID_ID = TEXT("Adid");
 
     /** PlayFab URL */
     static const FString PlayFabURL;
-    static const FString PlayFabLogicURL;
 
     static inline IPlayFab& Get()
     {

@@ -92,9 +92,6 @@ struct FServerGetPlayFabIDsFromSteamIDsRequest
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Deprecated: Please use SteamStringIDs */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
-        TArray<int32> SteamIDs;
     /** Array of unique Steam identifiers (Steam profile IDs) for which the title needs to get PlayFab identifiers. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         FString SteamStringIDs;
@@ -440,29 +437,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FServerGetUserStatisticsRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** User for whom statistics are being requested. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString PlayFabId;
-};
-
-USTRUCT(BlueprintType)
-struct FServerGetUserStatisticsResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** PlayFab unique identifier of the user whose statistics are being returned. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString PlayFabId;
-    /** User statistics for the requested user. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        UPlayFabJsonObject* UserStatistics;
-};
-
-USTRUCT(BlueprintType)
 struct FServerUpdatePlayerStatisticsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -525,26 +499,6 @@ public:
     /** Optional list of Data-keys to remove from UserData.  Some SDKs cannot insert null-values into Data due to language constraints.  Use this to delete the keys directly. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         FString KeysToRemove;
-};
-
-USTRUCT(BlueprintType)
-struct FServerUpdateUserStatisticsRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        FString PlayFabId;
-    /** Statistics to be updated with the provided values. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
-        UPlayFabJsonObject* UserStatistics;
-};
-
-USTRUCT(BlueprintType)
-struct FServerUpdateUserStatisticsResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
 };
 
 
@@ -1464,10 +1418,10 @@ public:
     /** Unique identifier of the build running on the Game Server Instance. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
         FString Build;
-    /** Unique identifier of the build running on the Game Server Instance. */
+    /** Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS region and use Tags (below) to specify your custom region. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
         ERegion Region;
-    /** Unique identifier of the build running on the Game Server Instance. */
+    /** Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
         FString GameMode;
     /** Tags for the Game Server Instance */
@@ -1574,41 +1528,6 @@ public:
 ///////////////////////////////////////////////////////
 // Analytics
 //////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FServerLogEventRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** PlayFab User Id of the player associated with this event. For non-player associated events, this must be null and EntityId must be set. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
-        FString PlayFabId;
-    /** For non player-associated events, a unique ID for the entity associated with this event. For player associated events, this must be null and PlayFabId must be set. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
-        FString EntityId;
-    /** For non player-associated events, the type of entity associated with this event. For player associated events, this must be null. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
-        FString EntityType;
-    /** Optional timestamp for this event. If null, the a timestamp is auto-assigned to the event on the server. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
-        FString Timestamp;
-    /** A unique event name which will be used as the table name in the Redshift database. The name will be made lower case, and cannot not contain spaces. The use of underscores is recommended, for readability. Events also cannot match reserved terms. The PlayFab reserved terms are 'log_in' and 'purchase', 'create' and 'request', while the Redshift reserved terms can be found here: http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
-        FString EventName;
-    /** Contains all the data for this event. Event Values can be strings, booleans or numerics (float, double, integer, long) and must be consistent on a per-event basis (if the Value for Key 'A' in Event 'Foo' is an integer the first time it is sent, it must be an integer in all subsequent 'Foo' events). As with event names, Keys must also not use reserved words (see above). Finally, the size of the Body for an event must be less than 32KB (UTF-8 format). */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
-        UPlayFabJsonObject* Body;
-    /** Flag to set event Body as profile details in the Redshift database as well as a standard event. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
-        bool ProfileSetEvent;
-};
-
-USTRUCT(BlueprintType)
-struct FServerLogEventResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
 
 USTRUCT(BlueprintType)
 struct FServerWriteEventResponse
@@ -1852,7 +1771,7 @@ struct FServerExecuteCloudScriptServerRequest
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    /** The unique user identifier for the player on whose behalf the script is being run */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         FString PlayFabId;
     /** The name of the CloudScript function to execute */

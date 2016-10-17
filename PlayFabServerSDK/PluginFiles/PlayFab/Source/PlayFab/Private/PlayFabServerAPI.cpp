@@ -254,16 +254,6 @@ UPlayFabServerAPI* UPlayFabServerAPI::GetPlayFabIDsFromSteamIDs(FServerGetPlayFa
     manager->useSecretKey = true;
 
     // Serialize all the request properties to json
-    // Copy int array to float
-    TArray<float> tempArray;
-    for (int32 i = 0; i < request.SteamIDs.Num(); ++i) {
-        tempArray.Add(float(request.SteamIDs[i]));
-    }
-    if (tempArray.Num() == 0) {
-        OutRestJsonObj->SetFieldNull(TEXT("SteamIDs"));
-    } else {
-        OutRestJsonObj->SetNumberArrayField(TEXT("SteamIDs"), tempArray);
-    }
     // Check to see if string is empty
     if (request.SteamStringIDs.IsEmpty() || request.SteamStringIDs == "") {
         OutRestJsonObj->SetFieldNull(TEXT("SteamStringIDs"));
@@ -1451,61 +1441,6 @@ void UPlayFabServerAPI::HelperGetUserReadOnlyData(FPlayFabBaseModel response, UO
     }
 }
 
-/** Retrieves the details of all title-specific statistics for the user */
-UPlayFabServerAPI* UPlayFabServerAPI::GetUserStatistics(FServerGetUserStatisticsRequest request,
-    FDelegateOnSuccessGetUserStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessGetUserStatistics = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperGetUserStatistics);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Server/GetUserStatistics";
-    manager->useSessionTicket = false;
-    manager->useSecretKey = true;
-
-    // Serialize all the request properties to json
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
-    }
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperGetUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FServerGetUserStatisticsResult result = UPlayFabServerModelDecoder::decodeGetUserStatisticsResultResponse(response.responseData);
-        if (OnSuccessGetUserStatistics.IsBound())
-        {
-            OnSuccessGetUserStatistics.Execute(result, mCustomData);
-        }
-    }
-}
-
 /** Updates the values of the specified title-specific statistics for the user */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdatePlayerStatistics(FServerUpdatePlayerStatisticsRequest request,
     FDelegateOnSuccessUpdatePlayerStatistics onSuccess,
@@ -1958,62 +1893,6 @@ void UPlayFabServerAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response,
         if (OnSuccessUpdateUserReadOnlyData.IsBound())
         {
             OnSuccessUpdateUserReadOnlyData.Execute(result, mCustomData);
-        }
-    }
-}
-
-/** Updates the values of the specified title-specific statistics for the user. By default, clients are not permitted to update statistics. Developers may override this setting in the Game Manager > Settings > API Features. */
-UPlayFabServerAPI* UPlayFabServerAPI::UpdateUserStatistics(FServerUpdateUserStatisticsRequest request,
-    FDelegateOnSuccessUpdateUserStatistics onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessUpdateUserStatistics = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperUpdateUserStatistics);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Server/UpdateUserStatistics";
-    manager->useSessionTicket = false;
-    manager->useSecretKey = true;
-
-    // Serialize all the request properties to json
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
-    }
-    if (request.UserStatistics != nullptr) OutRestJsonObj->SetObjectField(TEXT("UserStatistics"), request.UserStatistics);
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperUpdateUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FServerUpdateUserStatisticsResult result = UPlayFabServerModelDecoder::decodeUpdateUserStatisticsResultResponse(response.responseData);
-        if (OnSuccessUpdateUserStatistics.IsBound())
-        {
-            OnSuccessUpdateUserStatistics.Execute(result, mCustomData);
         }
     }
 }
@@ -4727,83 +4606,6 @@ void UPlayFabServerAPI::HelperAwardSteamAchievement(FPlayFabBaseModel response, 
 ///////////////////////////////////////////////////////
 // Analytics
 //////////////////////////////////////////////////////
-/** Logs a custom analytics event */
-UPlayFabServerAPI* UPlayFabServerAPI::LogEvent(FServerLogEventRequest request,
-    FDelegateOnSuccessLogEvent onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessLogEvent = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperLogEvent);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Server/LogEvent";
-    manager->useSessionTicket = false;
-    manager->useSecretKey = true;
-
-    // Serialize all the request properties to json
-    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
-    }
-    if (request.EntityId.IsEmpty() || request.EntityId == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("EntityId"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("EntityId"), request.EntityId);
-    }
-    if (request.EntityType.IsEmpty() || request.EntityType == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("EntityType"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("EntityType"), request.EntityType);
-    }
-    if (request.Timestamp.IsEmpty() || request.Timestamp == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("Timestamp"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("Timestamp"), request.Timestamp);
-    }
-    if (request.EventName.IsEmpty() || request.EventName == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("EventName"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("EventName"), request.EventName);
-    }
-    if (request.Body != nullptr) OutRestJsonObj->SetObjectField(TEXT("Body"), request.Body);
-    OutRestJsonObj->SetBoolField(TEXT("ProfileSetEvent"), request.ProfileSetEvent);
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperLogEvent(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FServerLogEventResult result = UPlayFabServerModelDecoder::decodeLogEventResultResponse(response.responseData);
-        if (OnSuccessLogEvent.IsBound())
-        {
-            OnSuccessLogEvent.Execute(result, mCustomData);
-        }
-    }
-}
-
 /** Writes a character-based event into PlayStream. */
 UPlayFabServerAPI* UPlayFabServerAPI::WriteCharacterEvent(FServerWriteServerCharacterEventRequest request,
     FDelegateOnSuccessWriteCharacterEvent onSuccess,
@@ -6916,10 +6718,7 @@ void UPlayFabServerAPI::Activate()
     IPlayFab* pfSettings = &(IPlayFab::Get());
 
     FString RequestUrl;
-    if (!cloudScript)
-        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
-    else
-        RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabLogicURL + FString::FromInt(pfSettings->CloudScriptVersion) + TEXT("/prod") + PlayFabRequestURL;
+    RequestUrl = TEXT("https://") + pfSettings->getGameTitleId() + IPlayFab::PlayFabURL + PlayFabRequestURL;
 
     TSharedRef<IHttpRequest> HttpRequest = FHttpModule::Get().CreateRequest();
     HttpRequest->SetURL(RequestUrl);

@@ -390,6 +390,7 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
         UE_LOG(LogPlayFab, Error, TEXT("Request failed: %s"), *Request->GetURL());
 
         // Broadcast the result event
+        myResponse.responseError.hasError = true;
         myResponse.responseError.ErrorCode = 503;
         myResponse.responseError.ErrorName = "Unable to contact server";
         myResponse.responseError.ErrorMessage = "Unable to contact server";

@@ -278,9 +278,9 @@ enum class EResultTableNodeType : uint8
     pfenum_TableId UMETA(DisplayName = "TableId"),
 };
 
-// Enum for SourceType
+// Enum for PfSourceType
 UENUM(BlueprintType)
-enum class ESourceType : uint8
+enum class EPfSourceType : uint8
 {
     pfenum_Admin UMETA(DisplayName = "Admin"),
     pfenum_BackEnd UMETA(DisplayName = "BackEnd"),

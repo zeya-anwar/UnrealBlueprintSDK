@@ -1320,7 +1320,7 @@ public:
         TArray<UPlayFabJsonObject*> Store;
     /** How the store was last updated (Admin or a third party). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
-        ESourceType Source;
+        EPfSourceType Source;
     /** The base catalog that this store is a part of. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
         FString CatalogVersion;

@@ -533,7 +533,7 @@ FClientGetStoreItemsResult UPlayFabClientModelDecoder::decodeGetStoreItemsResult
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.Store = !(dataObj->HasField("Store")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Store");
-    GetEnumValueFromString<ESourceType>(TEXT("ESourceType"), dataObj->GetStringField("Source"), tempStruct.Source);
+    GetEnumValueFromString<EPfSourceType>(TEXT("EPfSourceType"), dataObj->GetStringField("Source"), tempStruct.Source);
     tempStruct.CatalogVersion = !(dataObj->HasField("CatalogVersion")) ? TEXT("") : dataObj->GetStringField("CatalogVersion");
     tempStruct.StoreId = !(dataObj->HasField("StoreId")) ? TEXT("") : dataObj->GetStringField("StoreId");
     tempStruct.MarketingData = !(dataObj->HasField("MarketingData")) ? nullptr : dataObj->GetObjectField("MarketingData");

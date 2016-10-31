@@ -251,9 +251,9 @@ enum class ERegion : uint8
     pfenum_Australia UMETA(DisplayName = "Australia"),
 };
 
-// Enum for SourceType
+// Enum for PfSourceType
 UENUM(BlueprintType)
-enum class ESourceType : uint8
+enum class EPfSourceType : uint8
 {
     pfenum_Admin UMETA(DisplayName = "Admin"),
     pfenum_BackEnd UMETA(DisplayName = "BackEnd"),

@@ -447,6 +447,9 @@ public:
     /** Statistics to be updated with the provided values */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         TArray<UPlayFabJsonObject*> Statistics;
+    /** Indicates whether the statistics provided should be set, regardless of the aggregation method set on the statistic. Default is false. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        bool ForceUpdate;
 };
 
 USTRUCT(BlueprintType)
@@ -1059,6 +1062,9 @@ public:
     /** Catalog version of the coupon. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         FString CatalogVersion;
+    /** Optional identifier for the Character that should receive the item. If null, item is added to the player */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
+        FString CharacterId;
 };
 
 USTRUCT(BlueprintType)
@@ -1534,7 +1540,7 @@ struct FServerWriteEventResponse
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** The unique identifier of the event. This can be used to retrieve the event's properties using the GetEvent API. The values of this identifier consist of ASCII characters and are not constrained to any particular format. */
+    /** The unique identifier of the event. The values of this identifier consist of ASCII characters and are not constrained to any particular format. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Analytics Models")
         FString EventId;
 };

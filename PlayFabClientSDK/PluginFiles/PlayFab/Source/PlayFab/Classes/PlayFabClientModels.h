@@ -361,7 +361,7 @@ public:
     /** User email address for the account to find (if no Username is specified). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString Email;
-    /** Title-specific username for the account to find (if no Email is set). */
+    /** Title-specific username for the account to find (if no Email is set). Note that if the non-unique Title Display Names option is enabled for the title, attempts to look up users by Title Display Name will always return AccountNotFound. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString TitleDisplayName;
 };
@@ -1673,6 +1673,9 @@ public:
     /** Catalog version of the coupon. If null, uses the default catalog */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CatalogVersion;
+    /** Optional identifier for the Character that should receive the item. If null, item is added to the player */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
+        FString CharacterId;
 };
 
 USTRUCT(BlueprintType)
@@ -2204,7 +2207,7 @@ struct FClientWriteEventResponse
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** The unique identifier of the event. This can be used to retrieve the event's properties using the GetEvent API. The values of this identifier consist of ASCII characters and are not constrained to any particular format. */
+    /** The unique identifier of the event. The values of this identifier consist of ASCII characters and are not constrained to any particular format. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
         FString EventId;
 };

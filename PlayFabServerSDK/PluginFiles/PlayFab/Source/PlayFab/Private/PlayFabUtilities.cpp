@@ -283,6 +283,10 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1256: returnText = "InvalidScheduledTaskName"; break;
     case 1257: returnText = "InvalidTaskSchedule"; break;
     case 1258: returnText = "SteamNotEnabledForTitle"; break;
+    case 1259: returnText = "LimitNotAnUpgradeOption"; break;
+    case 1260: returnText = "NoSecretKeyEnabledForCloudScript"; break;
+    case 1261: returnText = "TaskNotFound"; break;
+    case 1262: returnText = "TaskInstanceNotFound"; break;
     }
 
     // Return the text

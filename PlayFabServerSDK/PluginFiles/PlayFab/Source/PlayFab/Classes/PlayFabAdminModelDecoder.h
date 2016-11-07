@@ -27,6 +27,12 @@ public:
 
 
     ///////////////////////////////////////////////////////
+    // Authentication
+    //////////////////////////////////////////////////////
+
+
+
+    ///////////////////////////////////////////////////////
     // Account Management
     //////////////////////////////////////////////////////
 
@@ -337,6 +343,40 @@ public:
     /** Decode the RemovePlayerTagResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | PlayStream Models")
         static FAdminRemovePlayerTagResult decodeRemovePlayerTagResultResponse(UPlayFabJsonObject* response);
+
+
+
+    ///////////////////////////////////////////////////////
+    // ScheduledTask
+    //////////////////////////////////////////////////////
+
+    /** Decode the EmptyResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask Models")
+        static FAdminEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the CreateTaskResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask Models")
+        static FAdminCreateTaskResult decodeCreateTaskResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetActionsOnPlayersInSegmentTaskInstanceResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask Models")
+        static FAdminGetActionsOnPlayersInSegmentTaskInstanceResult decodeGetActionsOnPlayersInSegmentTaskInstanceResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetCloudScriptTaskInstanceResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask Models")
+        static FAdminGetCloudScriptTaskInstanceResult decodeGetCloudScriptTaskInstanceResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetTaskInstancesResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask Models")
+        static FAdminGetTaskInstancesResult decodeGetTaskInstancesResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetTasksResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask Models")
+        static FAdminGetTasksResult decodeGetTasksResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RunTaskResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask Models")
+        static FAdminRunTaskResult decodeRunTaskResultResponse(UPlayFabJsonObject* response);
 
 
 

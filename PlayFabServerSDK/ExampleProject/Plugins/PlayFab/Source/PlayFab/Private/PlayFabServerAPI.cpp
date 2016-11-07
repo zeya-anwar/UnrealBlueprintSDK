@@ -1473,6 +1473,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::UpdatePlayerStatistics(FServerUpdatePlayer
     } else {
         OutRestJsonObj->SetObjectArrayField(TEXT("Statistics"), request.Statistics);
     }
+    OutRestJsonObj->SetBoolField(TEXT("ForceUpdate"), request.ForceUpdate);
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
@@ -3359,6 +3360,11 @@ UPlayFabServerAPI* UPlayFabServerAPI::RedeemCoupon(FServerRedeemCouponRequest re
         OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
     } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
     }
 
     // Add Request to manager

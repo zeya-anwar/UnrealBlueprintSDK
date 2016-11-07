@@ -45,6 +45,10 @@ public:
     //////////////////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////
+    // Authentication
+    //////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////
     // Account Management
     //////////////////////////////////////////////////////
     // callbacks
@@ -1128,6 +1132,140 @@ public:
         void HelperRemovePlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
+    ///////////////////////////////////////////////////////
+    // ScheduledTask
+    //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAbortTaskInstance, FAdminEmptyResult, result, UObject*, customData);
+
+    /** Abort an ongoing task instance. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* AbortTaskInstance(FAdminAbortTaskInstanceRequest request,
+            FDelegateOnSuccessAbortTaskInstance onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperAbortTaskInstance(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessCreateActionsOnPlayersInSegmentTask, FAdminCreateTaskResult, result, UObject*, customData);
+
+    /** Create an ActionsOnPlayersInSegment task, which iterates through all players in a segment to execute action. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* CreateActionsOnPlayersInSegmentTask(FAdminCreateActionsOnPlayerSegmentTaskRequest request,
+            FDelegateOnSuccessCreateActionsOnPlayersInSegmentTask onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperCreateActionsOnPlayersInSegmentTask(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessCreateCloudScriptTask, FAdminCreateTaskResult, result, UObject*, customData);
+
+    /** Create a CloudScript task, which can run a CloudScript on a schedule. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* CreateCloudScriptTask(FAdminCreateCloudScriptTaskRequest request,
+            FDelegateOnSuccessCreateCloudScriptTask onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperCreateCloudScriptTask(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessDeleteTask, FAdminEmptyResult, result, UObject*, customData);
+
+    /** Delete a task. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* DeleteTask(FAdminDeleteTaskRequest request,
+            FDelegateOnSuccessDeleteTask onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperDeleteTask(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetActionsOnPlayersInSegmentTaskInstance, FAdminGetActionsOnPlayersInSegmentTaskInstanceResult, result, UObject*, customData);
+
+    /** Get information about a ActionsOnPlayersInSegment task instance. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetActionsOnPlayersInSegmentTaskInstance(FAdminGetTaskInstanceRequest request,
+            FDelegateOnSuccessGetActionsOnPlayersInSegmentTaskInstance onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetActionsOnPlayersInSegmentTaskInstance(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCloudScriptTaskInstance, FAdminGetCloudScriptTaskInstanceResult, result, UObject*, customData);
+
+    /** Get detail information about a CloudScript task instance. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetCloudScriptTaskInstance(FAdminGetTaskInstanceRequest request,
+            FDelegateOnSuccessGetCloudScriptTaskInstance onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetCloudScriptTaskInstance(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTaskInstances, FAdminGetTaskInstancesResult, result, UObject*, customData);
+
+    /** Query for task instances by task, status, or time range. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetTaskInstances(FAdminGetTaskInstancesRequest request,
+            FDelegateOnSuccessGetTaskInstances onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetTaskInstances(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTasks, FAdminGetTasksResult, result, UObject*, customData);
+
+    /** Get definition information on a specified task or all tasks within a title. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetTasks(FAdminGetTasksRequest request,
+            FDelegateOnSuccessGetTasks onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetTasks(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRunTask, FAdminRunTaskResult, result, UObject*, customData);
+
+    /** Run a task immediately regardless of its schedule. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* RunTask(FAdminRunTaskRequest request,
+            FDelegateOnSuccessRunTask onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRunTask(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateTask, FAdminEmptyResult, result, UObject*, customData);
+
+    /** Update an existing task. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* UpdateTask(FAdminUpdateTaskRequest request,
+            FDelegateOnSuccessUpdateTask onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | ScheduledTask ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperUpdateTask(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+
 
     /** PlayFab Request Info */
     FString PlayFabRequestURL;
@@ -1222,6 +1360,16 @@ public:
     FDelegateOnSuccessGetPlayersInSegment OnSuccessGetPlayersInSegment;
     FDelegateOnSuccessGetPlayerTags OnSuccessGetPlayerTags;
     FDelegateOnSuccessRemovePlayerTag OnSuccessRemovePlayerTag;
+    FDelegateOnSuccessAbortTaskInstance OnSuccessAbortTaskInstance;
+    FDelegateOnSuccessCreateActionsOnPlayersInSegmentTask OnSuccessCreateActionsOnPlayersInSegmentTask;
+    FDelegateOnSuccessCreateCloudScriptTask OnSuccessCreateCloudScriptTask;
+    FDelegateOnSuccessDeleteTask OnSuccessDeleteTask;
+    FDelegateOnSuccessGetActionsOnPlayersInSegmentTaskInstance OnSuccessGetActionsOnPlayersInSegmentTaskInstance;
+    FDelegateOnSuccessGetCloudScriptTaskInstance OnSuccessGetCloudScriptTaskInstance;
+    FDelegateOnSuccessGetTaskInstances OnSuccessGetTaskInstances;
+    FDelegateOnSuccessGetTasks OnSuccessGetTasks;
+    FDelegateOnSuccessRunTask OnSuccessRunTask;
+    FDelegateOnSuccessUpdateTask OnSuccessUpdateTask;
 
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */

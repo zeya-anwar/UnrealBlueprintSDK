@@ -13,6 +13,12 @@
 
 
 ///////////////////////////////////////////////////////
+// Authentication
+//////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////
 // Account Management
 //////////////////////////////////////////////////////
 
@@ -777,6 +783,89 @@ FAdminRemovePlayerTagResult UPlayFabAdminModelDecoder::decodeRemovePlayerTagResu
     // Temp ustruct
     FAdminRemovePlayerTagResult tempStruct;
 
+
+    return tempStruct;
+}
+
+
+
+///////////////////////////////////////////////////////
+// ScheduledTask
+//////////////////////////////////////////////////////
+
+FAdminEmptyResult UPlayFabAdminModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminEmptyResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FAdminCreateTaskResult UPlayFabAdminModelDecoder::decodeCreateTaskResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminCreateTaskResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.TaskId = !(dataObj->HasField("TaskId")) ? TEXT("") : dataObj->GetStringField("TaskId");
+
+    return tempStruct;
+}
+
+FAdminGetActionsOnPlayersInSegmentTaskInstanceResult UPlayFabAdminModelDecoder::decodeGetActionsOnPlayersInSegmentTaskInstanceResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetActionsOnPlayersInSegmentTaskInstanceResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Summary = !(dataObj->HasField("Summary")) ? nullptr : dataObj->GetObjectField("Summary");
+    tempStruct.Parameter = !(dataObj->HasField("Parameter")) ? nullptr : dataObj->GetObjectField("Parameter");
+
+    return tempStruct;
+}
+
+FAdminGetCloudScriptTaskInstanceResult UPlayFabAdminModelDecoder::decodeGetCloudScriptTaskInstanceResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetCloudScriptTaskInstanceResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Summary = !(dataObj->HasField("Summary")) ? nullptr : dataObj->GetObjectField("Summary");
+    tempStruct.Parameter = !(dataObj->HasField("Parameter")) ? nullptr : dataObj->GetObjectField("Parameter");
+
+    return tempStruct;
+}
+
+FAdminGetTaskInstancesResult UPlayFabAdminModelDecoder::decodeGetTaskInstancesResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetTaskInstancesResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Summaries = !(dataObj->HasField("Summaries")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Summaries");
+
+    return tempStruct;
+}
+
+FAdminGetTasksResult UPlayFabAdminModelDecoder::decodeGetTasksResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetTasksResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Tasks = !(dataObj->HasField("Tasks")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Tasks");
+
+    return tempStruct;
+}
+
+FAdminRunTaskResult UPlayFabAdminModelDecoder::decodeRunTaskResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminRunTaskResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.TaskInstanceId = !(dataObj->HasField("TaskInstanceId")) ? TEXT("") : dataObj->GetStringField("TaskInstanceId");
 
     return tempStruct;
 }

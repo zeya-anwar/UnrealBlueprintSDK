@@ -19,6 +19,11 @@ class UPlayFabJsonObject;
 
 
 ///////////////////////////////////////////////////////
+// Authentication
+//////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////
 // Account Management
 //////////////////////////////////////////////////////
 
@@ -1678,5 +1683,224 @@ struct FAdminRemovePlayerTagResult
 {
     GENERATED_USTRUCT_BODY()
 public:
+};
+
+
+///////////////////////////////////////////////////////
+// ScheduledTask
+//////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FAdminAbortTaskInstanceRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** ID of a task instance that is being aborted. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString TaskInstanceId;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminEmptyResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FAdminCreateActionsOnPlayerSegmentTaskRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Name of the task. This is a unique identifier for tasks in the title. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Name;
+    /** Description the task */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Description;
+    /** Cron expression for the run schedule of the task. The expression should be in UTC. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Schedule;
+    /** Whether the schedule is active. Inactive schedule will not trigger task execution. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        bool IsActive;
+    /** Task details related to segment and action */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Parameter;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminCreateTaskResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** ID of the task */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString TaskId;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminCreateCloudScriptTaskRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Name of the task. This is a unique identifier for tasks in the title. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Name;
+    /** Description the task */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Description;
+    /** Cron expression for the run schedule of the task. The expression should be in UTC. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Schedule;
+    /** Whether the schedule is active. Inactive schedule will not trigger task execution. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        bool IsActive;
+    /** Task details related to CloudScript */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Parameter;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminDeleteTaskRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Specify either the task ID or the name of task to be deleted. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Identifier;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetActionsOnPlayersInSegmentTaskInstanceResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Status summary of the actions-on-players-in-segment task instance */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Summary;
+    /** Parameter of this task instance */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Parameter;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetTaskInstanceRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** ID of the requested task instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString TaskInstanceId;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetCloudScriptTaskInstanceResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Status summary of the CloudScript task instance */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Summary;
+    /** Parameter of this task instance */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Parameter;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetTaskInstancesRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Name or ID of the task whose instances are being queried. If not specified, return all task instances that satisfy conditions set by other filters. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* TaskIdentifier;
+    /** Optional filter for task instances that are of a specific status. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        ETaskInstanceStatus StatusFilter;
+    /** Optional range-from filter for task instances' StartedAt timestamp. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString StartedAtRangeFrom;
+    /** Optional range-to filter for task instances' StartedAt timestamp. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString StartedAtRangeTo;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetTaskInstancesResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Basic status summaries of the queried task instances. Empty If no task instances meets the filter criteria. To get detailed status summary, use Get*TaskInstance API according to task type (e.g. GetActionsOnPlayersInSegmentTaskInstance). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        TArray<UPlayFabJsonObject*> Summaries;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetTasksRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Provide either the task ID or the task name to get a specific task. If not specified, return all defined tasks. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Identifier;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetTasksResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Result tasks. Empty if there is no task found. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        TArray<UPlayFabJsonObject*> Tasks;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminRunTaskRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Provide either the task ID or the task name to run a task. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Identifier;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminRunTaskResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** ID of the task instance that is started. This can be used in Get*TaskInstance (e.g. GetCloudScriptTaskInstance) API call to retrieve status for the task instance. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString TaskInstanceId;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminUpdateTaskRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Specify either the task ID or the name of the task to be updated. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Identifier;
+    /** Name of the task. This is a unique identifier for tasks in the title. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Name;
+    /** Description the task */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Description;
+    /** Cron expression for the run schedule of the task. The expression should be in UTC. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        FString Schedule;
+    /** Whether the schedule is active. Inactive schedule will not trigger task execution. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        bool IsActive;
+    /** Task type. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        EScheduledTaskType Type;
+    /** Parameter object specific to the task type. See each task type's create API documentation for details. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
+        UPlayFabJsonObject* Parameter;
 };
 

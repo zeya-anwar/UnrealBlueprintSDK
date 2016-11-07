@@ -4402,6 +4402,11 @@ UPlayFabClientAPI* UPlayFabClientAPI::RedeemCoupon(FClientRedeemCouponRequest re
     } else {
         OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
     }
+    if (request.CharacterId.IsEmpty() || request.CharacterId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("CharacterId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("CharacterId"), request.CharacterId);
+    }
 
     // Add Request to manager
     manager->SetRequestObject(OutRestJsonObj);
